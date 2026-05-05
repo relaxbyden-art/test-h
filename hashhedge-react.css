@@ -3008,6 +3008,56 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     color: rgba(244,244,245,0.62) !important;
   }
 
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    margin: 0 0 10px;
+    padding: 5px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs button {
+    min-width: 0;
+    min-height: 44px;
+    padding: 7px 4px;
+    border-radius: 11px;
+    border: 0;
+    background: rgba(0,0,0,0.16);
+    text-align: center;
+    color: var(--fg);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs button.is-active {
+    background: rgba(252,213,53,0.95);
+    color: #13111c;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs button:last-child.is-active {
+    background: #9bd875;
+    color: #07150d;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs b {
+    display: block;
+    color: inherit;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs span {
+    display: block;
+    margin-top: 4px;
+    color: currentColor;
+    opacity: 0.62;
+    font-size: 9.5px;
+    line-height: 1.05;
+  }
+
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules {
     margin-bottom: 12px;
   }
@@ -3033,10 +3083,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules strong {
     color: rgba(244,244,245,0.84);
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.25;
     text-align: right;
-    white-space: nowrap;
+    max-width: 124px;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules em {

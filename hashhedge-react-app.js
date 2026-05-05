@@ -2554,6 +2554,7 @@ function Pricing() {
   useRevealOnScroll();
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
+  const [mobileStage, setMobileStage] = ___useS("stage1");
   const sizes = [5000, 10000, 25000, 50000, 100000, 150000, 200000];
   const pricing = {
     5000: 79,
@@ -2574,6 +2575,24 @@ function Pricing() {
     100000: "Built for experienced traders who already manage larger risk.",
     150000: "Higher capital with the same transparent two-phase rule set.",
     200000: "Maximum Hash Hedge allocation and the best fee-to-capital ratio."
+  };
+  const mobileStageTabs = [{
+    id: "stage1",
+    label: "Stage 1",
+    sub: "Evaluation"
+  }, {
+    id: "stage2",
+    label: "Stage 2",
+    sub: "Verification"
+  }, {
+    id: "funded",
+    label: "Funded",
+    sub: "Live account"
+  }];
+  const mobileStageRules = {
+    stage1: [["Profit Target", "8%"], ["Max Daily Loss", "5%"], ["Max Drawdown", "10%"], ["Min Trading Days", "5 days"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"]],
+    stage2: [["Profit Target", "6%"], ["Max Daily Loss", "5%"], ["Max Drawdown", "8%"], ["Min Trading Days", "5 days"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"]],
+    funded: [["Profit Target", "No target"], ["Max Daily Loss", "5%"], ["Max Drawdown", "8%"], ["Min Trading Days", "-"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"], ["Profit Split", "80%"], ["Payouts", "USDT to wallet"]]
   };
 
   // Per-stage rule values – single source of truth.
@@ -2942,11 +2961,22 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "Selected" : "Select")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "One-time refundable fee"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "One-time Challenge fee"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-stage-tabs",
+      role: "tablist",
+      "aria-label": "Challenge stages"
+    }, mobileStageTabs.map(stage => /*#__PURE__*/React.createElement("button", {
+      key: stage.id,
+      type: "button",
+      role: "tab",
+      "aria-selected": mobileStage === stage.id,
+      className: mobileStage === stage.id ? "is-active" : "",
+      onClick: () => setMobileStage(stage.id)
+    }, /*#__PURE__*/React.createElement("b", null, stage.label), /*#__PURE__*/React.createElement("span", null, stage.sub)))), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-rules"
-    }, [["Profit Target", "Phase 1", "8%", "Phase 2", "6%"], ["Max Daily Loss", "", "5%", "", ""], ["Max Loss", "", "10% / 8%", "", ""], ["Min Trading Days", "", "5 + 5", "", ""], ["Trading Period", "", "Unlimited", "", ""], ["Profit Split", "", "80%", "", ""], ["Leverage", "", "1:5", "", ""]].map(([label, a, av, b, bv]) => /*#__PURE__*/React.createElement("div", {
+    }, mobileStageRules[mobileStage].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
       key: label
-    }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("strong", null, a ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, a), " ", av, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", null, b), " ", bv) : av)))), /*#__PURE__*/React.createElement("a", {
+    }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
       href: "https://www.hashhedge.com/client/register",
       target: "_blank",
       rel: "noopener",
