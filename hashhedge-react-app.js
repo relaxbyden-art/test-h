@@ -10212,6 +10212,58 @@ Object.assign(window, {
 function Nav({
   onMenuOpen
 }) {
+  const [langOpen, setLangOpen] = React.useState(false);
+  const langs = [{
+    flag: "🇬🇧",
+    code: "EN",
+    label: "English",
+    href: "https://www.hashhedge.com/"
+  }, {
+    flag: "🇩🇪",
+    code: "DE",
+    label: "Deutsch",
+    href: "https://www.hashhedge.com/de"
+  }, {
+    flag: "🇵🇹",
+    code: "PT",
+    label: "Português",
+    href: "https://www.hashhedge.com/pt"
+  }, {
+    flag: "🇫🇷",
+    code: "FR",
+    label: "Française",
+    href: "https://www.hashhedge.com/fr"
+  }, {
+    flag: "🇪🇸",
+    code: "ES",
+    label: "Español",
+    href: "https://www.hashhedge.com/es"
+  }, {
+    flag: "🇮🇳",
+    code: "HI",
+    label: "हिन्दी",
+    href: "https://www.hashhedge.com/hi"
+  }, {
+    flag: "🇮🇩",
+    code: "ID",
+    label: "Bahasa Indonesia",
+    href: "https://www.hashhedge.com/in"
+  }, {
+    flag: "🇷🇺",
+    code: "RU",
+    label: "Русский",
+    href: "https://www.hashhedge.com/ru"
+  }, {
+    flag: "🇺🇦",
+    code: "UA",
+    label: "Український",
+    href: "https://www.hashhedge.com/ua"
+  }, {
+    flag: "🇰🇿",
+    code: "KZ",
+    label: "Қазақша",
+    href: "https://www.hashhedge.com/kz"
+  }];
   return /*#__PURE__*/React.createElement("nav", {
     className: "nav"
   }, /*#__PURE__*/React.createElement("div", {
@@ -10247,7 +10299,31 @@ function Nav({
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
-  }, "Start Challenge"), /*#__PURE__*/React.createElement("button", {
+  }, "Start Challenge"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-lang-switcher"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "hh-lang-trigger",
+    onClick: () => setLangOpen(v => !v),
+    "aria-expanded": langOpen,
+    "aria-label": "Choose language"
+  }, /*#__PURE__*/React.createElement("span", null, "\uD83C\uDDEC\uD83C\uDDE7"), /*#__PURE__*/React.createElement("b", null, "EN"), /*#__PURE__*/React.createElement("svg", {
+    width: "12",
+    height: "12",
+    viewBox: "0 0 12 12",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M3 4.5 6 7.5 9 4.5",
+    stroke: "currentColor",
+    strokeWidth: "1.7",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "hh-lang-menu" + (langOpen ? " open" : "")
+  }, langs.map(l => /*#__PURE__*/React.createElement("a", {
+    key: l.code,
+    href: l.href
+  }, /*#__PURE__*/React.createElement("span", null, l.flag), /*#__PURE__*/React.createElement("em", null, l.label))))), /*#__PURE__*/React.createElement("button", {
     className: "nav-burger",
     onClick: onMenuOpen,
     "aria-label": "Open menu"
