@@ -1336,7 +1336,7 @@ function Hero({
       margin: "20px 0 24px",
       color: "var(--fg)"
     }
-  }, "Trade", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Trade", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
@@ -4409,10 +4409,11 @@ function PayoutShowcase() {
     d: "Blockchain TX hash emailed + downloadable payout certificate issued."
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: s.t,
+    className: "hh-payout-step",
     style: {
       display: "grid",
-      gridTemplateColumns: "60px 1fr",
-      gap: 20,
+      gridTemplateColumns: "44px 1fr",
+      gap: 12,
       padding: "18px 0",
       position: "relative",
       borderTop: i === 0 ? "1px solid var(--line)" : "none",
@@ -4679,11 +4680,14 @@ function PressStrip() {
       gap: 0,
       alignItems: "center"
     }
-  }, press.map((p, i) => /*#__PURE__*/React.createElement("a", {
-    key: p.name,
+  }, [...press, ...press].map((p, i) => /*#__PURE__*/React.createElement("a", {
+    key: `${p.name}-${i}`,
+    "data-press-duplicate": i >= press.length ? "true" : undefined,
     href: p.url,
     target: "_blank",
     rel: "noopener noreferrer",
+    "aria-hidden": i >= press.length ? "true" : undefined,
+    tabIndex: i >= press.length ? -1 : undefined,
     style: {
       height: 64,
       display: "flex",
@@ -4692,7 +4696,7 @@ function PressStrip() {
       padding: "0 16px",
       color: "var(--fg-muted)",
       opacity: 0.85,
-      borderLeft: i === 0 ? "none" : "1px solid var(--line)",
+      borderLeft: i % press.length === 0 ? "none" : "1px solid var(--line)",
       transition: "opacity .2s, color .2s",
       textDecoration: "none"
     },
@@ -5854,6 +5858,7 @@ function TelegramCommunity() {
   })), "Join the community"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("p", {
+    className: "hh-telegram-note",
     style: {
       fontSize: 13,
       color: "var(--fg-low)",
@@ -6661,6 +6666,7 @@ function SupportSection() {
     }))
   }];
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-support-section",
     style: {
       padding: "120px 0",
       background: "var(--bg)",
@@ -9048,7 +9054,8 @@ function Reviews() {
     key: r.name,
     delay: String(Math.min(i, 5))
   }, /*#__PURE__*/React.createElement("div", {
-    className: "card",
+    className: "card hh-review-card",
+    "data-mobile-review-extra": i >= 2 ? "true" : undefined,
     style: {
       padding: 28,
       height: "100%",
@@ -9125,7 +9132,7 @@ function Reviews() {
     href: "https://www.trustpilot.com/review/hashhedge.com",
     target: "_blank",
     rel: "noopener",
-    className: "card",
+    className: "card hh-review-more",
     style: {
       padding: 28,
       height: "100%",
