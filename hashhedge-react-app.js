@@ -1334,12 +1334,13 @@ function Hero({
       margin: "20px 0 24px",
       color: "var(--fg)"
     }
-  }, "Trade ", /*#__PURE__*/React.createElement("span", {
+  }, "Trade", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
-      position: "relative"
+      position: "relative",
+      display: "inline-block"
     }
-  }, "crypto capital", /*#__PURE__*/React.createElement("svg", {
+  }, "crypto capital.", /*#__PURE__*/React.createElement("svg", {
     style: {
       position: "absolute",
       bottom: -8,
@@ -1356,7 +1357,7 @@ function Hero({
     strokeWidth: "3",
     strokeLinecap: "round",
     opacity: "0.6"
-  }))), ".", /*#__PURE__*/React.createElement("br", null), "Get paid like a pro.")), /*#__PURE__*/React.createElement(Reveal, {
+  }))), /*#__PURE__*/React.createElement("br", null), "Get paid", /*#__PURE__*/React.createElement("br", null), "like a pro.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -2429,6 +2430,9 @@ function HowItWorks() {
     style: {
       width: 84,
       height: 84,
+      minWidth: 84,
+      minHeight: 84,
+      aspectRatio: "1 / 1",
       borderRadius: "50%",
       background: "var(--bg)",
       border: "2px solid var(--accent)",
@@ -2491,10 +2495,11 @@ function HowItWorks() {
     key: b,
     style: {
       display: "flex",
-      alignItems: "center",
+      alignItems: "flex-start",
       gap: 10,
       padding: "8px 0",
       fontSize: 14,
+      lineHeight: 1.45,
       color: "var(--fg)",
       borderTop: "1px solid var(--line)"
     }
@@ -2504,7 +2509,8 @@ function HowItWorks() {
     viewBox: "0 0 24 24",
     fill: "none",
     style: {
-      flexShrink: 0
+      flexShrink: 0,
+      marginTop: 2
     }
   }, /*#__PURE__*/React.createElement("circle", {
     cx: "12",
@@ -2701,7 +2707,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: "center",
-      marginBottom: 40
+      marginBottom: 30
     }
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
@@ -2712,7 +2718,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
-      margin: "20px 0 20px"
+      margin: "18px 0 16px"
     }
   }, "Choose your ", /*#__PURE__*/React.createElement("span", {
     style: {
@@ -2732,7 +2738,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: 1112,
-      margin: "0 auto 24px",
+      margin: "0 auto 16px",
       display: "flex",
       justifyContent: "center"
     }
@@ -2746,7 +2752,7 @@ function Pricing() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "10px 24px",
+      padding: "8px 22px",
       borderRadius: 999,
       background: "var(--accent)",
       color: "#13111c",
@@ -2760,7 +2766,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: 1112,
-      margin: "0 auto 28px",
+      margin: "0 auto 18px",
       position: "relative"
     }
   }, /*#__PURE__*/React.createElement("button", {
@@ -2823,7 +2829,7 @@ function Pricing() {
       onClick: () => setSize(s),
       style: {
         position: "relative",
-        padding: "22px 12px 20px",
+        padding: "18px 12px 16px",
         border: `1px solid ${active ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
         background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
         borderRadius: 16,
@@ -2850,7 +2856,7 @@ function Pricing() {
       }
     }, badge), /*#__PURE__*/React.createElement("div", {
       style: {
-        fontSize: 11,
+        fontSize: 10,
         fontWeight: 700,
         letterSpacing: "0.1em",
         color: active ? "var(--accent)" : "var(--fg-low)",
@@ -2859,7 +2865,7 @@ function Pricing() {
       }
     }, "Account"), /*#__PURE__*/React.createElement("div", {
       style: {
-        fontSize: 26,
+        fontSize: 23,
         fontWeight: 800,
         letterSpacing: "-0.025em",
         color: active ? "var(--fg)" : "var(--fg)",
@@ -2867,10 +2873,10 @@ function Pricing() {
       }
     }, "$", s.toLocaleString()), /*#__PURE__*/React.createElement("div", {
       style: {
-        marginTop: 12,
-        paddingTop: 10,
+        marginTop: 10,
+        paddingTop: 8,
         borderTop: "1px solid var(--line)",
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 800,
         letterSpacing: "-0.01em",
         color: active ? "var(--accent)" : "var(--fg-muted)"
@@ -2888,7 +2894,7 @@ function Pricing() {
     "data-mobile-comp-table": true,
     style: {
       maxWidth: 1112,
-      margin: "0 auto 28px",
+      margin: "0 auto 18px",
       fontFamily: "Onest, sans-serif",
       borderRadius: 20,
       border: "1px solid var(--line-strong)",
@@ -2904,27 +2910,27 @@ function Pricing() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "28px 28px 24px",
+      padding: "18px 22px 16px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-end"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 11,
+      fontSize: 10,
       fontWeight: 800,
       letterSpacing: "0.16em",
       color: "var(--fg-low)",
       textTransform: "uppercase",
-      marginBottom: 8
+      marginBottom: 6
     }
   }, "Compare"), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: 700,
       color: "var(--fg)",
       letterSpacing: "-0.01em",
-      lineHeight: 1.2
+      lineHeight: 1.15
     }
   }, "Challenge rules,", /*#__PURE__*/React.createElement("br", null), "stage by stage")), [{
     n: 1,
@@ -2944,7 +2950,7 @@ function Pricing() {
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
-      padding: "28px 20px 24px",
+      padding: "18px 16px 16px",
       textAlign: "center",
       borderLeft: "1px solid var(--line)",
       background: col.accent ? "rgba(252,213,53,0.05)" : "transparent",
@@ -2953,10 +2959,10 @@ function Pricing() {
   }, col.accent && /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      top: 12,
+      top: 8,
       left: "50%",
       transform: "translateX(-50%)",
-      fontSize: 10,
+      fontSize: 9,
       fontWeight: 800,
       letterSpacing: "0.12em",
       color: "var(--accent)",
@@ -2966,16 +2972,16 @@ function Pricing() {
     }
   }, "GOAL"), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 11,
+      fontSize: 10,
       fontWeight: 800,
       letterSpacing: "0.14em",
       color: col.accent ? "var(--accent)" : "var(--fg-dim)",
-      marginBottom: 6,
-      marginTop: col.accent ? 12 : 0
+      marginBottom: 5,
+      marginTop: col.accent ? 10 : 0
     }
   }, col.label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 34,
+      fontSize: 28,
       fontWeight: 800,
       letterSpacing: "-0.025em",
       color: col.accent ? "var(--accent)" : "var(--fg)",
@@ -2984,9 +2990,9 @@ function Pricing() {
     }
   }, col.accent ? /*#__PURE__*/React.createElement(Inf, null) : `0${col.n}`), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 12,
+      fontSize: 11,
       color: "var(--fg-dim)",
-      marginTop: 8
+      marginTop: 6
     }
   }, col.sub)))), rules.map((r, rowI) => /*#__PURE__*/React.createElement("div", {
     key: r.k,
@@ -3011,17 +3017,17 @@ function Pricing() {
       }
     },
     style: {
-      padding: "22px 28px",
+      padding: "13px 22px",
       display: "flex",
       alignItems: "center",
-      gap: 14,
+      gap: 12,
       cursor: "pointer"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      width: 36,
-      height: 36,
-      borderRadius: 10,
+      width: 30,
+      height: 30,
+      borderRadius: 8,
       flexShrink: 0,
       background: "rgba(252,213,53,0.08)",
       color: "var(--accent)",
@@ -3036,17 +3042,17 @@ function Pricing() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: 700,
       color: "var(--fg)",
       lineHeight: 1.2,
-      marginBottom: 2
+      marginBottom: 1
     }
   }, r.label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 12,
+      fontSize: 11,
       color: "var(--fg-dim)",
-      lineHeight: 1.35
+      lineHeight: 1.25
     }
   }, r.sub)), /*#__PURE__*/React.createElement("svg", {
     "data-rule-chevron": true,
@@ -3069,14 +3075,14 @@ function Pricing() {
   }))), r.stages.map((v, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
-      padding: "22px 20px",
+      padding: "13px 16px",
       textAlign: "center",
       borderLeft: "1px solid var(--line)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       background: i === 2 ? "rgba(252,213,53,0.03)" : "transparent",
-      fontSize: 22,
+      fontSize: 19,
       fontWeight: 800,
       letterSpacing: "-0.01em",
       color: i === 2 ? "var(--accent)" : "var(--fg)",
@@ -3094,8 +3100,8 @@ function Pricing() {
     style: {
       maxWidth: 1112,
       margin: "0 auto",
-      padding: "28px 32px",
-      borderRadius: 20,
+      padding: "20px 26px",
+      borderRadius: 18,
       background: "linear-gradient(135deg, rgba(252,213,53,0.10), rgba(252,213,53,0.02))",
       border: "1px solid var(--line-strong)",
       display: "grid",
@@ -3116,12 +3122,12 @@ function Pricing() {
       display: "flex",
       alignItems: "baseline",
       gap: 14,
-      marginTop: 10,
+      marginTop: 8,
       flexWrap: "wrap"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 36,
+      fontSize: 30,
       fontWeight: 800,
       letterSpacing: "-0.025em",
       color: "var(--fg)",
@@ -3154,12 +3160,12 @@ function Pricing() {
       display: "flex",
       alignItems: "baseline",
       gap: 10,
-      marginTop: 10,
+      marginTop: 8,
       flexWrap: "wrap"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 36,
+      fontSize: 30,
       fontWeight: 800,
       color: "var(--accent)",
       letterSpacing: "-0.02em",
@@ -6494,7 +6500,7 @@ function SupportLiveChat() {
     time: "14:03"
   }, {
     side: "user",
-    text: "perfect, thanks Daniel 🙌",
+    text: "perfect, thanks Sofia 🙌",
     time: "14:03"
   }, {
     side: "agent",
@@ -6806,7 +6812,7 @@ function SupportSection() {
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: (window.__HH_BASE__+"assets/support-agent.png"),
-    alt: "Daniel \u2013 Senior Support Lead",
+    alt: "Sofia \u2013 Senior Support Lead",
     style: {
       position: "absolute",
       inset: 0,
@@ -6903,7 +6909,7 @@ function SupportSection() {
       lineHeight: 1.1,
       marginBottom: 12
     }
-  }, "Daniel K."), /*#__PURE__*/React.createElement("div", {
+  }, "Sofia K."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexWrap: "wrap",
@@ -6986,7 +6992,7 @@ function SupportSection() {
       alignItems: "center",
       gap: 8
     }
-  }, "Daniel K.", /*#__PURE__*/React.createElement("span", {
+  }, "Sofia K.", /*#__PURE__*/React.createElement("span", {
     style: {
       width: 7,
       height: 7,
@@ -7573,22 +7579,7 @@ function BlueprintTOC({
       gap: 4,
       position: "relative"
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      left: -16,
-      right: -16,
-      top: `calc(${activeIdx} * 72px)`,
-      height: 72,
-      background: "linear-gradient(90deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0) 100%)",
-      borderLeft: "2px solid var(--accent)",
-      borderRadius: "0 8px 8px 0",
-      transition: "top .85s cubic-bezier(.22,1,.36,1)",
-      willChange: "top",
-      pointerEvents: "none",
-      opacity: inView ? 1 : 0
-    }
-  }), sections.map((s, i) => {
+  }, sections.map((s, i) => {
     const isActive = i === activeIdx;
     const isRead = i < activeIdx;
     return /*#__PURE__*/React.createElement("div", {
@@ -7604,9 +7595,16 @@ function BlueprintTOC({
         alignItems: "center",
         position: "relative",
         zIndex: 1,
+        background: isActive ? "linear-gradient(90deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0) 100%)" : "transparent",
+        borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+        borderRadius: isActive ? "0 8px 8px 0" : 0,
+        marginLeft: -16,
+        marginRight: -16,
+        paddingLeft: 16,
+        paddingRight: 16,
         opacity: inView ? 1 : 0,
         transform: inView ? "translateX(0)" : "translateX(-12px)",
-        transition: `opacity .5s ease ${i * 0.08}s, transform .5s ease ${i * 0.08}s`,
+        transition: `opacity .5s ease ${i * 0.08}s, transform .5s ease ${i * 0.08}s, background .45s ease, border-color .45s ease`,
         filter: isActive ? "none" : isRead ? "none" : "none"
       }
     }, /*#__PURE__*/React.createElement("div", {

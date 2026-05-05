@@ -304,6 +304,12 @@ section { padding: 120px 0; position: relative; }
 
 /* HowItWorks step badges — subtle pulse + ring */
 .how-step-badge {
+  width: 84px;
+  height: 84px;
+  min-width: 84px;
+  min-height: 84px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50% !important;
   box-shadow: 0 0 40px rgba(252,213,53,0.2);
   animation: howStepPulse 3.6s ease-in-out infinite;
 }
