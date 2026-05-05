@@ -2872,6 +2872,189 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 }
 
+.hh-mobile-plan-rail {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* Final mobile pricing model: tabs + a single horizontal rail of full plan cards. */
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-account-card,
+  #hashhedge-root .tilda-html-hashhedge #pricing [data-mobile-comp-table],
+  #hashhedge-root .tilda-html-hashhedge #pricing .hh-pricing-summary {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rail {
+    display: flex !important;
+    gap: 12px !important;
+    margin: 0 calc(var(--gutter) * -1) 14px !important;
+    padding: 0 var(--gutter) 12px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card {
+    position: relative;
+    flex: 0 0 min(282px, calc(100vw - 58px));
+    scroll-snap-align: center;
+    padding: 14px !important;
+    border-radius: 22px !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+      rgba(17,17,20,0.92) !important;
+    border: 1px solid rgba(255,255,255,0.11) !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.34) !important;
+    color: var(--fg);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-active {
+    border-color: rgba(252,213,53,0.54) !important;
+    box-shadow: 0 22px 52px rgba(0,0,0,0.38), 0 0 0 1px rgba(252,213,53,0.16) inset !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-best {
+    background:
+      radial-gradient(circle at 0 0, rgba(252,213,53,0.17), transparent 34%),
+      linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+      rgba(17,17,20,0.92) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-badge {
+    position: absolute;
+    top: -9px;
+    left: 14px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #13111c;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-top {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+    margin-bottom: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-top span,
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-fee span {
+    display: block;
+    color: rgba(244,244,245,0.58);
+    font-size: 12px;
+    line-height: 1.1;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-top strong {
+    display: block;
+    margin-top: 3px;
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 900;
+    color: var(--fg);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-top button {
+    height: 34px;
+    min-width: 78px;
+    padding: 0 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    color: var(--fg);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-active .hh-mobile-plan-top button {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #13111c;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-fee {
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.07);
+    text-align: center;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-fee b {
+    display: block;
+    margin-top: 5px;
+    color: var(--accent);
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card p {
+    min-height: 38px;
+    margin: 0 0 10px !important;
+    font-size: 12.5px !important;
+    line-height: 1.35 !important;
+    color: rgba(244,244,245,0.62) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules {
+    margin-bottom: 12px;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 7px 0;
+    border-top: 1px dashed rgba(255,255,255,0.16);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules span {
+    color: var(--fg);
+    font-size: 13.5px;
+    line-height: 1.1;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: rgba(255,255,255,0.28);
+    text-underline-offset: 5px;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules strong {
+    color: rgba(244,244,245,0.84);
+    font-size: 13px;
+    line-height: 1.25;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules em {
+    margin-right: 4px;
+    color: rgba(244,244,245,0.5);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card .btn {
+    height: 46px !important;
+    min-height: 46px !important;
+    border-radius: 14px !important;
+    font-size: 14px !important;
+  }
+}
+
 
 #hashhedge-root .tilda-html-hashhedge a{color:inherit!important;text-decoration:none!important}
 #hashhedge-root .tilda-html-hashhedge .nav a:not(.btn){color:var(--fg-muted)!important}

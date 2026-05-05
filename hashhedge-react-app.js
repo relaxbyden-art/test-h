@@ -2841,7 +2841,17 @@ function Pricing() {
     const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
-      onClick: () => setSize(s),
+      onClick: () => {
+        setSize(s);
+        setTimeout(() => {
+          const card = document.querySelector(`[data-mobile-plan-card="${s}"]`);
+          if (card) card.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest"
+          });
+        }, 0);
+      },
       style: {
         position: "relative",
         padding: "15px 10px 13px",
@@ -2910,6 +2920,53 @@ function Pricing() {
       }
     }, "one-time"));
   })))), /*#__PURE__*/React.createElement(Reveal, {
+    delay: "3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-plan-rail",
+    "aria-label": "Choose account size"
+  }, sizes.map(s => {
+    const active = size === s;
+    const isPop = s === popular;
+    const isBest = s === 200000;
+    return /*#__PURE__*/React.createElement("article", {
+      key: s,
+      "data-mobile-plan-card": s,
+      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
+    }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-badge"
+    }, isBest ? "Best value" : "Popular"), /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-top"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Account"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => setSize(s),
+      "aria-label": `Select $${s.toLocaleString()} account`
+    }, active ? "Selected" : "Select")), /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-fee"
+    }, /*#__PURE__*/React.createElement("span", null, "One-time refundable fee"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-rules"
+    }, [["Profit Target", "Phase 1", "8%", "Phase 2", "6%"], ["Max Daily Loss", "", "5%", "", ""], ["Max Loss", "", "10% / 8%", "", ""], ["Min Trading Days", "", "5 + 5", "", ""], ["Trading Period", "", "Unlimited", "", ""], ["Profit Split", "", "80%", "", ""], ["Leverage", "", "1:5", "", ""]].map(([label, a, av, b, bv]) => /*#__PURE__*/React.createElement("div", {
+      key: label
+    }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("strong", null, a ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("em", null, a), " ", av, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", null, b), " ", bv) : av)))), /*#__PURE__*/React.createElement("a", {
+      href: "https://www.hashhedge.com/client/register",
+      target: "_blank",
+      rel: "noopener",
+      className: "btn btn-primary btn-lg"
+    }, "Start Challenge", /*#__PURE__*/React.createElement("svg", {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      style: {
+        marginLeft: 8
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M5 12h14M13 5l7 7-7 7",
+      stroke: "currentColor",
+      strokeWidth: "2.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }))));
+  }))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-card",
