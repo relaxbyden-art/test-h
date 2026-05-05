@@ -2950,6 +2950,7 @@ function Pricing() {
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
+      onClick: () => setSize(s),
       className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
     }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge"
@@ -5966,7 +5967,9 @@ function TelegramCommunity() {
       color: "var(--fg-dim)",
       marginTop: 6
     }
-  }, s.l))))), /*#__PURE__*/React.createElement(Reveal, {
+  }, s.l))))), /*#__PURE__*/React.createElement("div", {
+    className: "hh-telegram-mobile-visual"
+  }, /*#__PURE__*/React.createElement(TelegramChannelList, null)), /*#__PURE__*/React.createElement(Reveal, {
     delay: "4"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -6289,12 +6292,6 @@ function TelegramChannelList() {
       position: "relative"
     }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 13,
-      color: "#6AB3F3",
-      marginBottom: 10
-    }
-  }, "\u25C0 Files"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "40px 1fr 40px",

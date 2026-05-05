@@ -2876,6 +2876,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   display: none;
 }
 
+.hh-telegram-mobile-visual {
+  display: none;
+}
+
 @media (max-width: 640px) {
   /* Final mobile pricing model: tabs + a single horizontal rail of full plan cards. */
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-account-card,
@@ -2915,8 +2919,8 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-active {
-    border-color: rgba(252,213,53,0.54) !important;
-    box-shadow: 0 22px 52px rgba(0,0,0,0.38), 0 0 0 1px rgba(252,213,53,0.16) inset !important;
+    border-color: rgba(252,213,53,0.9) !important;
+    box-shadow: 0 22px 52px rgba(0,0,0,0.38), 0 0 0 1px rgba(252,213,53,0.34) inset !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-best {
@@ -2938,6 +2942,11 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     font-size: 10px;
     font-weight: 900;
     text-transform: uppercase;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-best .hh-mobile-plan-badge {
+    background: #9bd875 !important;
+    color: #07150d !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-top {
@@ -2966,15 +2975,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-top button {
-    height: 34px;
-    min-width: 78px;
-    padding: 0 12px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-    background: rgba(255,255,255,0.08);
-    color: var(--fg);
-    font-size: 12px;
-    font-weight: 800;
+    display: none !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-card.is-active .hh-mobile-plan-top button {
@@ -3021,7 +3022,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs button {
     min-width: 0;
-    min-height: 44px;
+    min-height: 36px;
     padding: 7px 4px;
     border-radius: 11px;
     border: 0;
@@ -3050,12 +3051,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs span {
-    display: block;
-    margin-top: 4px;
-    color: currentColor;
-    opacity: 0.62;
-    font-size: 9.5px;
-    line-height: 1.05;
+    display: none !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules {
@@ -3087,6 +3083,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     line-height: 1.25;
     text-align: right;
     max-width: 124px;
+    white-space: nowrap;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules em {
@@ -3103,6 +3100,131 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     min-height: 46px !important;
     border-radius: 14px !important;
     font-size: 14px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Mobile final polish pass */
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child > * {
+    opacity: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child::after {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: 0;
+    opacity: 1;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(1) .why-card > div:first-child::after { content: "160+"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(2) .why-card > div:first-child::after { content: "S1/S2"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(3) .why-card > div:first-child::after { content: "USDT"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(4) .why-card > div:first-child::after { content: "∞"; font-size: 32px; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(5) .why-card > div:first-child::after { content: "200K"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(6) .why-card > div:first-child::after { content: "1:5"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(7) .why-card > div:first-child::after { content: "24/7"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(8) .why-card > div:first-child::after { content: "RULES"; font-size: 16px; }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram [data-mobile-image-first] {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram .container > div {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-mobile-visual {
+    display: block !important;
+    margin: 10px 0 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-mobile-visual > div {
+    max-width: 290px !important;
+    max-height: 390px !important;
+    border-radius: 24px !important;
+    background: #15171c !important;
+    border-color: rgba(42,171,238,0.22) !important;
+    box-shadow: 0 18px 36px rgba(0,0,0,0.28), 0 0 0 1px rgba(42,171,238,0.08) inset !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:first-child [style*="repeat(2, 1fr)"] > div {
+    box-shadow: 0 10px 24px rgba(0,0,0,0.34) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-note {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section:has(.hh-review-card) .container > div:first-child {
+    display: block !important;
+    margin-bottom: 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section:has(.hh-review-card) .container > div:first-child > div:nth-child(2) {
+    margin-top: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section:has(.hh-review-card) .container > div:first-child h2 {
+    max-width: 100% !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-more {
+    min-height: 98px !important;
+    padding: 16px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-more svg {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-more div[style*="font-size: 22"] {
+    margin-bottom: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer {
+    padding-top: 30px !important;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:first-child {
+    gap: 18px !important;
+    margin-bottom: 22px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:first-child > div:first-child p {
+    margin-top: 16px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:first-child ul {
+    gap: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:nth-child(2) {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:last-child {
+    text-align: left !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:last-child > div {
+    margin-bottom: 12px !important;
+    font-size: 13px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge footer .container > div:last-child p {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    font-size: 10px !important;
   }
 }
 
