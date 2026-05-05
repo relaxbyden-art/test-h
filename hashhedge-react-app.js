@@ -9578,6 +9578,21 @@ function BigCTA() {
           text-shadow: 0 0 12px rgba(252,213,53,0.4);
         }
         .cta-spark { position: absolute; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(252,213,53,0.8); animation: cta-pulse-dot 2s ease-in-out infinite; }
+        .cta-secondary {
+          color: #f5d33a !important;
+          background: rgba(12, 11, 8, 0.86) !important;
+          border-color: rgba(252, 213, 53, 0.72) !important;
+          box-shadow:
+            0 18px 50px rgba(0,0,0,0.45),
+            0 0 0 1px rgba(252,213,53,0.12) inset,
+            0 0 34px rgba(252,213,53,0.12) !important;
+          backdrop-filter: blur(10px);
+        }
+        .cta-secondary:hover {
+          color: #101010 !important;
+          background: var(--accent) !important;
+          border-color: var(--accent) !important;
+        }
         @media (max-width: 900px) {
           .cta-hero { padding: 64px 24px; }
           .cta-coins, .cta-chart, .cta-rain-layer { display: none; }
@@ -9850,19 +9865,52 @@ function BigCTA() {
     className: "btn btn-primary btn-lg"
   }, "Start Challenge \xB7 $79"), /*#__PURE__*/React.createElement("a", {
     href: "#faq",
-    className: "btn btn-ghost btn-lg"
+    className: "btn btn-ghost btn-lg cta-secondary"
   }, "Read the rules")))))));
 }
 function Footer() {
   const columns = [{
     t: "Product",
-    l: ["Challenges", "Affiliate Program", "Blog", "Open Guide"]
+    l: [{
+      label: "Challenges",
+      href: "https://www.hashhedge.com/"
+    }, {
+      label: "Affiliate Program",
+      href: "https://www.hashhedge.com/affiliateprogram"
+    }, {
+      label: "Blog",
+      href: "https://www.hashhedge.com/blog"
+    }, {
+      label: "Open Guide",
+      href: "https://hashhedge.gitbook.io/hashhedge-user-guide"
+    }]
   }, {
     t: "About us",
-    l: ["Support", "FAQ", "Vacancies"]
+    l: [{
+      label: "Support",
+      href: "https://t.me/hashhedgesupportbot"
+    }, {
+      label: "FAQ",
+      href: "https://www.hashhedge.com/faq"
+    }, {
+      label: "Vacancies",
+      href: "https://www.hashhedge.com/vacancies"
+    }]
   }, {
     t: "Other",
-    l: ["Privacy Policy", "Terms And Conditions", "Commercial Terms", "Affiliate Policies"]
+    l: [{
+      label: "Privacy Policy",
+      href: "https://www.hashhedge.com/privacy-policy"
+    }, {
+      label: "Terms And Conditions",
+      href: "https://www.hashhedge.com/terms-and-conditions"
+    }, {
+      label: "Commercial Terms",
+      href: "https://www.hashhedge.com/commercial-terms"
+    }, {
+      label: "Affiliate Policies",
+      href: "https://www.hashhedge.com/affiliate-politics"
+    }]
   }];
   const partners = [{
     name: "HyperPay",
@@ -9946,15 +9994,17 @@ function Footer() {
       gap: 18
     }
   }, col.l.map(li => /*#__PURE__*/React.createElement("li", {
-    key: li
+    key: li.label
   }, /*#__PURE__*/React.createElement("a", {
-    href: "#",
+    href: li.href,
+    target: "_blank",
+    rel: "noopener",
     style: {
       fontSize: 15,
       color: "rgba(238,238,243,0.72)",
       textDecoration: "none"
     }
-  }, li))))))), /*#__PURE__*/React.createElement("div", {
+  }, li.label))))))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
