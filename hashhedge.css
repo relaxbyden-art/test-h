@@ -1697,3 +1697,37 @@ body[data-fm="phone"] [data-yt-featured] .yt-play svg {
 .reveal{opacity:1!important;transform:none!important}
 .tilda-html-hashhedge{background:#101012;color:#e8e8e9}
 .tilda-html-hashhedge img{max-width:100%}
+#hashhedge-root .tilda-html-hashhedge a{
+  color:inherit!important;
+  text-decoration:none!important;
+}
+#hashhedge-root .tilda-html-hashhedge .nav a:not(.btn){
+  color:var(--fg-muted)!important;
+}
+#hashhedge-root .tilda-html-hashhedge .nav a:not(.btn):hover{
+  color:var(--fg)!important;
+}
+#hashhedge-root .tilda-html-hashhedge .btn-primary,
+#hashhedge-root .tilda-html-hashhedge .btn-primary *,
+#hashhedge-root .tilda-html-hashhedge a.btn-primary{
+  color:#13111c!important;
+}
+#hashhedge-root .tilda-html-hashhedge .btn-ghost,
+#hashhedge-root .tilda-html-hashhedge a.btn-ghost{
+  color:var(--accent-dark)!important;
+}
+#hashhedge-root .tilda-html-hashhedge .chip.green{
+  color:#9ef0c0!important;
+}
+#hashhedge-root .tilda-html-hashhedge [style*="color: var(--accent)"],
+#hashhedge-root .tilda-html-hashhedge [style*="color:var(--accent)"]{
+  color:var(--accent)!important;
+}
+#hashhedge-root .tilda-html-hashhedge [style*="color: var(--green)"],
+#hashhedge-root .tilda-html-hashhedge [style*="color:var(--green)"]{
+  color:var(--green)!important;
+}
+#hashhedge-root .tilda-html-hashhedge [style*="color: var(--fg-muted)"],
+#hashhedge-root .tilda-html-hashhedge [style*="color:var(--fg-muted)"]{
+  color:var(--fg-muted)!important;
+}
