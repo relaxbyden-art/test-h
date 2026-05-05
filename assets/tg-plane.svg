@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <linearGradient id="tgBody" x1="0.1" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#ffffff"></stop>
+      <stop offset="55%" stop-color="#f4f8fb"></stop>
+      <stop offset="100%" stop-color="#d8e2ec"></stop>
+    </linearGradient>
+    <linearGradient id="tgUnder" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#bcc9d5"></stop>
+      <stop offset="100%" stop-color="#8497a9"></stop>
+    </linearGradient>
+    <linearGradient id="tgTail" x1="0" y1="0" x2="1" y2="0.8">
+      <stop offset="0%" stop-color="#edf2f7"></stop>
+      <stop offset="100%" stop-color="#b0c0ce"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M 12 118 L 128 100 L 96 198 L 40 152 Z" fill="url(#tgUnder)"></path>
+  <path d="M 96 198 L 128 100 L 152 160 Z" fill="url(#tgTail)"></path>
+  <path d="M 128 100 L 230 14 L 152 160 Z" fill="url(#tgBody)"></path>
+  <path d="M 12 118 L 230 14 L 128 100 Z" fill="#ffffff"></path>
+  <path d="M 12 118 L 128 100 L 230 14" stroke="rgba(150,170,190,0.35)" stroke-width="1" fill="none"></path>
+  <path d="M 230 14 L 200 30 L 140 92 Z" fill="rgba(255,255,255,0.5)"></path>
+</svg>
