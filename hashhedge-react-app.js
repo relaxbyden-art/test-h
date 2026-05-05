@@ -1244,6 +1244,7 @@ function Hero({
   useRevealOnScroll();
   const showCanvas = variant === "cosmic" || anim === "max";
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-hero-section",
     style: {
       position: "relative",
       overflow: "hidden",
@@ -1314,6 +1315,7 @@ function Hero({
       alignItems: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-copy",
     style: {
       textAlign: variant === "cosmic" ? "center" : "left",
       maxWidth: variant === "cosmic" ? 980 : "none",
@@ -1376,6 +1378,7 @@ function Hero({
   }, "$200,000"), " in live capital \u2013 no risk to your own funds. 160+ crypto pairs. Two-phase Hash Hedge Challenge \u2013 pass Phases 1 and 2, then trade funded. Leverage 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-actions",
     style: {
       display: "flex",
       gap: 16,
@@ -1404,6 +1407,7 @@ function Hero({
   }, "How it works"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "4"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-proof",
     style: {
       display: "flex",
       alignItems: "center",
@@ -1470,6 +1474,7 @@ function Hero({
   }, /*#__PURE__*/React.createElement(CosmicStatsPanel, null))), variant !== "cosmic" && /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-metrics",
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4,1fr)",
@@ -3098,6 +3103,7 @@ function Pricing() {
   }, r.sub))))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-pricing-summary",
     style: {
       maxWidth: 1112,
       margin: "0 auto",
@@ -9604,7 +9610,7 @@ function BigCTA() {
       zIndex: 1
     }
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
-    className: "cta-hero"
+    className: "cta-hero hh-final-cta"
   }, /*#__PURE__*/React.createElement("div", {
     className: "cta-grid"
   }), /*#__PURE__*/React.createElement("svg", {
@@ -9852,6 +9858,7 @@ function BigCTA() {
       margin: "0 auto 40px"
     }
   }, "2-stage Challenge. Unlimited time. 80% profit split. USDT payouts straight to your wallet."), /*#__PURE__*/React.createElement("div", {
+    className: "hh-final-cta-actions",
     style: {
       display: "flex",
       gap: 16,
