@@ -2730,26 +2730,26 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge #pricing [data-mobile-h-scroll] {
-    display: flex !important;
-    grid-template-columns: none !important;
-    gap: 9px !important;
-    margin: 0 calc(var(--gutter) * -1) !important;
-    padding: 8px var(--gutter) 14px !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x proximity;
+    display: grid !important;
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    margin: 0 !important;
+    padding: 6px 0 12px !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
     -webkit-mask-image: none !important;
             mask-image: none !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #pricing [data-mobile-h-scroll] > button {
-    flex: 0 0 auto !important;
-    width: 82px !important;
-    min-height: 56px !important;
-    height: 56px !important;
-    padding: 0 10px !important;
-    border-radius: 14px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 0 3px !important;
+    border-radius: 11px !important;
     box-shadow: none !important;
-    scroll-snap-align: start;
+    scroll-snap-align: none !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2772,7 +2772,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge #pricing [data-account-tab-size]::after {
-    font-size: 16px !important;
+    font-size: clamp(11px, 3.05vw, 13px) !important;
     font-weight: 850 !important;
     color: var(--fg) !important;
   }
@@ -2786,10 +2786,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   #hashhedge-root .tilda-html-hashhedge #pricing [data-mobile-h-scroll] > button[style*="#7BC75A"]::after {
     content: "";
     position: absolute;
-    top: -4px;
-    right: 10px;
-    width: 8px;
-    height: 8px;
+    top: -3px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 12px rgba(252,213,53,0.75);
@@ -2888,7 +2888,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     display: flex !important;
     gap: 12px !important;
     margin: 0 calc(var(--gutter) * -1) 14px !important;
-    padding: 0 var(--gutter) 12px !important;
+    padding: 12px var(--gutter) 12px !important;
     overflow-x: auto !important;
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
@@ -2904,7 +2904,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     position: relative;
     flex: 0 0 min(282px, calc(100vw - 58px));
     scroll-snap-align: center;
-    padding: 14px !important;
+    padding: 20px 14px 14px !important;
     border-radius: 22px !important;
     background:
       linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
@@ -2928,8 +2928,9 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-badge {
     position: absolute;
-    top: -9px;
+    top: 0;
     left: 14px;
+    transform: translateY(-50%);
     padding: 4px 9px;
     border-radius: 999px;
     background: var(--accent);
