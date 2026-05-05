@@ -1301,6 +1301,29 @@ function Hero({
       opacity: .05
     }
   }), /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-mobile-chart",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-mobile-grid"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "hh-hero-mobile-candles"
+  }, [["up", 62, 86, 26], ["down", 86, 54, 32], ["up", 72, 112, 40], ["up", 104, 66, 30], ["down", 70, 120, 48], ["up", 118, 68, 46], ["down", 82, 132, 36], ["up", 132, 74, 58], ["up", 104, 156, 72], ["down", 74, 126, 40], ["up", 126, 82, 54], ["down", 94, 142, 42], ["up", 142, 78, 64], ["up", 116, 170, 82], ["down", 82, 130, 34], ["up", 128, 72, 58]].map(([dir, top, bottom, body], i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    className: `hh-candle is-${dir}`,
+    style: {
+      "--x": i,
+      "--top": `${top}px`,
+      "--bottom": `${bottom}px`,
+      "--body": `${body}px`,
+      "--delay": `${i * 0.11}s`
+    }
+  }))), /*#__PURE__*/React.createElement("svg", {
+    className: "hh-hero-mobile-ma",
+    viewBox: "0 0 520 190",
+    preserveAspectRatio: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M0 126 C42 118 58 142 92 128 S146 92 182 108 S228 150 264 124 S324 72 366 90 S428 152 466 98 S500 76 520 82"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {
       position: "relative",
@@ -1359,7 +1382,7 @@ function Hero({
     strokeWidth: "3",
     strokeLinecap: "round",
     opacity: "0.6"
-  }))), /*#__PURE__*/React.createElement("br", null), "Get paid", /*#__PURE__*/React.createElement("br", null), "like a pro.")), /*#__PURE__*/React.createElement(Reveal, {
+  }))), " ", /*#__PURE__*/React.createElement("br", null), "Get paid", /*#__PURE__*/React.createElement("br", null), "like a pro.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -3403,41 +3426,49 @@ function WhyUs() {
   useRevealOnScroll();
   const cards = [{
     n: "01",
+    k: "tickers",
     t: "160+ crypto pairs",
     d: "BTC, ETH, SOL, XRP, DOGE and 160+ spot pairs on institutional liquidity. No synthetic quotes, no dealer intervention.",
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "02",
+    k: "stages",
     t: "Three-stage program",
     d: "Stage 1 (+8%) → Stage 2 (+6%) → Stage 3 funded. Same rules end-to-end: 5% daily, 8–10% DD, 1:5 leverage.",
     art: /*#__PURE__*/React.createElement(ArtStages, null)
   }, {
     n: "03",
+    k: "coins",
     t: "Crypto-only payments",
     d: "Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism. Withdrawals go out on the same rails – your wallet, your schedule.",
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
     n: "04",
+    k: "infinity",
     t: "Unlimited time",
     d: "No 30-day clock, no hidden expiry. Take the time you need to pass Stage 1 and Stage 2. Stage 3 is unlimited by design.",
     art: /*#__PURE__*/React.createElement(ArtInfinity, null)
   }, {
     n: "05",
+    k: "scale",
     t: "Scale your account",
     d: "Prove consistency and grow. Funded traders add capital on performance – no arbitrary caps, no waiting lists.",
     art: /*#__PURE__*/React.createElement(ArtScale, null)
   }, {
     n: "06",
+    k: "orderbook",
     t: "Institutional infra",
     d: "Tier-1 execution venues, deep order books, minimal slippage. The same plumbing hedge funds use – exposed to retail.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
   }, {
     n: "07",
+    k: "support",
     t: "Human support 24/7",
     d: "Real traders on Telegram and chat, not bots. First response under 5 minutes across every major timezone.",
     art: /*#__PURE__*/React.createElement(ArtClock, null)
   }, {
     n: "08",
+    k: "rules",
     t: "Transparent rules",
     d: "Every rule for every stage is published. No surprise consistency clauses, no silent parameter changes.",
     art: /*#__PURE__*/React.createElement(ArtRules, null)
@@ -3521,6 +3552,8 @@ function WhyUs() {
       background: "linear-gradient(180deg, rgba(252,213,53,0.03) 0%, var(--bg-card) 40%)"
     }
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-why-art",
+    "data-why-art": c.k,
     style: {
       position: "relative",
       height: 200,
@@ -3540,6 +3573,7 @@ function WhyUs() {
       opacity: 0.7
     }
   }), /*#__PURE__*/React.createElement("div", {
+    className: "hh-why-art-glow",
     style: {
       position: "absolute",
       width: 200,
@@ -3553,6 +3587,7 @@ function WhyUs() {
       pointerEvents: "none"
     }
   }), /*#__PURE__*/React.createElement("div", {
+    className: "hh-why-art-stage",
     style: {
       position: "absolute",
       inset: "22px 0 0",
@@ -5889,13 +5924,16 @@ function TelegramCommunity() {
   }), /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-telegram-layout",
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1.1fr",
       gap: 80,
       alignItems: "center"
     }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-telegram-copy"
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot",
@@ -6024,7 +6062,9 @@ function TelegramCommunity() {
     }
   }, "\xB7 free to join, verified traders only")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
-  }, /*#__PURE__*/React.createElement(TelegramChannelList, null)))));
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-telegram-desktop-visual"
+  }, /*#__PURE__*/React.createElement(TelegramChannelList, null))))));
 }
 
 // Telegram community channel-list – matches the real Hash Hedge Community screenshot:
@@ -6344,6 +6384,7 @@ function TelegramChannelList() {
       justifyContent: "center"
     }
   }, "\u22EF"))), /*#__PURE__*/React.createElement("div", {
+    className: "hh-telegram-search",
     style: {
       padding: "0 16px 12px"
     }
@@ -6389,6 +6430,7 @@ function TelegramChannelList() {
     const typing = live && currentEv.typing;
     return /*#__PURE__*/React.createElement("div", {
       key: i,
+      className: "hh-telegram-row",
       style: {
         display: "grid",
         gridTemplateColumns: "44px 1fr auto",
@@ -6875,6 +6917,7 @@ function SupportSection() {
       position: "relative"
     }
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-support-header",
     style: {
       display: "grid",
       gridTemplateColumns: "1.1fr 1fr",
@@ -6909,6 +6952,7 @@ function SupportSection() {
   }, "Online right now.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
+    className: "hh-support-intro",
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -9082,6 +9126,7 @@ function Reviews() {
     stars: 5
   }];
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-reviews-section",
     style: {
       background: "var(--bg-elev)",
       position: "relative",
@@ -9128,6 +9173,7 @@ function Reviews() {
   }, "Reviewed on Trustpilot.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-review-rating-summary",
     style: {
       display: "flex",
       alignItems: "center",

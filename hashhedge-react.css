@@ -381,6 +381,725 @@ html {
   overscroll-behavior-x: none;
 }
 
+@keyframes hh-how-mobile-ring {
+  0% { transform: scale(0.9); opacity: 0; }
+  40% { opacity: 0.42; }
+  100% { transform: scale(1.16); opacity: 0; }
+}
+
+/* Absolute last guard for the mobile How step badge: compact ring, no clipping. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge #how,
+  #hashhedge-root .tilda-html-hashhedge #how .container,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2),
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal > div {
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) {
+    padding-top: 10px !important;
+    gap: 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    margin: 0 auto 24px !important;
+    font-size: 14px !important;
+    border-width: 2px !important;
+    position: relative !important;
+    z-index: 4 !important;
+    box-shadow: 0 0 0 4px rgba(252,213,53,0.05), 0 0 18px rgba(252,213,53,0.18) !important;
+    animation: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge::before {
+    inset: -3px !important;
+    border-width: 2px !important;
+    animation: hh-how-mobile-ring 2.8s ease-out infinite !important;
+    animation-delay: inherit !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge::after {
+    inset: 2px !important;
+    animation: howStepGlow 2.8s ease-in-out infinite !important;
+    opacity: 0.55 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .card {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+}
+
+/* Reviews mobile: keep headline inside the viewport and remove the rating card shape. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section {
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section .container > div:first-child {
+    display: block !important;
+    margin-bottom: 20px !important;
+    max-width: 100% !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section h2.h1 {
+    max-width: 100% !important;
+    font-size: clamp(33px, 8.9vw, 37px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: 0 !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section h2.h1 br {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section h2.h1 span {
+    display: inline !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary,
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 12px 0 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div > div:first-child {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    gap: 2px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 60px"] {
+    flex: 0 0 auto !important;
+    font-size: 28px !important;
+    line-height: 1 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 28"] {
+    font-size: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 13px"] {
+    min-width: 0 !important;
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+    white-space: normal !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary a {
+    border-bottom: 0 !important;
+  }
+}
+
+/* Why HashHedge mobile: desktop animation scene, stacked vertically. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge #why .why-card {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child.hh-why-art {
+    order: 0 !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: none !important;
+    flex: 0 0 220px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(252,213,53,0.10) 0%, transparent 60%),
+      linear-gradient(180deg, #141318 0%, #0b0b0e 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art::after,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > * {
+    opacity: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .why-art-bg {
+    z-index: 0 !important;
+    opacity: 0.72 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art-glow {
+    z-index: 0 !important;
+    width: 260px !important;
+    height: 260px !important;
+    top: 54% !important;
+    left: 50% !important;
+    opacity: 0.5 !important;
+    filter: blur(4px) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art-stage {
+    z-index: 2 !important;
+    inset: 18px 0 0 !important;
+    transform: none !important;
+    transform-origin: center center !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art-stage > * {
+    transform: scale(0.96) !important;
+    transform-origin: center center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="orderbook"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="rules"] .hh-why-art-stage > * {
+    transform: scale(1) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] .hh-why-art-stage > * {
+    transform: scale(0.9) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="position: absolute"][style*="top: 14px"] {
+    z-index: 4 !important;
+    top: 12px !important;
+    left: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:last-child {
+    order: 1 !important;
+    width: 100% !important;
+    padding: 20px !important;
+    min-height: 0 !important;
+  }
+}
+
+/* Why cards: use the real desktop micro-animations on mobile, not abstract side crops. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge #why .why-card {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art {
+    width: 100% !important;
+    height: 154px !important;
+    min-height: 154px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art::after,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > * {
+    opacity: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .why-art-bg {
+    opacity: 0.72 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] {
+    inset: 10px 0 0 !important;
+    transform: scale(0.82) !important;
+    transform-origin: center center !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"],
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="orderbook"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"],
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="rules"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] {
+    transform: scale(0.92) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"],
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"],
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="scale"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"],
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] {
+    transform: scale(0.78) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:last-child {
+    padding: 18px !important;
+    min-height: 0 !important;
+  }
+}
+
+/* ============================================================
+   17. MOBILE FIXES — stable hooks, final cascade layer
+   ============================================================ */
+
+.hh-hero-mobile-chart {
+  display: none;
+}
+
+@keyframes hh-mobile-chart-pan {
+  from { transform: translateX(0); }
+  to { transform: translateX(-92px); }
+}
+
+@keyframes hh-mobile-candle-breathe {
+  0%, 100% { opacity: 0.52; transform: translateY(0) scaleY(1); }
+  50% { opacity: 0.82; transform: translateY(-2px) scaleY(1.06); }
+}
+
+@keyframes hh-mobile-ma-drift {
+  0%, 100% { stroke-dashoffset: 0; opacity: 0.48; }
+  50% { stroke-dashoffset: -18; opacity: 0.7; }
+}
+
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-section::after {
+    content: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-chart {
+    display: block;
+    position: absolute;
+    left: -18px;
+    right: -18px;
+    bottom: 76px;
+    height: 228px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.58;
+    overflow: hidden;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 72%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 72%, transparent 100%);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-chart::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 85% at 50% 58%, rgba(11,11,13,0) 0%, rgba(11,11,13,0.68) 82%),
+      linear-gradient(180deg, rgba(11,11,13,0.18) 0%, rgba(11,11,13,0.72) 100%);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 100% 38px, 46px 100%;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-candles {
+    position: absolute;
+    inset: 0 -92px 0 0;
+    animation: hh-mobile-chart-pan 13s linear infinite;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-candle {
+    position: absolute;
+    left: calc(18px + var(--x) * 34px);
+    top: var(--top);
+    bottom: var(--bottom);
+    width: 2px;
+    background: currentColor;
+    color: rgba(24,169,101,0.64);
+    animation: hh-mobile-candle-breathe 2.7s ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-candle::after {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    width: 14px;
+    height: var(--body);
+    transform: translateY(-50%);
+    border-radius: 3px;
+    background: currentColor;
+    box-shadow: 0 0 10px color-mix(in srgb, currentColor 45%, transparent);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-candle.is-down {
+    color: rgba(230,70,70,0.55);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-ma {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    width: 100%;
+    height: 190px;
+    overflow: visible;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-ma path {
+    fill: none;
+    stroke: rgba(252,213,53,0.62);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-dasharray: 10 12;
+    filter: drop-shadow(0 0 8px rgba(252,213,53,0.42));
+    animation: hh-mobile-ma-drift 4s ease-in-out infinite;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-copy {
+    position: relative;
+    z-index: 3;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section .h1 + p,
+  #hashhedge-root .tilda-html-hashhedge section h2 + p,
+  #hashhedge-root .tilda-html-hashhedge .reveal + .reveal p {
+    margin-top: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section .h1,
+  #hashhedge-root .tilda-html-hashhedge section h2 {
+    margin-bottom: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:first-child,
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:first-child,
+  #hashhedge-root .tilda-html-hashhedge .hh-support-header,
+  #hashhedge-root .tilda-html-hashhedge #telegram .hh-telegram-copy {
+    row-gap: 12px !important;
+    gap: 12px !important;
+    margin-bottom: 24px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-header {
+    display: block !important;
+    margin-bottom: 24px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-intro {
+    margin-top: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art {
+    height: 138px !important;
+    min-height: 138px !important;
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 50% 105%, rgba(252,213,53,0.12) 0%, transparent 62%),
+      linear-gradient(180deg, #15151a 0%, #0b0b0e 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > * {
+    opacity: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art::after {
+    content: "" !important;
+    position: absolute;
+    inset: 14px 16px;
+    display: block !important;
+    opacity: 1 !important;
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"]::after {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+      repeating-linear-gradient(180deg, transparent 0 19px, rgba(255,255,255,0.08) 20px 21px),
+      linear-gradient(90deg, rgba(247,147,26,0.8) 0 20px, transparent 20px 100%);
+    box-shadow: 42px 16px 0 -11px rgba(98,126,234,0.72), 42px 48px 0 -11px rgba(153,69,255,0.72), 42px 80px 0 -11px rgba(243,186,47,0.72);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="stages"]::after {
+    background:
+      linear-gradient(90deg, rgba(252,213,53,0.9) 0 34%, transparent 34% 38%, rgba(252,213,53,0.58) 38% 66%, transparent 66% 70%, rgba(123,199,90,0.68) 70% 100%),
+      repeating-linear-gradient(180deg, transparent 0 22px, rgba(0,0,0,0.18) 22px 26px);
+    clip-path: polygon(0 24%, 88% 24%, 100% 50%, 88% 76%, 0 76%);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"]::after {
+    background:
+      radial-gradient(circle at 26% 48%, #26a17b 0 22px, transparent 23px),
+      radial-gradient(circle at 50% 42%, #f7931a 0 19px, transparent 20px),
+      radial-gradient(circle at 70% 58%, #627eea 0 21px, transparent 22px),
+      linear-gradient(135deg, rgba(252,213,53,0.14), rgba(255,255,255,0.02));
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"]::after {
+    border: 2px solid rgba(252,213,53,0.82);
+    border-left-color: rgba(123,199,90,0.68);
+    border-right-color: rgba(123,199,90,0.68);
+    border-radius: 999px;
+    transform: scaleX(1.35) rotate(-7deg);
+    box-shadow: 0 0 28px rgba(252,213,53,0.18);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="scale"]::after {
+    background:
+      linear-gradient(180deg, transparent 58%, rgba(252,213,53,0.74) 58% 100%),
+      linear-gradient(90deg, rgba(123,199,90,0.7) 0 18%, transparent 18% 25%, rgba(252,213,53,0.78) 25% 48%, transparent 48% 56%, rgba(252,213,53,0.95) 56% 86%, transparent 86%);
+    clip-path: polygon(4% 86%, 4% 64%, 24% 64%, 24% 50%, 50% 50%, 50% 34%, 82% 34%, 82% 18%, 96% 18%, 96% 86%);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="orderbook"]::after {
+    background:
+      linear-gradient(90deg, rgba(230,70,70,0.32) 0 42%, transparent 42% 50%, rgba(24,169,101,0.34) 50% 100%),
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.04) 0 10px, transparent 10px 18px);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"]::after {
+    background:
+      radial-gradient(circle at 23% 50%, rgba(123,216,160,0.9) 0 16px, transparent 17px),
+      linear-gradient(90deg, rgba(255,255,255,0.12) 36px 76%, transparent 76%),
+      repeating-linear-gradient(180deg, transparent 0 20px, rgba(255,255,255,0.07) 20px 24px);
+    border: 1px solid rgba(123,216,160,0.22);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="rules"]::after {
+    background:
+      linear-gradient(90deg, rgba(252,213,53,0.86) 0 18px, transparent 18px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.1) 0 3px, transparent 3px 22px);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] {
+    inset: 8px 0 0 !important;
+    transform: scale(0.72) !important;
+    opacity: 0.28 !important;
+    filter: blur(0) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child::after {
+    content: "" !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-layout {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-desktop-visual {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-mobile-visual {
+    display: block !important;
+    margin: 18px 0 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-mobile-visual > div {
+    width: min(100%, 332px) !important;
+    max-width: 332px !important;
+    max-height: none !important;
+    border-radius: 24px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-search {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-row {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+    min-height: 66px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-row:nth-of-type(n+7) {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram > div[aria-hidden] {
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram .container {
+    position: relative !important;
+    z-index: 3 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary {
+    justify-content: flex-start !important;
+    display: inline-flex !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div {
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div > div:first-child {
+    margin-bottom: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 60px"] {
+    font-size: 22px !important;
+    text-align: left !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 28"] {
+    font-size: 13px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 13px"] {
+    margin-top: 0 !important;
+    font-size: 10px !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section:has(.hh-review-card) .container > div:first-child h2 {
+    font-size: clamp(31px, 8.4vw, 36px) !important;
+    line-height: 1.05 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules > div {
+    grid-template-columns: minmax(0, 1fr) minmax(96px, auto) !important;
+    column-gap: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules strong {
+    justify-self: end !important;
+    width: auto !important;
+    min-width: 96px !important;
+    max-width: none !important;
+    overflow: visible !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta {
+    min-height: 430px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-chart {
+    display: block !important;
+    opacity: 0.52 !important;
+    transform: translateY(10px) scale(1.15);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rings,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-grid,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rain-layer,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-coins,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-spark {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-coins {
+    opacity: 0.18 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rain-layer {
+    opacity: 0.28 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-secondary:hover {
+    color: #101010 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how {
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2),
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal > div {
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:first-child {
+    display: block !important;
+    margin-bottom: 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:first-child .reveal:nth-child(2) h2 {
+    margin-bottom: 8px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:first-child .reveal:nth-child(3) p {
+    margin-top: 0 !important;
+    font-size: 17px !important;
+    line-height: 1.48 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) {
+    padding-top: 22px !important;
+    gap: 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    margin: 0 auto 10px !important;
+    font-size: 17px !important;
+    box-shadow: 0 0 0 7px rgba(252,213,53,0.06), 0 0 26px rgba(252,213,53,0.15) !important;
+  }
+}
+
 /* ============================================================
    16. MOBILE POLISH — detailed correction pass
    ============================================================ */
@@ -3504,6 +4223,238 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     margin-left: 0 !important;
     margin-right: 0 !important;
     font-size: 10px !important;
+  }
+}
+
+/* Final mobile cascade guard: these hooks intentionally win over legacy mobile patches above. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-section::after {
+    content: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-mobile-chart {
+    display: block !important;
+    position: absolute !important;
+    left: -18px !important;
+    right: -18px !important;
+    bottom: 76px !important;
+    height: 228px !important;
+    z-index: 1 !important;
+    opacity: 0.58 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 72%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 72%, transparent 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-copy {
+    position: relative !important;
+    z-index: 3 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section .h1,
+  #hashhedge-root .tilda-html-hashhedge section h2 {
+    margin-bottom: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .reveal + .reveal p,
+  #hashhedge-root .tilda-html-hashhedge section .h1 + p,
+  #hashhedge-root .tilda-html-hashhedge section h2 + p {
+    margin-top: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-header {
+    display: block !important;
+    margin-bottom: 24px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-intro {
+    margin-top: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art {
+    height: 138px !important;
+    min-height: 138px !important;
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > * {
+    opacity: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art::after,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > div:first-child::after {
+    content: "" !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] {
+    inset: 8px 0 0 !important;
+    transform: scale(0.72) !important;
+    opacity: 0.28 !important;
+    filter: blur(0) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-layout {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-desktop-visual {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-mobile-visual {
+    display: block !important;
+    margin: 18px 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-mobile-visual > div {
+    width: min(100%, 332px) !important;
+    max-width: 332px !important;
+    max-height: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-search {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-row {
+    min-height: 66px !important;
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-telegram-row:nth-of-type(n+7) {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram .container {
+    position: relative !important;
+    z-index: 3 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary {
+    justify-content: flex-start !important;
+    display: inline-flex !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div {
+    display: grid !important;
+    grid-template-columns: auto auto auto !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > div > div:first-child {
+    margin-bottom: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 60px"] {
+    font-size: 22px !important;
+    text-align: left !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 28"] {
+    font-size: 13px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary [style*="font-size: 13px"] {
+    margin-top: 0 !important;
+    font-size: 10px !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules > div {
+    grid-template-columns: minmax(0, 1fr) minmax(96px, auto) !important;
+    column-gap: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-plan-rules strong {
+    justify-self: end !important;
+    width: auto !important;
+    min-width: 96px !important;
+    max-width: none !important;
+    overflow: visible !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-chart,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rings,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-grid,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rain-layer,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-coins,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-spark {
+    display: block !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-secondary:hover {
+    color: #101010 !important;
+  }
+}
+
+@keyframes hh-how-mobile-ring-final {
+  0% { transform: scale(0.9); opacity: 0; }
+  40% { opacity: 0.42; }
+  100% { transform: scale(1.16); opacity: 0; }
+}
+
+/* Absolute last guard for the mobile How step badge: compact ring, no clipping. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge #how,
+  #hashhedge-root .tilda-html-hashhedge #how .container,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2),
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal > div {
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) {
+    padding-top: 10px !important;
+    gap: 18px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    margin: 0 auto 24px !important;
+    font-size: 14px !important;
+    border-width: 2px !important;
+    position: relative !important;
+    z-index: 4 !important;
+    box-shadow: 0 0 0 4px rgba(252,213,53,0.05), 0 0 18px rgba(252,213,53,0.18) !important;
+    animation: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge::before {
+    inset: -3px !important;
+    border-width: 2px !important;
+    animation: hh-how-mobile-ring-final 2.8s ease-out infinite !important;
+    animation-delay: inherit !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge::after {
+    inset: 2px !important;
+    animation: howStepGlow 2.8s ease-in-out infinite !important;
+    opacity: 0.55 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #how .card {
+    position: relative !important;
+    z-index: 1 !important;
   }
 }
 
