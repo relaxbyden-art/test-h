@@ -2080,7 +2080,7 @@ function PromoBanner() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      maxWidth: 620
+      maxWidth: 760
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow",
@@ -2110,9 +2110,10 @@ function PromoBanner() {
   }, "metals, energy & indices"), " alongside crypto."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
-      lineHeight: 1.55,
+      lineHeight: 1.5,
       color: "var(--fg-muted)",
-      margin: 0
+      margin: 0,
+      maxWidth: 735
     }
   }, "Gold, silver, palladium, platinum, Brent and WTI crude, natural gas, and the S&P 500 \u2013 all as USDT-quoted perpetuals. Same funded account, same 1:5 leverage, one unified PnL.")), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
@@ -2499,7 +2500,7 @@ function HowItWorks() {
       gap: 10,
       padding: "8px 0",
       fontSize: 14,
-      lineHeight: 1.45,
+      lineHeight: 1.65,
       color: "var(--fg)",
       borderTop: "1px solid var(--line)"
     }
@@ -2816,7 +2817,7 @@ function Pricing() {
     style: {
       display: "grid",
       gridTemplateColumns: `repeat(${sizes.length}, 1fr)`,
-      gap: 12
+      gap: 10
     }
   }, sizes.map(s => {
     const active = size === s;
@@ -2829,10 +2830,10 @@ function Pricing() {
       onClick: () => setSize(s),
       style: {
         position: "relative",
-        padding: "18px 12px 16px",
+        padding: "15px 10px 13px",
         border: `1px solid ${active ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
         background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
-        borderRadius: 16,
+        borderRadius: 14,
         cursor: "pointer",
         transition: "all .2s",
         textAlign: "center",
@@ -2847,25 +2848,25 @@ function Pricing() {
         transform: "translateX(-50%)",
         background: badgeBg,
         color: "#13111c",
-        padding: "3px 10px",
+        padding: "2px 10px",
         borderRadius: 999,
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: 800,
         letterSpacing: "0.1em",
         whiteSpace: "nowrap"
       }
     }, badge), /*#__PURE__*/React.createElement("div", {
       style: {
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: 700,
         letterSpacing: "0.1em",
         color: active ? "var(--accent)" : "var(--fg-low)",
         textTransform: "uppercase",
-        marginBottom: 6
+        marginBottom: 5
       }
     }, "Account"), /*#__PURE__*/React.createElement("div", {
       style: {
-        fontSize: 23,
+        fontSize: 21,
         fontWeight: 800,
         letterSpacing: "-0.025em",
         color: active ? "var(--fg)" : "var(--fg)",
@@ -2873,19 +2874,19 @@ function Pricing() {
       }
     }, "$", s.toLocaleString()), /*#__PURE__*/React.createElement("div", {
       style: {
-        marginTop: 10,
-        paddingTop: 8,
+        marginTop: 8,
+        paddingTop: 7,
         borderTop: "1px solid var(--line)",
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 800,
         letterSpacing: "-0.01em",
         color: active ? "var(--accent)" : "var(--fg-muted)"
       }
     }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
       style: {
-        fontSize: 11,
+        fontSize: 10,
         color: "var(--fg-low)",
-        marginTop: 2
+        marginTop: 1
       }
     }, "one-time"));
   })))), /*#__PURE__*/React.createElement(Reveal, {
@@ -2910,27 +2911,27 @@ function Pricing() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "18px 22px 16px",
+      padding: "13px 18px 12px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-end"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 10,
+      fontSize: 9,
       fontWeight: 800,
       letterSpacing: "0.16em",
       color: "var(--fg-low)",
       textTransform: "uppercase",
-      marginBottom: 6
+      marginBottom: 5
     }
   }, "Compare"), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 18,
+      fontSize: 17,
       fontWeight: 700,
       color: "var(--fg)",
       letterSpacing: "-0.01em",
-      lineHeight: 1.15
+      lineHeight: 1.12
     }
   }, "Challenge rules,", /*#__PURE__*/React.createElement("br", null), "stage by stage")), [{
     n: 1,
@@ -2950,7 +2951,7 @@ function Pricing() {
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
-      padding: "18px 16px 16px",
+      padding: "13px 14px 12px",
       textAlign: "center",
       borderLeft: "1px solid var(--line)",
       background: col.accent ? "rgba(252,213,53,0.05)" : "transparent",
@@ -2959,7 +2960,7 @@ function Pricing() {
   }, col.accent && /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      top: 8,
+      top: 6,
       left: "50%",
       transform: "translateX(-50%)",
       fontSize: 9,
@@ -2976,12 +2977,12 @@ function Pricing() {
       fontWeight: 800,
       letterSpacing: "0.14em",
       color: col.accent ? "var(--accent)" : "var(--fg-dim)",
-      marginBottom: 5,
-      marginTop: col.accent ? 10 : 0
+      marginBottom: 4,
+      marginTop: col.accent ? 9 : 0
     }
   }, col.label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 28,
+      fontSize: 25,
       fontWeight: 800,
       letterSpacing: "-0.025em",
       color: col.accent ? "var(--accent)" : "var(--fg)",
@@ -2990,9 +2991,9 @@ function Pricing() {
     }
   }, col.accent ? /*#__PURE__*/React.createElement(Inf, null) : `0${col.n}`), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 11,
+      fontSize: 10,
       color: "var(--fg-dim)",
-      marginTop: 6
+      marginTop: 5
     }
   }, col.sub)))), rules.map((r, rowI) => /*#__PURE__*/React.createElement("div", {
     key: r.k,
@@ -3930,7 +3931,6 @@ function ArtInfinity() {
   }, "30-DAY CLOCK")));
 }
 function ArtScale() {
-  // Ascending bar chart with dollar amounts, animated pump.
   const bars = [{
     h: 24,
     v: "5K"
@@ -3954,8 +3954,9 @@ function ArtScale() {
     style: {
       display: "flex",
       alignItems: "flex-end",
-      gap: 10,
-      height: 150
+      gap: 14,
+      height: 150,
+      paddingTop: 18
     }
   }, bars.map((b, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
@@ -3963,14 +3964,15 @@ function ArtScale() {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      gap: 6
+      gap: 9
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 10,
       fontWeight: 800,
       color: i === bars.length - 1 ? "var(--accent)" : "var(--fg-dim)",
-      fontFamily: "Akrobat, Onest, sans-serif"
+      fontFamily: "Akrobat, Onest, sans-serif",
+      lineHeight: 1
     }
   }, "$", b.v), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3979,31 +3981,9 @@ function ArtScale() {
       borderRadius: "4px 4px 2px 2px",
       background: i === bars.length - 1 ? "linear-gradient(180deg, var(--accent), rgba(252,213,53,0.4))" : "linear-gradient(180deg, rgba(252,213,53,0.55), rgba(252,213,53,0.1))",
       boxShadow: i === bars.length - 1 ? "0 0 16px rgba(252,213,53,0.45)" : "none",
-      transformOrigin: "bottom",
-      animation: "why-barpump 2.8s ease-in-out infinite",
-      animationDelay: `${i * 0.18}s`
+      transformOrigin: "bottom"
     }
-  }))), /*#__PURE__*/React.createElement("svg", {
-    width: "34",
-    height: "150",
-    viewBox: "0 0 34 150",
-    style: {
-      marginLeft: -2
-    }
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M7 136 L27 28",
-    stroke: "var(--accent)",
-    strokeWidth: "2.8",
-    strokeLinecap: "round",
-    fill: "none"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M27 28 L17 38 M27 28 L30 42",
-    stroke: "var(--accent)",
-    strokeWidth: "2.8",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    fill: "none"
-  })));
+  }))));
 }
 function ArtOrderBook() {
   // Mini order-book: bids (green) vs asks (red) rendered as horizontal bars at prices.
@@ -4836,7 +4816,7 @@ function EventsTournaments() {
       fontSize: 16,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
-      maxWidth: 380,
+      maxWidth: 500,
       margin: "0 0 8px"
     }
   }, "Dubai. S\xE3o Paulo. Moscow. From main-stage keynotes to live-trading booths and top-affiliate awards \u2013 this is the Hash Hedge team on the ground."))), /*#__PURE__*/React.createElement("div", {
@@ -7853,7 +7833,7 @@ function YouTubeSection() {
       display: "grid",
       gridTemplateColumns: "1.1fr 1fr",
       gap: 80,
-      alignItems: "center",
+      alignItems: "end",
       marginBottom: 56
     }
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
@@ -7889,7 +7869,7 @@ function YouTubeSection() {
       fontSize: 17,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
-      margin: 0
+      margin: "0 0 8px"
     }
   }, /*#__PURE__*/React.createElement("strong", {
     style: {
@@ -8979,7 +8959,7 @@ function Reviews() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "1.35fr .65fr",
       gap: 60,
       marginBottom: 64,
       alignItems: "end"
@@ -8993,7 +8973,8 @@ function Reviews() {
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
-      margin: "20px 0 0"
+      margin: "20px 0 0",
+      maxWidth: 860
     }
   }, "5,100+ funded traders.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
@@ -9357,7 +9338,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". Support is available 24/7.")
-  }].slice(0, 10);
+  }].slice(0, 6);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {
@@ -9577,17 +9558,17 @@ function BigCTA() {
         .cta-coin {
           position: absolute;
           border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          font-family: 'Akrobat', sans-serif; font-weight: 900;
-          color: #fff; font-size: 18px;
-          box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6), inset 0 2px 0 rgba(255,255,255,0.25);
+          display: block;
+          object-fit: contain;
+          background: rgba(255,255,255,0.04);
+          box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6), 0 0 24px rgba(252,213,53,0.12);
         }
-        .cta-coin.usdt { background: linear-gradient(135deg, #26A17B 0%, #0e5c45 100%); width: 76px; height: 76px; top: 40px; left: 6%; animation: cta-coin-float-a 6s ease-in-out infinite; }
-        .cta-coin.btc  { background: linear-gradient(135deg, #F7931A 0%, #9c5400 100%); width: 96px; height: 96px; top: 160px; left: 3%; animation: cta-coin-float-b 7s ease-in-out infinite; }
-        .cta-coin.eth  { background: linear-gradient(135deg, #627EEA 0%, #2c3e8b 100%); width: 64px; height: 64px; bottom: 80px; left: 8%; animation: cta-coin-float-c 5.5s ease-in-out infinite; }
-        .cta-coin.usdc { background: linear-gradient(135deg, #2775CA 0%, #134676 100%); width: 84px; height: 84px; top: 90px; right: 5%; animation: cta-coin-float-b 6.5s ease-in-out infinite; }
-        .cta-coin.sol  { background: linear-gradient(135deg, #9945FF 0%, #14F195 100%); width: 70px; height: 70px; top: 220px; right: 3%; animation: cta-coin-float-c 7.5s ease-in-out infinite; }
-        .cta-coin.arb  { background: linear-gradient(135deg, #2D374B 0%, #28A0F0 100%); width: 56px; height: 56px; bottom: 120px; right: 7%; animation: cta-coin-float-a 6s ease-in-out infinite; }
+        .cta-coin.usdt { width: 76px; height: 76px; top: 40px; left: 6%; animation: cta-coin-float-a 6s ease-in-out infinite; }
+        .cta-coin.btc  { width: 96px; height: 96px; top: 160px; left: 3%; animation: cta-coin-float-b 7s ease-in-out infinite; }
+        .cta-coin.eth  { width: 64px; height: 64px; bottom: 80px; left: 8%; animation: cta-coin-float-c 5.5s ease-in-out infinite; }
+        .cta-coin.usdc { width: 84px; height: 84px; top: 90px; right: 5%; animation: cta-coin-float-b 6.5s ease-in-out infinite; }
+        .cta-coin.sol  { width: 70px; height: 70px; top: 220px; right: 3%; animation: cta-coin-float-c 7.5s ease-in-out infinite; }
+        .cta-coin.xlm  { width: 56px; height: 56px; bottom: 120px; right: 7%; animation: cta-coin-float-a 6s ease-in-out infinite; }
         .cta-rain-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0.6; }
         .cta-bill {
           position: absolute;
@@ -9676,19 +9657,31 @@ function BigCTA() {
       inset: 0
     },
     "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "cta-coin usdt"
-  }, "USDT"), /*#__PURE__*/React.createElement("div", {
-    className: "cta-coin btc"
-  }, "\u20BF"), /*#__PURE__*/React.createElement("div", {
-    className: "cta-coin eth"
-  }, "\u039E"), /*#__PURE__*/React.createElement("div", {
-    className: "cta-coin usdc"
-  }, "USDC"), /*#__PURE__*/React.createElement("div", {
-    className: "cta-coin sol"
-  }, "SOL"), /*#__PURE__*/React.createElement("div", {
-    className: "cta-coin arb"
-  }, "ARB"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "cta-coin usdt",
+    src: (window.__HH_BASE__+"assets/crypto-usdt.svg"),
+    alt: ""
+  }), /*#__PURE__*/React.createElement("img", {
+    className: "cta-coin btc",
+    src: (window.__HH_BASE__+"assets/crypto-btc.svg"),
+    alt: ""
+  }), /*#__PURE__*/React.createElement("img", {
+    className: "cta-coin eth",
+    src: (window.__HH_BASE__+"assets/crypto-eth.svg"),
+    alt: ""
+  }), /*#__PURE__*/React.createElement("img", {
+    className: "cta-coin usdc",
+    src: (window.__HH_BASE__+"assets/crypto-usdc.svg"),
+    alt: ""
+  }), /*#__PURE__*/React.createElement("img", {
+    className: "cta-coin sol",
+    src: (window.__HH_BASE__+"assets/crypto-sol.svg"),
+    alt: ""
+  }), /*#__PURE__*/React.createElement("img", {
+    className: "cta-coin xlm",
+    src: (window.__HH_BASE__+"assets/crypto-stellar.svg"),
+    alt: ""
+  }), /*#__PURE__*/React.createElement("div", {
     className: "cta-spark",
     style: {
       width: 8,
@@ -9861,115 +9854,155 @@ function BigCTA() {
   }, "Read the rules")))))));
 }
 function Footer() {
+  const columns = [{
+    t: "Product",
+    l: ["Challenges", "Affiliate Program", "Blog", "Open Guide"]
+  }, {
+    t: "About us",
+    l: ["Support", "FAQ", "Vacancies"]
+  }, {
+    t: "Other",
+    l: ["Privacy Policy", "Terms And Conditions", "Commercial Terms", "Affiliate Policies"]
+  }];
+  const partners = [{
+    name: "HyperPay",
+    style: {
+      fontStyle: "italic",
+      fontWeight: 900
+    }
+  }, {
+    name: "Cipherbc",
+    style: {
+      fontWeight: 700,
+      letterSpacing: "-0.05em"
+    }
+  }, {
+    name: "TradingView",
+    style: {
+      fontWeight: 800
+    }
+  }, {
+    name: "CoinMarketCap",
+    style: {
+      fontWeight: 700
+    }
+  }, {
+    name: "Crypto Banter",
+    style: {
+      fontWeight: 900,
+      textTransform: "uppercase",
+      fontSize: 16,
+      lineHeight: 1.05
+    }
+  }];
   return /*#__PURE__*/React.createElement("footer", {
     style: {
-      borderTop: "1px solid var(--line)",
-      padding: "64px 0 32px",
-      background: "var(--bg)"
+      padding: "88px 0 64px",
+      background: "var(--bg-elev)",
+      borderTop: "1px solid var(--line)"
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
+    className: "container",
+    style: {
+      maxWidth: 1180
+    }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1.5fr 1fr 1fr 1fr 1fr",
-      gap: 40,
-      marginBottom: 48
+      gridTemplateColumns: "1.25fr repeat(3, 1fr)",
+      gap: 86,
+      marginBottom: 92
     }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 14,
-      color: "var(--fg-dim)",
-      marginTop: 20,
-      lineHeight: 1.6,
-      maxWidth: 300
+      paddingTop: 4
     }
-  }, "Crypto-native prop trading firm. Backing skilled traders with up to $200,000 in live capital. Registered UAE."), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("p", {
     style: {
-      display: "flex",
-      gap: 10,
-      marginTop: 24
+      fontSize: 15,
+      color: "var(--fg-low)",
+      marginTop: 44,
+      lineHeight: 1.45,
+      maxWidth: 260
     }
-  }, [{
-    k: "TG",
-    u: "https://t.me/hhcomunity"
-  }, {
-    k: "X",
-    u: "#"
-  }, {
-    k: "YT",
-    u: "#"
-  }, {
-    k: "DS",
-    u: "#"
-  }].map(s => /*#__PURE__*/React.createElement("a", {
-    key: s.k,
-    href: s.u,
-    style: {
-      width: 40,
-      height: 40,
-      borderRadius: 8,
-      border: "1px solid var(--line)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: 11,
-      fontWeight: 700,
-      color: "var(--fg-dim)",
-      textDecoration: "none"
-    }
-  }, s.k)))), [{
-    t: "Platform",
-    l: ["2-phase Challenge", "Pricing", "Trading Rules", "Scaling Plan", "Payouts"]
-  }, {
-    t: "Resources",
-    l: ["Trader Dashboard", "Economic Calendar", "Blog", "Academy", "Glossary"]
-  }, {
-    t: "Company",
-    l: ["About us", "The team", "Press", "Affiliate program", "Careers"]
-  }, {
-    t: "Legal",
-    l: ["Terms of service", "Privacy policy", "AML policy", "Trader agreement", "Disclaimers"]
-  }].map(col => /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge \u2013 Crypto Prop Trading Platform: Trade, prove your skills, manage capital.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
     key: col.t
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 12,
+      fontSize: 18,
       fontWeight: 800,
-      letterSpacing: "0.12em",
-      color: "var(--fg)",
-      marginBottom: 18
+      letterSpacing: "-0.01em",
+      color: "rgba(238,238,243,0.28)",
+      textTransform: "uppercase",
+      marginBottom: 26
     }
-  }, col.t.toUpperCase()), /*#__PURE__*/React.createElement("ul", {
+  }, col.t), /*#__PURE__*/React.createElement("ul", {
     style: {
       listStyle: "none",
       padding: 0,
       margin: 0,
       display: "flex",
       flexDirection: "column",
-      gap: 10
+      gap: 18
     }
   }, col.l.map(li => /*#__PURE__*/React.createElement("li", {
     key: li
   }, /*#__PURE__*/React.createElement("a", {
     href: "#",
     style: {
-      fontSize: 14,
-      color: "var(--fg-dim)",
+      fontSize: 15,
+      color: "rgba(238,238,243,0.72)",
       textDecoration: "none"
     }
   }, li))))))), /*#__PURE__*/React.createElement("div", {
     style: {
-      borderTop: "1px solid var(--line)",
-      paddingTop: 24,
       display: "flex",
-      justifyContent: "space-between",
-      fontSize: 13,
-      color: "var(--fg-low)",
-      flexWrap: "wrap",
-      gap: 20
+      alignItems: "center",
+      gap: 54,
+      marginBottom: 116,
+      flexWrap: "wrap"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 HashHedge \xB7 UAE \xB7 All rights reserved"), /*#__PURE__*/React.createElement("span", null, "Trading involves substantial risk. Challenge fees are non-refundable until first payout."))));
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 800,
+      color: "rgba(238,238,243,0.8)"
+    }
+  }, "Our Partners"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 42,
+      flexWrap: "wrap"
+    }
+  }, partners.map((p, i) => /*#__PURE__*/React.createElement("div", {
+    key: p.name,
+    style: {
+      color: "#fff",
+      opacity: i === partners.length - 1 ? 0.65 : 0.95,
+      fontSize: i === 1 ? 25 : 18,
+      fontFamily: "Onest, sans-serif",
+      ...p.style
+    }
+  }, p.name)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: "rgba(238,238,243,0.86)",
+      marginBottom: 34
+    }
+  }, "\xA9 2025 HashHedge. All Right Reserved."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      lineHeight: 1.35,
+      color: "rgba(238,238,243,0.36)",
+      maxWidth: 1050,
+      margin: "0 auto"
+    }
+  }, "All information provided on this website is intended solely for the purpose of learning about trading in the financial markets and in no way constitutes specific investment advice, business advice, analysis of investment opportunities or similar general advice regarding trading in investment instruments."))));
 }
 Object.assign(window, {
   TeamCerts,
