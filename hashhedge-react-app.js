@@ -2566,6 +2566,15 @@ function Pricing() {
   };
   const price = pricing[size];
   const popular = 25000;
+  const accountNotes = {
+    5000: "Starter account for testing the rules with the lowest entry fee.",
+    10000: "Compact account for first-time funded traders who want more room.",
+    25000: "Most popular balance of fee, capital and practical drawdown room.",
+    50000: "A serious account size for consistent daily crypto strategies.",
+    100000: "Built for experienced traders who already manage larger risk.",
+    150000: "Higher capital with the same transparent two-phase rule set.",
+    200000: "Maximum Hash Hedge allocation and the best fee-to-capital ratio."
+  };
 
   // Per-stage rule values – single source of truth.
   const rules = [{
@@ -2846,6 +2855,7 @@ function Pricing() {
         fontFamily: "Onest, sans-serif"
       }
     }, badge && /*#__PURE__*/React.createElement("div", {
+      "data-account-tab-badge": true,
       style: {
         position: "absolute",
         top: -10,
@@ -2861,6 +2871,7 @@ function Pricing() {
         whiteSpace: "nowrap"
       }
     }, badge), /*#__PURE__*/React.createElement("div", {
+      "data-account-tab-label": true,
       style: {
         fontSize: 9,
         fontWeight: 700,
@@ -2870,6 +2881,8 @@ function Pricing() {
         marginBottom: 5
       }
     }, "Account"), /*#__PURE__*/React.createElement("div", {
+      "data-account-tab-size": true,
+      "data-short-label": s >= 1000 ? `${s / 1000}K` : String(s),
       style: {
         fontSize: 21,
         fontWeight: 800,
@@ -2878,6 +2891,7 @@ function Pricing() {
         lineHeight: 1
       }
     }, "$", s.toLocaleString()), /*#__PURE__*/React.createElement("div", {
+      "data-account-tab-fee": true,
       style: {
         marginTop: 8,
         paddingTop: 7,
@@ -2888,6 +2902,7 @@ function Pricing() {
         color: active ? "var(--accent)" : "var(--fg-muted)"
       }
     }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
+      "data-account-tab-note": true,
       style: {
         fontSize: 10,
         color: "var(--fg-low)",
@@ -2895,6 +2910,40 @@ function Pricing() {
       }
     }, "one-time"));
   })))), /*#__PURE__*/React.createElement(Reveal, {
+    delay: "3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-account-card",
+    "aria-live": "polite"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-account-head"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-account-label"
+  }, "Account"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-account-size"
+  }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-account-fee"
+  }, /*#__PURE__*/React.createElement("span", null, "One-time fee"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-account-rules"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Daily loss"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Max DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Min days"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Period"), /*#__PURE__*/React.createElement("b", null, "Unlimited"))), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/client/register",
+    target: "_blank",
+    rel: "noopener",
+    className: "btn btn-primary btn-lg"
+  }, "Start Challenge", /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    style: {
+      marginLeft: 8
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M5 12h14M13 5l7 7-7 7",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }))))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "4"
   }, /*#__PURE__*/React.createElement("div", {
     "data-mobile-comp-table": true,
