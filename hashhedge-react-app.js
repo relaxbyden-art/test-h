@@ -2398,13 +2398,14 @@ function HowItWorks() {
       display: "grid",
       gridTemplateColumns: "repeat(3, 1fr)",
       gap: 24,
-      position: "relative"
+      position: "relative",
+      alignItems: "stretch"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
       top: 42,
-      left: "16.66%",
+      left: "calc(16.66% - 42px)",
       right: "16.66%",
       height: 2,
       background: "linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent)",
@@ -2417,7 +2418,11 @@ function HowItWorks() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zIndex: 1
+      zIndex: 1,
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "how-step-badge",
@@ -2433,7 +2438,7 @@ function HowItWorks() {
       fontSize: 28,
       fontWeight: 800,
       color: "var(--accent)",
-      marginBottom: 32,
+      margin: "0 auto 32px",
       fontFamily: "Akrobat, Onest, sans-serif",
       position: "relative",
       animationDelay: `${i * 0.6}s`
@@ -2446,7 +2451,12 @@ function HowItWorks() {
   }, s.n)), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
-      padding: 32
+      padding: 32,
+      height: "100%",
+      width: "100%",
+      minHeight: 410,
+      display: "flex",
+      flexDirection: "column"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2468,7 +2478,8 @@ function HowItWorks() {
       fontSize: 15,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
-      margin: "0 0 20px"
+      margin: "0 0 20px",
+      minHeight: 118
     }
   }, s.d), /*#__PURE__*/React.createElement("ul", {
     style: {
@@ -3394,7 +3405,7 @@ function WhyUs() {
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      inset: 0,
+      inset: "22px 0 0",
       display: "flex",
       alignItems: "center",
       justifyContent: "center"
@@ -3412,12 +3423,14 @@ function WhyUs() {
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
-      fontFamily: "Akrobat, Onest, sans-serif"
+      fontFamily: "Akrobat, Onest, sans-serif",
+      zIndex: 4
     }
   }, c.n)), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: 24,
-      flex: 1
+      flex: 1,
+      minHeight: 214
     }
   }, /*#__PURE__*/React.createElement("h3", {
     style: {
@@ -3965,17 +3978,24 @@ function ArtScale() {
       animationDelay: `${i * 0.18}s`
     }
   }))), /*#__PURE__*/React.createElement("svg", {
-    width: "30",
+    width: "34",
     height: "150",
-    viewBox: "0 0 30 150",
+    viewBox: "0 0 34 150",
     style: {
-      marginLeft: -4
+      marginLeft: -2
     }
   }, /*#__PURE__*/React.createElement("path", {
-    d: "M5 140 L25 25 M25 25 L15 35 M25 25 L25 38",
+    d: "M7 136 L27 28",
     stroke: "var(--accent)",
-    strokeWidth: "2.5",
+    strokeWidth: "2.8",
     strokeLinecap: "round",
+    fill: "none"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M27 28 L17 38 M27 28 L30 42",
+    stroke: "var(--accent)",
+    strokeWidth: "2.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
     fill: "none"
   })));
 }
@@ -4411,7 +4431,7 @@ function PayoutShowcase() {
       fontSize: 22,
       fontWeight: 800,
       letterSpacing: "-0.01em",
-      color: i === 2 ? "var(--accent)" : "var(--fg-dim)",
+      color: "var(--fg-dim)",
       fontFamily: "Akrobat, Onest, sans-serif",
       lineHeight: 1
     }
@@ -4468,13 +4488,13 @@ function PayoutShowcase() {
       right: -14,
       padding: "8px 14px",
       borderRadius: 999,
-      background: "var(--accent)",
-      color: "#13111c",
+      background: "var(--green)",
+      color: "#07150d",
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
       fontFamily: "Onest, sans-serif",
-      boxShadow: "0 10px 30px rgba(252,213,53,0.4)",
+      boxShadow: "0 10px 30px rgba(124,216,160,0.35)",
       display: "flex",
       alignItems: "center",
       gap: 6
@@ -4484,7 +4504,7 @@ function PayoutShowcase() {
       width: 6,
       height: 6,
       borderRadius: "50%",
-      background: "#13111c"
+      background: "#07150d"
     }
   }), "REAL PAYOUT"), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4663,8 +4683,8 @@ function PressStrip() {
     "data-mobile-press-scroll": true,
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(8, 1fr)",
-      gap: 12,
+      gridTemplateColumns: "repeat(8, minmax(0, 1fr))",
+      gap: 0,
       alignItems: "center"
     }
   }, press.map((p, i) => /*#__PURE__*/React.createElement("a", {
@@ -4677,6 +4697,7 @@ function PressStrip() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+      padding: "0 16px",
       color: "var(--fg-muted)",
       opacity: 0.85,
       borderLeft: i === 0 ? "none" : "1px solid var(--line)",
@@ -4810,7 +4831,7 @@ function EventsTournaments() {
       lineHeight: 1.55,
       color: "var(--fg-muted)",
       maxWidth: 380,
-      margin: 0
+      margin: "0 0 8px"
     }
   }, "Dubai. S\xE3o Paulo. Moscow. From main-stage keynotes to live-trading booths and top-affiliate awards \u2013 this is the Hash Hedge team on the ground."))), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -7541,7 +7562,7 @@ function BlueprintTOC({
     if (!inView) return;
     const id = setInterval(() => {
       setActiveIdx(i => (i + 1) % sections.length);
-    }, 1800);
+    }, 2400);
     return () => clearInterval(id);
   }, [inView, sections.length]);
   return /*#__PURE__*/React.createElement("div", {
@@ -7557,12 +7578,13 @@ function BlueprintTOC({
       position: "absolute",
       left: -16,
       right: -16,
-      top: `calc(${activeIdx} * 64px)`,
-      height: 64,
+      top: `calc(${activeIdx} * 72px)`,
+      height: 72,
       background: "linear-gradient(90deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0) 100%)",
       borderLeft: "2px solid var(--accent)",
       borderRadius: "0 8px 8px 0",
-      transition: "top .6s cubic-bezier(.65,0,.35,1)",
+      transition: "top .85s cubic-bezier(.22,1,.36,1)",
+      willChange: "top",
       pointerEvents: "none",
       opacity: inView ? 1 : 0
     }
@@ -7577,13 +7599,14 @@ function BlueprintTOC({
         gridTemplateColumns: "44px 1fr 24px",
         padding: "16px 0",
         gap: 16,
+        minHeight: 72,
         borderTop: i === 0 ? "none" : "1px solid var(--line)",
         alignItems: "center",
         position: "relative",
         zIndex: 1,
         opacity: inView ? 1 : 0,
         transform: inView ? "translateX(0)" : "translateX(-12px)",
-        transition: `opacity .5s ease ${i * 0.08}s, transform .5s ease ${i * 0.08}s, filter .3s`,
+        transition: `opacity .5s ease ${i * 0.08}s, transform .5s ease ${i * 0.08}s`,
         filter: isActive ? "none" : isRead ? "none" : "none"
       }
     }, /*#__PURE__*/React.createElement("div", {
@@ -7832,7 +7855,7 @@ function YouTubeSection() {
       display: "grid",
       gridTemplateColumns: "1.1fr 1fr",
       gap: 80,
-      alignItems: "end",
+      alignItems: "center",
       marginBottom: 56
     }
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
@@ -7868,37 +7891,13 @@ function YouTubeSection() {
       fontSize: 17,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
-      marginBottom: 24
+      margin: 0
     }
   }, /*#__PURE__*/React.createElement("strong", {
     style: {
       color: "var(--fg)"
     }
-  }, "2,500+ partners worldwide"), " \u2013 watch videos featuring HashHedge from independent crypto creators. Playthroughs, payout proofs, and platform deep-dives. No sponsorships hidden, no scripts."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 28,
-      flexWrap: "wrap",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 28,
-      fontWeight: 800,
-      color: "var(--fg)",
-      fontFamily: "Akrobat, sans-serif",
-      letterSpacing: "-0.02em",
-      lineHeight: 1
-    }
-  }, "2,500+"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12,
-      color: "var(--fg-muted)",
-      marginTop: 4,
-      textTransform: "uppercase",
-      letterSpacing: "0.1em"
-    }
-  }, "partners worldwide")))))), /*#__PURE__*/React.createElement("div", {
+  }, "2,500+ partners worldwide"), " \u2013 watch videos featuring HashHedge from independent crypto creators. Playthroughs, payout proofs, and platform deep-dives. No sponsorships hidden, no scripts.")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.7fr 1fr",
@@ -7950,7 +7949,7 @@ function YouTubeSection() {
       color: "var(--fg-dim)",
       textTransform: "uppercase"
     }
-  }, rail.length, " more reviews \xB7 scroll \u2192"), /*#__PURE__*/React.createElement("div", {
+  }, rail.length, " more reviews"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8
@@ -9360,7 +9359,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". Support is available 24/7.")
-  }];
+  }].slice(0, 10);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {
@@ -9481,7 +9480,34 @@ function FAQ() {
       paddingTop: 20,
       marginTop: 0
     }
-  }, it.a))))))));
+  }, it.a)))))), /*#__PURE__*/React.createElement(Reveal, {
+    delay: "3"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: 28
+    }
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
+    target: "_blank",
+    rel: "noopener",
+    className: "btn btn-ghost"
+  }, "Open full FAQ", /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 14 14",
+    fill: "none",
+    style: {
+      marginLeft: 8
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M3 7h8m0 0L7 3m4 4l-4 4",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })))))));
 }
 function BigCTA() {
   useRevealOnScroll();
