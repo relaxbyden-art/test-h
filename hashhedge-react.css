@@ -5562,3 +5562,103 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     margin-top: 2px !important;
   }
 }
+
+
+/* =====================================================================
+   MOBILE FIXES BATCH 3 — 2026-05-06
+   1. FAQ: reduce block height / padding
+   2. HowItWorks mobile: less air around steps
+   3. PayoutShowcase: remove zoom-in cursor on image
+   ===================================================================== */
+
+/* ── 1. FAQ — tighter question rows (desktop + mobile) ── */
+#hashhedge-root .tilda-html-hashhedge #faq section,
+#hashhedge-root .tilda-html-hashhedge #faq {
+  padding-top: 64px !important;
+  padding-bottom: 64px !important;
+}
+#hashhedge-root .tilda-html-hashhedge #faq [style*="margin-bottom: 64px"] {
+  margin-bottom: 36px !important;
+}
+#hashhedge-root .tilda-html-hashhedge #faq [style*="gap: 12px"] {
+  gap: 8px !important;
+}
+/* Question row: less vertical padding */
+#hashhedge-root .tilda-html-hashhedge #faq [style*="padding: 24px 28px"] {
+  padding: 16px 22px !important;
+}
+/* Answer row: less bottom padding */
+#hashhedge-root .tilda-html-hashhedge #faq [style*="padding: 0 28px 28px"] {
+  padding: 0 22px 18px !important;
+  padding-top: 14px !important;
+}
+/* Question text: slightly smaller */
+#hashhedge-root .tilda-html-hashhedge #faq h3[style*="font-size: 18px"] {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge #faq {
+    padding-top: 44px !important;
+    padding-bottom: 44px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="margin-bottom: 64px"] {
+    margin-bottom: 24px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="gap: 12px"],
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="gap: 8px"] {
+    gap: 6px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="padding: 24px 28px"],
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="padding: 16px 22px"] {
+    padding: 13px 16px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="padding: 0 28px 28px"],
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="padding: 0 22px 18px"] {
+    padding: 0 16px 14px !important;
+    padding-top: 12px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq h3[style*="font-size: 18px"] {
+    font-size: 14px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="font-size: 16px"][style*="line-height: 1.6"] {
+    font-size: 14px !important;
+  }
+  /* toggle button smaller */
+  #hashhedge-root .tilda-html-hashhedge #faq [style*="width: 36px"][style*="height: 36px"] {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+  }
+}
+
+/* ── 2. HowItWorks mobile: tighten steps ── */
+@media (max-width: 640px) {
+  /* Less space between badge and card */
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
+    margin-bottom: 8px !important;
+  }
+  /* Card: remove forced min-height, tighten padding */
+  #hashhedge-root .tilda-html-hashhedge #how .card[style*="min-height: 410px"],
+  #hashhedge-root .tilda-html-hashhedge #how .card[style*="minHeight: 410"] {
+    min-height: 0 !important;
+    padding: 18px !important;
+  }
+  /* reduce description text min-height */
+  #hashhedge-root .tilda-html-hashhedge #how .card p[style*="min-height: 118px"] {
+    min-height: 0 !important;
+    margin-bottom: 12px !important;
+  }
+  /* steps grid gap tighter */
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) {
+    gap: 10px !important;
+    padding-top: 12px !important;
+  }
+}
+
+/* ── 3. PayoutShowcase: remove zoom-in cursor ── */
+#hashhedge-root .tilda-html-hashhedge #payouts [style*="cursor: zoom-in"] {
+  cursor: default !important;
+}
