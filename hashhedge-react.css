@@ -4811,6 +4811,54 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 }
 
+/* ============================================================
+   FINAL OVERRIDES — applied after all section-specific rules
+   ============================================================ */
+
+/* 1. Uniform heading → description gap across ALL mobile sections.
+      Use max-specificity selector so it wins regardless of order. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge section .h1,
+  #hashhedge-root .tilda-html-hashhedge section h2,
+  #hashhedge-root .tilda-html-hashhedge section h3 {
+    margin-bottom: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge section .h1 + *,
+  #hashhedge-root .tilda-html-hashhedge section h2 + *,
+  #hashhedge-root .tilda-html-hashhedge section h3 + * {
+    margin-top: 0 !important;
+  }
+
+  /* Reveal wrappers immediately after a heading: also zero top gap */
+  #hashhedge-root .tilda-html-hashhedge section .h1 + .reveal,
+  #hashhedge-root .tilda-html-hashhedge section h2 + .reveal,
+  #hashhedge-root .tilda-html-hashhedge section h3 + .reveal {
+    margin-top: 0 !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge section .h1 + .reveal > *,
+  #hashhedge-root .tilda-html-hashhedge section h2 + .reveal > *,
+  #hashhedge-root .tilda-html-hashhedge section h3 + .reveal > * {
+    margin-top: 0 !important;
+  }
+}
+
+/* 2. Reviews rating summary — remove ALL visual card treatment on mobile.
+      Covers every possible wrapper that might carry a background/border. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary,
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > *,
+  #hashhedge-root .tilda-html-hashhedge .hh-review-rating-summary > * > * {
+    background: none !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+}
+
 
 #hashhedge-root .tilda-html-hashhedge a{color:inherit!important;text-decoration:none!important}
 #hashhedge-root .tilda-html-hashhedge .nav a:not(.btn){color:var(--fg-muted)!important}
