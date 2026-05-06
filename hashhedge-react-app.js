@@ -10965,6 +10965,69 @@ function HashHedgeReactApp() {
     anim: "max"
   }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null));
 }
+function PopupChartBg() {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "hh-popup-chart-bg",
+    viewBox: "0 0 400 260",
+    xmlns: "http://www.w3.org/2000/svg",
+    preserveAspectRatio: "xMidYMid slice"
+  },
+  /* grid lines */
+  React.createElement("g", { stroke: "#ffffff", strokeWidth: "0.5", opacity: "0.4" },
+    React.createElement("line", { x1: "0", y1: "52", x2: "400", y2: "52" }),
+    React.createElement("line", { x1: "0", y1: "104", x2: "400", y2: "104" }),
+    React.createElement("line", { x1: "0", y1: "156", x2: "400", y2: "156" }),
+    React.createElement("line", { x1: "0", y1: "208", x2: "400", y2: "208" }),
+    React.createElement("line", { x1: "80", y1: "0", x2: "80", y2: "260" }),
+    React.createElement("line", { x1: "160", y1: "0", x2: "160", y2: "260" }),
+    React.createElement("line", { x1: "240", y1: "0", x2: "240", y2: "260" }),
+    React.createElement("line", { x1: "320", y1: "0", x2: "320", y2: "260" })
+  ),
+  /* price line — upward trend */
+  React.createElement("polyline", {
+    points: "0,220 40,210 70,215 100,195 130,180 150,188 170,165 200,150 220,158 245,130 265,118 290,105 310,115 330,90 355,75 380,55 400,45",
+    fill: "none",
+    stroke: "#fcd535",
+    strokeWidth: "2",
+    strokeLinejoin: "round",
+    strokeLinecap: "round"
+  }),
+  /* area fill under line */
+  React.createElement("polygon", {
+    points: "0,220 40,210 70,215 100,195 130,180 150,188 170,165 200,150 220,158 245,130 265,118 290,105 310,115 330,90 355,75 380,55 400,45 400,260 0,260",
+    fill: "url(#chartGrad)",
+    opacity: "0.35"
+  }),
+  /* gradient def */
+  React.createElement("defs", null,
+    React.createElement("linearGradient", { id: "chartGrad", x1: "0", y1: "0", x2: "0", y2: "1" },
+      React.createElement("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: "0.5" }),
+      React.createElement("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: "0" })
+    )
+  ),
+  /* candle wicks - green candles */
+  React.createElement("g", { stroke: "#4ade80", strokeWidth: "1.5" },
+    React.createElement("line", { x1: "25", y1: "208", x2: "25", y2: "218" }),
+    React.createElement("line", { x1: "55", y1: "205", x2: "55", y2: "216" }),
+    React.createElement("line", { x1: "115", y1: "188", x2: "115", y2: "200" }),
+    React.createElement("line", { x1: "185", y1: "157", x2: "185", y2: "170" }),
+    React.createElement("line", { x1: "255", y1: "122", x2: "255", y2: "134" }),
+    React.createElement("line", { x1: "345", y1: "82", x2: "345", y2: "95" }),
+    React.createElement("line", { x1: "390", y1: "43", x2: "390", y2: "57" })
+  ),
+  /* candle bodies - green */
+  React.createElement("g", { fill: "#4ade80" },
+    React.createElement("rect", { x: "20", y: "210", width: "10", height: "6", rx: "1" }),
+    React.createElement("rect", { x: "50", y: "207", width: "10", height: "6", rx: "1" }),
+    React.createElement("rect", { x: "110", y: "190", width: "10", height: "7", rx: "1" }),
+    React.createElement("rect", { x: "180", y: "160", width: "10", height: "7", rx: "1" }),
+    React.createElement("rect", { x: "250", y: "124", width: "10", height: "7", rx: "1" }),
+    React.createElement("rect", { x: "340", y: "84", width: "10", height: "8", rx: "1" }),
+    React.createElement("rect", { x: "385", y: "46", width: "10", height: "8", rx: "1" })
+  )
+  );
+}
+
 function PromoPopup() {
   const [open, setOpen] = __useS(true);
   const [time, setTime] = __useS({
@@ -11049,10 +11112,10 @@ function PromoPopup() {
     onClick: () => setOpen(false)
   }, "Start Challenge"), /*#__PURE__*/React.createElement("p", {
     className: "hh-popup-disclaimer"
-  }, "A 90/10 profit split is locked in for you forever", /*#__PURE__*/React.createElement("br", null), "on every challenge payout")), /*#__PURE__*/React.createElement("div", {
+  }, "A 90/10 profit split is locked in for you forever on every challenge payout")), /*#__PURE__*/React.createElement("div", {
     className: "hh-popup-art",
     "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement(PromoProfitSplitArt, null)))));
+  }, /*#__PURE__*/React.createElement(PopupChartBg, null), /*#__PURE__*/React.createElement(PromoProfitSplitArt, null)))));
 }
 
 ReactDOM.createRoot(document.getElementById("hashhedge-root")).render(/*#__PURE__*/React.createElement(HashHedgeReactApp, null));

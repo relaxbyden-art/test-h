@@ -5257,7 +5257,6 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   line-height: 1.08;
   letter-spacing: -0.02em;
   color: var(--fg);
-  text-transform: uppercase;
 }
 .hh-popup-sub {
   margin: 0 0 26px;
@@ -5341,49 +5340,72 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
 /* — Art side — */
 .hh-popup-art {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 280px;
+}
+.hh-popup-chart-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  pointer-events: none;
 }
 .hh-popup-art .hh-promo-art-svg {
+  position: relative;
+  z-index: 1;
   width: min(420px, 100%);
   height: auto;
   animation: none;
   filter: drop-shadow(0 24px 48px rgba(0,0,0,0.6));
 }
 
-/* — Mobile — */
+/* — Mobile (≤ 640px) — */
 @media (max-width: 640px) {
   .hh-popup {
-    width: calc(100vw - 24px);
-    border-radius: 22px;
-    max-height: calc(100dvh - 40px);
-    overflow-y: auto;
-    top: 50%;
+    width: calc(100vw - 20px);
+    border-radius: 20px;
+    overflow: hidden;
   }
   .hh-popup-inner {
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 32px 22px 28px;
+    gap: 0;
+    padding: 22px 18px 20px;
   }
-  .hh-popup-art {
-    order: -1;
-    max-height: 180px;
-    overflow: hidden;
-  }
-  .hh-popup-art .hh-promo-art-svg {
-    width: min(320px, 110%);
-  }
+  .hh-popup-art { display: none; }
+  .hh-popup-badge { margin-bottom: 10px; font-size: 12px; padding: 5px 12px; }
   .hh-popup-title {
-    font-size: clamp(30px, 8.5vw, 36px);
+    font-size: clamp(25px, 7.5vw, 30px);
+    margin-bottom: 8px;
   }
+  .hh-popup-sub { font-size: 13px; margin-bottom: 12px; line-height: 1.4; }
+
+  /* Timer horizontal: label left, digits right */
   .hh-popup-timer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 14px;
   }
-  .hh-popup-timer-unit span { font-size: 26px; }
-  .hh-popup-cta { max-width: 100%; height: 54px; font-size: 16px; }
-  .hh-popup-disclaimer { max-width: 100%; text-align: left; }
+  .hh-popup-timer-label { font-size: 11px; }
+  .hh-popup-timer-digits { gap: 3px; }
+  .hh-popup-timer-unit { min-width: 24px; }
+  .hh-popup-timer-unit span { font-size: 20px; }
+  .hh-popup-timer-unit em { font-size: 9px; margin-top: 1px; }
+  .hh-popup-colon { font-size: 18px; margin-bottom: 6px; }
+
+  .hh-popup-cta { max-width: 100%; height: 50px; font-size: 15px; }
+  .hh-popup-disclaimer {
+    max-width: 100%;
+    text-align: center;
+    font-size: 11px;
+    margin-top: 10px;
+    white-space: normal;
+  }
 }
