@@ -2560,6 +2560,508 @@ Object.assign(window, {
   HowItWorks
 });
 
+function PromoSliderBanner() {
+  useRevealOnScroll();
+  const slides = [{
+    key: "x3",
+    eyebrow: "72H PAYOUT GUARANTEE",
+    title: "X3 Money-Back Guarantee",
+    copy: "If You Don’t Get Paid Within 72 Hours, We Pay You Back 3X. That’s our promise. No risk. No waiting. Just trading.",
+    cta: "Claim profit",
+    art: "x3"
+  }, {
+    key: "metals",
+    eyebrow: "NEW MARKETS LIVE",
+    title: "Trade Gold and Silver",
+    copy: "XAU/USDT and XAG/USDT are now available on the Hash Hedge platform",
+    cta: "Start Challenge",
+    art: "metals"
+  }, {
+    key: "profit-split",
+    eyebrow: "TRADER-FIRST SPLIT",
+    title: "Get 90% of the Profits",
+    copy: "90/10 Profit Split on all challenges",
+    cta: "Start Challenge",
+    art: "split"
+  }];
+  const [active, setActive] = __useS(0);
+  const [paused, setPaused] = __useS(false);
+  __useE(() => {
+    if (paused) return undefined;
+    const timer = setInterval(() => setActive(i => (i + 1) % slides.length), 6200);
+    return () => clearInterval(timer);
+  }, [paused, slides.length]);
+  const go = i => setActive((i + slides.length) % slides.length);
+  return /*#__PURE__*/React.createElement("section", {
+    className: "hh-promo-slider-section",
+    "aria-label": "Hash Hedge promotions"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    className: "hh-promo-slider",
+    onMouseEnter: () => setPaused(true),
+    onMouseLeave: () => setPaused(false),
+    onFocus: () => setPaused(true),
+    onBlur: () => setPaused(false)
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-promo-slider-track",
+    style: {
+      transform: `translateX(-${active * 100}%)`
+    }
+  }, slides.map((slide, i) => /*#__PURE__*/React.createElement("article", {
+    key: slide.key,
+    className: "hh-promo-slide",
+    "data-art": slide.art,
+    "aria-hidden": active !== i
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-promo-slide-copy"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "hh-promo-slide-eyebrow"
+  }, slide.eyebrow), /*#__PURE__*/React.createElement("h3", null, slide.title), /*#__PURE__*/React.createElement("p", null, slide.copy)), /*#__PURE__*/React.createElement("div", {
+    className: "hh-promo-slide-art",
+    "aria-hidden": "true"
+  }, slide.art === "x3" ? /*#__PURE__*/React.createElement(PromoX3Art, null) : slide.art === "split" ? /*#__PURE__*/React.createElement(PromoProfitSplitArt, null) : /*#__PURE__*/React.createElement(PromoMetalsArt, null)), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/client/register",
+    target: "_blank",
+    rel: "noopener",
+    className: "btn btn-primary hh-promo-slide-cta"
+  }, slide.cta))))), /*#__PURE__*/React.createElement("div", {
+    className: "hh-promo-slider-dots",
+    "aria-label": "Promotion slides"
+  }, slides.map((slide, i) => /*#__PURE__*/React.createElement("button", {
+    key: slide.key,
+    type: "button",
+    "aria-label": `Show ${slide.title}`,
+    "aria-current": active === i ? "true" : "false",
+    onClick: () => go(i)
+  }))))));
+}
+
+function PromoMetalsArt() {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "hh-promo-art-svg",
+    viewBox: "0 0 720 430",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("radialGradient", {
+    id: "hhPromoGoldFace",
+    cx: "0.38",
+    cy: "0.32",
+    r: "0.72"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fff59a"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.44",
+    stopColor: "#fcd535"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.76",
+    stopColor: "#b77716"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#3f2608"
+  })), /*#__PURE__*/React.createElement("radialGradient", {
+    id: "hhPromoSilverFace",
+    cx: "0.38",
+    cy: "0.28",
+    r: "0.72"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#ffffff"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.48",
+    stopColor: "#d7d5cd"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.78",
+    stopColor: "#87898d"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#282b31"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "hhPromoGoldEdge",
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fff7a8"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.52",
+    stopColor: "#a86d12"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#3b2307"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "hhPromoSilverEdge",
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fff"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.55",
+    stopColor: "#888b91"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#23252b"
+  })), /*#__PURE__*/React.createElement("filter", {
+    id: "hhPromoCoinShadow",
+    x: "-20%",
+    y: "-20%",
+    width: "140%",
+    height: "150%"
+  }, /*#__PURE__*/React.createElement("feDropShadow", {
+    dx: "0",
+    dy: "30",
+    stdDeviation: "18",
+    floodColor: "#000",
+    floodOpacity: "0.55"
+  }))), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "400",
+    cy: "354",
+    rx: "238",
+    ry: "34",
+    fill: "#000",
+    opacity: "0.36"
+  }), /*#__PURE__*/React.createElement("g", {
+    filter: "url(#hhPromoCoinShadow)"
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "286",
+    cy: "194",
+    r: "140",
+    fill: "url(#hhPromoGoldEdge)"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "270",
+    cy: "184",
+    r: "130",
+    fill: "url(#hhPromoGoldFace)"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "270",
+    cy: "184",
+    r: "108",
+    fill: "none",
+    stroke: "#6e440d",
+    strokeOpacity: "0.42",
+    strokeWidth: "7"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "270",
+    cy: "184",
+    r: "118",
+    fill: "none",
+    stroke: "#fff3a0",
+    strokeOpacity: "0.55",
+    strokeWidth: "3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "270",
+    y: "202",
+    textAnchor: "middle",
+    fontFamily: "Akrobat, Onest, sans-serif",
+    fontSize: "58",
+    fontWeight: "900",
+    fill: "#74470d",
+    opacity: "0.54",
+    letterSpacing: "3"
+  }, "XAU")), /*#__PURE__*/React.createElement("g", {
+    filter: "url(#hhPromoCoinShadow)"
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "474",
+    cy: "204",
+    r: "136",
+    fill: "url(#hhPromoSilverEdge)"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "458",
+    cy: "194",
+    r: "126",
+    fill: "url(#hhPromoSilverFace)"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "458",
+    cy: "194",
+    r: "104",
+    fill: "none",
+    stroke: "#505258",
+    strokeOpacity: "0.42",
+    strokeWidth: "7"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "458",
+    cy: "194",
+    r: "114",
+    fill: "none",
+    stroke: "#fff",
+    strokeOpacity: "0.58",
+    strokeWidth: "3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "458",
+    y: "210",
+    textAnchor: "middle",
+    fontFamily: "Akrobat, Onest, sans-serif",
+    fontSize: "56",
+    fontWeight: "900",
+    fill: "#54565b",
+    opacity: "0.54",
+    letterSpacing: "3"
+  }, "XAG")));
+}
+
+function PromoX3Art() {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "hh-promo-art-svg",
+    viewBox: "0 0 720 430",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: "hhPromoX3Face",
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fbf7e2"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.42",
+    stopColor: "#97938a"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.76",
+    stopColor: "#fff7d7"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#5b5b60"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: "hhPromoVault",
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#ffeb55"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.52",
+    stopColor: "#c69317"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#684006"
+  })), /*#__PURE__*/React.createElement("filter", {
+    id: "hhPromoX3Shadow",
+    x: "-20%",
+    y: "-20%",
+    width: "145%",
+    height: "150%"
+  }, /*#__PURE__*/React.createElement("feDropShadow", {
+    dx: "0",
+    dy: "30",
+    stdDeviation: "20",
+    floodColor: "#000",
+    floodOpacity: "0.6"
+  }))), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "420",
+    cy: "350",
+    rx: "250",
+    ry: "34",
+    fill: "#000",
+    opacity: "0.36"
+  }), /*#__PURE__*/React.createElement("g", {
+    filter: "url(#hhPromoX3Shadow)"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "430",
+    y: "76",
+    width: "188",
+    height: "188",
+    rx: "28",
+    fill: "url(#hhPromoVault)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "454",
+    y: "100",
+    width: "140",
+    height: "140",
+    rx: "22",
+    fill: "none",
+    stroke: "#fff071",
+    strokeOpacity: "0.35",
+    strokeWidth: "7"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "524",
+    cy: "170",
+    r: "46",
+    fill: "none",
+    stroke: "#80600f",
+    strokeOpacity: "0.58",
+    strokeWidth: "12"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "524",
+    cy: "170",
+    r: "12",
+    fill: "#e6b820"
+  }), [0, 60, 120, 180, 240, 300].map(r => /*#__PURE__*/React.createElement("path", {
+    key: r,
+    d: "M524 170 L524 126",
+    stroke: "#7d5b0d",
+    strokeWidth: "7",
+    strokeLinecap: "round",
+    transform: `rotate(${r} 524 170)`,
+    opacity: "0.46"
+  })), /*#__PURE__*/React.createElement("g", {
+    transform: "translate(142 75) skewX(-10)"
+  }, /*#__PURE__*/React.createElement("text", {
+    x: "0",
+    y: "172",
+    fontFamily: "Akrobat, Onest, sans-serif",
+    fontSize: "186",
+    fontWeight: "900",
+    fill: "#4a3922",
+    opacity: "0.62"
+  }, "X3"), /*#__PURE__*/React.createElement("text", {
+    x: "-10",
+    y: "158",
+    fontFamily: "Akrobat, Onest, sans-serif",
+    fontSize: "186",
+    fontWeight: "900",
+    fill: "url(#hhPromoX3Face)"
+  }, "X3")), /*#__PURE__*/React.createElement("path", {
+    d: "M118 270 H626 L606 294 H98 Z",
+    fill: "#28251e"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M120 272 H624",
+    stroke: "#a58a36",
+    strokeOpacity: "0.42",
+    strokeWidth: "5"
+  })));
+}
+
+function PromoProfitSplitArt() {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "hh-promo-art-svg",
+    viewBox: "0 0 720 430",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: "hhPromoSplitGold",
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "0"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#fff07a"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "0.58",
+    stopColor: "#fcd535"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#bd850f"
+  })), /*#__PURE__*/React.createElement("filter", {
+    id: "hhPromoSplitShadow",
+    x: "-20%",
+    y: "-20%",
+    width: "140%",
+    height: "150%"
+  }, /*#__PURE__*/React.createElement("feDropShadow", {
+    dx: "0",
+    dy: "28",
+    stdDeviation: "18",
+    floodColor: "#000",
+    floodOpacity: "0.55"
+  }))), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "360",
+    cy: "350",
+    rx: "238",
+    ry: "30",
+    fill: "#000",
+    opacity: "0.32"
+  }), /*#__PURE__*/React.createElement("g", {
+    filter: "url(#hhPromoSplitShadow)"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M112 308 H608 L588 334 H92 Z",
+    fill: "#28251e"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M114 310 H606",
+    stroke: "#a58a36",
+    strokeOpacity: "0.42",
+    strokeWidth: "5"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "112",
+    y: "86",
+    width: "496",
+    height: "228",
+    rx: "28",
+    fill: "#17151d",
+    stroke: "rgba(255,255,255,0.1)",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "132",
+    y: "106",
+    width: "456",
+    height: "188",
+    rx: "18",
+    fill: "rgba(255,255,255,0.025)",
+    stroke: "rgba(255,255,255,0.07)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "154",
+    y: "143",
+    fontFamily: "Onest, system-ui, sans-serif",
+    fontSize: "16",
+    fontWeight: "800",
+    fill: "var(--accent)",
+    letterSpacing: "2"
+  }, "PROFIT SPLIT"), /*#__PURE__*/React.createElement("text", {
+    x: "154",
+    y: "181",
+    fontFamily: "Onest, system-ui, sans-serif",
+    fontSize: "24",
+    fontWeight: "800",
+    fill: "var(--fg)"
+  }, "Trader receives"), /*#__PURE__*/React.createElement("text", {
+    x: "540",
+    y: "181",
+    textAnchor: "end",
+    fontFamily: "Onest, system-ui, sans-serif",
+    fontSize: "42",
+    fontWeight: "800",
+    fill: "var(--accent)"
+  }, "90%"), /*#__PURE__*/React.createElement("rect", {
+    x: "154",
+    y: "202",
+    width: "390",
+    height: "18",
+    rx: "9",
+    fill: "rgba(255,255,255,0.08)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "154",
+    y: "202",
+    width: "351",
+    height: "18",
+    rx: "9",
+    fill: "url(#hhPromoSplitGold)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "154",
+    y: "260",
+    fontFamily: "Onest, system-ui, sans-serif",
+    fontSize: "20",
+    fontWeight: "700",
+    fill: "var(--fg-muted)"
+  }, "Firm keeps"), /*#__PURE__*/React.createElement("text", {
+    x: "540",
+    y: "260",
+    textAnchor: "end",
+    fontFamily: "Onest, system-ui, sans-serif",
+    fontSize: "28",
+    fontWeight: "800",
+    fill: "var(--fg-muted)"
+  }, "10%"), /*#__PURE__*/React.createElement("rect", {
+    x: "154",
+    y: "274",
+    width: "390",
+    height: "12",
+    rx: "6",
+    fill: "rgba(255,255,255,0.07)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "154",
+    y: "274",
+    width: "39",
+    height: "12",
+    rx: "6",
+    fill: "rgba(255,255,255,0.28)"
+  })));
+}
+
+PromoBanner = PromoSliderBanner;
+Object.assign(window, {
+  PromoBanner
+});
+
 // Hash Hedge – Pricing (FundedNext-style), Why Us, Payouts
 const {
   useState: ___useS
