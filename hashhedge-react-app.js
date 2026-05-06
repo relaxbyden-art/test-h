@@ -10963,7 +10963,97 @@ function HashHedgeReactApp() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: "classic",
     anim: "max"
-  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null));
+  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null));
 }
+function PromoPopup() {
+  const [open, setOpen] = __useS(true);
+  const [time, setTime] = __useS({
+    h: 47,
+    m: 59,
+    s: 59
+  });
+  __useE(() => {
+    const KEY = "hh_popup_end_v1";
+    let end = parseInt(localStorage.getItem(KEY) || "0");
+    if (!end || end < Date.now()) {
+      end = Date.now() + 48 * 3600 * 1000;
+      localStorage.setItem(KEY, String(end));
+    }
+    const tick = () => {
+      const diff = Math.max(0, end - Date.now());
+      setTime({
+        h: Math.floor(diff / 3600000),
+        m: Math.floor(diff % 3600000 / 60000),
+        s: Math.floor(diff % 60000 / 1000)
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  if (!open) return null;
+  const pad = n => String(n).padStart(2, "0");
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-backdrop",
+    onClick: () => setOpen(false)
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup",
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-label": "Special offer"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "hh-popup-close",
+    onClick: () => setOpen(false),
+    "aria-label": "Close"
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "18",
+    height: "18",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M18 6L6 18M6 6l12 12",
+    stroke: "currentColor",
+    strokeWidth: "2.2",
+    strokeLinecap: "round"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-inner"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-copy"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "hh-popup-badge"
+  }, "48 hours"), /*#__PURE__*/React.createElement("h2", {
+    className: "hh-popup-title"
+  }, "Get 90%", /*#__PURE__*/React.createElement("br", null), "of the Profits"), /*#__PURE__*/React.createElement("p", {
+    className: "hh-popup-sub"
+  }, "Increased 90/10 profit split on all challenges"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-timer"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "hh-popup-timer-label"
+  }, "The offer ends in"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-timer-digits"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-timer-unit"
+  }, /*#__PURE__*/React.createElement("span", null, pad(time.h)), /*#__PURE__*/React.createElement("em", null, "h")), /*#__PURE__*/React.createElement("span", {
+    className: "hh-popup-colon"
+  }, ":"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-timer-unit"
+  }, /*#__PURE__*/React.createElement("span", null, pad(time.m)), /*#__PURE__*/React.createElement("em", null, "m")), /*#__PURE__*/React.createElement("span", {
+    className: "hh-popup-colon"
+  }, ":"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-timer-unit"
+  }, /*#__PURE__*/React.createElement("span", null, pad(time.s)), /*#__PURE__*/React.createElement("em", null, "s")))), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/client/register",
+    target: "_blank",
+    rel: "noopener",
+    className: "btn btn-primary hh-popup-cta",
+    onClick: () => setOpen(false)
+  }, "Start Challenge"), /*#__PURE__*/React.createElement("p", {
+    className: "hh-popup-disclaimer"
+  }, "A 90/10 profit split is locked in for you forever", /*#__PURE__*/React.createElement("br", null), "on every challenge payout")), /*#__PURE__*/React.createElement("div", {
+    className: "hh-popup-art",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement(PromoProfitSplitArt, null)))));
+}
+
 ReactDOM.createRoot(document.getElementById("hashhedge-root")).render(/*#__PURE__*/React.createElement(HashHedgeReactApp, null));
 })();
