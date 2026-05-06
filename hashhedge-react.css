@@ -4788,6 +4788,27 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     display: block !important;
     margin-bottom: 28px !important;
   }
+
+  /* 13. Tickers card: taller art area so rows are fully readable.
+     ArtTickers fills space adaptively (inset:0), no scale needed.
+     Also shrink fade gradients so they don't eat 80px of 148px. */
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="tickers"] {
+    min-height: 220px !important;
+  }
+
+  /* Don't scale tickers — it fills the column via position:absolute;inset:0 */
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"] > * {
+    transform: scale(1) !important;
+  }
+
+  /* Shrink top/bottom fade gradients so more rows are fully visible */
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] div[style*="linear-gradient(180deg"][style*="top: 0"] {
+    height: 18px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] div[style*="linear-gradient(0deg"][style*="bottom: 0"] {
+    height: 22px !important;
+  }
 }
 
 
