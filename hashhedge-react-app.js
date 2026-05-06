@@ -3754,38 +3754,11 @@ function ArtTickers() {
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      top: 10,
-      right: 12,
-      zIndex: 4,
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-      padding: "4px 9px",
-      borderRadius: 999,
-      background: "rgba(124,216,160,0.12)",
-      border: "1px solid rgba(124,216,160,0.25)",
-      fontSize: 9,
-      fontWeight: 800,
-      color: "var(--green)",
-      letterSpacing: "0.1em"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 6,
-      height: 6,
-      borderRadius: "50%",
-      background: "var(--green)",
-      animation: "why-pulse 1.4s ease-in-out infinite",
-      boxShadow: "0 0 6px var(--green)"
-    }
-  }), "LIVE"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      inset: "14px 14px",
+      inset: "10px 8px",
       animation: "art-ticker-scroll 22s linear infinite",
       display: "flex",
       flexDirection: "column",
-      gap: 7,
+      gap: 6,
       willChange: "transform"
     }
   }, list.map((c, i) => {
@@ -3796,14 +3769,16 @@ function ArtTickers() {
       key: `${c.sym}-${i}-${p.pulse}`,
       style: {
         display: "grid",
-        gridTemplateColumns: "22px 1fr auto",
+        gridTemplateColumns: "20px 1fr auto",
         alignItems: "center",
-        gap: 9,
-        padding: "8px 11px",
-        borderRadius: 9,
+        gap: 7,
+        padding: "6px 8px",
+        borderRadius: 8,
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(255,255,255,0.05)",
-        animation: flash
+        animation: flash,
+        minWidth: 0,
+        overflow: "hidden"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -3814,41 +3789,37 @@ function ArtTickers() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: 11,
+        fontSize: 10,
         fontWeight: 900,
         color: "#fff",
-        boxShadow: `0 0 10px ${c.color}44`
+        flexShrink: 0,
+        boxShadow: `0 0 8px ${c.color}44`
       }
     }, c.logo), /*#__PURE__*/React.createElement("div", {
       style: {
         display: "flex",
         flexDirection: "column",
-        lineHeight: 1.1
+        lineHeight: 1.1,
+        minWidth: 0
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        fontSize: 11,
+        fontSize: 10,
         fontWeight: 800,
         color: "var(--fg)",
         letterSpacing: "0.02em"
       }
-    }, c.sym), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 8.5,
-        fontWeight: 600,
-        color: "var(--fg-dim)",
-        marginTop: 1
-      }
-    }, c.name)), /*#__PURE__*/React.createElement("div", {
+    }, c.sym)), /*#__PURE__*/React.createElement("div", {
       style: {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
-        lineHeight: 1.1
+        lineHeight: 1.1,
+        flexShrink: 0
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        fontSize: 11,
+        fontSize: 10,
         fontWeight: 800,
         color: p.dir === 0 ? "var(--fg)" : isUp ? "var(--green)" : "#ff6b6b",
         fontVariantNumeric: "tabular-nums",
@@ -3962,19 +3933,26 @@ function ArtCoins() {
     style: {
       position: "relative",
       width: 180,
-      height: 180
+      height: 180,
+      flexShrink: 0
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      inset: 30,
+      top: 30,
+      left: 30,
+      width: 120,
+      height: 120,
       border: "1px dashed rgba(255,255,255,0.12)",
       borderRadius: "50%"
     }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      inset: 10,
+      top: 10,
+      left: 10,
+      width: 160,
+      height: 160,
       border: "1px dashed rgba(252,213,53,0.15)",
       borderRadius: "50%"
     }
@@ -4292,7 +4270,8 @@ function ArtClock() {
     style: {
       position: "relative",
       width: 160,
-      height: 160
+      height: 160,
+      flexShrink: 0
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {

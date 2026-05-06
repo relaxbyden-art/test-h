@@ -4718,6 +4718,8 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   /* 9. Scale down animations to fit the 148px column.
+     flex-shrink:0 prevents the animation container from being squished
+     (which would make circles oval and misalign clock hands).
      Match the high-specificity children selector from the conflicting block. */
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .hh-why-art-stage > * {
@@ -4725,6 +4727,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     transform-origin: center center !important;
     opacity: 1 !important;
     filter: none !important;
+    flex-shrink: 0 !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"] > *,
