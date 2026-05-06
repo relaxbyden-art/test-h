@@ -2973,7 +2973,8 @@ function PromoProfitSplitArt() {
     height: "228",
     rx: "28",
     fill: "#17151d",
-    stroke: "none"
+    stroke: "rgba(255,255,255,0.12)",
+    strokeWidth: "1"
   }), /*#__PURE__*/React.createElement("text", {
     x: "154",
     y: "143",
