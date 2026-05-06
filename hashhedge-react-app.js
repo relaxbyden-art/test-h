@@ -4297,7 +4297,10 @@ function ArtClock() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      inset: 20,
+      top: 20,
+      left: 20,
+      width: 120,
+      height: 120,
       borderRadius: "50%",
       border: "2px solid rgba(252,213,53,0.35)",
       background: "radial-gradient(circle at 30% 30%, rgba(252,213,53,0.12), transparent 60%)"

@@ -4700,7 +4700,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     pointer-events: none !important;
   }
 
-  /* 8. Art stage: centered inside 148px column, above glow */
+  /* 8. Art stage: centered, above glow.
+     Use the SAME high-specificity selector as the earlier opacity:0.28 rule
+     so we reliably override it (attribute selectors = higher specificity). */
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"],
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .hh-why-art-stage {
     position: absolute !important;
     inset: 0 !important;
@@ -4714,7 +4717,9 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     z-index: 3 !important;
   }
 
-  /* 9. Scale down animations to fit the 148px column */
+  /* 9. Scale down animations to fit the 148px column.
+     Match the high-specificity children selector from the conflicting block. */
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .hh-why-art-stage > * {
     transform: scale(0.60) !important;
     transform-origin: center center !important;
@@ -4722,14 +4727,20 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     filter: none !important;
   }
 
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="orderbook"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="orderbook"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="rules"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="rules"] .hh-why-art-stage > * {
     transform: scale(0.64) !important;
   }
 
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] .hh-why-art-stage > * {
     transform: scale(0.56) !important;
   }
