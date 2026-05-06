@@ -2586,7 +2586,7 @@ function PromoSliderBanner() {
   }];
   const [active, setActive] = __useS(0);
   const [paused, setPaused] = __useS(false);
-  const touchX = __useRef(null);
+  const touchX = __useR(null);
   __useE(() => {
     if (paused) return undefined;
     const timer = setInterval(() => setActive(i => (i + 1) % slides.length), 6200);
