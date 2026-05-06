@@ -2586,6 +2586,7 @@ function PromoSliderBanner() {
   }];
   const [active, setActive] = __useS(0);
   const [paused, setPaused] = __useS(false);
+  const touchX = __useRef(null);
   __useE(() => {
     if (paused) return undefined;
     const timer = setInterval(() => setActive(i => (i + 1) % slides.length), 6200);
@@ -2602,7 +2603,16 @@ function PromoSliderBanner() {
     onMouseEnter: () => setPaused(true),
     onMouseLeave: () => setPaused(false),
     onFocus: () => setPaused(true),
-    onBlur: () => setPaused(false)
+    onBlur: () => setPaused(false),
+    onTouchStart: e => { touchX.current = e.touches[0].clientX; setPaused(true); },
+    onTouchEnd: e => {
+      if (touchX.current === null) return;
+      const dx = e.changedTouches[0].clientX - touchX.current;
+      touchX.current = null;
+      setPaused(false);
+      if (Math.abs(dx) < 30) return;
+      go(dx < 0 ? active + 1 : active - 1);
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-promo-slider-track",
     style: {
@@ -2954,24 +2964,9 @@ function PromoProfitSplitArt() {
     stdDeviation: "18",
     floodColor: "#000",
     floodOpacity: "0.55"
-  }))), /*#__PURE__*/React.createElement("ellipse", {
-    cx: "360",
-    cy: "350",
-    rx: "238",
-    ry: "30",
-    fill: "#000",
-    opacity: "0.32"
-  }), /*#__PURE__*/React.createElement("g", {
+  }))), /*#__PURE__*/React.createElement("g", {
     filter: "url(#hhPromoSplitShadow)"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M112 308 H608 L588 334 H92 Z",
-    fill: "#28251e"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M114 310 H606",
-    stroke: "#a58a36",
-    strokeOpacity: "0.42",
-    strokeWidth: "5"
-  }), /*#__PURE__*/React.createElement("rect", {
+  }, /*#__PURE__*/React.createElement("rect", {
     x: "112",
     y: "86",
     width: "496",
@@ -3003,7 +2998,7 @@ function PromoProfitSplitArt() {
     fontSize: "24",
     fontWeight: "800",
     fill: "var(--fg)"
-  }, "Trader receives"), /*#__PURE__*/React.createElement("text", {
+  }, "Trader"), /*#__PURE__*/React.createElement("text", {
     x: "540",
     y: "181",
     textAnchor: "end",
@@ -3032,7 +3027,7 @@ function PromoProfitSplitArt() {
     fontSize: "20",
     fontWeight: "700",
     fill: "var(--fg-muted)"
-  }, "Firm keeps"), /*#__PURE__*/React.createElement("text", {
+  }, "Hash Hedge"), /*#__PURE__*/React.createElement("text", {
     x: "540",
     y: "260",
     textAnchor: "end",

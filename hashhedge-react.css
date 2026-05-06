@@ -5147,13 +5147,14 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     min-width: 0 !important;
     height: 54px !important;
     font-size: 16px !important;
-    margin-top: 10px !important;
+    margin-top: auto !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-promo-slide-art {
-    min-height: 150px !important;
-    margin: 0 0 8px !important;
-    flex: 0 0 150px !important;
+    min-height: 140px !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    max-height: 200px !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-promo-art-svg {
