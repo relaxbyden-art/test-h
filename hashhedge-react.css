@@ -5676,3 +5676,29 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 #hashhedge-root .tilda-html-hashhedge #payouts [style*="cursor: zoom-in"] {
   cursor: default !important;
 }
+
+
+/* ── Popup mobile: center all content ── */
+@media (max-width: 640px) {
+  .hh-popup-copy {
+    text-align: center !important;
+    align-items: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .hh-popup-badge {
+    align-self: center !important;
+  }
+  .hh-popup-timer {
+    align-self: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: auto !important;
+  }
+  .hh-popup-cta {
+    align-self: stretch !important;
+  }
+  .hh-popup-disclaimer {
+    text-align: center !important;
+  }
+}

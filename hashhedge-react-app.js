@@ -195,7 +195,7 @@ function HeroCanvas({
     const orders = []; // order-book ladder rows
     let currentCandle = null;
     let candleStartT = 0;
-    const CANDLE_MS = 1800; // 1.8s per candle – fast but readable
+    const CANDLE_MS = 4000; // 1.8s per candle – fast but readable
 
     const rand = (a, b) => a + Math.random() * (b - a);
     const seedCandles = () => {
@@ -271,7 +271,7 @@ function HeroCanvas({
         ctx.stroke();
       }
       // vertical time lines, drift
-      for (let x = now * 0.02 % gs; x < w; x += gs) {
+      for (let x = now * 0.006 % gs; x < w; x += gs) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, h);
@@ -282,7 +282,7 @@ function HeroCanvas({
       if (!candleStartT) candleStartT = now;
       const elapsed = now - candleStartT;
       // update current candle with live price walk
-      const drift = rand(-12, 12) + Math.sin(now * 0.0008) * 6;
+      const drift = rand(-2.5, 2.5) + Math.sin(now * 0.0005) * 3;
       price += drift;
       if (currentCandle) {
         currentCandle.c = price;
@@ -375,7 +375,7 @@ function HeroCanvas({
         drawCandle(c, cx);
       });
       // current live candle – pulses
-      const pulse = 0.7 + Math.sin(now * 0.006) * 0.3;
+      const pulse = 0.82 + Math.sin(now * 0.003) * 0.18;
       ctx.globalAlpha = pulse;
       const liveCx = chartLeft + candles.length * (CANDLE_W + CANDLE_GAP) + CANDLE_W / 2;
       if (currentCandle) drawCandle(currentCandle, liveCx);
@@ -386,7 +386,7 @@ function HeroCanvas({
         ctx.strokeStyle = "rgba(252,213,53,0.9)";
         ctx.lineWidth = 2;
         ctx.shadowColor = "rgba(252,213,53,0.8)";
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 6;
         ctx.beginPath();
         ma.forEach((v, i) => {
           const cx = chartLeft + i * (CANDLE_W + CANDLE_GAP) + CANDLE_W / 2;
@@ -430,7 +430,7 @@ function HeroCanvas({
       ctx.textAlign = "left";
       ctx.fillText("ORDER BOOK", obX, obTop - 8);
       orders.forEach((o, i) => {
-        o.life -= 0.006;
+        o.life -= 0.0025;
         if (o.life <= 0) {
           o.size = rand(0.1, 4.2);
           o.life = rand(0.5, 1);
@@ -453,8 +453,8 @@ function HeroCanvas({
 
       // === Tape prints drifting up-right ===
       for (const p of prints) {
-        p.y -= 0.6;
-        p.life -= 0.005;
+        p.y -= 0.3;
+        p.life -= 0.0022;
         if (p.life <= 0) continue;
         const col = p.side === "buy" ? "24,169,101" : "230,70,70";
         ctx.fillStyle = `rgba(${col},${p.life * 0.7})`;
@@ -506,7 +506,7 @@ function HeroCanvas({
         chg: Math.sin(now * 0.0004) * 0.4
       }];
       // Horizontal scroll – offset so tickers drift left continuously
-      const tickerOffset = now * 0.015 % 180;
+      const tickerOffset = now * 0.008 % 180;
       let tx = 24 - tickerOffset;
       ctx.font = "600 11px Akrobat, Onest, sans-serif";
       ctx.save();
