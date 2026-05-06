@@ -2982,7 +2982,7 @@ function PromoProfitSplitArt() {
     height: "188",
     rx: "18",
     fill: "rgba(255,255,255,0.025)",
-    stroke: "rgba(255,255,255,0.07)"
+    stroke: "none"
   }), /*#__PURE__*/React.createElement("text", {
     x: "154",
     y: "143",

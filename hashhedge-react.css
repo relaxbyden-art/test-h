@@ -5383,22 +5383,21 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
   .hh-popup-sub { font-size: 13px; margin-bottom: 12px; line-height: 1.4; }
 
-  /* Timer horizontal: label left, digits right */
+  /* Timer vertical: label on top, digits below */
   .hh-popup-timer {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 8px;
     width: 100%;
     padding: 10px 14px;
     margin-bottom: 14px;
   }
   .hh-popup-timer-label { font-size: 11px; }
-  .hh-popup-timer-digits { gap: 3px; }
-  .hh-popup-timer-unit { min-width: 24px; }
-  .hh-popup-timer-unit span { font-size: 20px; }
+  .hh-popup-timer-digits { gap: 4px; }
+  .hh-popup-timer-unit { min-width: 28px; }
+  .hh-popup-timer-unit span { font-size: 22px; }
   .hh-popup-timer-unit em { font-size: 9px; margin-top: 1px; }
-  .hh-popup-colon { font-size: 18px; margin-bottom: 6px; }
+  .hh-popup-colon { font-size: 20px; margin-bottom: 6px; }
 
   .hh-popup-cta { max-width: 100%; height: 50px; font-size: 15px; }
   .hh-popup-disclaimer {
@@ -5422,30 +5421,45 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
 /* ── 1. Popup mobile ── */
 @media (max-width: 640px) {
-  /* Show art, but compact */
-  .hh-popup-art {
+  /* Art: move to top via order, full bleed */
+  .hh-popup-inner {
     display: flex !important;
-    min-height: 110px !important;
-    max-height: 130px !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+  }
+  .hh-popup-art {
+    order: -1 !important;
+    display: flex !important;
+    min-height: 150px !important;
+    max-height: 170px !important;
+    width: 100% !important;
     overflow: hidden !important;
-    border-top: 1px solid rgba(255,255,255,0.07) !important;
-    margin-top: 14px !important;
+    border-top: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    margin-top: 0 !important;
+    border-radius: 20px 20px 0 0 !important;
   }
   .hh-popup-art .hh-promo-art-svg {
-    width: min(260px, 90%) !important;
+    width: min(300px, 85%) !important;
     height: auto !important;
     filter: drop-shadow(0 10px 24px rgba(0,0,0,0.5)) !important;
   }
   .hh-popup-chart-bg {
     opacity: 0.15 !important;
   }
-  /* Title: one line */
+  /* Copy area gets its own padding */
+  .hh-popup-copy {
+    padding: 18px 18px 16px !important;
+  }
+  /* Title: one line (hide the <br>) */
+  .hh-popup-title br { display: none !important; }
   .hh-popup-title {
-    font-size: clamp(20px, 5.8vw, 24px) !important;
+    font-size: clamp(19px, 5.5vw, 23px) !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     margin-bottom: 6px !important;
+    line-height: 1.1 !important;
   }
 }
 
