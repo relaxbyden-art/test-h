@@ -4688,21 +4688,22 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     opacity: 0.65 !important;
   }
 
-  /* 7. Glow blob */
+  /* 7. Glow blob — shrink + push to bottom so it doesn't cover the animation */
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art-glow {
-    z-index: 0 !important;
-    width: 200px !important;
-    height: 200px !important;
-    top: 50% !important;
+    z-index: 1 !important;
+    width: 90px !important;
+    height: 90px !important;
+    top: 80% !important;
     left: 50% !important;
-    opacity: 0.45 !important;
-    filter: blur(4px) !important;
+    opacity: 0.30 !important;
+    filter: blur(10px) !important;
+    pointer-events: none !important;
   }
 
-  /* 8. Art stage: centered inside 148px column */
+  /* 8. Art stage: centered inside 148px column, above glow */
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .hh-why-art-stage {
     position: absolute !important;
-    inset: 10px 0 0 !important;
+    inset: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -4710,6 +4711,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     transform: none !important;
     filter: none !important;
     overflow: hidden !important;
+    z-index: 3 !important;
   }
 
   /* 9. Scale down animations to fit the 148px column */
