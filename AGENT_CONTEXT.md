@@ -109,7 +109,7 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 - Desktop WhyUs art scenes centered by overriding `.hh-why-art-stage` inset to `0` and glow top to `50%`.
 - Desktop section edges softened globally with inset blend shadows on top-level sections.
 - Next pass: fixed funded traders metric to `5,120`, blue-highlighted "traders actually", straightened payout certificate, and added mobile overrides for Why art, section joins, pricing chips/tabs, reviews note, payout proof icon, and final CTA contrast.
-- Mobile correction: pricing badges moved top-right, Why art hard-centered with 160+ ticker enlarged, final CTA background darkened further.
+- Reverted bad mobile Why hard-lock from `d845f91`; final guard now only keeps pricing badges compact/right-aligned and final CTA darker.
 
 ---
 
