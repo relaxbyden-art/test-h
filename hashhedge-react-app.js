@@ -582,7 +582,7 @@ function CosmicStatsPanel() {
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    big: Math.round(5_120 + tick * _TICK_TRADERS).toLocaleString(),
+    big: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (10/86400) + tick * _TICK_TRADERS).toLocaleString(),
     sub: "active accounts",
     day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC))}`,
     dayLbl: "joined today",
@@ -732,8 +732,11 @@ function LivePayoutsTable() {
   const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
 
   // Traders: max 10/day. Whole numbers only.
+  // Funded traders: seeded from 2026-04-01 so today ≈ 5,120; grows 10/day
   const TRADERS_PER_SEC = 10 / 86400;
-  const tradersTotal = Math.round(19_250 + secElapsed * TRADERS_PER_SEC);
+  const _TBASE_MS = 1743465600000; // 2026-04-01 UTC
+  const _tSecElapsed = (Date.now() - _TBASE_MS) / 1000;
+  const tradersTotal = Math.round(4_750 + Math.max(0, _tSecElapsed) * TRADERS_PER_SEC);
   const tradersToday = Math.max(1, Math.round(secToday * TRADERS_PER_SEC + tick * 0.001));
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
@@ -743,21 +746,21 @@ function LivePayoutsTable() {
     sub: "today",
     subV: `+${fmtMoney(volumeToday)}`,
     color: "var(--accent)",
-    chart: [0.55, 0.48, 0.62, 0.58, 0.70, 0.66, 0.78, 0.74, 0.82, 0.88, 0.84, 0.95]
+    chart: [0.52, 0.57, 0.62, 0.66, 0.70, 0.73, 0.76, 0.80, 0.84, 0.88, 0.92, 0.95]
   }, {
-    k: "Active traders",
+    k: "Active funded traders",
     v: fmtCount(tradersTotal),
     sub: "today",
     subV: `+${fmtCount(tradersToday)}`,
     color: "var(--fg)",
-    chart: [0.42, 0.48, 0.52, 0.56, 0.58, 0.63, 0.61, 0.68, 0.72, 0.76, 0.81, 0.86]
+    chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
     k: "Total payouts",
     v: fmtMoney(payoutsTotal),
     sub: "today",
     subV: `+${fmtMoney(payoutsToday)}`,
     color: "var(--green)",
-    chart: [0.38, 0.45, 0.42, 0.55, 0.60, 0.58, 0.66, 0.72, 0.70, 0.78, 0.85, 0.92]
+    chart: [0.38, 0.44, 0.51, 0.57, 0.62, 0.66, 0.70, 0.75, 0.80, 0.84, 0.88, 0.92]
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -972,7 +975,7 @@ function TradingTerminal() {
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    v: Math.round(5_120 + tick * 0.00026).toLocaleString(),
+    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (10/86400) + tick * 0.00026).toLocaleString(),
     sub: "joined today",
     subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S))}`,
     color: "var(--fg)"
@@ -1540,7 +1543,7 @@ function Hero({
     l: "Payouts completed",
     sub: "Fast, seamless, and always on time."
   }, {
-    v: 5100,
+    v: 5120,
     suf: "+",
     l: "Active funded traders",
     sub: "Scaling every single month."
@@ -4357,6 +4360,10 @@ function ArtStages() {
   // 3 progress rings / stages, filling in sequence.
   return /*#__PURE__*/React.createElement("div", {
     style: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       display: "flex",
       gap: 14,
       alignItems: "center"
@@ -4447,10 +4454,12 @@ function ArtCoins() {
   // Central USDT token with orbiting BTC / ETH / USDC.
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "relative",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       width: 180,
-      height: 180,
-      flexShrink: 0
+      height: 180
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4554,9 +4563,10 @@ function ArtInfinity() {
   // Big infinity with animated dashed stroke + calendar "X".
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "relative",
-      width: 180,
-      height: 140,
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center"
@@ -4784,10 +4794,12 @@ function ArtClock() {
   // Live clock face with 3 timezone labels + green "online" ring.
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "relative",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -54%)",
       width: 160,
-      height: 160,
-      flexShrink: 0
+      height: 160
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5469,12 +5481,11 @@ function EventsTournaments() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-end",
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      alignItems: "end",
       marginBottom: 48,
-      gap: 40,
-      flexWrap: "wrap"
+      gap: 40
     }
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
@@ -5484,7 +5495,6 @@ function EventsTournaments() {
     className: "h1",
     style: {
       margin: "20px 0 0",
-      maxWidth: 760,
       letterSpacing: "-0.025em"
     }
   }, "We show up. ", /*#__PURE__*/React.createElement("span", {
@@ -5496,7 +5506,6 @@ function EventsTournaments() {
       fontSize: 16,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
-      maxWidth: 500,
       margin: "0 0 8px"
     }
   }, "Dubai. S\xE3o Paulo. Moscow. From main-stage keynotes to live-trading booths and top-affiliate awards \u2013 this is the Hash Hedge team on the ground."))), /*#__PURE__*/React.createElement("div", {
@@ -6446,11 +6455,11 @@ function TelegramCommunity() {
     style: {
       margin: "20px 0 24px"
     }
-  }, "Where funded traders", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Where funded traders actually", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "#2AABEE"
     }
-  }, "actually hang out."))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "hang out."))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -6469,7 +6478,7 @@ function TelegramCommunity() {
       marginBottom: 36
     }
   }, [{
-    n: "651",
+    n: "926",
     l: "members"
   }, {
     n: "40–60",
@@ -6566,7 +6575,7 @@ function TelegramCommunity() {
 }
 
 // Telegram community channel-list – matches the real Hash Hedge Community screenshot:
-// header "Hash Hedge Community · 651 members, 182 online", search bar, pinned topic list
+// header "Hash Hedge Community · 926 members, 218 online", search bar, pinned topic list
 // with emoji icons (# Welcome, 🔗 Links, 🔔 Announcements EN, 📢 Анонсы RU, 💰 Payout Wall,
 // 💬 Чат RU, 📊 Торговля RU, 💬 Chat EN, 📈 Trading EN).
 function TelegramChannelList() {
@@ -6867,7 +6876,7 @@ function TelegramChannelList() {
       color: textMuted,
       marginTop: 2
     }
-  }, "651 members, 182 online")), /*#__PURE__*/React.createElement("button", {
+  }, "926 members, 218 online")), /*#__PURE__*/React.createElement("button", {
     style: {
       width: 36,
       height: 36,
@@ -10458,7 +10467,7 @@ function BigCTA() {
     className: "up"
   }), /*#__PURE__*/React.createElement("text", {
     x: "250",
-    y: "144",
+    y: "134",
     className: "up"
   }, "+$4,820 \xB7 \uD83C\uDDFA\uD83C\uDDF8")), /*#__PURE__*/React.createElement("g", {
     className: "item",
@@ -10472,7 +10481,7 @@ function BigCTA() {
     className: "up"
   }), /*#__PURE__*/React.createElement("text", {
     x: "550",
-    y: "104",
+    y: "94",
     className: "up"
   }, "+$8,120 \xB7 \uD83C\uDDE9\uD83C\uDDEA")), /*#__PURE__*/React.createElement("g", {
     className: "item",
@@ -10486,7 +10495,7 @@ function BigCTA() {
     className: "up"
   }), /*#__PURE__*/React.createElement("text", {
     x: "850",
-    y: "54",
+    y: "44",
     className: "up"
   }, "+$11,300 \xB7 \uD83C\uDDE7\uD83C\uDDF7")), /*#__PURE__*/React.createElement("g", {
     className: "item",
@@ -10499,8 +10508,9 @@ function BigCTA() {
     r: "4",
     className: "up"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "960",
-    y: "22",
+    x: "1075",
+    y: "24",
+    textAnchor: "end",
     className: "up"
   }, "+$22,640 \xB7 \uD83C\uDDE6\uD83C\uDDEA")))), /*#__PURE__*/React.createElement("div", {
     style: {

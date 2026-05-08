@@ -5708,21 +5708,17 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
    COLLEAGUE FEEDBACK FIXES – 2026-05-08
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ── 1. Section header grids: align top (not end) so subheadings
-        sit close to the content header, not floating low ── */
-#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="align-items: end"],
-#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="alignItems: end"],
-#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="align-items: end"],
-#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="alignItems: end"],
-#hashhedge-root .tilda-html-hashhedge #pricing .container > div[style*="align-items: end"],
-#hashhedge-root .tilda-html-hashhedge #payouts .container > div[style*="align-items: end"] {
-  align-items: flex-start !important;
+/* ── 1. Section header grids: description bottom-aligned with heading
+        Ensure align-items: end is consistent across ALL 2-col section headers ── */
+#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="grid-template-columns: 1fr 1fr"],
+#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="grid-template-columns: 1fr 1fr"],
+#hashhedge-root .tilda-html-hashhedge #pricing .container > div[style*="grid-template-columns: 1fr 1fr"],
+#hashhedge-root .tilda-html-hashhedge #payouts .container > div[style*="grid-template-columns: 1fr 1fr"] {
+  align-items: end !important;
 }
-
-/* The right-column description in section headers: no extra top gap */
-#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="grid-template-columns: 1fr 1fr"] > div:last-child,
-#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="grid-template-columns: 1fr 1fr"] > div:last-child {
-  padding-top: 28px;
+/* Also cover sections that use 1.1fr etc */
+#hashhedge-root .tilda-html-hashhedge section > .container > div[style*="grid-template-columns"][style*="margin-bottom"] {
+  align-items: end !important;
 }
 
 /* ── 2. HowItWorks step 3: force h3 title to take 2-line height
