@@ -6084,26 +6084,26 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     gap: 28px !important;
   }
 
-  /* Column wrapper: right-align so badge goes to the right */
+  /* Column wrapper: centered horizontally */
   #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal > div {
-    align-items: flex-end !important;
+    align-items: center !important;
   }
 
-  /* Badge: right-aligned, floats -50px over card top */
+  /* Badge: centered, floats -68px over card top (higher) */
   #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
-    margin: 0 0 -50px auto !important;
+    margin: 0 auto -68px !important;
     position: relative !important;
     z-index: 3 !important;
-    width: 56px !important;
-    height: 56px !important;
-    min-width: 56px !important;
-    min-height: 56px !important;
-    font-size: 18px !important;
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    min-height: 60px !important;
+    font-size: 20px !important;
   }
 
   /* Card: full width, padding-top to clear badge overlap */
   #hashhedge-root .tilda-html-hashhedge #how .card {
-    padding-top: 60px !important;
+    padding-top: 52px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     min-height: unset !important;

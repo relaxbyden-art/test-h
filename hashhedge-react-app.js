@@ -63,7 +63,7 @@ function useRevealOnScroll() {
       });
     }, {
       threshold: 0.12,
-      rootMargin: "0px 0px -60px 0px"
+      rootMargin: "0px 0px 400px 0px"
     });
     document.querySelectorAll(".reveal:not(.visible)").forEach(el => io.observe(el));
     return () => io.disconnect();
@@ -105,7 +105,8 @@ function Counter({
         }
       });
     }, {
-      threshold: 0.3
+      threshold: 0.1,
+      rootMargin: "0px 0px 400px 0px"
     });
     io.observe(ref.current);
     return () => io.disconnect();
