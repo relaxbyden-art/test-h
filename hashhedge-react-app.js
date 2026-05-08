@@ -556,33 +556,42 @@ function CosmicStatsPanel() {
     const i = setInterval(() => setTick(t => t + 1), 2200);
     return () => clearInterval(i);
   }, []);
-  const jitter = (base, pct) => Math.round(base * (1 + Math.sin(tick * 0.7) * pct));
+  // Only goes up — time-seeded from base date, max $2,000/day payouts, max 10 traders/day
+  const _now = Date.now();
+  const _dayStart = Math.floor(_now / 86400000) * 86400000;
+  const _secToday = (_now - _dayStart) / 1000;
+  const _PAYOUT_PER_SEC = 2000 / 86400;
+  const _TRADER_PER_SEC = 10 / 86400;
+  // per-tick increments (2.2s interval → ~39,273 ticks/day)
+  const _TICK_PAYOUT = 0.051;   // $2,000/day
+  const _TICK_TRADERS = 0.00026; // 10/day
+  const _TICK_PAYOUTS_CT = 0.00051; // ~20 payouts count/day
   const primary = [{
     k: "Platform volume",
-    big: `$${(jitter(178_400_000_000, 0.0003) / 1_000_000_000).toFixed(1)}B`,
+    big: `$${((178_400_000_000 + tick * 5000) / 1_000_000_000).toFixed(1)}B`,
     sub: "lifetime volume",
-    day: `$${(jitter(195_000_000, 0.18) / 1_000_000).toFixed(0)}M`,
+    day: `$${Math.round(_secToday * 195_000_000 / 86400 / 1_000_000)}M`,
     dayLbl: "today",
     color: "var(--accent)"
   }, {
     k: "Paid to traders",
-    big: `$${(jitter(12_410_000, 0.001) / 1_000_000).toFixed(2)}M`,
+    big: `$${((12_410_000 + tick * _TICK_PAYOUT) / 1_000_000).toFixed(2)}M`,
     sub: "lifetime",
-    day: `$${jitter(48_300, 0.02).toLocaleString()}`,
+    day: `$${Math.round(_secToday * _PAYOUT_PER_SEC).toLocaleString()}`,
     dayLbl: "last 24h",
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    big: jitter(5_120, 0.001).toLocaleString(),
+    big: Math.round(5_120 + tick * _TICK_TRADERS).toLocaleString(),
     sub: "active accounts",
-    day: `+${jitter(47, 0.12)}`,
+    day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC))}`,
     dayLbl: "joined today",
     color: "var(--fg)"
   }, {
     k: "Payouts processed",
-    big: jitter(17_800, 0.001).toLocaleString(),
+    big: Math.round(17_800 + tick * _TICK_PAYOUTS_CT).toLocaleString(),
     sub: "lifetime",
-    day: `+${jitter(62, 0.1)}`,
+    day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC * 2))}`,
     dayLbl: "last 24h",
     color: "var(--fg)"
   }];
@@ -703,15 +712,29 @@ function LivePayoutsTable() {
     const i = setInterval(() => setTick(t => t + 1), 1600);
     return () => clearInterval(i);
   }, []);
-  const jitter = (base, pct) => base * (1 + Math.sin(tick * 0.6 + base) * pct);
 
-  // baselines – all-time since launch + today's delta. Small sinusoidal jitter to feel alive.
-  const volumeTotal = jitter(178_400_000_000, 0.0003); // ~$8.4B lifetime
-  const volumeToday = jitter(195_000_000, 0.18); // ~$150–240M/day swing
-  const tradersTotal = Math.round(jitter(27_840, 0.0008));
-  const tradersToday = Math.round(jitter(142, 0.08));
-  const payoutsTotal = jitter(12_410_000, 0.0006); // ~$47M
-  const payoutsToday = jitter(48_300, 0.03);
+  // Values only ever go UP. Growth seeded from a fixed base date.
+  // Payouts: max $2,000/day. Traders: max 10/day.
+  const BASE_MS = 1704067200000; // 2024-01-01 00:00:00 UTC
+  const now = Date.now();
+  const secElapsed = (now - BASE_MS) / 1000;
+  const dayStartMs = Math.floor(now / 86400000) * 86400000;
+  const secToday = (now - dayStartMs) / 1000;
+
+  // Payouts: $2,000/day cap. Live micro-increment per tick for visual heartbeat.
+  const PAYOUT_PER_SEC = 2000 / 86400;
+  const payoutsTotal = 10_750_000 + secElapsed * PAYOUT_PER_SEC + tick * 0.4;
+  const payoutsToday = secToday * PAYOUT_PER_SEC + tick * 0.25;
+
+  // Volume: grows freely (no user restriction), sinusoidal variation ok
+  const VOL_PER_SEC = 195_000_000 / 86400;
+  const volumeTotal = 120_000_000_000 + secElapsed * VOL_PER_SEC;
+  const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
+
+  // Traders: max 10/day. Whole numbers only.
+  const TRADERS_PER_SEC = 10 / 86400;
+  const tradersTotal = Math.round(19_250 + secElapsed * TRADERS_PER_SEC);
+  const tradersToday = Math.max(1, Math.round(secToday * TRADERS_PER_SEC + tick * 0.001));
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
@@ -929,31 +952,35 @@ function TradingTerminal() {
     const i = setInterval(() => setTick(t => t + 1), 2200);
     return () => clearInterval(i);
   }, []);
-  // Small ±jitter so numbers feel live
-  const jitter = (base, pct) => Math.round(base * (1 + Math.sin(tick * 0.7) * pct));
+  // Only goes up — max $2,000/day payouts, max 10 traders/day
+  const _now2 = Date.now();
+  const _dayStart2 = Math.floor(_now2 / 86400000) * 86400000;
+  const _secToday2 = (_now2 - _dayStart2) / 1000;
+  const _PAY_S = 2000 / 86400;
+  const _TR_S = 10 / 86400;
   const stats = [{
     k: "30d volume",
-    v: `$${(jitter(178_400_000_000, 0.001) / 1_000_000_000).toFixed(2)}B`,
+    v: `$${((178_400_000_000 + tick * 5000) / 1_000_000_000).toFixed(2)}B`,
     sub: "today",
-    subV: `$${(jitter(195_000_000, 0.18) / 1_000_000).toFixed(0)}M`,
+    subV: `$${Math.round(_secToday2 * 195_000_000 / 86400 / 1_000_000)}M`,
     color: "var(--accent)"
   }, {
     k: "Total payouts",
-    v: `$${(jitter(12_410_000, 0.001) / 1_000_000).toFixed(2)}M`,
+    v: `$${((12_410_000 + tick * 0.051) / 1_000_000).toFixed(2)}M`,
     sub: "last 24h",
-    subV: `$${jitter(48_300, 0.02).toLocaleString()}`,
+    subV: `$${Math.round(_secToday2 * _PAY_S).toLocaleString()}`,
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    v: jitter(5_120, 0.001).toLocaleString(),
+    v: Math.round(5_120 + tick * 0.00026).toLocaleString(),
     sub: "joined today",
-    subV: `+${jitter(47, 0.12)}`,
+    subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S))}`,
     color: "var(--fg)"
   }, {
     k: "Payouts count",
-    v: jitter(17_800, 0.001).toLocaleString(),
+    v: Math.round(17_800 + tick * 0.00051).toLocaleString(),
     sub: "last 24h",
-    subV: `+${jitter(62, 0.1)}`,
+    subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S * 2))}`,
     color: "var(--fg)"
   }];
   // Mini sparkline, 32 points, gently modulated by tick so it feels alive
@@ -1398,7 +1425,7 @@ function Hero({
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "$200,000"), " in live capital \u2013 no risk to your own funds. 160+ crypto pairs. Two-phase Hash Hedge Challenge \u2013 pass Phases 1 and 2, then trade funded. Leverage 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "$150,000"), " in live capital \u2013 no risk to your own funds. 160+ crypto pairs. Two-phase Hash Hedge Challenge \u2013 pass Phases 1 and 2, then trade funded. Leverage 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -2370,8 +2397,8 @@ function HowItWorks() {
     n: "01",
     k: "SIGN UP",
     t: "Pick your account size",
-    d: "Seven sizes, from $5,000 ($79) up to $200,000 ($1,293). One-time Hash Hedge Challenge fee. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism.",
-    bullets: ["7 account sizes · $5K to $200K", "Pay with crypto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "One-time fee – no subscriptions"]
+    d: "Six sizes, from $5,000 ($79) up to $150,000 ($1,093). One-time Hash Hedge Challenge fee. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism.",
+    bullets: ["6 account sizes · $5K to $150K", "Pay with crypto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "One-time fee – no subscriptions"]
   }, {
     n: "02",
     k: "PROVE YOUR EDGE",
@@ -3067,15 +3094,14 @@ function Pricing() {
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
-  const sizes = [5000, 10000, 25000, 50000, 100000, 150000, 200000];
+  const sizes = [5000, 10000, 25000, 50000, 100000, 150000];
   const pricing = {
     5000: 79,
     10000: 99,
     25000: 299,
     50000: 499,
     100000: 799,
-    150000: 1093,
-    200000: 1293
+    150000: 1093
   };
   const price = pricing[size];
   const popular = 25000;
@@ -3085,8 +3111,7 @@ function Pricing() {
     25000: "Most popular balance of fee, capital and practical drawdown room.",
     50000: "A serious account size for consistent daily crypto strategies.",
     100000: "Built for experienced traders who already manage larger risk.",
-    150000: "Higher capital with the same transparent two-phase rule set.",
-    200000: "Maximum Hash Hedge allocation and the best fee-to-capital ratio."
+    150000: "Maximum Hash Hedge allocation and the best fee-to-capital ratio."
   };
   const mobileStageTabs = [{
     id: "stage1",
@@ -3367,7 +3392,7 @@ function Pricing() {
   }, sizes.map(s => {
     const active = size === s;
     const isPop = s === popular;
-    const isBest = s === 200000;
+    const isBest = s === 150000;
     const badge = isBest ? "BEST VALUE" : isPop ? "POPULAR" : null;
     const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
@@ -3458,7 +3483,7 @@ function Pricing() {
   }, sizes.map(s => {
     const active = size === s;
     const isPop = s === popular;
-    const isBest = s === 200000;
+    const isBest = s === 150000;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
@@ -4022,7 +4047,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "A crypto-native prop trading firm backing skilled traders with up to $200,000 in live capital. The Hash Hedge Challenge is how we find the next one."))), /*#__PURE__*/React.createElement("div", {
+  }, "A crypto-native prop trading firm backing skilled traders with up to $150,000 in live capital. The Hash Hedge Challenge is how we find the next one."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -4595,7 +4620,7 @@ function ArtScale() {
     v: "100K"
   }, {
     h: 130,
-    v: "200K"
+    v: "150K"
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -7915,7 +7940,7 @@ function BlueprintSection() {
   }, {
     n: "02",
     t: "Choose a Challenge size",
-    d: "$5K to $200K. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism."
+    d: "$5K to $150K. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism."
   }, {
     n: "03",
     t: "Pass Stage 1 – 8% target",
@@ -9892,7 +9917,7 @@ function FAQ() {
     a: "We accept USDT only, on the following networks: TRC20 (Tron), ERC20 (Ethereum), BEP20 (BNB Smart Chain), Solana, Arbitrum, Optimism."
   }, {
     q: "Why do I have to pay for the challenge?",
-    a: "The fee covers access to the trading platform and evaluation of your skills. In return you get a chance to trade with up to $200,000 and keep 80% of the profit without risking your own money."
+    a: "The fee covers access to the trading platform and evaluation of your skills. In return you get a chance to trade with up to $150,000 and keep 80% of the profit without risking your own money."
   }, {
     q: "What rules must I follow during a challenge?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Stay within the daily and maximum drawdown limits and hit the profit target within the required number of trading days. Details for each package are on the purchase page and in the ", /*#__PURE__*/React.createElement("a", {

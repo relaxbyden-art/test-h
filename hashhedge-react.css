@@ -5702,3 +5702,107 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     text-align: center !important;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   COLLEAGUE FEEDBACK FIXES – 2026-05-08
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Section header grids: align top (not end) so subheadings
+        sit close to the content header, not floating low ── */
+#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="align-items: end"],
+#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="alignItems: end"],
+#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="align-items: end"],
+#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="alignItems: end"],
+#hashhedge-root .tilda-html-hashhedge #pricing .container > div[style*="align-items: end"],
+#hashhedge-root .tilda-html-hashhedge #payouts .container > div[style*="align-items: end"] {
+  align-items: flex-start !important;
+}
+
+/* The right-column description in section headers: no extra top gap */
+#hashhedge-root .tilda-html-hashhedge #how .container > div[style*="grid-template-columns: 1fr 1fr"] > div:last-child,
+#hashhedge-root .tilda-html-hashhedge #why .container > div[style*="grid-template-columns: 1fr 1fr"] > div:last-child {
+  padding-top: 28px;
+}
+
+/* ── 2. HowItWorks step 3: force h3 title to take 2-line height
+        so content rows (bullets) align with steps 1 & 2 ── */
+#hashhedge-root .tilda-html-hashhedge #how .card h3[style*="font-size: 26px"] {
+  min-height: 64px; /* 2 × (26px × 1.23 line-height) */
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* ── 3. WhyUs art containers: center animations inside their 200px box ── */
+#hashhedge-root .tilda-html-hashhedge .hh-why-art {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ArtTickers top fade: reduce height so green % numbers at top aren't hidden ── */
+#hashhedge-root .tilda-html-hashhedge [data-why-art="tickers"] > div > div[style*="height: 36px"] {
+  height: 16px !important;
+}
+
+/* ── 4. Blur / fade visible section transitions ── */
+/* Between sections — each section gets a subtle gradient bottom/top fade */
+#hashhedge-root .tilda-html-hashhedge #how {
+  position: relative;
+}
+#hashhedge-root .tilda-html-hashhedge #how::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 2;
+}
+
+#hashhedge-root .tilda-html-hashhedge #pricing {
+  position: relative;
+}
+#hashhedge-root .tilda-html-hashhedge #pricing::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 2;
+}
+#hashhedge-root .tilda-html-hashhedge #pricing::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 2;
+}
+
+#hashhedge-root .tilda-html-hashhedge #why {
+  position: relative;
+}
+#hashhedge-root .tilda-html-hashhedge #why::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 2;
+}
+
+
