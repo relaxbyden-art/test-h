@@ -29,9 +29,9 @@
   }
 
   loadCss("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap")
-    .then(function(){ return loadCss(base + "hashhedge-react.css?v=20260508-mobile-polish-3"); })
+    .then(function(){ return loadCss(base + "hashhedge-react.css?v=20260508-why-mobile-1"); })
     .then(function(){ return loadScript("https://unpkg.com/react@18.3.1/umd/react.production.min.js"); })
     .then(function(){ return loadScript("https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"); })
-    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260508-mobile-polish-3"); })
+    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260508-why-mobile-1"); })
     .catch(function(err){ console.error("HashHedge loader failed", err); });
 })();

@@ -110,6 +110,7 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 - Desktop section edges softened globally with inset blend shadows on top-level sections.
 - Next pass: fixed funded traders metric to `5,120`, blue-highlighted "traders actually", straightened payout certificate, and added mobile overrides for Why art, section joins, pricing chips/tabs, reviews note, payout proof icon, and final CTA contrast.
 - Reverted bad mobile Why hard-lock from `d845f91`; final guard now only keeps pricing badges compact/right-aligned and final CTA darker.
+- Why mobile art fix: old scale-only overrides erased inner translate centering; final override restores `translate(...) scale(...)` for stages/coins/infinity/support and scales tickers to `1.5`.
 
 ---
 
