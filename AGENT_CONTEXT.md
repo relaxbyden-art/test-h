@@ -36,6 +36,7 @@ git push origin main
 
 ## Rules
 
+- Work from latest GitHub `main` first: `git fetch origin` + fast-forward before edits.
 - **English bundle only** — `hashhedge-react-app.js`. Do NOT touch the Russian bundle.
 - **Desktop only** — no mobile layout changes.
 - After push, jsDelivr CDN updates in ~5 minutes.
@@ -106,6 +107,15 @@ The hero metrics section (`hh-hero-metrics`, ~line 1543) uses a hardcoded `v: 51
 - "Where funded traders actually hang out" — "actually" now on same line as "traders"
 - EventsTournaments "We show up": 2-column grid layout (heading left, description right)
 - PayoutShowcase labels: raised 10px higher; UAE label right-aligned above its dot (textAnchor end)
+
+### Earlier GitHub-only updates now in `main`
+- Promo popup added: countdown, backdrop/swipe close, compact mobile state.
+- Popup art/title/timer refined; profit split art border restored, internal rect layers removed.
+- Mobile fixes touched hero chart, FAQ spacing, footer, stats, section gaps.
+
+### 2026-05-08 follow-up
+- Desktop WhyUs art scenes centered by overriding `.hh-why-art-stage` inset to `0` and glow top to `50%`.
+- Desktop section edges softened globally with inset blend shadows on top-level sections.
 
 ---
 

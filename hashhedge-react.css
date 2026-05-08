@@ -5801,4 +5801,42 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   z-index: 2;
 }
 
+/* ── 5. Desktop polish: true-center Why animations + soften section edges ── */
+@media (min-width: 769px) {
+  #hashhedge-root .tilda-html-hashhedge {
+    --hh-section-blend: #101012;
+    background:
+      radial-gradient(ellipse 90% 42% at 50% 18%, rgba(252,213,53,0.035), transparent 62%),
+      linear-gradient(180deg, #101012 0%, #0d0d10 34%, #101012 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge > section {
+    position: relative !important;
+    margin-top: -1px;
+    box-shadow:
+      inset 0 112px 92px -104px var(--hh-section-blend),
+      inset 0 -124px 98px -104px var(--hh-section-blend) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art .hh-why-art-stage {
+    inset: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    min-height: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art-glow {
+    top: 50% !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art {
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(252,213,53,0.11) 0%, transparent 62%),
+      linear-gradient(180deg, #141318 0%, #0b0b0e 100%) !important;
+  }
+}
 
