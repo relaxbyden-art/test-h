@@ -75,18 +75,10 @@ const secElapsed = (Date.now() - BASE_MS) / 1000;
 
 ### Trader count (unified across ALL sections)
 ```js
-const _TBASE_MS = 1743465600000; // 2026-04-01 UTC
-const TRADERS_PER_SEC = 10 / 86400; // 10 traders/day
-const tradersTotal = Math.round(4_750 + Math.max(0, (Date.now() - _TBASE_MS) / 1000) * TRADERS_PER_SEC);
-// approx 5,120 on 2026-05-08
+const tradersTotal = 5120;
 ```
 
-**Important:** This formula must be identical in all three places:
-1. `LivePayoutsTable` (~line 700)
-2. `CosmicStatsPanel` (~line 553)
-3. `TradingTerminal` (~line 940)
-
-The hero metrics section (`hh-hero-metrics`, ~line 1543) uses a hardcoded `v: 5120` — update manually when formula value drifts significantly.
+Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live trader totals.
 
 ---
 
@@ -116,6 +108,7 @@ The hero metrics section (`hh-hero-metrics`, ~line 1543) uses a hardcoded `v: 51
 ### 2026-05-08 follow-up
 - Desktop WhyUs art scenes centered by overriding `.hh-why-art-stage` inset to `0` and glow top to `50%`.
 - Desktop section edges softened globally with inset blend shadows on top-level sections.
+- Next pass: fixed funded traders metric to `5,120`, blue-highlighted "traders actually", straightened payout certificate, and added mobile overrides for Why art, section joins, pricing chips/tabs, reviews note, payout proof icon, and final CTA contrast.
 
 ---
 

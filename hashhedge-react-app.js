@@ -731,13 +731,8 @@ function LivePayoutsTable() {
   const volumeTotal = 120_000_000_000 + secElapsed * VOL_PER_SEC;
   const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
 
-  // Traders: max 10/day. Whole numbers only.
-  // Funded traders: seeded from 2026-04-01 so today ≈ 5,120; grows 10/day
-  const TRADERS_PER_SEC = 10 / 86400;
-  const _TBASE_MS = 1743465600000; // 2026-04-01 UTC
-  const _tSecElapsed = (Date.now() - _TBASE_MS) / 1000;
-  const tradersTotal = Math.round(4_750 + Math.max(0, _tSecElapsed) * TRADERS_PER_SEC);
-  const tradersToday = Math.max(1, Math.round(secToday * TRADERS_PER_SEC + tick * 0.001));
+  // Traders: fixed to match the hero metric and avoid competing live totals.
+  const tradersTotal = 5120;
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
@@ -750,8 +745,8 @@ function LivePayoutsTable() {
   }, {
     k: "Active funded traders",
     v: fmtCount(tradersTotal),
-    sub: "today",
-    subV: `+${fmtCount(tradersToday)}`,
+    sub: "active",
+    subV: fmtCount(tradersTotal),
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
@@ -1497,7 +1492,7 @@ function Hero({
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "5,100+ funded traders"))), /*#__PURE__*/React.createElement("div", {
+  }, "5,120 funded traders"))), /*#__PURE__*/React.createElement("div", {
     style: {
       height: 32,
       width: 1,
@@ -1544,7 +1539,7 @@ function Hero({
     sub: "Fast, seamless, and always on time."
   }, {
     v: 5120,
-    suf: "+",
+    suf: "",
     l: "Active funded traders",
     sub: "Scaling every single month."
   }, {
@@ -5135,7 +5130,7 @@ function PayoutShowcase() {
       borderRadius: 24,
       padding: 0,
       background: "transparent",
-      transform: "rotate(1.6deg)",
+      transform: "rotate(0deg)",
       transition: "transform .5s var(--ease-out)",
       filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.55)) drop-shadow(0 0 40px rgba(252,213,53,0.08))",
       cursor: "zoom-in"
@@ -5144,7 +5139,7 @@ function PayoutShowcase() {
       e.currentTarget.style.transform = "rotate(0deg) scale(1.02)";
     },
     onMouseLeave: e => {
-      e.currentTarget.style.transform = "rotate(1.6deg)";
+      e.currentTarget.style.transform = "rotate(0deg)";
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: (window.__HH_BASE__+"assets/payout-certificate.png"),
@@ -6455,7 +6450,11 @@ function TelegramCommunity() {
     style: {
       margin: "20px 0 24px"
     }
-  }, "Where funded traders actually", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Where funded ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#2AABEE"
+    }
+  }, "traders actually"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "#2AABEE"
     }
@@ -9464,7 +9463,7 @@ function TeamCerts() {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "5,100+ active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, "5,120 active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
     onClick: () => setLightbox(null),
     style: {
       position: "fixed",
@@ -9673,7 +9672,7 @@ function Reviews() {
       margin: "20px 0 0",
       maxWidth: 860
     }
-  }, "5,100+ funded traders.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "5,120 funded traders.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
