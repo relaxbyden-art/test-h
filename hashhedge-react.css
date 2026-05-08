@@ -6008,14 +6008,14 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] .hh-why-art-stage > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="tickers"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
-    transform: scale(1.5) !important;
+    transform: scale(0.75) !important;
     transform-origin: center center !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="stages"] .hh-why-art-stage > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="stages"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="stages"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
-    transform: translate(-50%, -50%) scale(0.64) !important;
+    transform: translate(-50%, -50%) scale(0.512) !important;
     transform-origin: center center !important;
   }
 
