@@ -10963,7 +10963,7 @@ function MobileMenu({
 function MobileCTABar() {
   const [vis, setVis] = React.useState(false);
   React.useEffect(() => {
-    const fn = () => { setVis(window.scrollY > window.innerHeight * 1.6); };
+    const fn = () => { setVis(window.scrollY > window.innerHeight * 1.2); };
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);

@@ -6071,3 +6071,53 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     min-height: 0 !important;
   }
 }
+
+/* ============================================================
+   HOW IT WORKS — mobile v2: badge right, full-width cards,
+   no h3 min-height gap
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Single column — cards take full container width */
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+    display: grid !important;
+    gap: 28px !important;
+  }
+
+  /* Column wrapper: right-align so badge goes to the right */
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal > div {
+    align-items: flex-end !important;
+  }
+
+  /* Badge: right-aligned, floats -50px over card top */
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
+    margin: 0 0 -50px auto !important;
+    position: relative !important;
+    z-index: 3 !important;
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    font-size: 18px !important;
+  }
+
+  /* Card: full width, padding-top to clear badge overlap */
+  #hashhedge-root .tilda-html-hashhedge #how .card {
+    padding-top: 60px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: unset !important;
+  }
+
+  /* Remove h3 min-height (desktop alignment hack, not needed on mobile) */
+  #hashhedge-root .tilda-html-hashhedge #how .card h3 {
+    min-height: 0 !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Remove p min-height gap */
+  #hashhedge-root .tilda-html-hashhedge #how .card p {
+    min-height: 0 !important;
+    margin-bottom: 14px !important;
+  }
+}
