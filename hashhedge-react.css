@@ -6091,7 +6091,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
   /* Badge: centered, sits above card with 8px gap (no overlap) */
   #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
-    margin: 0 auto 8px !important;
+    margin: 0 auto 20px !important;
     position: relative !important;
     z-index: 3 !important;
     width: 60px !important;
