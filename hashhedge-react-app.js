@@ -561,7 +561,7 @@ function CosmicStatsPanel() {
   const _dayStart = Math.floor(_now / 86400000) * 86400000;
   const _secToday = (_now - _dayStart) / 1000;
   const _PAYOUT_PER_SEC = 2000 / 86400;
-  const _TRADER_PER_SEC = 10 / 86400;
+  const _TRADER_PER_SEC = 18 / 86400;
   // per-tick increments (2.2s interval → ~39,273 ticks/day)
   const _TICK_PAYOUT = 0.051;   // $2,000/day
   const _TICK_TRADERS = 0.00026; // 10/day
@@ -577,12 +577,12 @@ function CosmicStatsPanel() {
     k: "Paid to traders",
     big: `$${((12_410_000 + tick * _TICK_PAYOUT) / 1_000_000).toFixed(2)}M`,
     sub: "lifetime",
-    day: `$${Math.round(_secToday * _PAYOUT_PER_SEC).toLocaleString()}`,
-    dayLbl: "last 24h",
+    day: (() => { const _di = Math.floor(Date.now()/86400000); const _db = _di - Math.floor(1743465600000/86400000); const _base = Math.min(20000, 18000 + _db * 10); const _var = ((_di*7+13)%1000) - 500; return `+$${(_base+_var).toLocaleString()}`; })(),
+    dayLbl: "today",
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    big: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (10/86400) + tick * _TICK_TRADERS).toLocaleString(),
+    big: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * _TICK_TRADERS).toLocaleString(),
     sub: "active accounts",
     day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC))}`,
     dayLbl: "joined today",
@@ -724,7 +724,11 @@ function LivePayoutsTable() {
   // Payouts: $2,000/day cap. Live micro-increment per tick for visual heartbeat.
   const PAYOUT_PER_SEC = 2000 / 86400;
   const payoutsTotal = 10_750_000 + secElapsed * PAYOUT_PER_SEC + tick * 0.4;
-  const payoutsToday = secToday * PAYOUT_PER_SEC + tick * 0.25;
+  const _pdi = Math.floor(Date.now()/86400000);
+  const _pdb = _pdi - Math.floor(1743465600000/86400000);
+  const _payDayBase = Math.min(20000, 18000 + _pdb * 10);
+  const _payDayVar = ((_pdi*7+13)%1000) - 500;
+  const payoutsToday = _payDayBase + _payDayVar;
 
   // Volume: grows freely (no user restriction), sinusoidal variation ok
   const VOL_PER_SEC = 195_000_000 / 86400;
@@ -732,7 +736,7 @@ function LivePayoutsTable() {
   const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
 
   // Traders: fixed to match the hero metric and avoid competing live totals.
-  const tradersTotal = 5120;
+  const tradersTotal = Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400));
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
@@ -743,10 +747,10 @@ function LivePayoutsTable() {
     color: "var(--accent)",
     chart: [0.52, 0.57, 0.62, 0.66, 0.70, 0.73, 0.76, 0.80, 0.84, 0.88, 0.92, 0.95]
   }, {
-    k: "Active funded traders",
+    k: "Funded traders",
     v: fmtCount(tradersTotal),
-    sub: "active",
-    subV: fmtCount(tradersTotal),
+    sub: "today",
+    subV: `+${Math.max(1, Math.round(secToday * 18 / 86400))}`,
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
@@ -955,7 +959,7 @@ function TradingTerminal() {
   const _dayStart2 = Math.floor(_now2 / 86400000) * 86400000;
   const _secToday2 = (_now2 - _dayStart2) / 1000;
   const _PAY_S = 2000 / 86400;
-  const _TR_S = 10 / 86400;
+  const _TR_S = 18 / 86400;
   const stats = [{
     k: "30d volume",
     v: `$${((178_400_000_000 + tick * 5000) / 1_000_000_000).toFixed(2)}B`,
@@ -965,12 +969,12 @@ function TradingTerminal() {
   }, {
     k: "Total payouts",
     v: `$${((12_410_000 + tick * 0.051) / 1_000_000).toFixed(2)}M`,
-    sub: "last 24h",
-    subV: `$${Math.round(_secToday2 * _PAY_S).toLocaleString()}`,
+    sub: "today",
+    subV: (() => { const _di = Math.floor(Date.now()/86400000); const _db = _di - Math.floor(1743465600000/86400000); const _base = Math.min(20000, 18000 + _db * 10); const _var = ((_di*7+13)%1000) - 500; return `+$${(_base+_var).toLocaleString()}`; })(),
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (10/86400) + tick * 0.00026).toLocaleString(),
+    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * 0.00026).toLocaleString(),
     sub: "joined today",
     subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S))}`,
     color: "var(--fg)"
@@ -1538,10 +1542,10 @@ function Hero({
     l: "Payouts completed",
     sub: "Fast, seamless, and always on time."
   }, {
-    v: 5120,
+    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400)),
     suf: "",
-    l: "Active funded traders",
-    sub: "Scaling every single month."
+    l: "Funded traders",
+    sub: "Growing every single day."
   }, {
     v: 160,
     suf: "+",
@@ -9395,25 +9399,31 @@ function TeamCerts() {
     style: {
       color: "var(--accent)"
     }
-  }, "news channel"), ".")))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 20
-    }
-  }, /*#__PURE__*/React.createElement(Reveal, {
-    delay: "3"
-  }, /*#__PURE__*/React.createElement(Marquee, {
-    rows: row1,
-    dir: "left",
-    speed: 90
-  })), /*#__PURE__*/React.createElement(Reveal, {
-    delay: "4"
-  }, /*#__PURE__*/React.createElement(Marquee, {
-    rows: row2,
-    dir: "right",
-    speed: 110
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, "news channel"), ".")))), /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-cert-desktop",
+      style: { display: "flex", flexDirection: "column", gap: 20 }
+    },
+      /*#__PURE__*/React.createElement(Reveal, { delay: "3" }, /*#__PURE__*/React.createElement(Marquee, { rows: row1, dir: "left", speed: 90 })),
+      /*#__PURE__*/React.createElement(Reveal, { delay: "4" }, /*#__PURE__*/React.createElement(Marquee, { rows: row2, dir: "right", speed: 110 }))
+    ),
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-cert-mobile",
+      style: {
+        overflowX: "scroll",
+        WebkitOverflowScrolling: "touch",
+        scrollSnapType: "x mandatory",
+        display: "flex",
+        gap: 16,
+        padding: "4px 20px 12px",
+        msOverflowStyle: "none",
+        scrollbarWidth: "none"
+      }
+    }, certs.map((c, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: { scrollSnapAlign: "center", flexShrink: 0 }
+    }, /*#__PURE__*/React.createElement(CertCard, { c: c }))))
+  ), /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {
       marginTop: 40
@@ -10951,8 +10961,15 @@ function MobileMenu({
   }, "Log in")));
 }
 function MobileCTABar() {
+  const [vis, setVis] = React.useState(false);
+  React.useEffect(() => {
+    const fn = () => { setVis(window.scrollY > window.innerHeight * 1.6); };
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: "mobile-cta-bar"
+    className: "mobile-cta-bar",
+    style: { transform: vis ? "translateY(0)" : "translateY(120%)", transition: "transform 0.4s cubic-bezier(0.32,0.72,0,1)" }
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",

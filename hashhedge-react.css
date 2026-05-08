@@ -6036,3 +6036,38 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     transform-origin: center center !important;
   }
 }
+
+/* ============================================================
+   CERTIFICATES — desktop marquee / mobile swipe
+   ============================================================ */
+.hh-cert-mobile { display: none; }
+.hh-cert-desktop { display: flex; flex-direction: column; gap: 20px; }
+/* Hide scrollbar in mobile swipe strip */
+.hh-cert-mobile::-webkit-scrollbar { display: none; }
+
+@media (max-width: 640px) {
+  .hh-cert-desktop { display: none !important; }
+  .hh-cert-mobile { display: flex !important; }
+}
+
+/* ============================================================
+   HOW IT WORKS — mobile: step badge raised + tighter heading gap
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Float the number badge above the card */
+  #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
+    margin-bottom: -44px !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  /* Card needs top padding to accommodate the overlapping badge */
+  #hashhedge-root .tilda-html-hashhedge #how .card {
+    padding-top: 56px !important;
+    min-height: unset !important;
+  }
+  /* Remove forced min-height on description paragraph — kills big gap */
+  #hashhedge-root .tilda-html-hashhedge #how .card p[style*="min-height"],
+  #hashhedge-root .tilda-html-hashhedge #how .card p[style*="minHeight"] {
+    min-height: 0 !important;
+  }
+}
