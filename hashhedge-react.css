@@ -6089,9 +6089,9 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     align-items: center !important;
   }
 
-  /* Badge: centered, floats -68px over card top (higher) */
+  /* Badge: centered, sits above card with 8px gap (no overlap) */
   #hashhedge-root .tilda-html-hashhedge #how .how-step-badge {
-    margin: 0 auto -68px !important;
+    margin: 0 auto 8px !important;
     position: relative !important;
     z-index: 3 !important;
     width: 60px !important;
@@ -6101,9 +6101,9 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     font-size: 20px !important;
   }
 
-  /* Card: full width, padding-top to clear badge overlap */
+  /* Card: full width matching container, normal top padding */
   #hashhedge-root .tilda-html-hashhedge #how .card {
-    padding-top: 52px !important;
+    padding-top: 28px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     min-height: unset !important;
@@ -6120,4 +6120,17 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     min-height: 0 !important;
     margin-bottom: 14px !important;
   }
+
+  /* Steps grid takes full container width */
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) {
+    width: 100% !important;
+    padding: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal,
+  #hashhedge-root .tilda-html-hashhedge #how .container > div:nth-child(2) .reveal > div {
+    width: 100% !important;
+  }
+
 }
