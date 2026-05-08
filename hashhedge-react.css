@@ -6006,13 +6006,15 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 /* ── Final Why mobile art placement: preserve inner translate centering ── */
 @media (max-width: 640px) {
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] .hh-why-art-stage > *,
-  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"] > * {
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="tickers"] > div[style*="display: flex"] > *,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="tickers"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
     transform: scale(1.5) !important;
     transform-origin: center center !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="stages"] .hh-why-art-stage > *,
-  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="stages"] > div[style*="display: flex"] > * {
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="stages"] > div[style*="display: flex"] > *,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="stages"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
     transform: translate(-50%, -50%) scale(0.64) !important;
     transform-origin: center center !important;
   }
@@ -6020,13 +6022,16 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] .hh-why-art-stage > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] .hh-why-art-stage > *,
-  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] > div[style*="display: flex"] > * {
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] > div[style*="display: flex"] > *,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="coins"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > *,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="infinity"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
     transform: translate(-50%, -50%) scale(0.56) !important;
     transform-origin: center center !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] .hh-why-art-stage > *,
-  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] > div[style*="display: flex"] > * {
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] > div[style*="display: flex"] > *,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="support"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
     transform: translate(-50%, -54%) scale(0.56) !important;
     transform-origin: center center !important;
   }
