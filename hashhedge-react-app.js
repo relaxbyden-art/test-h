@@ -9067,7 +9067,7 @@ function MobileCertMarquee({ certs, CertCard }) {
     return () => cancelAnimationFrame(animRef.current);
   }, []);
 
-  const rowTrackStyle = { display: "flex", gap: 12, willChange: "transform", padding: "4px 0" };
+  const rowTrackStyle = { display: "flex", gap: 12, willChange: "transform", padding: "4px 0", alignItems: "stretch" };
 
   const makeRow = (r, doubled) => /*#__PURE__*/React.createElement("div", {
     style: { overflow: "hidden", touchAction: "pan-x", userSelect: "none" },
@@ -9075,10 +9075,10 @@ function MobileCertMarquee({ certs, CertCard }) {
     onTouchMove: r.onTouchMove,
     onTouchEnd: r.onTouchEnd
   }, /*#__PURE__*/React.createElement("div", { ref: r.trackRef, style: rowTrackStyle },
-    doubled.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: { flexShrink: 0 } },
+    doubled.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: { flexShrink: 0, alignSelf: "stretch", display: "flex" } },
       /*#__PURE__*/React.createElement(CertCard, { c: c })))));
 
-  return /*#__PURE__*/React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+  return /*#__PURE__*/React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8 } },
     makeRow(r1, doubled1),
     makeRow(r2, doubled2)
   );
@@ -9396,7 +9396,7 @@ function TeamCerts() {
     const animRef = React.useRef(null);
     const mouseStartX = React.useRef(null);
     const isDragging = React.useRef(false);
-    const SPEED = speed / 6000;
+    const SPEED = 180 / speed;  // ~2px/frame at speed=90 (matches original CSS timing)
 
     React.useEffect(() => {
       const animate = () => {

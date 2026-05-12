@@ -6135,15 +6135,18 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
 }
 
-/* Mobile cert rows: cards 30% smaller (320 → 224px) */
+/* Mobile cert rows: cards 30% smaller + equal height per row */
 @media (max-width: 640px) {
   .hh-cert-mobile .card {
     width: 224px !important;
     min-width: 224px !important;
     max-width: 224px !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
   }
   .hh-cert-mobile .card img {
     width: 100% !important;
-    height: auto !important;
+    height: 158px !important;
+    object-fit: cover !important;
   }
 }
