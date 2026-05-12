@@ -117,6 +117,7 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 - Desktop pass: order is Hero -> AS FEATURED IN -> BEYOND CRYPTO -> promo slider; slider seam hidden with gradient fade; funded header centered.
 - Tilda white screen: short jsDelivr SHA can fail for app/css. Use inline `tilda-react-snippet.html` with release tag, currently `hh-2026-05-12-desktop-spacing-3`.
 - Desktop spacing tweak: press top gap halved, metals bottom overlay removed, promo slider pushed lower from metals.
+- Current Tilda snippet is managed by user with `HH_COMMIT`; do not edit loader/snippet unless asked. Normal fixes should update `hashhedge-react-app.js` / `hashhedge-react.css` only.
 
 ---
 

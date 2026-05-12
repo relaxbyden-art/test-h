@@ -5444,6 +5444,7 @@ function EventsTournaments() {
     img: (window.__HH_BASE__+"assets/team/awards-top-affiliate.jpg")
   }];
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-events-section",
     style: {
       padding: "100px 0",
       background: "var(--bg)",
@@ -8481,6 +8482,7 @@ function YouTubeSection() {
   const midIdx = Math.floor(rest.length / 2);
   const rail = [...pinnedFront, ...rest.slice(0, midIdx), ...pinnedMid, ...rest.slice(midIdx)];
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-youtube-section",
     style: {
       padding: "120px 0",
       background: "var(--bg)",
@@ -9457,6 +9459,7 @@ function TeamCerts() {
     }))));
   };
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-team-section",
     style: {
       position: "relative",
       paddingTop: 60
