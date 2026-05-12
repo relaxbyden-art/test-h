@@ -1,7 +1,8 @@
 <div id="hashhedge-root"></div>
 <script>
 (function(){
-  var base = "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@hh-2026-05-12-desktop-spacing-3/";
+  var v = "20260512-main";
+  var base = "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
   window.__HH_BASE__ = base;
   var root = document.getElementById("hashhedge-root");
 
@@ -9,39 +10,19 @@
     return new Promise(function(resolve){
       if (document.querySelector('link[href="' + href + '"]')) return resolve();
       var l = document.createElement("link");
-      l.rel = "stylesheet";
-      l.href = href;
-      l.onload = resolve;
-      l.onerror = resolve;
+      l.rel = "stylesheet"; l.href = href;
+      l.onload = resolve; l.onerror = resolve;
       document.head.appendChild(l);
     });
   }
 
-  function loadScript(src, timeoutMs){
+  function loadScript(src){
     return new Promise(function(resolve, reject){
       if (document.querySelector('script[src="' + src + '"]')) return resolve();
       var s = document.createElement("script");
-      var done = false;
-      var timer = setTimeout(function(){
-        if (done) return;
-        done = true;
-        s.onload = s.onerror = null;
-        reject(new Error("Timed out loading " + src));
-      }, timeoutMs || 12000);
-      s.src = src;
-      s.async = true;
-      s.onload = function(){
-        if (done) return;
-        done = true;
-        clearTimeout(timer);
-        resolve();
-      };
-      s.onerror = function(){
-        if (done) return;
-        done = true;
-        clearTimeout(timer);
-        reject(new Error("Failed loading " + src));
-      };
+      s.src = src; s.async = true;
+      s.onload = resolve;
+      s.onerror = function(){ reject(new Error("Failed: " + src)); };
       document.head.appendChild(s);
     });
   }
@@ -49,13 +30,13 @@
   function loadFirst(urls){
     var chain = Promise.reject();
     urls.forEach(function(url){
-      chain = chain.catch(function(){ return loadScript(url, 12000); });
+      chain = chain.catch(function(){ return loadScript(url); });
     });
     return chain;
   }
 
   loadCss("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap");
-  loadCss(base + "hashhedge-react.css?v=20260512-desktop-spacing-3");
+  loadCss(base + "hashhedge-react.css?v=" + v);
 
   loadFirst([
     "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js",
@@ -67,11 +48,11 @@
         "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"
       ]);
     })
-    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260512-desktop-spacing-3", 12000); })
+    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=" + v); })
     .catch(function(err){
       console.error("HashHedge loader failed", err);
       if (root && !root.childNodes.length) {
-        root.innerHTML = '<div style="min-height:320px;display:flex;align-items:center;justify-content:center;background:#08080a;color:#f5f1e8;font:600 18px system-ui,-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;padding:32px;">HashHedge failed to load. Refresh the page.</div>';
+        root.innerHTML = '<div style="min-height:320px;display:flex;align-items:center;justify-content:center;background:#08080a;color:#f5f1e8;font:600 18px system-ui,sans-serif;text-align:center;padding:32px;">HashHedge failed to load. Refresh the page.</div>';
       }
     });
 })();
