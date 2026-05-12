@@ -6352,7 +6352,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-promo-slider-section {
-    padding-top: 56px !important;
+    padding-top: 96px !important;
     padding-bottom: 76px !important;
     background:
       linear-gradient(180deg, #101012 0%, rgba(16,16,18,0.5) 18%, rgba(16,16,18,0.5) 78%, #101012 100%) !important;
@@ -6415,7 +6415,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
   #hashhedge-root .tilda-html-hashhedge #press {
-    padding-top: 58px !important;
+    padding-top: 29px !important;
     padding-bottom: 58px !important;
     background:
       linear-gradient(180deg, #101012 0%, rgba(16,16,18,0.96) 30%, rgba(16,16,18,0.96) 72%, #101012 100%) !important;
@@ -6426,6 +6426,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     padding-bottom: 0 !important;
     background:
       linear-gradient(180deg, #101012 0%, rgba(16,16,18,0.58) 16%, rgba(16,16,18,0.42) 78%, #101012 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #press + section::after {
+    display: none !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #press + section > .container > div {

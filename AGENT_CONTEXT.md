@@ -116,6 +116,7 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 - Base restored to working `851c2b6`. Do not touch loader for layout fixes.
 - Desktop pass: order is Hero -> AS FEATURED IN -> BEYOND CRYPTO -> promo slider; slider seam hidden with gradient fade; funded header centered.
 - Tilda white screen: short jsDelivr SHA can fail for app/css. Use inline `tilda-react-snippet.html` with release tag, currently `hh-2026-05-12-desktop-fixes-2`.
+- Desktop spacing tweak: press top gap halved, metals bottom overlay removed, promo slider pushed lower from metals.
 
 ---
 
