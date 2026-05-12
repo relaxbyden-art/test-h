@@ -1,4 +1,3 @@
-
 (function(){
   var script = document.currentScript;
   var base = script ? new URL(".", script.src).href : "";
@@ -10,28 +9,44 @@
     return new Promise(function(resolve){
       if (document.querySelector('link[href="' + href + '"]')) return resolve();
       var l = document.createElement("link");
-      l.rel = "stylesheet";
-      l.href = href;
-      l.onload = resolve;
-      l.onerror = resolve;
+      l.rel = "stylesheet"; l.href = href;
+      l.onload = resolve; l.onerror = resolve;
       document.head.appendChild(l);
     });
   }
+
   function loadScript(src){
     return new Promise(function(resolve, reject){
       if (document.querySelector('script[src="' + src + '"]')) return resolve();
       var s = document.createElement("script");
-      s.src = src;
+      s.src = src; s.async = true;
       s.onload = resolve;
-      s.onerror = reject;
+      s.onerror = function(){ reject(new Error("Failed: " + src)); };
       document.head.appendChild(s);
     });
   }
 
-  loadCss("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap")
-    .then(function(){ return loadCss(base + "hashhedge-react.css?v=20260512-desktop-order-1"); })
-    .then(function(){ return loadScript("https://unpkg.com/react@18.3.1/umd/react.production.min.js"); })
-    .then(function(){ return loadScript("https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"); })
-    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260512-desktop-order-1"); })
+  function loadFirst(urls){
+    var chain = Promise.reject();
+    urls.forEach(function(url){
+      chain = chain.catch(function(){ return loadScript(url); });
+    });
+    return chain;
+  }
+
+  loadCss("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap");
+  loadCss(base + "hashhedge-react.css?v=20260512");
+
+  loadFirst([
+    "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js",
+    "https://unpkg.com/react@18.3.1/umd/react.production.min.js"
+  ])
+    .then(function(){
+      return loadFirst([
+        "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js",
+        "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"
+      ]);
+    })
+    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260512"); })
     .catch(function(err){ console.error("HashHedge loader failed", err); });
 })();
