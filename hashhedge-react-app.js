@@ -10291,7 +10291,7 @@ function FAQ() {
       marginTop: 28
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
+    href: "https://www.hashhedge.com/faq",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-ghost"
@@ -10689,7 +10689,9 @@ function BigCTA() {
     rel: "noopener",
     className: "btn btn-primary btn-lg"
   }, "Start Challenge \xB7 $79"), /*#__PURE__*/React.createElement("a", {
-    href: "#faq",
+    href: "https://hashhedge.gitbook.io/hashhedge-user-guide?fpr=123456",
+    target: "_blank",
+    rel: "noopener",
     className: "btn btn-ghost btn-lg cta-secondary"
   }, "Read the rules")))))));
 }
