@@ -6193,3 +6193,43 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
   pointer-events: none; z-index: 2;
 }
+
+/* =====================================================================
+   FIXES 2026-05-12 — part 2: mobile cert +20%, hero trust bar, platform stats
+   ===================================================================== */
+@media (max-width: 640px) {
+
+  /* Cert cards: 224 -> 268px (+20%) */
+  .hh-cert-mobile .card {
+    width: 268px !important;
+    min-width: 268px !important;
+    max-width: 268px !important;
+  }
+  .hh-cert-mobile .card img {
+    height: 188px !important;
+  }
+
+  /* Hero trust bar: single flex row instead of stacked grid */
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 14px !important;
+    border-radius: 16px !important;
+    overflow-x: auto !important;
+    background: rgba(255,255,255,0.035) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+  }
+
+  /* Platform stats (LivePayoutsTable): restore below hero on mobile */
+  #hashhedge-root .tilda-html-hashhedge > section:first-of-type .hero-grid > *:nth-child(2) {
+    display: block !important;
+    margin-top: 24px !important;
+  }
+  /* Hide sparkline SVGs inside LivePayoutsTable on mobile (too wide) */
+  #hashhedge-root .tilda-html-hashhedge > section:first-of-type .hero-grid > *:nth-child(2) svg {
+    display: none !important;
+  }
+}
