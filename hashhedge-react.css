@@ -6150,3 +6150,9 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     object-fit: cover !important;
   }
 }
+
+/* Read the rules button: black text on hover */
+#hashhedge-root .tilda-html-hashhedge a.btn-ghost.cta-secondary:hover,
+#hashhedge-root .tilda-html-hashhedge .btn-ghost.cta-secondary:hover {
+  color: #000000 !important;
+}
