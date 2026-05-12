@@ -6134,3 +6134,16 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   }
 
 }
+
+/* Mobile cert rows: cards 30% smaller (320 → 224px) */
+@media (max-width: 640px) {
+  .hh-cert-mobile .card {
+    width: 224px !important;
+    min-width: 224px !important;
+    max-width: 224px !important;
+  }
+  .hh-cert-mobile .card img {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
