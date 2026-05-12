@@ -1,7 +1,7 @@
 <div id="hashhedge-root"></div>
 <script>
 (function(){
-  var base = "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@hh-2026-05-12-desktop-order/";
+  var base = "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@hh-2026-05-12-desktop-fixes-2/";
   window.__HH_BASE__ = base;
   var root = document.getElementById("hashhedge-root");
 
@@ -55,7 +55,7 @@
   }
 
   loadCss("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap");
-  loadCss(base + "hashhedge-react.css?v=20260512-desktop-order-1");
+  loadCss(base + "hashhedge-react.css?v=20260512-desktop-fixes-2");
 
   loadFirst([
     "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js",
@@ -67,7 +67,7 @@
         "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"
       ]);
     })
-    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260512-desktop-order-1", 12000); })
+    .then(function(){ return loadScript(base + "hashhedge-react-app.js?v=20260512-desktop-fixes-2", 12000); })
     .catch(function(err){
       console.error("HashHedge loader failed", err);
       if (root && !root.childNodes.length) {
