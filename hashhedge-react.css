@@ -6265,3 +6265,196 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     font-size: clamp(32px, 8vw, 48px) !important;
   }
 }
+
+/* =====================================================================
+   FIXES 2026-05-12 — current pass: hero proof, payout flags, funded cell,
+   support buttons, and mobile final CTA restore
+   ===================================================================== */
+@media (min-width: 641px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-row {
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-row > div:first-child {
+    flex: 0 0 auto !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-flags {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: clamp(2px, 0.55vw, 6px) !important;
+    grid-template-columns: none !important;
+    font-size: clamp(15px, 1.65vw, 20px) !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-row > div:last-child {
+    flex: 0 0 auto !important;
+  }
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell {
+  display: grid !important;
+  grid-template-rows: 18px 30px 18px !important;
+  align-items: center !important;
+  justify-items: center !important;
+  row-gap: 4px !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell > div {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-inf-glyph {
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-row {
+    display: grid !important;
+    grid-template-columns: auto 1fr auto !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-flags {
+    display: grid !important;
+    grid-template-columns: repeat(4, auto) !important;
+    grid-auto-rows: auto !important;
+    justify-content: start !important;
+    gap: 4px 6px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    margin-top: 28px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div {
+    flex-shrink: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof [style*="font-size: 14"] {
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof [style*="font-size: 12"] {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof .chip {
+    height: 24px !important;
+    padding: 0 8px !important;
+    font-size: 9px !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div[style*="height: 32"] {
+    height: 20px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample {
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > svg {
+    width: 42px !important;
+    height: 42px !important;
+    flex: 0 0 42px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel {
+    min-height: 76px !important;
+    padding: 16px 18px !important;
+    border-radius: 18px !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035)) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    box-shadow:
+      0 18px 40px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.08) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:first-child {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 14px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:first-child {
+    font-size: 10px !important;
+    letter-spacing: 0.14em !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:nth-child(2) {
+    font-size: 16px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:nth-child(3) {
+    font-size: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-hero {
+    padding: 34px 18px !important;
+    text-align: left !important;
+    min-height: 0 !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(252,213,53,0.16), transparent 32%),
+      linear-gradient(180deg, rgba(24,22,17,0.96), rgba(10,10,10,0.98)) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-grid,
+  #hashhedge-root .tilda-html-hashhedge .cta-rings,
+  #hashhedge-root .tilda-html-hashhedge .cta-chart,
+  #hashhedge-root .tilda-html-hashhedge .cta-coins,
+  #hashhedge-root .tilda-html-hashhedge .cta-rain-layer,
+  #hashhedge-root .tilda-html-hashhedge .cta-spark {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-hero .eyebrow {
+    justify-content: flex-start !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-hero h2 {
+    margin: 18px 0 !important;
+    text-align: left !important;
+    font-size: clamp(31px, 8.7vw, 38px) !important;
+    line-height: 1.06 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .cta-hero p {
+    margin: 0 0 24px !important;
+    text-align: left !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta-actions .btn {
+    width: 100% !important;
+  }
+}

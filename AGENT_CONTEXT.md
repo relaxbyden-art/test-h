@@ -112,6 +112,9 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 - Reverted bad mobile Why hard-lock from `d845f91`; final guard now only keeps pricing badges compact/right-aligned and final CTA darker.
 - Why mobile art fix: old scale-only overrides erased inner translate centering; final override restores `translate(...) scale(...)` for stages/coins/infinity/support and scales tickers to `1.5`.
 
+### 2026-05-12 current base
+- Base restored to `f8b7faa`; current pass moves promo slider after hero, keeps metals block, fixes payout flags/dot, funded infinity, mobile trust/support/sample/CTA.
+
 ---
 
 ## Pending / Known Issues

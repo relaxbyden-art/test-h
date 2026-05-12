@@ -2585,8 +2585,10 @@ function HowItWorks() {
     strokeLinejoin: "round"
   })), b))))))))));
 }
+const TradeMetalsBanner = PromoBanner;
 Object.assign(window, {
   PromoBanner,
+  TradeMetalsBanner,
   HowItWorks
 });
 
@@ -3625,6 +3627,7 @@ function Pricing() {
     accent: true
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
+    className: col.accent ? "hh-funded-stage-cell" : undefined,
     style: {
       padding: "13px 14px 12px",
       textAlign: "center",
@@ -3898,6 +3901,7 @@ function Pricing() {
 // Small ∞ glyph – matches Figma "unlimited" cell
 function Inf() {
   return /*#__PURE__*/React.createElement("svg", {
+    className: "hh-inf-glyph",
     width: "26",
     height: "16",
     viewBox: "0 0 26 16",
@@ -5158,9 +5162,10 @@ function PayoutShowcase() {
       width: 6,
       height: 6,
       borderRadius: "50%",
-      background: "#07150d"
+      background: "#fff"
     }
   }), "REAL PAYOUT"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-paid-in-row",
     style: {
       marginTop: 20,
       padding: "14px 18px",
@@ -5180,6 +5185,7 @@ function PayoutShowcase() {
       textTransform: "uppercase"
     }
   }, "Paid in"), /*#__PURE__*/React.createElement("div", {
+    className: "hh-paid-in-flags",
     style: {
       display: "grid",
       fontSize: 20,
@@ -7751,6 +7757,7 @@ function SupportSection() {
     key: i,
     delay: String(i + 1)
   }, /*#__PURE__*/React.createElement("a", {
+    className: "hh-support-channel",
     href: c.href,
     target: c.href.startsWith("http") || c.href.startsWith("mailto") ? "_blank" : undefined,
     rel: "noopener",
@@ -9532,6 +9539,7 @@ function TeamCerts() {
   }, /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "hh-payout-sample",
     style: {
       marginTop: 32,
       padding: "20px 28px",
@@ -11109,7 +11117,7 @@ function HashHedgeReactApp() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: "classic",
     anim: "max"
-  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null));
+  }), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null));
 }
 function PopupChartBg() {
   return /*#__PURE__*/React.createElement("svg", {
