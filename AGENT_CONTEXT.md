@@ -113,8 +113,8 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 - Why mobile art fix: old scale-only overrides erased inner translate centering; final override restores `translate(...) scale(...)` for stages/coins/infinity/support and scales tickers to `1.5`.
 
 ### 2026-05-12 current base
-- Base restored to `f8b7faa`; current pass moves promo slider after hero, keeps metals block, fixes payout flags/dot, funded infinity, mobile trust/support/sample/CTA.
-- Desktop pass: BEYOND CRYPTO placed before promo slider; slider seam hidden with gradient fade; funded table header centered.
+- Base restored to working `851c2b6`. Do not touch loader for layout fixes.
+- Desktop pass: order is Hero -> AS FEATURED IN -> BEYOND CRYPTO -> promo slider; slider seam hidden with gradient fade; funded header centered.
 
 ---
 
