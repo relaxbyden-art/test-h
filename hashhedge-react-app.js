@@ -9389,21 +9389,74 @@ function TeamCerts() {
     dir = "left",
     speed = 80
   }) => {
-    // Duplicate rows 2x so the -50% translation loops seamlessly.
     const doubled = [...rows, ...rows];
+    const trackRef = React.useRef(null);
+    const posRef = React.useRef(0);
+    const dirRef = React.useRef(dir === "left" ? 1 : -1);
+    const animRef = React.useRef(null);
+    const mouseStartX = React.useRef(null);
+    const isDragging = React.useRef(false);
+    const SPEED = speed / 6000;
+
+    React.useEffect(() => {
+      const animate = () => {
+        const t = trackRef.current;
+        if (t && !isDragging.current) {
+          const half = t.scrollWidth / 2;
+          posRef.current += SPEED * dirRef.current * (t.offsetWidth || 1200);
+          if (posRef.current >= half) posRef.current -= half;
+          if (posRef.current < 0) posRef.current += half;
+          t.style.transform = "translateX(" + (-posRef.current) + "px)";
+        }
+        animRef.current = requestAnimationFrame(animate);
+      };
+      animRef.current = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(animRef.current);
+    }, []);
+
+    const onMouseDown = (e) => { mouseStartX.current = e.clientX; isDragging.current = true; };
+    const onMouseMove = (e) => {
+      if (!isDragging.current || mouseStartX.current === null) return;
+      const dx = e.clientX - mouseStartX.current;
+      mouseStartX.current = e.clientX;
+      const t = trackRef.current;
+      if (!t) return;
+      const half = t.scrollWidth / 2;
+      posRef.current -= dx;
+      if (posRef.current >= half) posRef.current -= half;
+      if (posRef.current < 0) posRef.current += half;
+      t.style.transform = "translateX(" + (-posRef.current) + "px)";
+    };
+    const onMouseUp = (e) => {
+      if (mouseStartX.current !== null) {
+        const dx = e.clientX - mouseStartX.current;
+        if (Math.abs(dx) > 2) dirRef.current = dx > 0 ? -1 : 1;
+      }
+      isDragging.current = false;
+      mouseStartX.current = null;
+    };
+    const onMouseLeave = () => { isDragging.current = false; mouseStartX.current = null; };
+
     return /*#__PURE__*/React.createElement("div", {
       style: {
         overflow: "hidden",
         position: "relative",
+        cursor: "grab",
         maskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)",
         WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)"
-      }
+      },
+      onMouseDown: onMouseDown,
+      onMouseMove: onMouseMove,
+      onMouseUp: onMouseUp,
+      onMouseLeave: onMouseLeave
     }, /*#__PURE__*/React.createElement("div", {
+      ref: trackRef,
       style: {
         display: "flex",
         gap: 20,
         width: "max-content",
-        animation: `cert-marquee-${dir} ${speed}s linear infinite`
+        userSelect: "none",
+        willChange: "transform"
       }
     }, doubled.map((c, i) => /*#__PURE__*/React.createElement(CertCard, {
       key: i,
