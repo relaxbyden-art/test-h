@@ -6313,6 +6313,107 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   margin: 0 auto !important;
 }
 
+/* ── Desktop follow-up 2026-05-12: block order seams + funded header alignment ── */
+@media (min-width: 769px) {
+  #hashhedge-root .tilda-html-hashhedge {
+    background:
+      linear-gradient(180deg, #101012 0%, #0e0e10 18%, #101012 38%, #0f0f11 62%, #101012 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge > section {
+    position: relative !important;
+    margin-top: -1px !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow:
+      inset 0 120px 96px -108px #101012,
+      inset 0 -132px 104px -108px #101012 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge > section::before,
+  #hashhedge-root .tilda-html-hashhedge > section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 92px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge > section::before {
+    top: 0;
+    background: linear-gradient(180deg, #101012 0%, rgba(16,16,18,0) 100%);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge > section::after {
+    bottom: 0;
+    background: linear-gradient(0deg, #101012 0%, rgba(16,16,18,0) 100%);
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-promo-slider-section {
+    padding-top: 56px !important;
+    padding-bottom: 48px !important;
+    background:
+      linear-gradient(180deg, #101012 0%, rgba(16,16,18,0.5) 18%, rgba(16,16,18,0.5) 78%, #101012 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-promo-slider-section::after {
+    height: 120px !important;
+    bottom: -1px !important;
+    background: linear-gradient(0deg, #101012 0%, rgba(16,16,18,0.82) 32%, rgba(16,16,18,0) 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-promo-slider {
+    box-shadow:
+      0 42px 120px -44px rgba(0,0,0,0.82),
+      0 80px 90px -96px #101012,
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      inset 0 0 90px rgba(255,255,255,0.025) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-promo-slider + * {
+    border-top: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell {
+    padding: 13px 14px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    text-align: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell > div:nth-child(1),
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell > div:nth-child(3) {
+    height: 18px !important;
+    line-height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell > div:nth-child(2) {
+    height: 26px !important;
+    line-height: 26px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell .hh-inf-glyph {
+    width: 28px !important;
+    height: 18px !important;
+    display: block !important;
+    margin: 0 auto !important;
+    transform: translateX(0) !important;
+  }
+}
+
 @media (max-width: 640px) {
   #hashhedge-root .tilda-html-hashhedge .hh-paid-in-row {
     display: grid !important;

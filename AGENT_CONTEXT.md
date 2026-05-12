@@ -114,6 +114,7 @@ Use `5,120` for funded-trader copy/metrics. Do not reintroduce competing live tr
 
 ### 2026-05-12 current base
 - Base restored to `f8b7faa`; current pass moves promo slider after hero, keeps metals block, fixes payout flags/dot, funded infinity, mobile trust/support/sample/CTA.
+- Desktop pass: BEYOND CRYPTO placed before promo slider; slider seam hidden with gradient fade; funded table header centered.
 
 ---
 
