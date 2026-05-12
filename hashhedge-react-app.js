@@ -9396,7 +9396,7 @@ function TeamCerts() {
     const animRef = React.useRef(null);
     const mouseStartX = React.useRef(null);
     const isDragging = React.useRef(false);
-    const SPEED = 180 / speed;  // ~2px/frame at speed=90 (matches original CSS timing)
+    const SPEED = 60 / speed;  // ~0.67px/frame at speed=90 (3x slower)
 
     React.useEffect(() => {
       const animate = () => {
