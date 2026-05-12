@@ -2606,13 +2606,6 @@ function PromoSliderBanner() {
     copy: "XAU/USDT and XAG/USDT are now available on the Hash Hedge platform",
     cta: "Start Challenge",
     art: "metals"
-  }, {
-    key: "profit-split",
-    eyebrow: "TRADER-FIRST SPLIT",
-    title: "Get 90% of the Profits",
-    copy: "90/10 Profit Split on all challenges",
-    cta: "Start Challenge",
-    art: "split"
   }];
   const [active, setActive] = __useS(0);
   const [paused, setPaused] = __useS(false);
@@ -9011,6 +9004,60 @@ Object.assign(window, {
 const {
   useState: ____useS
 } = React;
+function MobileCertMarquee({ certs, CertCard }) {
+  const trackRef = React.useRef(null);
+  const animRef = React.useRef(null);
+  const posRef = React.useRef(0);
+  const touchStartX = React.useRef(null);
+  const isDragging = React.useRef(false);
+  const SPEED = 0.5; // px per frame
+
+  React.useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const totalW = track.scrollWidth / 2; // duplicated, so half = one set
+
+    const animate = () => {
+      if (!isDragging.current) {
+        posRef.current += SPEED;
+        if (posRef.current >= totalW) posRef.current -= totalW;
+        track.style.transform = "translateX(" + (-posRef.current) + "px)";
+      }
+      animRef.current = requestAnimationFrame(animate);
+    };
+    animRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animRef.current);
+  }, []);
+
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    isDragging.current = true;
+  };
+  const onTouchMove = (e) => {
+    if (touchStartX.current === null) return;
+    const dx = touchStartX.current - e.touches[0].clientX;
+    posRef.current = Math.max(0, posRef.current + dx);
+    touchStartX.current = e.touches[0].clientX;
+    const track = trackRef.current;
+    if (track) track.style.transform = "translateX(" + (-posRef.current) + "px)";
+  };
+  const onTouchEnd = () => { isDragging.current = false; touchStartX.current = null; };
+
+  const doubled = [...certs, ...certs];
+  return /*#__PURE__*/React.createElement("div", {
+    style: { touchAction: "pan-x", userSelect: "none" },
+    onTouchStart: onTouchStart,
+    onTouchMove: onTouchMove,
+    onTouchEnd: onTouchEnd
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: trackRef,
+    style: { display: "flex", gap: 16, willChange: "transform", padding: "4px 0 12px" }
+  }, doubled.map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: { flexShrink: 0 }
+  }, /*#__PURE__*/React.createElement(CertCard, { c: c })))));
+}
+
 function TeamCerts() {
   useRevealOnScroll();
   const [lightbox, setLightbox] = ____useS(null);
@@ -9410,20 +9457,8 @@ function TeamCerts() {
     ),
     /*#__PURE__*/React.createElement("div", {
       className: "hh-cert-mobile",
-      style: {
-        overflowX: "scroll",
-        WebkitOverflowScrolling: "touch",
-        scrollSnapType: "x mandatory",
-        display: "flex",
-        gap: 16,
-        padding: "4px 20px 12px",
-        msOverflowStyle: "none",
-        scrollbarWidth: "none"
-      }
-    }, certs.map((c, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: { scrollSnapAlign: "center", flexShrink: 0 }
-    }, /*#__PURE__*/React.createElement(CertCard, { c: c }))))
+      style: { overflow: "hidden", position: "relative" }
+    }, /*#__PURE__*/React.createElement(MobileCertMarquee, { certs: certs, CertCard: CertCard }))
   ), /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {
@@ -11073,6 +11108,7 @@ function PopupChartBg() {
 }
 
 function PromoPopup() {
+  return null;
   const [open, setOpen] = __useS(true);
   const [time, setTime] = __useS({
     h: 47,
