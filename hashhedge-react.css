@@ -6233,3 +6233,35 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     display: none !important;
   }
 }
+
+/* =====================================================================
+   FIXES 2026-05-12 — part 3: mobile support, blueprint, BigCTA
+   ===================================================================== */
+@media (max-width: 640px) {
+
+  /* Support channels: stack vertically, clearly tappable */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section [style*="repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section a[href] {
+    border: 1px solid rgba(255,255,255,0.16) !important;
+    padding: 16px 20px !important;
+    border-radius: 18px !important;
+    background: rgba(255,255,255,0.04) !important;
+    justify-content: space-between !important;
+  }
+
+  /* Blueprint stats: spread across full width */
+  #hashhedge-root .tilda-html-hashhedge #blueprint [style*="gap: 32"] {
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  /* BigCTA hero: reduce padding so content fits */
+  #hashhedge-root .tilda-html-hashhedge .cta-hero {
+    padding: 56px 20px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta h2 {
+    font-size: clamp(32px, 8vw, 48px) !important;
+  }
+}
