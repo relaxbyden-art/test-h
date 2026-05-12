@@ -3632,28 +3632,14 @@ function Pricing() {
       background: col.accent ? "rgba(252,213,53,0.05)" : "transparent",
       position: "relative"
     }
-  }, col.accent && /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      top: 6,
-      left: "50%",
-      transform: "translateX(-50%)",
-      fontSize: 9,
-      fontWeight: 800,
-      letterSpacing: "0.12em",
-      color: "var(--accent)",
-      padding: "2px 8px",
-      borderRadius: 4,
-      background: "rgba(252,213,53,0.15)"
-    }
-  }, "GOAL"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 10,
       fontWeight: 800,
       letterSpacing: "0.14em",
       color: col.accent ? "var(--accent)" : "var(--fg-dim)",
       marginBottom: 4,
-      marginTop: col.accent ? 9 : 0
+      marginTop: 0
     }
   }, col.label), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5156,8 +5142,8 @@ function PayoutShowcase() {
       right: -14,
       padding: "8px 14px",
       borderRadius: 999,
-      background: "var(--green)",
-      color: "#07150d",
+      background: "#E07830",
+      color: "#fff",
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
@@ -5195,11 +5181,11 @@ function PayoutShowcase() {
     }
   }, "Paid in"), /*#__PURE__*/React.createElement("div", {
     style: {
-      display: "flex",
+      display: "grid",
       fontSize: 20,
       lineHeight: 1,
       gap: 6,
-      flexWrap: "wrap"
+      gridTemplateColumns: "repeat(8, auto)"
     }
   }, countries.map((c, i) => /*#__PURE__*/React.createElement("span", {
     key: i,
@@ -8065,7 +8051,7 @@ function BlueprintSection() {
       letterSpacing: "-0.02em",
       lineHeight: 1
     }
-  }, "~15 min"), /*#__PURE__*/React.createElement("div", {
+  }, "15 min"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-muted)",
@@ -9557,8 +9543,8 @@ function TeamCerts() {
       gap: 12
     }
   }, /*#__PURE__*/React.createElement("svg", {
-    width: "20",
-    height: "20",
+    width: "28",
+    height: "28",
     viewBox: "0 0 24 24",
     fill: "none"
   }, /*#__PURE__*/React.createElement("circle", {
@@ -11123,7 +11109,7 @@ function HashHedgeReactApp() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: "classic",
     anim: "max"
-  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null));
+  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null));
 }
 function PopupChartBg() {
   return /*#__PURE__*/React.createElement("svg", {
