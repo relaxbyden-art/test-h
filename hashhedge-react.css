@@ -6156,3 +6156,40 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 #hashhedge-root .tilda-html-hashhedge .btn-ghost.cta-secondary:hover {
   color: #000000 !important;
 }
+
+/* =====================================================================
+   FIXES 2026-05-12 — part 1: desktop nav/footer, FAQ links, section fades
+   ===================================================================== */
+
+/* Nav: neutral dark grey (remove blue tint) */
+#hashhedge-root .tilda-html-hashhedge .nav {
+  background: rgba(13,13,13,0.85) !important;
+}
+
+/* Footer: neutral dark grey */
+#hashhedge-root .tilda-html-hashhedge footer {
+  background: #121212 !important;
+}
+
+/* FAQ links: yellow accent */
+#hashhedge-root .tilda-html-hashhedge #faq a {
+  color: var(--accent) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+#hashhedge-root .tilda-html-hashhedge #faq a:hover { opacity: 0.8; }
+
+/* Reviews section: top and bottom fade to hide blur circle bleed */
+#hashhedge-root .tilda-html-hashhedge .hh-reviews-section { position: relative; }
+#hashhedge-root .tilda-html-hashhedge .hh-reviews-section::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+  pointer-events: none; z-index: 2;
+}
+#hashhedge-root .tilda-html-hashhedge .hh-reviews-section::after {
+  content: "";
+  position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  pointer-events: none; z-index: 2;
+}
