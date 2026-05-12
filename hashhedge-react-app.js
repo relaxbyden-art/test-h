@@ -9403,7 +9403,7 @@ function TeamCerts() {
         const t = trackRef.current;
         if (t && !isDragging.current) {
           const half = t.scrollWidth / 2;
-          posRef.current += SPEED * dirRef.current * (t.offsetWidth || 1200);
+          posRef.current += SPEED * dirRef.current;
           if (posRef.current >= half) posRef.current -= half;
           if (posRef.current < 0) posRef.current += half;
           t.style.transform = "translateX(" + (-posRef.current) + "px)";
