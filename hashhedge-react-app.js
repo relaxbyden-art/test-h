@@ -9004,112 +9004,83 @@ Object.assign(window, {
 const {
   useState: ____useS
 } = React;
+function useCertRow(defaultDir) {
+  const trackRef = React.useRef(null);
+  const posRef = React.useRef(0);
+  const dirRef = React.useRef(defaultDir);
+  const touchStartX = React.useRef(null);
+  const isTouching = React.useRef(false);
+
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    isTouching.current = true;
+  };
+  const onTouchMove = (e) => {
+    if (touchStartX.current === null) return;
+    const dx = e.touches[0].clientX - touchStartX.current;
+    touchStartX.current = e.touches[0].clientX;
+    const t = trackRef.current;
+    if (!t) return;
+    const half = t.scrollWidth / 2;
+    posRef.current -= dx;
+    if (posRef.current >= half) posRef.current -= half;
+    if (posRef.current < 0) posRef.current += half;
+    t.style.transform = "translateX(" + (-posRef.current) + "px)";
+  };
+  const onTouchEnd = (e) => {
+    isTouching.current = false;
+    const touch = e.changedTouches[0];
+    if (touchStartX.current !== null) {
+      const dx = touch.clientX - touchStartX.current;
+      if (Math.abs(dx) > 2) dirRef.current = dx > 0 ? -1 : 1;
+    }
+    touchStartX.current = null;
+  };
+
+  return { trackRef, posRef, dirRef, isTouching, onTouchStart, onTouchMove, onTouchEnd };
+}
+
 function MobileCertMarquee({ certs, CertCard }) {
   const row1 = certs.filter((_, i) => i % 2 === 0);
   const row2 = certs.filter((_, i) => i % 2 === 1);
   const doubled1 = [...row1, ...row1];
   const doubled2 = [...row2, ...row2];
-
-  const track1Ref = React.useRef(null);
-  const track2Ref = React.useRef(null);
-  const pos1Ref = React.useRef(0);
-  const pos2Ref = React.useRef(0);
+  const r1 = useCertRow(1);
+  const r2 = useCertRow(-1);
   const animRef = React.useRef(null);
-  const touchStartX = React.useRef(null);
-  const isTouching = React.useRef(false);
-  // direction: 1 = left (default for row1), -1 = right (default for row2)
-  const dir1Ref = React.useRef(1);
-  const dir2Ref = React.useRef(-1);
   const SPEED = 0.45;
 
   React.useEffect(() => {
-    const t1 = track1Ref.current;
-    const t2 = track2Ref.current;
-    if (!t1 || !t2) return;
-
     const animate = () => {
-      if (!isTouching.current) {
-        const half1 = t1.scrollWidth / 2;
-        const half2 = t2.scrollWidth / 2;
-
-        pos1Ref.current += SPEED * dir1Ref.current;
-        pos2Ref.current += SPEED * dir2Ref.current;
-
-        // loop seamlessly
-        if (pos1Ref.current >= half1) pos1Ref.current -= half1;
-        if (pos1Ref.current < 0) pos1Ref.current += half1;
-        if (pos2Ref.current >= half2) pos2Ref.current -= half2;
-        if (pos2Ref.current < 0) pos2Ref.current += half2;
-
-        t1.style.transform = "translateX(" + (-pos1Ref.current) + "px)";
-        t2.style.transform = "translateX(" + (-pos2Ref.current) + "px)";
-      }
+      [r1, r2].forEach(r => {
+        if (!r.isTouching.current && r.trackRef.current) {
+          const half = r.trackRef.current.scrollWidth / 2;
+          r.posRef.current += SPEED * r.dirRef.current;
+          if (r.posRef.current >= half) r.posRef.current -= half;
+          if (r.posRef.current < 0) r.posRef.current += half;
+          r.trackRef.current.style.transform = "translateX(" + (-r.posRef.current) + "px)";
+        }
+      });
       animRef.current = requestAnimationFrame(animate);
     };
     animRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animRef.current);
   }, []);
 
-  const onTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    isTouching.current = true;
-  };
+  const rowTrackStyle = { display: "flex", gap: 12, willChange: "transform", padding: "4px 0" };
 
-  const onTouchMove = (e) => {
-    if (touchStartX.current === null) return;
-    const dx = e.touches[0].clientX - touchStartX.current; // positive = swipe right
-    touchStartX.current = e.touches[0].clientX;
-    const t1 = track1Ref.current;
-    const t2 = track2Ref.current;
-    if (!t1 || !t2) return;
-    const half1 = t1.scrollWidth / 2;
-    const half2 = t2.scrollWidth / 2;
-    // both rows move in same direction as finger
-    pos1Ref.current -= dx;
-    pos2Ref.current -= dx;
-    if (pos1Ref.current >= half1) pos1Ref.current -= half1;
-    if (pos1Ref.current < 0) pos1Ref.current += half1;
-    if (pos2Ref.current >= half2) pos2Ref.current -= half2;
-    if (pos2Ref.current < 0) pos2Ref.current += half2;
-    t1.style.transform = "translateX(" + (-pos1Ref.current) + "px)";
-    t2.style.transform = "translateX(" + (-pos2Ref.current) + "px)";
-  };
+  const makeRow = (r, doubled) => /*#__PURE__*/React.createElement("div", {
+    style: { overflow: "hidden", touchAction: "pan-x", userSelect: "none" },
+    onTouchStart: r.onTouchStart,
+    onTouchMove: r.onTouchMove,
+    onTouchEnd: r.onTouchEnd
+  }, /*#__PURE__*/React.createElement("div", { ref: r.trackRef, style: rowTrackStyle },
+    doubled.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: { flexShrink: 0 } },
+      /*#__PURE__*/React.createElement(CertCard, { c: c })))));
 
-  const onTouchEnd = (e) => {
-    // determine swipe direction from last changedTouch vs start
-    isTouching.current = false;
-    // Use velocity from last move: if dx < 0 → swiped left → continue left (dir=1 for pos)
-    // dir1 and dir2 both follow swipe direction
-    const touch = e.changedTouches[0];
-    if (touchStartX.current !== null) {
-      const dx = touch.clientX - touchStartX.current;
-      if (Math.abs(dx) > 2) {
-        // dx > 0 → finger moved right → pos decreasing → animation goes right (negative direction)
-        const newDir = dx > 0 ? -1 : 1;
-        dir1Ref.current = newDir;
-        dir2Ref.current = -newDir;
-      }
-    }
-    touchStartX.current = null;
-  };
-
-  const rowStyle = { display: "flex", gap: 12, willChange: "transform", padding: "4px 0" };
-  const cardWrap = { flexShrink: 0 };
-
-  return /*#__PURE__*/React.createElement("div", {
-    style: { display: "flex", flexDirection: "column", gap: 12, touchAction: "pan-x", userSelect: "none" },
-    onTouchStart: onTouchStart,
-    onTouchMove: onTouchMove,
-    onTouchEnd: onTouchEnd
-  },
-    /*#__PURE__*/React.createElement("div", { style: { overflow: "hidden" } },
-      /*#__PURE__*/React.createElement("div", { ref: track1Ref, style: rowStyle },
-        doubled1.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: cardWrap },
-          /*#__PURE__*/React.createElement(CertCard, { c: c }))))),
-    /*#__PURE__*/React.createElement("div", { style: { overflow: "hidden" } },
-      /*#__PURE__*/React.createElement("div", { ref: track2Ref, style: rowStyle },
-        doubled2.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: cardWrap },
-          /*#__PURE__*/React.createElement(CertCard, { c: c })))))
+  return /*#__PURE__*/React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+    makeRow(r1, doubled1),
+    makeRow(r2, doubled2)
   );
 }
 
