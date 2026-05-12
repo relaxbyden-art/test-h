@@ -9005,23 +9005,44 @@ const {
   useState: ____useS
 } = React;
 function MobileCertMarquee({ certs, CertCard }) {
-  const trackRef = React.useRef(null);
+  const row1 = certs.filter((_, i) => i % 2 === 0);
+  const row2 = certs.filter((_, i) => i % 2 === 1);
+  const doubled1 = [...row1, ...row1];
+  const doubled2 = [...row2, ...row2];
+
+  const track1Ref = React.useRef(null);
+  const track2Ref = React.useRef(null);
+  const pos1Ref = React.useRef(0);
+  const pos2Ref = React.useRef(0);
   const animRef = React.useRef(null);
-  const posRef = React.useRef(0);
   const touchStartX = React.useRef(null);
-  const isDragging = React.useRef(false);
-  const SPEED = 0.5; // px per frame
+  const isTouching = React.useRef(false);
+  // direction: 1 = left (default for row1), -1 = right (default for row2)
+  const dir1Ref = React.useRef(1);
+  const dir2Ref = React.useRef(-1);
+  const SPEED = 0.45;
 
   React.useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const totalW = track.scrollWidth / 2; // duplicated, so half = one set
+    const t1 = track1Ref.current;
+    const t2 = track2Ref.current;
+    if (!t1 || !t2) return;
 
     const animate = () => {
-      if (!isDragging.current) {
-        posRef.current += SPEED;
-        if (posRef.current >= totalW) posRef.current -= totalW;
-        track.style.transform = "translateX(" + (-posRef.current) + "px)";
+      if (!isTouching.current) {
+        const half1 = t1.scrollWidth / 2;
+        const half2 = t2.scrollWidth / 2;
+
+        pos1Ref.current += SPEED * dir1Ref.current;
+        pos2Ref.current += SPEED * dir2Ref.current;
+
+        // loop seamlessly
+        if (pos1Ref.current >= half1) pos1Ref.current -= half1;
+        if (pos1Ref.current < 0) pos1Ref.current += half1;
+        if (pos2Ref.current >= half2) pos2Ref.current -= half2;
+        if (pos2Ref.current < 0) pos2Ref.current += half2;
+
+        t1.style.transform = "translateX(" + (-pos1Ref.current) + "px)";
+        t2.style.transform = "translateX(" + (-pos2Ref.current) + "px)";
       }
       animRef.current = requestAnimationFrame(animate);
     };
@@ -9031,31 +9052,65 @@ function MobileCertMarquee({ certs, CertCard }) {
 
   const onTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
-    isDragging.current = true;
+    isTouching.current = true;
   };
+
   const onTouchMove = (e) => {
     if (touchStartX.current === null) return;
-    const dx = touchStartX.current - e.touches[0].clientX;
-    posRef.current = Math.max(0, posRef.current + dx);
+    const dx = e.touches[0].clientX - touchStartX.current; // positive = swipe right
     touchStartX.current = e.touches[0].clientX;
-    const track = trackRef.current;
-    if (track) track.style.transform = "translateX(" + (-posRef.current) + "px)";
+    const t1 = track1Ref.current;
+    const t2 = track2Ref.current;
+    if (!t1 || !t2) return;
+    const half1 = t1.scrollWidth / 2;
+    const half2 = t2.scrollWidth / 2;
+    // both rows move in same direction as finger
+    pos1Ref.current -= dx;
+    pos2Ref.current -= dx;
+    if (pos1Ref.current >= half1) pos1Ref.current -= half1;
+    if (pos1Ref.current < 0) pos1Ref.current += half1;
+    if (pos2Ref.current >= half2) pos2Ref.current -= half2;
+    if (pos2Ref.current < 0) pos2Ref.current += half2;
+    t1.style.transform = "translateX(" + (-pos1Ref.current) + "px)";
+    t2.style.transform = "translateX(" + (-pos2Ref.current) + "px)";
   };
-  const onTouchEnd = () => { isDragging.current = false; touchStartX.current = null; };
 
-  const doubled = [...certs, ...certs];
+  const onTouchEnd = (e) => {
+    // determine swipe direction from last changedTouch vs start
+    isTouching.current = false;
+    // Use velocity from last move: if dx < 0 → swiped left → continue left (dir=1 for pos)
+    // dir1 and dir2 both follow swipe direction
+    const touch = e.changedTouches[0];
+    if (touchStartX.current !== null) {
+      const dx = touch.clientX - touchStartX.current;
+      if (Math.abs(dx) > 2) {
+        // dx > 0 → finger moved right → pos decreasing → animation goes right (negative direction)
+        const newDir = dx > 0 ? -1 : 1;
+        dir1Ref.current = newDir;
+        dir2Ref.current = -newDir;
+      }
+    }
+    touchStartX.current = null;
+  };
+
+  const rowStyle = { display: "flex", gap: 12, willChange: "transform", padding: "4px 0" };
+  const cardWrap = { flexShrink: 0 };
+
   return /*#__PURE__*/React.createElement("div", {
-    style: { touchAction: "pan-x", userSelect: "none" },
+    style: { display: "flex", flexDirection: "column", gap: 12, touchAction: "pan-x", userSelect: "none" },
     onTouchStart: onTouchStart,
     onTouchMove: onTouchMove,
     onTouchEnd: onTouchEnd
-  }, /*#__PURE__*/React.createElement("div", {
-    ref: trackRef,
-    style: { display: "flex", gap: 16, willChange: "transform", padding: "4px 0 12px" }
-  }, doubled.map((c, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: { flexShrink: 0 }
-  }, /*#__PURE__*/React.createElement(CertCard, { c: c })))));
+  },
+    /*#__PURE__*/React.createElement("div", { style: { overflow: "hidden" } },
+      /*#__PURE__*/React.createElement("div", { ref: track1Ref, style: rowStyle },
+        doubled1.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: cardWrap },
+          /*#__PURE__*/React.createElement(CertCard, { c: c }))))),
+    /*#__PURE__*/React.createElement("div", { style: { overflow: "hidden" } },
+      /*#__PURE__*/React.createElement("div", { ref: track2Ref, style: rowStyle },
+        doubled2.map((c, i) => /*#__PURE__*/React.createElement("div", { key: i, style: cardWrap },
+          /*#__PURE__*/React.createElement(CertCard, { c: c })))))
+  );
 }
 
 function TeamCerts() {
