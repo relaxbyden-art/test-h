@@ -7401,3 +7401,70 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     height: 5px !important;
   }
 }
+
+#hashhedge-root .tilda-html-hashhedge .hh-hero-proof-inline-chip {
+  display: none !important;
+}
+
+/* 2026-05-13: mobile Trustpilot badge lives inside the Trustpilot text line */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
+    display: block !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    max-width: 100% !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:first-child {
+    display: inline-flex !important;
+    gap: 1px !important;
+    flex: 0 0 auto !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child {
+    min-width: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child > div:first-child {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child > div:last-child,
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:nth-child(2),
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:last-child {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof-inline-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 20px !important;
+    padding: 0 6px !important;
+    gap: 4px !important;
+    font-size: 7px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.08em !important;
+    vertical-align: middle !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof-inline-chip > span {
+    width: 5px !important;
+    height: 5px !important;
+  }
+}

@@ -1492,7 +1492,16 @@ function Hero({
       fontWeight: 700,
       color: "var(--fg)"
     }
-  }, "4.4 \xB7 Trustpilot"), /*#__PURE__*/React.createElement("div", {
+  }, "4.4 \xB7 Trustpilot", /*#__PURE__*/React.createElement("span", {
+    className: "chip green hh-hero-proof-inline-chip"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 6,
+      height: 6,
+      borderRadius: "50%",
+      background: "currentColor"
+    }
+  }), " VERIFIED COMPANY")), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-dim)"
