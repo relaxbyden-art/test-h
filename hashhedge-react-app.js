@@ -3904,7 +3904,7 @@ function Inf() {
     className: "hh-inf-glyph",
     width: "26",
     height: "16",
-    viewBox: "0 0 26 16",
+    viewBox: "2 0 26 16",
     fill: "none",
     style: {
       opacity: 0.95,

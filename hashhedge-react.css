@@ -6946,3 +6946,297 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     width: 100% !important;
   }
 }
+
+/* =====================================================================
+   2026-05-13 Visual fixes pass — desktop spacing/gradients + mobile polish
+   ===================================================================== */
+
+/* ---------- DESKTOP (>= 769) ---------- */
+@media (min-width: 769px) {
+  /* #1 PAYOUTS . ON-CHAIN <-> PAYOUT CERTIFICATES — restore full section gap */
+  #hashhedge-root .tilda-html-hashhedge #payouts {
+    padding-bottom: 120px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section {
+    padding-top: 120px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #payouts::after {
+    display: none !important;
+  }
+
+  /* #2 No black sliver between TELEGRAM COMMUNITY -> REVIEWS . TRUSTPILOT */
+  #hashhedge-root .tilda-html-hashhedge #telegram {
+    background:
+      linear-gradient(180deg, var(--bg-elev) 0%, #111118 18%, #111118 82%, var(--bg-elev) 100%) !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #telegram > div[aria-hidden="true"] {
+    background: linear-gradient(180deg, var(--bg-elev) 0%, rgba(17,17,24,0.72) 46%, rgba(17,17,24,0) 100%) !important;
+    z-index: 0 !important;
+  }
+
+  /* #3 Smooth gradient transitions from CREATOR REVIEWS downward through to BigCTA */
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section {
+    padding-bottom: 140px !important;
+    background:
+      linear-gradient(180deg, var(--bg-elev) 0%, #101012 38%, #101012 100%) !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background:
+      linear-gradient(0deg, var(--bg) 0%, rgba(16,16,18,0) 100%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section {
+    padding-top: 140px !important;
+    padding-bottom: 140px !important;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg) 55%, #0c0b10 100%) !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background:
+      linear-gradient(0deg, #0a0a0e 0%, rgba(10,10,14,0) 100%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #blueprint {
+    position: relative !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #blueprint::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 220px !important;
+    background:
+      linear-gradient(0deg, var(--bg) 0%, rgba(16,16,18,0) 100%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section {
+    position: relative !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 220px !important;
+    background:
+      linear-gradient(0deg, var(--bg-elev) 0%, rgba(19,17,28,0) 100%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq {
+    background: var(--bg-elev) !important;
+    position: relative !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #faq::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 220px !important;
+    background:
+      linear-gradient(0deg, var(--bg) 0%, rgba(16,16,18,0) 100%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  /* Keep section content above the gradient overlay */
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section > .container,
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section > .container,
+  #hashhedge-root .tilda-html-hashhedge #blueprint > .container,
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section > .container,
+  #hashhedge-root .tilda-html-hashhedge #faq > .container,
+  #hashhedge-root .tilda-html-hashhedge #faq > div:not([aria-hidden]) {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* #4 Infinity icon centered + Live capital text on same baseline as Verification phase */
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell {
+    display: block !important;
+    grid-template-rows: none !important;
+    padding: 13px 14px 12px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell > div:nth-child(2) {
+    min-height: 25px !important;
+    height: 25px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-funded-stage-cell .hh-inf-glyph {
+    transform: none !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+}
+
+/* ---------- MOBILE / TABLET (<= 768) ---------- */
+@media (max-width: 768px) {
+  /* #5 Trustpilot row — verified chip stays inline with stars/icon */
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:nth-child(2) {
+    display: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:last-child {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof .chip.green {
+    height: 24px !important;
+    padding: 0 9px !important;
+    font-size: 9px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* #6 Flags layout: 2 rows x 8 cols */
+  #hashhedge-root .tilda-html-hashhedge .hh-paid-in-flags {
+    display: grid !important;
+    grid-template-columns: repeat(8, auto) !important;
+    grid-auto-rows: auto !important;
+    justify-content: center !important;
+    gap: 4px 5px !important;
+    font-size: 17px !important;
+    line-height: 1 !important;
+  }
+
+  /* #7 Sample of 17,800+ — no pill, full-content width, no extra padding */
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample {
+    padding: 6px 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    gap: 12px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > svg {
+    width: 36px !important;
+    height: 36px !important;
+    flex: 0 0 36px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > span {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* #8 Support channels — accent-colored cards, bigger arrows; 20+ Languages stays plain */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel {
+    background:
+      linear-gradient(180deg, rgba(252,213,53,0.16), rgba(252,213,53,0.05)) !important;
+    border: 1px solid rgba(252,213,53,0.34) !important;
+    box-shadow:
+      0 18px 40px rgba(0,0,0,0.32),
+      inset 0 1px 0 rgba(252,213,53,0.12) !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel svg:last-child {
+    width: 28px !important;
+    height: 28px !important;
+    stroke-width: 2.4px !important;
+  }
+  /* 20+ Languages block stays plain — explicitly target the yellow-tinted info card */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel + div,
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section [style*="rgba(252,213,53,0.05)"][style*="rgba(252,213,53,0.2)"] {
+    background: rgba(255,255,255,0.035) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    box-shadow: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section [style*="rgba(252,213,53,0.05)"][style*="rgba(252,213,53,0.2)"] > div:first-child {
+    color: var(--fg-muted) !important;
+  }
+
+  /* #9 BigCTA — restore original mobile design (centered, large heading, animated grid+rings layers) */
+  #hashhedge-root .tilda-html-hashhedge .cta-hero {
+    padding: 64px 24px !important;
+    text-align: center !important;
+    min-height: 0 !important;
+    border-radius: 32px !important;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(252,213,53,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 70% at 50% 110%, rgba(252,213,53,0.12) 0%, transparent 55%),
+      linear-gradient(180deg, #1a1812 0%, #0d0c0a 55%, #0a0908 100%) !important;
+    border: 1px solid rgba(252,213,53,0.22) !important;
+    box-shadow:
+      0 50px 120px -30px rgba(0,0,0,0.8),
+      0 0 0 1px rgba(252,213,53,0.08) inset,
+      0 80px 140px -60px rgba(252,213,53,0.25) !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .cta-grid,
+  #hashhedge-root .tilda-html-hashhedge .cta-rings {
+    display: block !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .cta-chart,
+  #hashhedge-root .tilda-html-hashhedge .cta-coins,
+  #hashhedge-root .tilda-html-hashhedge .cta-rain-layer,
+  #hashhedge-root .tilda-html-hashhedge .cta-spark {
+    display: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .cta-hero .eyebrow {
+    justify-content: center !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .cta-hero h2 {
+    margin: 24px auto !important;
+    text-align: center !important;
+    font-size: clamp(36px, 10vw, 44px) !important;
+    line-height: 1.06 !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .cta-hero p {
+    margin: 0 auto 32px !important;
+    text-align: center !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    grid-template-columns: none !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta-actions .btn {
+    width: auto !important;
+  }
+}
