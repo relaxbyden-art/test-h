@@ -7788,6 +7788,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 }
 /* Desktop: hide the line break — keep the original single-line layout intact */
 @media (min-width: 641px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample {
+    display: none !important;
+  }
+
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample-break {
     display: none !important;
   }
@@ -7795,6 +7799,14 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample-break + span::before {
     content: " \B7 ";
     color: var(--fg-muted);
+  }
+}
+
+/* 2026-05-13: final mobile payout sample color match */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample.card {
+    background: #18171c !important;
+    border-color: rgba(255,255,255,0.08) !important;
   }
 }
 
