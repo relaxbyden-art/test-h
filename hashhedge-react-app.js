@@ -8626,7 +8626,11 @@ function YouTubeSection() {
       color: "var(--fg-dim)",
       textTransform: "uppercase"
     }
-  }, rail.length, " more reviews"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "hh-creator-more-desktop"
+  }, rail.length, " more reviews"), /*#__PURE__*/React.createElement("span", {
+    className: "hh-creator-more-mobile"
+  }, "See more")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8

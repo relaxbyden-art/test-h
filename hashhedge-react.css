@@ -7808,6 +7808,20 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     background: #18171c !important;
     border-color: rgba(255,255,255,0.08) !important;
   }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-creator-more-desktop {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-creator-more-mobile {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 641px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-creator-more-mobile {
+    display: none !important;
+  }
 }
 
 /* Mobile FAQ — lighter, smoother open/close animation */
