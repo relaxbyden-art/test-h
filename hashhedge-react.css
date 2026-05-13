@@ -7240,3 +7240,91 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     width: auto !important;
   }
 }
+
+/* 2026-05-13: final mobile-only refinements */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > span > span:last-child {
+    display: block !important;
+    margin-top: 2px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta,
+  #hashhedge-root .tilda-html-hashhedge .cta-hero {
+    text-align: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-grid,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rings,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-chart,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-coins,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-rain-layer,
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta .cta-spark {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta-actions {
+    justify-content: center !important;
+    justify-items: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-final-cta-actions .btn {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section [style*="repeat(3"] > .reveal:nth-child(1) .hh-support-channel {
+    border-color: var(--green) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section [style*="repeat(3"] > .reveal:nth-child(2) .hh-support-channel {
+    border-color: #5BB5E8 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section [style*="repeat(3"] > .reveal:nth-child(3) .hh-support-channel {
+    border-color: var(--accent) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child {
+    align-items: center !important;
+    gap: 7px !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:first-child {
+    flex-shrink: 0 !important;
+    gap: 1px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child > div:first-child {
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child > div:last-child,
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div[style*="height: 32"] {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof .chip.green {
+    flex: 0 0 auto !important;
+    height: 24px !important;
+    padding: 0 8px !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    font-size: 9px !important;
+    line-height: 24px !important;
+  }
+}
