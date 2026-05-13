@@ -7468,3 +7468,171 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     height: 5px !important;
   }
 }
+
+/* 2026-05-13: targeted desktop section spacing and transitions */
+@media (min-width: 769px) {
+  /* 1. BEYOND CRYPTO -> promo slider: 1.5x more air */
+  #hashhedge-root .tilda-html-hashhedge .hh-promo-slider-section {
+    padding-top: 144px !important;
+  }
+
+  /* 2. PAYOUT CERTIFICATES -> TELEGRAM COMMUNITY: smooth into dark blue */
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section {
+    position: relative !important;
+    padding-bottom: 140px !important;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg) 72%, var(--bg-elev) 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background: linear-gradient(0deg, var(--bg-elev) 0%, rgba(19,17,28,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section > .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* 3. TELEGRAM COMMUNITY -> REVIEWS: keep both sections dark blue, no black seam */
+  #hashhedge-root .tilda-html-hashhedge #telegram,
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section {
+    background: var(--bg-elev) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #telegram::before,
+  #hashhedge-root .tilda-html-hashhedge #telegram::after,
+  #hashhedge-root .tilda-html-hashhedge #telegram > div[aria-hidden="true"] {
+    display: none !important;
+  }
+
+  /* 4. REVIEWS -> CREATOR REVIEWS: no black seam; creator starts dark blue */
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section::before,
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section::after,
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section > div[aria-hidden="true"] {
+    display: none !important;
+  }
+
+  /* 5. CREATOR REVIEWS -> THE TEAM: smooth gradient down into the team block */
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section {
+    position: relative !important;
+    padding-bottom: 150px !important;
+    background:
+      linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-elev) 68%, var(--bg) 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section::before {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background: linear-gradient(0deg, var(--bg) 0%, rgba(16,16,18,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section > .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* 6. THE TEAM -> USER GUIDE: gradient into guide's darker panel */
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section {
+    position: relative !important;
+    padding-bottom: 150px !important;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg) 68%, #0a0a0e 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section::before {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background: linear-gradient(0deg, #0a0a0e 0%, rgba(10,10,14,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section > .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* 7. USER GUIDE -> SUPPORT: guide fades into base background */
+  #hashhedge-root .tilda-html-hashhedge #blueprint {
+    position: relative !important;
+    padding-bottom: 150px !important;
+    background:
+      linear-gradient(180deg, #0a0a0e 0%, #13110a 46%, #0a0a0e 72%, var(--bg) 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #blueprint::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background: linear-gradient(0deg, var(--bg) 0%, rgba(16,16,18,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #blueprint > .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* 8. SUPPORT -> QUESTIONS: support fades into FAQ dark blue */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section {
+    position: relative !important;
+    padding-bottom: 150px !important;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg) 70%, var(--bg-elev) 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section > div[aria-hidden="true"] {
+    display: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 240px !important;
+    background: linear-gradient(0deg, var(--bg-elev) 0%, rgba(19,17,28,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section > .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge #faq {
+    background: var(--bg-elev) !important;
+  }
+}
