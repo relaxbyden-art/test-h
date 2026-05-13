@@ -7748,36 +7748,38 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   display: none !important;
 }
 
-/* Mobile Sample row — small check + 2-line text, group centered, no pill */
+/* Mobile Sample row — shape (border + bg), left-aligned, 2-line text */
 @media (max-width: 640px) {
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 6px 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
+    margin: 0 !important;
+    padding: 14px 16px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 14px !important;
+    background: var(--bg-card) !important;
     box-shadow: none !important;
     text-align: left !important;
   }
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > svg {
-    width: 24px !important;
-    height: 24px !important;
-    flex: 0 0 24px !important;
+    width: 26px !important;
+    height: 26px !important;
+    flex: 0 0 26px !important;
     align-self: center !important;
     margin: 0 !important;
   }
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > span {
     font-size: 13px !important;
     line-height: 1.5 !important;
-    flex: 0 1 auto !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
     color: var(--fg-muted) !important;
+    text-align: left !important;
   }
   /* Force the line break to render as block on mobile */
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample-break {
