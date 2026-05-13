@@ -9553,13 +9553,10 @@ function TeamCerts() {
   }, /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "hh-payout-sample",
+    className: "hh-payout-sample card",
     style: {
       marginTop: 32,
       padding: "20px 28px",
-      background: "var(--bg-card)",
-      border: "1px solid var(--line)",
-      borderRadius: 16,
       display: "flex",
       alignItems: "center",
       gap: 12
