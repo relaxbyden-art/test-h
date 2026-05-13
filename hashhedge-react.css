@@ -7858,13 +7858,30 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 }
 
 /* 2026-05-13: mobile hero thumb-zone CTA adjustment */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   #hashhedge-root .tilda-html-hashhedge .hh-hero-section,
   #hashhedge-root .tilda-html-hashhedge > section:first-of-type {
     padding-top: 58px !important;
   }
 
-  #hashhedge-root .tilda-html-hashhedge .hh-hero-actions {
-    margin-top: 32px !important;
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-copy {
+    transform: translateY(20px) !important;
   }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-actions {
+    margin-top: 56px !important;
+  }
+}
+
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-hero-section,
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge > section:first-of-type {
+  padding-top: 58px !important;
+}
+
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-hero-copy {
+  transform: translateY(20px) !important;
+}
+
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-hero-actions {
+  margin-top: 56px !important;
 }
