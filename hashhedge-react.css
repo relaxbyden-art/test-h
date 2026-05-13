@@ -7728,4 +7728,13 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     content: none !important;
     background: none !important;
   }
+
+  /* Keep decorative blur circles out of section transition zones. */
+  #hashhedge-root .tilda-html-hashhedge #payouts > .glow,
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section > .glow,
+  #hashhedge-root .tilda-html-hashhedge #blueprint > .glow,
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section > .glow {
+    display: none !important;
+    opacity: 0 !important;
+  }
 }
