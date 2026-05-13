@@ -5155,13 +5155,14 @@ function PayoutShowcase() {
       right: -14,
       padding: "8px 14px",
       borderRadius: 999,
-      background: "#E07830",
-      color: "#fff",
+      background: "var(--bg-card)",
+      color: "var(--fg)",
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
       fontFamily: "Onest, sans-serif",
-      boxShadow: "0 10px 30px rgba(124,216,160,0.35)",
+      border: "1px solid var(--line)",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
       display: "flex",
       alignItems: "center",
       gap: 6
@@ -5171,7 +5172,7 @@ function PayoutShowcase() {
       width: 6,
       height: 6,
       borderRadius: "50%",
-      background: "#fff"
+      background: "var(--accent)"
     }
   }), "REAL PAYOUT"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-row",
@@ -7439,8 +7440,7 @@ function SupportSection() {
       height: 8,
       borderRadius: "50%",
       background: "var(--green)",
-      boxShadow: "0 0 10px var(--green)",
-      animation: "pulse 1.8s ease-in-out infinite",
+      animation: "support-status-pulse 1.8s ease-out infinite",
       display: "inline-block",
       marginRight: 8,
       verticalAlign: "middle"
