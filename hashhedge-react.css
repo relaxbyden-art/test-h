@@ -7636,3 +7636,107 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     background: var(--bg-elev) !important;
   }
 }
+
+/* 2026-05-13: final desktop transition correction pass */
+@media (min-width: 769px) {
+  /* PAYOUT CERTIFICATES -> TELEGRAM COMMUNITY: remove the black fade */
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section {
+    background: var(--bg-elev) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section::before,
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section::after,
+  #hashhedge-root .tilda-html-hashhedge .hh-team-section > div[aria-hidden],
+  #hashhedge-root .tilda-html-hashhedge #telegram::before,
+  #hashhedge-root .tilda-html-hashhedge #telegram::after,
+  #hashhedge-root .tilda-html-hashhedge #telegram > div[aria-hidden] {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+
+  /* TELEGRAM COMMUNITY -> REVIEWS and REVIEWS -> CREATOR REVIEWS: keep this run flat dark-blue */
+  #hashhedge-root .tilda-html-hashhedge #telegram,
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section {
+    background: var(--bg-elev) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section::before,
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section::after,
+  #hashhedge-root .tilda-html-hashhedge .hh-reviews-section > div[aria-hidden] {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+
+  /* CREATOR REVIEWS -> THE TEAM: add a visible dark-blue to base-background transition */
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section {
+    position: relative !important;
+    padding-bottom: 170px !important;
+    background:
+      linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-elev) 58%, var(--bg) 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section::before,
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section > div[aria-hidden] {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 280px !important;
+    background: linear-gradient(0deg, var(--bg) 0%, rgba(16,16,18,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  /* THE TEAM -> USER GUIDE: add a visible base-background to guide-background transition */
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section {
+    position: relative !important;
+    padding-bottom: 170px !important;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg) 58%, #0a0a0e 100%) !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section::before,
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section > div[aria-hidden] {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 280px !important;
+    background: linear-gradient(0deg, #0a0a0e 0%, rgba(10,10,14,0) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-youtube-section > .container,
+  #hashhedge-root .tilda-html-hashhedge .hh-events-section > .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* QUESTIONS: remove the yellow top glow */
+  #hashhedge-root .tilda-html-hashhedge #faq::before,
+  #hashhedge-root .tilda-html-hashhedge #faq::after,
+  #hashhedge-root .tilda-html-hashhedge #faq > div[aria-hidden] {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+}
