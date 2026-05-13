@@ -7332,47 +7332,72 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 /* 2026-05-13: keep mobile Trustpilot proof on one line */
 @media (max-width: 640px) {
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
-    display: inline-flex !important;
-    width: auto !important;
+    display: grid !important;
+    grid-template-columns: auto 0 auto !important;
+    width: 100% !important;
     max-width: 100% !important;
-    justify-content: flex-start !important;
+    justify-content: start !important;
     align-items: center !important;
-    gap: 8px !important;
+    column-gap: 6px !important;
     margin-top: 28px !important;
     white-space: nowrap !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child {
-    flex: 0 1 auto !important;
+    grid-column: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
     min-width: 0 !important;
+    width: auto !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:first-child {
     display: flex !important;
     gap: 1px !important;
+    flex: 0 0 auto !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child svg {
-    width: 12px !important;
-    height: 12px !important;
+    width: 10px !important;
+    height: 10px !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child > div:first-child {
-    font-size: 11px !important;
+    font-size: 10px !important;
     line-height: 1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:nth-child(2) {
+    grid-column: 2 !important;
+    display: block !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:last-child {
-    flex: 0 0 auto !important;
+    grid-column: 3 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
     margin-left: 0 !important;
+    min-width: 0 !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-hero-proof .chip.green {
-    height: 22px !important;
-    padding: 0 7px !important;
-    gap: 5px !important;
-    font-size: 8px !important;
-    line-height: 22px !important;
+    height: 20px !important;
+    padding: 0 6px !important;
+    gap: 4px !important;
+    font-size: 7px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof .chip.green > span {
+    width: 5px !important;
+    height: 5px !important;
   }
 }
