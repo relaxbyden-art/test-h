@@ -7328,3 +7328,51 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     line-height: 24px !important;
   }
 }
+
+/* 2026-05-13: keep mobile Trustpilot proof on one line */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof {
+    display: inline-flex !important;
+    width: auto !important;
+    max-width: 100% !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 28px !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:first-child {
+    display: flex !important;
+    gap: 1px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:first-child > div:last-child > div:first-child {
+    font-size: 11px !important;
+    line-height: 1 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof > div:last-child {
+    flex: 0 0 auto !important;
+    margin-left: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-hero-proof .chip.green {
+    height: 22px !important;
+    padding: 0 7px !important;
+    gap: 5px !important;
+    font-size: 8px !important;
+    line-height: 22px !important;
+  }
+}
