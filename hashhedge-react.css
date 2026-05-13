@@ -7639,6 +7639,15 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
 /* 2026-05-13: final desktop transition correction pass */
 @media (min-width: 769px) {
+  /* PAYOUTS: remove the subtle black bottom fade */
+  #hashhedge-root .tilda-html-hashhedge #payouts::before,
+  #hashhedge-root .tilda-html-hashhedge #payouts::after,
+  #hashhedge-root .tilda-html-hashhedge #payouts > div[aria-hidden] {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+
   /* PAYOUT CERTIFICATES -> TELEGRAM COMMUNITY: remove the black fade */
   #hashhedge-root .tilda-html-hashhedge .hh-team-section {
     background: var(--bg-elev) !important;
@@ -7669,12 +7678,11 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     background: none !important;
   }
 
-  /* CREATOR REVIEWS -> THE TEAM: add a visible dark-blue to base-background transition */
+  /* CREATOR REVIEWS: keep the section dark, not dark-blue */
   #hashhedge-root .tilda-html-hashhedge .hh-youtube-section {
     position: relative !important;
     padding-bottom: 170px !important;
-    background:
-      linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-elev) 58%, var(--bg) 100%) !important;
+    background: var(--bg) !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-youtube-section::before,
@@ -7731,7 +7739,11 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     z-index: 1 !important;
   }
 
-  /* QUESTIONS: remove the yellow top glow */
+  /* QUESTIONS: restore dark background and remove the yellow top glow */
+  #hashhedge-root .tilda-html-hashhedge #faq {
+    background: var(--bg) !important;
+  }
+
   #hashhedge-root .tilda-html-hashhedge #faq::before,
   #hashhedge-root .tilda-html-hashhedge #faq::after,
   #hashhedge-root .tilda-html-hashhedge #faq > div[aria-hidden] {
