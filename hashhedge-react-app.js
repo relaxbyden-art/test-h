@@ -7436,11 +7436,12 @@ function SupportSection() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      width: 8,
-      height: 8,
+      width: 6,
+      height: 6,
       borderRadius: "50%",
       background: "var(--green)",
-      animation: "support-status-pulse 1.8s ease-out infinite",
+      boxShadow: "0 0 12px var(--green)",
+      animation: "pulse 1.8s ease-in-out infinite",
       display: "inline-block",
       marginRight: 8,
       verticalAlign: "middle"
@@ -7524,11 +7525,12 @@ function SupportSection() {
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      width: 8,
-      height: 8,
+      width: 6,
+      height: 6,
       borderRadius: "50%",
       background: "var(--green)",
-      animation: "support-status-pulse 1.8s ease-out infinite"
+      boxShadow: "0 0 12px var(--green)",
+      animation: "pulse 1.8s ease-in-out infinite"
     }
   }), "Online"), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -9589,7 +9591,9 @@ function TeamCerts() {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
+  }, "17,800+ payouts"), " completed", /*#__PURE__*/React.createElement("br", {
+    className: "hh-payout-sample-break"
+  }), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700

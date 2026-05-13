@@ -7740,59 +7740,68 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 }
 
 /* =====================================================================
-   2026-05-13 round 2 — mobile sample stack, hide slider, FAQ perf
+   2026-05-13 round 3 — sample row v3 (inline centered, no pill), FAQ perf, slider hidden
    ===================================================================== */
 
-/* #4 Hide promo slider section globally (desktop + mobile) */
+/* Hide promo slider section globally (desktop + mobile) */
 #hashhedge-root .tilda-html-hashhedge .hh-promo-slider-section {
   display: none !important;
 }
 
-/* #1 Mobile: Sample row → checkmark on top, text centered under it */
+/* Mobile Sample row — small check + 2-line text, group centered, no pill */
 @media (max-width: 640px) {
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    text-align: center !important;
     gap: 10px !important;
-    padding: 8px 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 6px 0 !important;
     border: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    text-align: left !important;
   }
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > svg {
-    width: 36px !important;
-    height: 36px !important;
-    flex: 0 0 auto !important;
-    margin: 0 auto !important;
-    display: block !important;
+    width: 24px !important;
+    height: 24px !important;
+    flex: 0 0 24px !important;
+    align-self: center !important;
+    margin: 0 !important;
   }
   #hashhedge-root .tilda-html-hashhedge .hh-payout-sample > span {
-    display: block !important;
-    text-align: center !important;
     font-size: 13px !important;
-    line-height: 1.45 !important;
-    max-width: 100% !important;
+    line-height: 1.5 !important;
+    flex: 0 1 auto !important;
+    color: var(--fg-muted) !important;
+  }
+  /* Force the line break to render as block on mobile */
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample-break {
+    display: block !important;
+  }
+}
+/* Desktop: hide the line break — keep the original single-line layout intact */
+@media (min-width: 641px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample-break {
+    display: none !important;
+  }
+  /* Restore the small inline space between "completed" and the funded-traders span */
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample-break + span::before {
+    content: " \B7 ";
+    color: var(--fg-muted);
   }
 }
 
-/* #5 Mobile FAQ: lighter, smoother open/close animation
-   - The existing transition is `max-height .4s` which forces layout each frame
-     and stutters on low-end phones. Use a fast, GPU-friendly opacity+transform fade
-     while still letting max-height flip (instant) for height. */
+/* Mobile FAQ — lighter, smoother open/close animation */
 @media (max-width: 768px) {
   #hashhedge-root .tilda-html-hashhedge #faq .card {
     transition: none !important;
     will-change: auto !important;
   }
-  /* The collapsible body — make max-height transition instant; fade in body */
   #hashhedge-root .tilda-html-hashhedge #faq [style*="max-height: 600px"] {
     transition: max-height 180ms linear, opacity 180ms ease-out !important;
     opacity: 1 !important;
@@ -7805,13 +7814,11 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     will-change: max-height, opacity !important;
     contain: layout paint !important;
   }
-  /* "+" toggle button — drop the `transition: all`, animate only what's needed */
   #hashhedge-root .tilda-html-hashhedge #faq [style*="transition: all .25s"],
   #hashhedge-root .tilda-html-hashhedge #faq [style*="transform: rotate(45deg)"],
   #hashhedge-root .tilda-html-hashhedge #faq [style*="transform: rotate(0)"] {
     transition: transform 180ms ease-out, background-color 180ms ease-out, color 180ms ease-out !important;
   }
-  /* Honor "reduced motion" — drop transitions entirely */
   @media (prefers-reduced-motion: reduce) {
     #hashhedge-root .tilda-html-hashhedge #faq [style*="max-height"] {
       transition: none !important;
