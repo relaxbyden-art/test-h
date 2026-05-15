@@ -1492,16 +1492,7 @@ function Hero({
       fontWeight: 700,
       color: "var(--fg)"
     }
-  }, "4.4 \xB7 Trustpilot", /*#__PURE__*/React.createElement("span", {
-    className: "chip green hh-hero-proof-inline-chip"
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 6,
-      height: 6,
-      borderRadius: "50%",
-      background: "currentColor"
-    }
-  }), " VERIFIED COMPANY")), /*#__PURE__*/React.createElement("div", {
+  }, "4.4 \xB7 Trustpilot"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-dim)"
@@ -2465,7 +2456,7 @@ function HowItWorks() {
   }, "Skip the 5-year grind of building personal capital. Prove your trading edge in our Challenge and unlock institutional-grade funding within days \u2013 not years."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
       gap: 24,
       position: "relative",
       alignItems: "stretch"
@@ -2489,6 +2480,7 @@ function HowItWorks() {
       position: "relative",
       zIndex: 1,
       height: "100%",
+      minWidth: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
@@ -2551,7 +2543,8 @@ function HowItWorks() {
       lineHeight: 1.55,
       color: "var(--fg-muted)",
       margin: "0 0 20px",
-      minHeight: 118
+      minHeight: 118,
+      overflowWrap: "anywhere"
     }
   }, s.d), /*#__PURE__*/React.createElement("ul", {
     style: {
@@ -3136,7 +3129,7 @@ function Pricing() {
   const mobileStageRules = {
     stage1: [["Profit Target", "8%"], ["Max Daily Loss", "5%"], ["Max Drawdown", "10%"], ["Min Trading Days", "5 days"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"]],
     stage2: [["Profit Target", "6%"], ["Max Daily Loss", "5%"], ["Max Drawdown", "8%"], ["Min Trading Days", "5 days"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"]],
-    funded: [["Profit Target", "No target"], ["Max Daily Loss", "5%"], ["Max Drawdown", "8%"], ["Min Trading Days", "-"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"], ["Profit Split", "80%"], ["Payouts", "USDT to wallet"]]
+    funded: [["Profit Target", "No target"], ["Max Daily Loss", "5%"], ["Max Drawdown", "8%"], ["Min Trading Days", "-"], ["Trading Period", "Unlimited"], ["Leverage", "1:5"], ["Profit Split", "90%"], ["Payouts", "USDT to wallet"]]
   };
 
   // Per-stage rule values – single source of truth.
@@ -3913,7 +3906,7 @@ function Inf() {
     className: "hh-inf-glyph",
     width: "26",
     height: "16",
-    viewBox: "2 0 26 16",
+    viewBox: "0 0 26 16",
     fill: "none",
     style: {
       opacity: 0.95,
@@ -5155,14 +5148,13 @@ function PayoutShowcase() {
       right: -14,
       padding: "8px 14px",
       borderRadius: 999,
-      background: "var(--bg-card)",
-      color: "var(--fg)",
+      background: "#E07830",
+      color: "#fff",
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
       fontFamily: "Onest, sans-serif",
-      border: "1px solid var(--line)",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+      boxShadow: "0 10px 30px rgba(124,216,160,0.35)",
       display: "flex",
       alignItems: "center",
       gap: 6
@@ -5172,7 +5164,7 @@ function PayoutShowcase() {
       width: 6,
       height: 6,
       borderRadius: "50%",
-      background: "var(--accent)"
+      background: "#fff"
     }
   }), "REAL PAYOUT"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-row",
@@ -5454,7 +5446,6 @@ function EventsTournaments() {
     img: (window.__HH_BASE__+"assets/team/awards-top-affiliate.jpg")
   }];
   return /*#__PURE__*/React.createElement("section", {
-    className: "hh-events-section",
     style: {
       padding: "100px 0",
       background: "var(--bg)",
@@ -7157,7 +7148,7 @@ function SupportLiveChat() {
     dur: 1100
   }, {
     side: "agent",
-    text: "Massive congrats 🚀 Once you go funded you can submit anytime – 80% split, USDT to your wallet within 24h.",
+    text: "Massive congrats 🚀 Once you go funded you can submit anytime – 90% split, USDT to your wallet within 24h.",
     time: "14:02"
   }, {
     side: "user",
@@ -7169,7 +7160,7 @@ function SupportLiveChat() {
     dur: 900
   }, {
     side: "agent",
-    text: "Yep – USDT TRC-20 or ERC-20, your call. 80% split, processed within 24h once you submit.",
+    text: "Yep – USDT TRC-20 or ERC-20, your call. 90% split, processed within 24h once you submit.",
     time: "14:03"
   }, {
     side: "user",
@@ -7436,11 +7427,11 @@ function SupportSection() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      width: 6,
-      height: 6,
+      width: 8,
+      height: 8,
       borderRadius: "50%",
       background: "var(--green)",
-      boxShadow: "0 0 12px var(--green)",
+      boxShadow: "0 0 10px var(--green)",
       animation: "pulse 1.8s ease-in-out infinite",
       display: "inline-block",
       marginRight: 8,
@@ -7525,12 +7516,11 @@ function SupportSection() {
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      width: 6,
-      height: 6,
+      width: 8,
+      height: 8,
       borderRadius: "50%",
       background: "var(--green)",
-      boxShadow: "0 0 12px var(--green)",
-      animation: "pulse 1.8s ease-in-out infinite"
+      animation: "support-status-pulse 1.8s ease-out infinite"
     }
   }), "Online"), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -7967,7 +7957,7 @@ function BlueprintSection() {
   }, {
     n: "06",
     t: "Your first payout",
-    d: "80% split, USDT to your wallet, 72h or 3×."
+    d: "90% split, USDT to your wallet, 72h or 3×."
   }];
   return /*#__PURE__*/React.createElement("section", {
     id: "blueprint",
@@ -8493,7 +8483,6 @@ function YouTubeSection() {
   const midIdx = Math.floor(rest.length / 2);
   const rail = [...pinnedFront, ...rest.slice(0, midIdx), ...pinnedMid, ...rest.slice(midIdx)];
   return /*#__PURE__*/React.createElement("section", {
-    className: "hh-youtube-section",
     style: {
       padding: "120px 0",
       background: "var(--bg)",
@@ -8626,11 +8615,7 @@ function YouTubeSection() {
       color: "var(--fg-dim)",
       textTransform: "uppercase"
     }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "hh-creator-more-desktop"
-  }, rail.length, " more reviews"), /*#__PURE__*/React.createElement("span", {
-    className: "hh-creator-more-mobile"
-  }, "See more")), /*#__PURE__*/React.createElement("div", {
+  }, rail.length, " more reviews"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8
@@ -9051,14 +9036,18 @@ function useCertRow(defaultDir) {
 }
 
 function MobileCertMarquee({ certs, CertCard }) {
-  const doubled = [...certs, ...certs];
+  const row1 = certs.filter((_, i) => i % 2 === 0);
+  const row2 = certs.filter((_, i) => i % 2 === 1);
+  const doubled1 = [...row1, ...row1];
+  const doubled2 = [...row2, ...row2];
   const r1 = useCertRow(1);
+  const r2 = useCertRow(-1);
   const animRef = React.useRef(null);
   const SPEED = 0.45;
 
   React.useEffect(() => {
     const animate = () => {
-      [r1].forEach(r => {
+      [r1, r2].forEach(r => {
         if (!r.isTouching.current && r.trackRef.current) {
           const half = r.trackRef.current.scrollWidth / 2;
           r.posRef.current += SPEED * r.dirRef.current;
@@ -9085,7 +9074,8 @@ function MobileCertMarquee({ certs, CertCard }) {
       /*#__PURE__*/React.createElement(CertCard, { c: c })))));
 
   return /*#__PURE__*/React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8 } },
-    makeRow(r1, doubled)
+    makeRow(r1, doubled1),
+    makeRow(r2, doubled2)
   );
 }
 
@@ -9469,7 +9459,6 @@ function TeamCerts() {
     }))));
   };
   return /*#__PURE__*/React.createElement("section", {
-    className: "hh-team-section",
     style: {
       position: "relative",
       paddingTop: 60
@@ -9552,10 +9541,13 @@ function TeamCerts() {
   }, /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "hh-payout-sample card",
+    className: "hh-payout-sample",
     style: {
       marginTop: 32,
       padding: "20px 28px",
+      background: "var(--bg-card)",
+      border: "1px solid var(--line)",
+      borderRadius: 16,
       display: "flex",
       alignItems: "center",
       gap: 12
@@ -9587,9 +9579,7 @@ function TeamCerts() {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " completed", /*#__PURE__*/React.createElement("br", {
-    className: "hh-payout-sample-break"
-  }), /*#__PURE__*/React.createElement("span", {
+  }, "17,800+ payouts"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
@@ -10056,7 +10046,7 @@ function FAQ() {
     a: "We accept USDT only, on the following networks: TRC20 (Tron), ERC20 (Ethereum), BEP20 (BNB Smart Chain), Solana, Arbitrum, Optimism."
   }, {
     q: "Why do I have to pay for the challenge?",
-    a: "The fee covers access to the trading platform and evaluation of your skills. In return you get a chance to trade with up to $150,000 and keep 80% of the profit without risking your own money."
+    a: "The fee covers access to the trading platform and evaluation of your skills. In return you get a chance to trade with up to $150,000 and keep 90% of the profit without risking your own money."
   }, {
     q: "What rules must I follow during a challenge?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Stay within the daily and maximum drawdown limits and hit the profit target within the required number of trading days. Details for each package are on the purchase page and in the ", /*#__PURE__*/React.createElement("a", {
@@ -10142,7 +10132,7 @@ function FAQ() {
     a: "Yes, on stages 1 and 2 you can run multiple challenges in parallel. On stage 3 (funded) you can only trade one challenge per account size."
   }, {
     q: "I've completed the challenge. What's next?",
-    a: "You get a funded account (accumulative account). Trade with our capital, keep 80% of the profit."
+    a: "You get a funded account (accumulative account). Trade with our capital, keep 90% of the profit."
   }, {
     q: "Are funded account conditions different from evaluation?",
     a: "No. Drawdowns, leverage, execution, fees – everything is the same across all stages. What you see on evaluation is what you get on funded."
@@ -10681,7 +10671,7 @@ function BigCTA() {
       maxWidth: 640,
       margin: "0 auto 40px"
     }
-  }, "2-stage Challenge. Unlimited time. 80% profit split. USDT payouts straight to your wallet."), /*#__PURE__*/React.createElement("div", {
+  }, "2-stage Challenge. Unlimited time. 90% profit split. USDT payouts straight to your wallet."), /*#__PURE__*/React.createElement("div", {
     className: "hh-final-cta-actions",
     style: {
       display: "flex",
