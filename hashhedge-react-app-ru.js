@@ -429,7 +429,7 @@ function HeroCanvas({
       ctx.fillStyle = "rgba(245,244,240,0.35)";
       ctx.font = "9px Akrobat, Onest, sans-serif";
       ctx.textAlign = "left";
-      ctx.fillText("СТАКАН", obX, obTop - 8);
+      ctx.fillText("\u0421\u0422\u0410\u041a\u0410\u041d", obX, obTop - 8);
       orders.forEach((o, i) => {
         o.life -= 0.0025;
         if (o.life <= 0) {
@@ -568,28 +568,28 @@ function CosmicStatsPanel() {
   const _TICK_TRADERS = 0.00026; // 10/day
   const _TICK_PAYOUTS_CT = 0.00051; // ~20 payouts count/day
   const primary = [{
-    k: "Объём платформы",
+    k: "\u041e\u0431\u044a\u0451\u043c \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b",
     big: `$${((178_400_000_000 + tick * 5000) / 1_000_000_000).toFixed(1)}B`,
     sub: "lifetime volume",
     day: `$${Math.round(_secToday * 195_000_000 / 86400 / 1_000_000)}M`,
     dayLbl: "today",
     color: "var(--accent)"
   }, {
-    k: "Выплачено трейдерам",
+    k: "\u0412\u044b\u043f\u043b\u0430\u0447\u0435\u043d\u043e \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u0430\u043c",
     big: `$${((12_410_000 + tick * _TICK_PAYOUT) / 1_000_000).toFixed(2)}M`,
     sub: "lifetime",
     day: (() => { const _di = Math.floor(Date.now()/86400000); const _db = _di - Math.floor(1743465600000/86400000); const _base = Math.min(20000, 18000 + _db * 10); const _var = ((_di*7+13)%1000) - 500; return `+$${(_base+_var).toLocaleString()}`; })(),
     dayLbl: "today",
     color: "var(--green)"
   }, {
-    k: "Финансируемых трейдеров",
+    k: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     big: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * _TICK_TRADERS).toLocaleString(),
     sub: "active accounts",
     day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC))}`,
     dayLbl: "joined today",
     color: "var(--fg)"
   }, {
-    k: "Выплат проведено",
+    k: "\u0412\u044b\u043f\u043b\u0430\u0442 \u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u043e",
     big: Math.round(17_800 + tick * _TICK_PAYOUTS_CT).toLocaleString(),
     sub: "lifetime",
     day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC * 2))}`,
@@ -622,11 +622,11 @@ function CosmicStatsPanel() {
       boxShadow: "0 0 12px var(--green)",
       animation: "pulse 1.8s ease-in-out infinite"
     }
-  }), /*#__PURE__*/React.createElement("span", null, "Live · обновлено ", tick % 60, "s ago"), /*#__PURE__*/React.createElement("span", {
+  }), /*#__PURE__*/React.createElement("span", null, "Live \xb7 \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u043e ", tick % 60, "s ago"), /*#__PURE__*/React.createElement("span", {
     style: {
       opacity: 0.4
     }
-  }, "·"), /*#__PURE__*/React.createElement("span", null, "Институциональный фид · on-chain верификация")), /*#__PURE__*/React.createElement("div", {
+  }, "\xB7"), /*#__PURE__*/React.createElement("span", null, "\u0418\u043d\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u0444\u0438\u0434 \xb7 on-chain \u0432\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -702,12 +702,12 @@ function CosmicStatsPanel() {
       color: "var(--green)",
       fontFamily: "Akrobat, Onest, sans-serif"
     }
-  }, "▲ ", s.day))))));
+  }, "\u25B2 ", s.day))))));
 }
 
 // ==== Platform KPIs panel (classic hero variant) ====
 // Three big stats – all-time total + today's delta – live-ticking.
-function LiveВыплатыTable() {
+function LivePayoutsTable() {
   const [tick, setTick] = useState(0);
   useEffect(() => {
     const i = setInterval(() => setTick(t => t + 1), 1600);
@@ -715,14 +715,14 @@ function LiveВыплатыTable() {
   }, []);
 
   // Values only ever go UP. Growth seeded from a fixed base date.
-  // Выплаты: max $2,000/day. Трейдерs: max 10/day.
+  // Payouts: max $2,000/day. Traders: max 10/day.
   const BASE_MS = 1704067200000; // 2024-01-01 00:00:00 UTC
   const now = Date.now();
   const secElapsed = (now - BASE_MS) / 1000;
   const dayStartMs = Math.floor(now / 86400000) * 86400000;
   const secToday = (now - dayStartMs) / 1000;
 
-  // Выплаты: $2,000/day cap. Live micro-increment per tick for visual heartbeat.
+  // Payouts: $2,000/day cap. Live micro-increment per tick for visual heartbeat.
   const PAYOUT_PER_SEC = 2000 / 86400;
   const payoutsTotal = 10_750_000 + secElapsed * PAYOUT_PER_SEC + tick * 0.4;
   const _pdi = Math.floor(Date.now()/86400000);
@@ -736,26 +736,26 @@ function LiveВыплатыTable() {
   const volumeTotal = 120_000_000_000 + secElapsed * VOL_PER_SEC;
   const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
 
-  // Трейдерs: fixed to match the hero metric and avoid competing live totals.
+  // Traders: fixed to match the hero metric and avoid competing live totals.
   const tradersTotal = Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400));
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
-    k: "Совокупный торговый объём",
+    k: "\u0421\u043e\u0432\u043e\u043a\u0443\u043f\u043d\u044b\u0439 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u043e\u0431\u044a\u0451\u043c",
     v: fmtMoney(volumeTotal),
     sub: "today",
     subV: `+${fmtMoney(volumeToday)}`,
     color: "var(--accent)",
     chart: [0.52, 0.57, 0.62, 0.66, 0.70, 0.73, 0.76, 0.80, 0.84, 0.88, 0.92, 0.95]
   }, {
-    k: "Финансируемых трейдеров",
+    k: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     v: fmtCount(tradersTotal),
     sub: "today",
     subV: `+${Math.max(1, Math.round(secToday * 18 / 86400))}`,
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
-    k: "Всего выплат",
+    k: "\u0412\u0441\u0435\u0433\u043e \u0432\u044b\u043f\u043b\u0430\u0442",
     v: fmtMoney(payoutsTotal),
     sub: "today",
     subV: `+${fmtMoney(payoutsToday)}`,
@@ -812,7 +812,7 @@ function LiveВыплатыTable() {
       textTransform: "uppercase",
       color: "var(--fg)"
     }
-  }, "Статистика платформы")), /*#__PURE__*/React.createElement("span", {
+  }, "\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b")), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 12,
       color: "var(--fg-dim)"
@@ -947,7 +947,7 @@ function LiveВыплатыTable() {
 }
 
 // ==== Terminal-style trade feed (terminal variant) ====
-// ==== Статистика платформы panel – replaces TradingTerminal for 'terminal' hero variant.
+// ==== Platform stats panel – replaces TradingTerminal for 'terminal' hero variant.
 // Apscale-style: big eagle mascot on top, 6 stat tiles underneath (30d total + 24h for volume, traders, payouts).
 function TradingTerminal() {
   const [tick, setTick] = _useS(0);
@@ -968,19 +968,19 @@ function TradingTerminal() {
     subV: `$${Math.round(_secToday2 * 195_000_000 / 86400 / 1_000_000)}M`,
     color: "var(--accent)"
   }, {
-    k: "Всего выплат",
+    k: "\u0412\u0441\u0435\u0433\u043e \u0432\u044b\u043f\u043b\u0430\u0442",
     v: `$${((12_410_000 + tick * 0.051) / 1_000_000).toFixed(2)}M`,
     sub: "today",
     subV: (() => { const _di = Math.floor(Date.now()/86400000); const _db = _di - Math.floor(1743465600000/86400000); const _base = Math.min(20000, 18000 + _db * 10); const _var = ((_di*7+13)%1000) - 500; return `+$${(_base+_var).toLocaleString()}`; })(),
     color: "var(--green)"
   }, {
-    k: "Финансируемых трейдеров",
+    k: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * 0.00026).toLocaleString(),
     sub: "joined today",
     subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S))}`,
     color: "var(--fg)"
   }, {
-    k: "Количество выплат",
+    k: "\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0432\u044b\u043f\u043b\u0430\u0442",
     v: Math.round(17_800 + tick * 0.00051).toLocaleString(),
     sub: "last 24h",
     subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S * 2))}`,
@@ -1036,13 +1036,13 @@ function TradingTerminal() {
       textTransform: "uppercase",
       color: "var(--fg)"
     }
-  }, "HashHedge · live-статистика")), /*#__PURE__*/React.createElement("span", {
+  }, "HashHedge \xb7 live-\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430")), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
       color: "var(--fg-dim)",
       fontFamily: "Akrobat, Onest, sans-serif"
     }
-  }, "ОБНОВЛЕНО · ", tick % 60, "s ago")), /*#__PURE__*/React.createElement("div", {
+  }, "\u041e\u0411\u041d\u041e\u0412\u041b\u0415\u041d\u041e \xb7 ", tick % 60, "s ago")), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
       padding: "28px 24px 16px",
@@ -1133,7 +1133,7 @@ function TradingTerminal() {
       textTransform: "uppercase",
       marginBottom: 4
     }
-  }, "Объём платформы · 30д"), /*#__PURE__*/React.createElement("svg", {
+  }, "\u041e\u0431\u044a\u0451\u043c \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b \xb7 30\u0434"), /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 100 100",
     preserveAspectRatio: "none",
     style: {
@@ -1186,7 +1186,7 @@ function TradingTerminal() {
       marginTop: 4
     },
     className: "mono"
-  }, "▲ +12.4% к пред.")))), /*#__PURE__*/React.createElement("div", {
+  }, "\u25b2 +12.4% \u043a \u043f\u0440\u0435\u0434.")))), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "4px 0"
     }
@@ -1256,14 +1256,14 @@ function TradingTerminal() {
       fontSize: 12,
       color: "var(--fg-muted)"
     }
-  }, "Институциональный фид · on-chain верификация"), /*#__PURE__*/React.createElement("span", {
+  }, "\u0418\u043d\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u0444\u0438\u0434 \xb7 on-chain \u0432\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f"), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
       fontWeight: 700,
       color: "var(--accent)",
       letterSpacing: "0.08em"
     }
-  }, "→ ДАШБОРД")));
+  }, "\u2192 \u0414\u0410\u0428\u0411\u041e\u0420\u0414")));
 }
 
 // ==== Hero ====
@@ -1290,7 +1290,7 @@ function Hero({
     style: {
       position: "absolute",
       inset: 0,
-      zИндекс: 1,
+      zIndex: 1,
       pointerEvents: "none",
       background: variant === "cosmic" ? "radial-gradient(ellipse 75% 60% at 50% 50%, rgba(6,6,10,0.88) 0%, rgba(6,6,10,0.68) 42%, rgba(6,6,10,0.15) 72%, rgba(6,6,10,0) 90%)" : "linear-gradient(90deg, rgba(6,6,10,0.92) 0%, rgba(6,6,10,0.78) 30%, rgba(6,6,10,0.45) 55%, rgba(6,6,10,0.1) 80%, rgba(6,6,10,0) 100%)"
     }
@@ -1298,7 +1298,7 @@ function Hero({
     style: {
       position: "absolute",
       inset: 0,
-      zИндекс: 1,
+      zIndex: 1,
       pointerEvents: "none",
       background: variant === "cosmic" ? "radial-gradient(ellipse 50% 35% at 50% 45%, rgba(6,6,10,0.55) 0%, rgba(6,6,10,0) 70%)" : "radial-gradient(ellipse 45% 55% at 28% 50%, rgba(6,6,10,0.6) 0%, rgba(6,6,10,0) 70%)"
     }
@@ -1306,7 +1306,7 @@ function Hero({
     style: {
       position: "absolute",
       inset: 0,
-      zИндекс: 1,
+      zIndex: 1,
       pointerEvents: "none",
       background: "linear-gradient(180deg, rgba(6,6,10,0.55) 0%, rgba(6,6,10,0) 18%, rgba(6,6,10,0) 80%, rgba(6,6,10,0.6) 100%)"
     }
@@ -1357,7 +1357,7 @@ function Hero({
     className: "container",
     style: {
       position: "relative",
-      zИндекс: 2
+      zIndex: 2
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-grid",
@@ -1381,7 +1381,7 @@ function Hero({
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "#1 CRYPTO PROP TRADING FIRM · WEB3 NATIVE")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "#1 CRYPTO PROP TRADING FIRM \xB7 WEB3 NATIVE")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h1", {
     className: "display",
@@ -1389,13 +1389,13 @@ function Hero({
       margin: "20px 0 24px",
       color: "var(--fg)"
     }
-  }, "Торгуй", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u043e\u0440\u0433\u0443\u0439", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
       display: "inline-block"
     }
-  }, "крипто-капитал.", /*#__PURE__*/React.createElement("svg", {
+  }, "\u043a\u0440\u0438\u043f\u0442\u043e-\u043a\u0430\u043f\u0438\u0442\u0430\u043b.", /*#__PURE__*/React.createElement("svg", {
     style: {
       position: "absolute",
       bottom: -8,
@@ -1412,7 +1412,7 @@ function Hero({
     strokeWidth: "3",
     strokeLinecap: "round",
     opacity: "0.6"
-  }))), " ", /*#__PURE__*/React.createElement("br", null), "Получай", /*#__PURE__*/React.createElement("br", null), "как профи.")), /*#__PURE__*/React.createElement(Reveal, {
+  }))), " ", /*#__PURE__*/React.createElement("br", null), "\u041f\u043e\u043b\u0443\u0447\u0430\u0439", /*#__PURE__*/React.createElement("br", null), "\u043a\u0430\u043a \u043f\u0440\u043e\u0444\u0438.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -1423,12 +1423,12 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "Мы даём опытным крипто-трейдерам до ", /*#__PURE__*/React.createElement("span", {
+  }, "\u041c\u044b \u0434\u0430\u0451\u043c \u043e\u043f\u044b\u0442\u043d\u044b\u043c \u043a\u0440\u0438\u043f\u0442\u043e-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u0430\u043c \u0434\u043e ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "$150,000"), " реального капитала — без риска для собственных средств. 160+ крипто-пар. Двухэтапный Hash Hedge Challenge — пройди Этап 1 и Этап 2, торгуй на нашем капитале. Плечо 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "$150,000"), " \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430 \u2014 \u0431\u0435\u0437 \u0440\u0438\u0441\u043a\u0430 \u0434\u043b\u044f \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0445 \u0441\u0440\u0435\u0434\u0441\u0442\u0432. 160+ \u043a\u0440\u0438\u043f\u0442\u043e-\u043f\u0430\u0440. \u0414\u0432\u0443\u0445\u044d\u0442\u0430\u043f\u043d\u044b\u0439 Hash Hedge Challenge \u2014 \u043f\u0440\u043e\u0439\u0434\u0438 \u042d\u0442\u0430\u043f 1 \u0438 \u042d\u0442\u0430\u043f 2, \u0442\u043e\u0440\u0433\u0443\u0439 \u043d\u0430 \u043d\u0430\u0448\u0435\u043c \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0435. \u041f\u043b\u0435\u0447\u043e 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -1443,7 +1443,7 @@ function Hero({
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Начать челлендж · от $79", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \xb7 \u043e\u0442 $79", /*#__PURE__*/React.createElement("svg", {
     width: "18",
     height: "18",
     viewBox: "0 0 24 24",
@@ -1457,7 +1457,7 @@ function Hero({
   }))), /*#__PURE__*/React.createElement("a", {
     href: "#how",
     className: "btn btn-ghost btn-lg"
-  }, "Как это работает"))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041a\u0430\u043a \u044d\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "4"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-proof",
@@ -1492,7 +1492,7 @@ function Hero({
       fontWeight: 700,
       color: "var(--fg)"
     }
-  }, "4.4 · Trustpilot"), /*#__PURE__*/React.createElement("div", {
+  }, "4.4 \xB7 Trustpilot"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-dim)"
@@ -1520,7 +1520,7 @@ function Hero({
     }
   }), " VERIFIED COMPANY"))))), variant === "classic" && /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
-  }, /*#__PURE__*/React.createElement(LiveВыплатыTable, null)), variant === "terminal" && /*#__PURE__*/React.createElement(Reveal, {
+  }, /*#__PURE__*/React.createElement(LivePayoutsTable, null)), variant === "terminal" && /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement(TradingTerminal, null)), variant === "cosmic" && /*#__PURE__*/React.createElement(Reveal, {
     delay: "4"
@@ -1540,24 +1540,24 @@ function Hero({
   }, [{
     v: 17800,
     suf: "+",
-    l: "Выплаты проведены",
-    sub: "Быстро, без задержек и всегда вовремя."
+    l: "\u0412\u044b\u043f\u043b\u0430\u0442\u044b \u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u044b",
+    sub: "\u0411\u044b\u0441\u0442\u0440\u043e, \u0431\u0435\u0437 \u0437\u0430\u0434\u0435\u0440\u0436\u0435\u043a \u0438 \u0432\u0441\u0435\u0433\u0434\u0430 \u0432\u043e\u0432\u0440\u0435\u043c\u044f."
   }, {
     v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400)),
     suf: "",
-    l: "Финансируемых трейдеров",
-    sub: "Растём каждый день."
+    l: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
+    sub: "\u0420\u0430\u0441\u0442\u0451\u043c \u043a\u0430\u0436\u0434\u044b\u0439 \u0434\u0435\u043d\u044c."
   }, {
     v: 160,
     suf: "+",
-    l: "Крипто-пары",
-    sub: "Спот-ликвидность по мейджорам и альтам."
+    l: "\u041a\u0440\u0438\u043f\u0442\u043e-\u043f\u0430\u0440\u044b",
+    sub: "\u0421\u043f\u043e\u0442-\u043b\u0438\u043a\u0432\u0438\u0434\u043d\u043e\u0441\u0442\u044c \u043f\u043e \u043c\u0435\u0439\u0434\u0436\u043e\u0440\u0430\u043c \u0438 \u0430\u043b\u044c\u0442\u0430\u043c."
   }, {
     v: 4.4,
     suf: "/5",
     dec: 1,
-    l: "Рейтинг Trustpilot",
-    sub: "На основе 79 проверенных отзывов."
+    l: "\u0420\u0435\u0439\u0442\u0438\u043d\u0433 Trustpilot",
+    sub: "\u041d\u0430 \u043e\u0441\u043d\u043e\u0432\u0435 79 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0445 \u043e\u0442\u0437\u044b\u0432\u043e\u0432."
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: i
   }, /*#__PURE__*/React.createElement("div", {
@@ -1593,7 +1593,7 @@ function Hero({
 Object.assign(window, {
   Hero,
   HeroCanvas,
-  LiveВыплатыTable,
+  LivePayoutsTable,
   TradingTerminal
 });
 
@@ -1605,13 +1605,13 @@ const {
 } = React;
 function PromoBanner() {
   useRevealOnScroll();
-  // "Что можно торговать" – non-crypto perps available on the platform.
+  // "What you can trade" – non-crypto perps available on the platform.
   // Each market has brand color + monogram (ticker style, no emoji).
-  // Reference prices – pulled from live data (Апрель 2026): gold $4,880 · silver $81.8 · brent $104.6 · wti $94 · natgas $2.55 · spy $615.
+  // Reference prices – pulled from live data (Apr 2026): gold $4,880 · silver $81.8 · brent $104.6 · wti $94 · natgas $2.55 · spy $615.
   const markets = [{
     sym: "XAU",
-    name: "Золото",
-    cls: "Металл",
+    name: "\u0417\u043e\u043b\u043e\u0442\u043e",
+    cls: "\u041c\u0435\u0442\u0430\u043b\u043b",
     art: "gold",
     color: "#E5B233",
     ref: "4,879.60",
@@ -1620,8 +1620,8 @@ function PromoBanner() {
     up: true
   }, {
     sym: "XAG",
-    name: "Серебро",
-    cls: "Металл",
+    name: "\u0421\u0435\u0440\u0435\u0431\u0440\u043e",
+    cls: "\u041c\u0435\u0442\u0430\u043b\u043b",
     art: "silver",
     color: "#C6C7CC",
     ref: "81.84",
@@ -1630,8 +1630,8 @@ function PromoBanner() {
     up: true
   }, {
     sym: "XPD",
-    name: "Палладий",
-    cls: "Металл",
+    name: "\u041f\u0430\u043b\u043b\u0430\u0434\u0438\u0439",
+    cls: "\u041c\u0435\u0442\u0430\u043b\u043b",
     art: "palladium",
     color: "#B8C0CC",
     ref: "1,412.50",
@@ -1640,8 +1640,8 @@ function PromoBanner() {
     up: false
   }, {
     sym: "XPT",
-    name: "Платина",
-    cls: "Металл",
+    name: "\u041f\u043b\u0430\u0442\u0438\u043d\u0430",
+    cls: "\u041c\u0435\u0442\u0430\u043b\u043b",
     art: "platinum",
     color: "#D4D8DE",
     ref: "1,586.40",
@@ -1651,7 +1651,7 @@ function PromoBanner() {
   }, {
     sym: "BRENT",
     name: "Brent",
-    cls: "Энергоносители",
+    cls: "\u042d\u043d\u0435\u0440\u0433\u043e\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u0438",
     art: "brent",
     color: "#3D5A44",
     ref: "104.63",
@@ -1661,7 +1661,7 @@ function PromoBanner() {
   }, {
     sym: "WTI",
     name: "WTI",
-    cls: "Энергоносители",
+    cls: "\u042d\u043d\u0435\u0440\u0433\u043e\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u0438",
     art: "wti",
     color: "#6C4A2E",
     ref: "94.12",
@@ -1670,8 +1670,8 @@ function PromoBanner() {
     up: false
   }, {
     sym: "NG",
-    name: "Природный газ",
-    cls: "Энергоносители",
+    name: "\u041f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u0433\u0430\u0437",
+    cls: "\u042d\u043d\u0435\u0440\u0433\u043e\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u0438",
     art: "natgas",
     color: "#4A6FA5",
     ref: "2.55",
@@ -1681,7 +1681,7 @@ function PromoBanner() {
   }, {
     sym: "SPY",
     name: "S&P 500",
-    cls: "Индекс",
+    cls: "\u0418\u043d\u0434\u0435\u043a\u0441",
     art: "spy",
     color: "#5C6CFF",
     ref: "614.72",
@@ -1828,7 +1828,7 @@ function PromoBanner() {
           fill: "#fff",
           opacity: "0.5",
           letterSpacing: "0.15em"
-        }, "СЕРЕБРО")));
+        }, "\u0421\u0415\u0420\u0415\u0411\u0420\u041e")));
       case "palladium":
         // Single hex/oct ingot viewed from top – unique shape
         return /*#__PURE__*/React.createElement("svg", {
@@ -1935,7 +1935,7 @@ function PromoBanner() {
           fill: "#000",
           opacity: "0.35",
           letterSpacing: "0.3em"
-        }, "ПЛАТИНА"), /*#__PURE__*/React.createElement("text", {
+        }, "\u041f\u041b\u0410\u0422\u0418\u041d\u0410"), /*#__PURE__*/React.createElement("text", {
           x: "80",
           y: "86",
           textAnchor: "middle",
@@ -1945,7 +1945,7 @@ function PromoBanner() {
           fill: "#000",
           opacity: "0.3",
           letterSpacing: "0.2em"
-        }, "Pt · 999.5")));
+        }, "Pt \xB7 999.5")));
       case "brent":
       case "wti":
         {
@@ -2134,7 +2134,7 @@ function PromoBanner() {
       marginBottom: 28,
       flexWrap: "wrap",
       position: "relative",
-      zИндекс: 1
+      zIndex: 1
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2152,7 +2152,7 @@ function PromoBanner() {
       background: "var(--accent)",
       boxShadow: "0 0 10px var(--accent)"
     }
-  }), "ЗА ПРЕДЕЛАМИ КРИПТЫ"), /*#__PURE__*/React.createElement("h3", {
+  }), "\u0417\u0410 \u041f\u0420\u0415\u0414\u0415\u041b\u0410\u041c\u0418 \u041a\u0420\u0418\u041f\u0422\u042b"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontSize: 38,
       fontWeight: 800,
@@ -2161,11 +2161,11 @@ function PromoBanner() {
       margin: "14px 0 10px",
       color: "var(--fg)"
     }
-  }, "Торгуй ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u043e\u0440\u0433\u0443\u0439 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "металлы, энергоносители и индексы"), " вместе с криптой."), /*#__PURE__*/React.createElement("p", {
+  }, "\u043c\u0435\u0442\u0430\u043b\u043b\u044b, \u044d\u043d\u0435\u0440\u0433\u043e\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u0438 \u0438 \u0438\u043d\u0434\u0435\u043a\u0441\u044b"), " \u0432\u043c\u0435\u0441\u0442\u0435 \u0441 \u043a\u0440\u0438\u043f\u0442\u043e\u0439."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -2173,7 +2173,7 @@ function PromoBanner() {
       margin: 0,
       maxWidth: 735
     }
-  }, "Золото, серебро, палладий, платина, нефть Brent и WTI, природный газ и S&P 500 — всё в виде USDT-перпов. Один финансируемый аккаунт, то же плечо 1:5, единый PnL.")), /*#__PURE__*/React.createElement("a", {
+  }, "\u0417\u043e\u043b\u043e\u0442\u043e, \u0441\u0435\u0440\u0435\u0431\u0440\u043e, \u043f\u0430\u043b\u043b\u0430\u0434\u0438\u0439, \u043f\u043b\u0430\u0442\u0438\u043d\u0430, \u043d\u0435\u0444\u0442\u044c Brent \u0438 WTI, \u043f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u0433\u0430\u0437 \u0438 S&P 500 \u2014 \u0432\u0441\u0451 \u0432 \u0432\u0438\u0434\u0435 USDT-\u043f\u0435\u0440\u043f\u043e\u0432. \u041e\u0434\u0438\u043d \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442, \u0442\u043e \u0436\u0435 \u043f\u043b\u0435\u0447\u043e 1:5, \u0435\u0434\u0438\u043d\u044b\u0439 PnL.")), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
@@ -2182,7 +2182,7 @@ function PromoBanner() {
     style: {
       whiteSpace: "nowrap"
     }
-  }, "Открыть финансируемый аккаунт", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -2200,7 +2200,7 @@ function PromoBanner() {
     "data-mobile-h-scroll": true,
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
       gap: 12,
@@ -2241,7 +2241,7 @@ function PromoBanner() {
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -2268,7 +2268,7 @@ function PromoBanner() {
   }, m.cls)), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       fontSize: 11,
       fontWeight: 700,
       letterSpacing: "0.08em",
@@ -2279,7 +2279,7 @@ function PromoBanner() {
   }, m.sym, "/USDT"), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       fontSize: 17,
       fontWeight: 700,
       color: "var(--fg)",
@@ -2289,7 +2289,7 @@ function PromoBanner() {
   }, m.name), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       display: "flex",
       alignItems: "baseline",
       justifyContent: "space-between",
@@ -2328,7 +2328,7 @@ function PromoBanner() {
       width: "100%",
       justifyContent: "center"
     }
-  }, "Открыть финансируемый аккаунт", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -2345,7 +2345,7 @@ function PromoBanner() {
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       marginTop: 24,
       paddingTop: 20,
       borderTop: "1px solid var(--line)",
@@ -2378,12 +2378,12 @@ function PromoBanner() {
       background: "var(--green)",
       boxShadow: "0 0 8px var(--green)"
     }
-  }), "Live 24/7 (включая выходные)"), /*#__PURE__*/React.createElement("span", null, "Плечо ", /*#__PURE__*/React.createElement("span", {
+  }), "Live 24/7 (\u0432\u043a\u043b\u044e\u0447\u0430\u044f \u0432\u044b\u0445\u043e\u0434\u043d\u044b\u0435)"), /*#__PURE__*/React.createElement("span", null, "\u041f\u043b\u0435\u0447\u043e ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "1:5")), /*#__PURE__*/React.createElement("span", null, "Котировка: ", /*#__PURE__*/React.createElement("span", {
+  }, "1:5")), /*#__PURE__*/React.createElement("span", null, "\u041a\u043e\u0442\u0438\u0440\u043e\u0432\u043a\u0430: ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
@@ -2392,28 +2392,28 @@ function PromoBanner() {
     style: {
       color: "var(--fg-muted)"
     }
-  }, "Плюс 160+ крипто-пар — всё в одном финансируемом аккаунте."))))));
+  }, "\u041f\u043b\u044e\u0441 160+ \u043a\u0440\u0438\u043f\u0442\u043e-\u043f\u0430\u0440 \u2014 \u0432\u0441\u0451 \u0432 \u043e\u0434\u043d\u043e\u043c \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0435."))))));
 }
 function HowItWorks() {
   useRevealOnScroll();
   const steps = [{
     n: "01",
-    k: "РЕГИСТРАЦИЯ",
-    t: "Выбери размер аккаунта",
-    d: "Шесть размеров — от $5,000 ($79) до $150,000 ($1,093). Разовая плата за Hash Hedge Challenge. Оплата на TRC20, ERC20, BEP20, Solana, Arbitrum или Optimism.",
-    bullets: ["6 account sizes · $5K to $150K", "Оплата криптой (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "Разовая плата — без подписок"]
+    k: "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0410\u0426\u0418\u042f",
+    t: "\u0412\u044b\u0431\u0435\u0440\u0438 \u0440\u0430\u0437\u043c\u0435\u0440 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430",
+    d: "\u0428\u0435\u0441\u0442\u044c \u0440\u0430\u0437\u043c\u0435\u0440\u043e\u0432 \u2014 \u043e\u0442 $5,000 ($79) \u0434\u043e $150,000 ($1,093). \u0420\u0430\u0437\u043e\u0432\u0430\u044f \u043f\u043b\u0430\u0442\u0430 \u0437\u0430 Hash Hedge Challenge. \u041e\u043f\u043b\u0430\u0442\u0430 \u043d\u0430 TRC20, ERC20, BEP20, Solana, Arbitrum \u0438\u043b\u0438 Optimism.",
+    bullets: ["6 account sizes · $5K to $150K", "\u041e\u043f\u043b\u0430\u0442\u0430 \u043a\u0440\u0438\u043f\u0442\u043e\u0439 (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "\u0420\u0430\u0437\u043e\u0432\u0430\u044f \u043f\u043b\u0430\u0442\u0430 \u2014 \u0431\u0435\u0437 \u043f\u043e\u0434\u043f\u0438\u0441\u043e\u043a"]
   }, {
     n: "02",
-    k: "ДОКАЖИ СВОЁ ПРЕИМУЩЕСТВО",
-    t: "Пройди Этап 1 и Этап 2",
-    d: "Этап 1: цель +8%. Этап 2: цель +6%. Максимум 5% дневного убытка, 10% максимальной просадки на Этапе 1 (8% с Этапа 2). Минимум 5 торговых дней на этапе. Без ограничения по времени.",
-    bullets: ["Цель Этапа 1: +8% · DD 10%", "Цель Этапа 2: +6% · DD 8%", "Макс. 5% в день · мин. 5 дней"]
+    k: "\u0414\u041e\u041a\u0410\u0416\u0418 \u0421\u0412\u041e\u0401 \u041f\u0420\u0415\u0418\u041c\u0423\u0429\u0415\u0421\u0422\u0412\u041e",
+    t: "\u041f\u0440\u043e\u0439\u0434\u0438 \u042d\u0442\u0430\u043f 1 \u0438 \u042d\u0442\u0430\u043f 2",
+    d: "\u042d\u0442\u0430\u043f 1: \u0446\u0435\u043b\u044c +8%. \u042d\u0442\u0430\u043f 2: \u0446\u0435\u043b\u044c +6%. \u041c\u0430\u043a\u0441\u0438\u043c\u0443\u043c 5% \u0434\u043d\u0435\u0432\u043d\u043e\u0433\u043e \u0443\u0431\u044b\u0442\u043a\u0430, 10% \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0438 \u043d\u0430 \u042d\u0442\u0430\u043f\u0435 1 (8% \u0441 \u042d\u0442\u0430\u043f\u0430 2). \u041c\u0438\u043d\u0438\u043c\u0443\u043c 5 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439 \u043d\u0430 \u044d\u0442\u0430\u043f\u0435. \u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438.",
+    bullets: ["\u0426\u0435\u043b\u044c \u042d\u0442\u0430\u043f\u0430 1: +8% \xb7 DD 10%", "\u0426\u0435\u043b\u044c \u042d\u0442\u0430\u043f\u0430 2: +6% \xb7 DD 8%", "\u041c\u0430\u043a\u0441. 5% \u0432 \u0434\u0435\u043d\u044c \xb7 \u043c\u0438\u043d. 5 \u0434\u043d\u0435\u0439"]
   }, {
     n: "03",
-    k: "ПОЛУЧИ ФИНАНСИРОВАНИЕ",
-    t: "Торгуй на финансируемом Этапе 3",
-    d: "Пройди оба этапа — и ты на Этапе 3, финансируемом. Цели по прибыли нет, срок торговли неограничен, те же правила риска (5% в день, 8% максимальной просадки). Плечо 1:5 на каждом этапе.",
-    bullets: ["Этап 3 — финансируемый, без цели", "Без ограничения по времени", "Плечо 1:5 · 5% в день / 8% DD"]
+    k: "\u041f\u041e\u041b\u0423\u0427\u0418 \u0424\u0418\u041d\u0410\u041d\u0421\u0418\u0420\u041e\u0412\u0410\u041d\u0418\u0415",
+    t: "\u0422\u043e\u0440\u0433\u0443\u0439 \u043d\u0430 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u043c \u042d\u0442\u0430\u043f\u0435 3",
+    d: "\u041f\u0440\u043e\u0439\u0434\u0438 \u043e\u0431\u0430 \u044d\u0442\u0430\u043f\u0430 \u2014 \u0438 \u0442\u044b \u043d\u0430 \u042d\u0442\u0430\u043f\u0435 3, \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u043c. \u0426\u0435\u043b\u0438 \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u043d\u0435\u0442, \u0441\u0440\u043e\u043a \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438 \u043d\u0435\u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d, \u0442\u0435 \u0436\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0440\u0438\u0441\u043a\u0430 (5% \u0432 \u0434\u0435\u043d\u044c, 8% \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0438). \u041f\u043b\u0435\u0447\u043e 1:5 \u043d\u0430 \u043a\u0430\u0436\u0434\u043e\u043c \u044d\u0442\u0430\u043f\u0435.",
+    bullets: ["\u042d\u0442\u0430\u043f 3 \u2014 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439, \u0431\u0435\u0437 \u0446\u0435\u043b\u0438", "\u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438", "\u041f\u043b\u0435\u0447\u043e 1:5 \xb7 5% \u0432 \u0434\u0435\u043d\u044c / 8% DD"]
   }];
   return /*#__PURE__*/React.createElement("section", {
     id: "how",
@@ -2434,18 +2434,18 @@ function HowItWorks() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "КАК ЭТО РАБОТАЕТ")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u041a\u0410\u041a \u042d\u0422\u041e \u0420\u0410\u0411\u041e\u0422\u0410\u0415\u0422")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0"
     }
-  }, "Три шага от", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u0440\u0438 \u0448\u0430\u0433\u0430 \u043e\u0442", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "нуля до финансирования.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u043d\u0443\u043b\u044f \u0434\u043e \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -2453,7 +2453,7 @@ function HowItWorks() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Пропусти пятилетний путь накопления собственного капитала. Докажи своё торговое преимущество в нашем челлендже — и получи институциональное финансирование за дни, а не годы."))), /*#__PURE__*/React.createElement("div", {
+  }, "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438 \u043f\u044f\u0442\u0438\u043b\u0435\u0442\u043d\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u044f \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0433\u043e \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430. \u0414\u043e\u043a\u0430\u0436\u0438 \u0441\u0432\u043e\u0451 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0435 \u043f\u0440\u0435\u0438\u043c\u0443\u0449\u0435\u0441\u0442\u0432\u043e \u0432 \u043d\u0430\u0448\u0435\u043c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0435 \u2014 \u0438 \u043f\u043e\u043b\u0443\u0447\u0438 \u0438\u043d\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0435 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0437\u0430 \u0434\u043d\u0438, \u0430 \u043d\u0435 \u0433\u043e\u0434\u044b."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -2470,7 +2470,7 @@ function HowItWorks() {
       height: 2,
       background: "linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent)",
       opacity: 0.3,
-      zИндекс: 0
+      zIndex: 0
     }
   }), steps.map((s, i) => /*#__PURE__*/React.createElement(Reveal, {
     key: s.n,
@@ -2478,7 +2478,7 @@ function HowItWorks() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
-      zИндекс: 1,
+      zIndex: 1,
       height: "100%",
       minWidth: 0,
       display: "flex",
@@ -2510,7 +2510,7 @@ function HowItWorks() {
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       position: "relative",
-      zИндекс: 2
+      zIndex: 2
     }
   }, s.n)), /*#__PURE__*/React.createElement("div", {
     className: "card",
@@ -2587,10 +2587,10 @@ function HowItWorks() {
     strokeLinejoin: "round"
   })), b))))))))));
 }
-const ТоргуйМеталлsBanner = PromoBanner;
+const TradeMetalsBanner = PromoBanner;
 Object.assign(window, {
   PromoBanner,
-  ТоргуйМеталлsBanner,
+  TradeMetalsBanner,
   HowItWorks
 });
 
@@ -2599,16 +2599,16 @@ function PromoSliderBanner() {
   const slides = [{
     key: "x3",
     eyebrow: "72H PAYOUT GUARANTEE",
-    title: "Гарантия возврата X3",
-    copy: "Если выплата не пришла за 72 часа — вернём 3X. Это наше обещание. Без рисков. Без ожидания. Только торговля.",
-    cta: "Забрать прибыль",
+    title: "\u0413\u0430\u0440\u0430\u043d\u0442\u0438\u044f \u0432\u043e\u0437\u0432\u0440\u0430\u0442\u0430 X3",
+    copy: "\u0415\u0441\u043b\u0438 \u0432\u044b\u043f\u043b\u0430\u0442\u0430 \u043d\u0435 \u043f\u0440\u0438\u0448\u043b\u0430 \u0437\u0430 72 \u0447\u0430\u0441\u0430 \u2014 \u0432\u0435\u0440\u043d\u0451\u043c 3X. \u042d\u0442\u043e \u043d\u0430\u0448\u0435 \u043e\u0431\u0435\u0449\u0430\u043d\u0438\u0435. \u0411\u0435\u0437 \u0440\u0438\u0441\u043a\u043e\u0432. \u0411\u0435\u0437 \u043e\u0436\u0438\u0434\u0430\u043d\u0438\u044f. \u0422\u043e\u043b\u044c\u043a\u043e \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u044f.",
+    cta: "\u0417\u0430\u0431\u0440\u0430\u0442\u044c \u043f\u0440\u0438\u0431\u044b\u043b\u044c",
     art: "x3"
   }, {
     key: "metals",
-    eyebrow: "НОВЫЕ РЫНКИ В ЭФИРЕ",
-    title: "Торгуй золотом и серебром",
-    copy: "XAU/USDT и XAG/USDT теперь доступны на платформе Hash Hedge",
-    cta: "Начать челлендж",
+    eyebrow: "\u041d\u041e\u0412\u042b\u0415 \u0420\u042b\u041d\u041a\u0418 \u0412 \u042d\u0424\u0418\u0420\u0415",
+    title: "\u0422\u043e\u0440\u0433\u0443\u0439 \u0437\u043e\u043b\u043e\u0442\u043e\u043c \u0438 \u0441\u0435\u0440\u0435\u0431\u0440\u043e\u043c",
+    copy: "XAU/USDT \u0438 XAG/USDT \u0442\u0435\u043f\u0435\u0440\u044c \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b \u043d\u0430 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0435 Hash Hedge",
+    cta: "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436",
     art: "metals"
   }];
   const [active, setActive] = __useS(0);
@@ -2622,7 +2622,7 @@ function PromoSliderBanner() {
   const go = i => setActive((i + slides.length) % slides.length);
   return /*#__PURE__*/React.createElement("section", {
     className: "hh-promo-slider-section",
-    "aria-label": "Акции Hash Hedge"
+    "aria-label": "\u0410\u043a\u0446\u0438\u0438 Hash Hedge"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
@@ -2657,14 +2657,14 @@ function PromoSliderBanner() {
   }, slide.eyebrow), /*#__PURE__*/React.createElement("h3", null, slide.title), /*#__PURE__*/React.createElement("p", null, slide.copy)), /*#__PURE__*/React.createElement("div", {
     className: "hh-promo-slide-art",
     "aria-hidden": "true"
-  }, slide.art === "x3" ? /*#__PURE__*/React.createElement(PromoX3Art, null) : slide.art === "split" ? /*#__PURE__*/React.createElement(PromoProfitSplitArt, null) : /*#__PURE__*/React.createElement(PromoМеталлsArt, null)), /*#__PURE__*/React.createElement("a", {
+  }, slide.art === "x3" ? /*#__PURE__*/React.createElement(PromoX3Art, null) : slide.art === "split" ? /*#__PURE__*/React.createElement(PromoProfitSplitArt, null) : /*#__PURE__*/React.createElement(PromoMetalsArt, null)), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary hh-promo-slide-cta"
   }, slide.cta))))), /*#__PURE__*/React.createElement("div", {
     className: "hh-promo-slider-dots",
-    "aria-label": "Слайды промо-акций"
+    "aria-label": "\u0421\u043b\u0430\u0439\u0434\u044b \u043f\u0440\u043e\u043c\u043e-\u0430\u043a\u0446\u0438\u0439"
   }, slides.map((slide, i) => /*#__PURE__*/React.createElement("button", {
     key: slide.key,
     type: "button",
@@ -2674,13 +2674,13 @@ function PromoSliderBanner() {
   }))))));
 }
 
-function PromoМеталлsArt() {
+function PromoMetalsArt() {
   return /*#__PURE__*/React.createElement("svg", {
     className: "hh-promo-art-svg",
     viewBox: "0 0 720 430",
     fill: "none"
   }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("radialGradient", {
-    id: "hhPromoЗолотоFace",
+    id: "hhPromoGoldFace",
     cx: "0.38",
     cy: "0.32",
     r: "0.72"
@@ -2696,7 +2696,7 @@ function PromoМеталлsArt() {
     offset: "1",
     stopColor: "#3f2608"
   })), /*#__PURE__*/React.createElement("radialGradient", {
-    id: "hhPromoСереброFace",
+    id: "hhPromoSilverFace",
     cx: "0.38",
     cy: "0.28",
     r: "0.72"
@@ -2712,7 +2712,7 @@ function PromoМеталлsArt() {
     offset: "1",
     stopColor: "#282b31"
   })), /*#__PURE__*/React.createElement("linearGradient", {
-    id: "hhPromoЗолотоEdge",
+    id: "hhPromoGoldEdge",
     x1: "0",
     y1: "0",
     x2: "1",
@@ -2726,7 +2726,7 @@ function PromoМеталлsArt() {
     offset: "1",
     stopColor: "#3b2307"
   })), /*#__PURE__*/React.createElement("linearGradient", {
-    id: "hhPromoСереброEdge",
+    id: "hhPromoSilverEdge",
     x1: "0",
     y1: "0",
     x2: "1",
@@ -2764,12 +2764,12 @@ function PromoМеталлsArt() {
     cx: "286",
     cy: "194",
     r: "140",
-    fill: "url(#hhPromoЗолотоEdge)"
+    fill: "url(#hhPromoGoldEdge)"
   }), /*#__PURE__*/React.createElement("circle", {
     cx: "270",
     cy: "184",
     r: "130",
-    fill: "url(#hhPromoЗолотоFace)"
+    fill: "url(#hhPromoGoldFace)"
   }), /*#__PURE__*/React.createElement("circle", {
     cx: "270",
     cy: "184",
@@ -2802,12 +2802,12 @@ function PromoМеталлsArt() {
     cx: "474",
     cy: "204",
     r: "136",
-    fill: "url(#hhPromoСереброEdge)"
+    fill: "url(#hhPromoSilverEdge)"
   }), /*#__PURE__*/React.createElement("circle", {
     cx: "458",
     cy: "194",
     r: "126",
-    fill: "url(#hhPromoСереброFace)"
+    fill: "url(#hhPromoSilverFace)"
   }), /*#__PURE__*/React.createElement("circle", {
     cx: "458",
     cy: "194",
@@ -2966,7 +2966,7 @@ function PromoProfitSplitArt() {
     viewBox: "0 0 720 430",
     fill: "none"
   }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-    id: "hhPromoSplitЗолото",
+    id: "hhPromoSplitGold",
     x1: "0",
     y1: "0",
     x2: "1",
@@ -3010,14 +3010,14 @@ function PromoProfitSplitArt() {
     fontWeight: "800",
     fill: "var(--accent)",
     letterSpacing: "2"
-  }, "ДЕЛЁЖ ПРИБЫЛИ"), /*#__PURE__*/React.createElement("text", {
+  }, "\u0414\u0415\u041b\u0401\u0416 \u041f\u0420\u0418\u0411\u042b\u041b\u0418"), /*#__PURE__*/React.createElement("text", {
     x: "154",
     y: "181",
     fontFamily: "Onest, system-ui, sans-serif",
     fontSize: "24",
     fontWeight: "800",
     fill: "var(--fg)"
-  }, "Трейдер"), /*#__PURE__*/React.createElement("text", {
+  }, "\u0422\u0440\u0435\u0439\u0434\u0435\u0440"), /*#__PURE__*/React.createElement("text", {
     x: "540",
     y: "181",
     textAnchor: "end",
@@ -3038,7 +3038,7 @@ function PromoProfitSplitArt() {
     width: "351",
     height: "18",
     rx: "9",
-    fill: "url(#hhPromoSplitЗолото)"
+    fill: "url(#hhPromoSplitGold)"
   }), /*#__PURE__*/React.createElement("text", {
     x: "154",
     y: "260",
@@ -3076,20 +3076,20 @@ Object.assign(window, {
   PromoBanner
 });
 
-// Hash Hedge – Тарифы (ФинансируемыйNext-style), Why Us, Выплаты
+// Hash Hedge – Pricing (FundedNext-style), Why Us, Payouts
 const {
   useState: ___useS
 } = React;
 
 // ============================================================================
-// Тарифы – ФинансируемыйNext-inspired checkout flow.
+// Pricing – FundedNext-inspired checkout flow.
 // Layout:
 //   1. Program tab (Hash Hedge Challenge – only model, but framed as tab so it reads like FN).
-//   2. Horizontal size selector with account-size chips + price + "Популярное" badge.
+//   2. Horizontal size selector with account-size chips + price + "Popular" badge.
 //   3. Rules grid: 6 rule cards with icons, showing value per stage in mini-row.
-//   4. Big summary / checkout bar: account size → price → Начать челлендж CTA.
+//   4. Big summary / checkout bar: account size → price → Start Challenge CTA.
 // ============================================================================
-function Тарифы() {
+function Pricing() {
   useRevealOnScroll();
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
@@ -3106,37 +3106,37 @@ function Тарифы() {
   const price = pricing[size];
   const popular = 25000;
   const accountNotes = {
-    5000: "Стартовый аккаунт для тестирования правил с минимальным входом.",
-    10000: "Компактный аккаунт для первого финансируемого опыта — больше пространства для манёвра.",
-    25000: "Самый популярный баланс между ценой, капиталом и реальным запасом по просадке.",
-    50000: "Серьёзный размер аккаунта для стабильных дневных крипто-стратегий.",
-    100000: "Создан для опытных трейдеров, которые уже управляют большим риском.",
-    150000: "Максимальный лимит Hash Hedge и лучшее соотношение цены к капиталу."
+    5000: "\u0421\u0442\u0430\u0440\u0442\u043e\u0432\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442 \u0434\u043b\u044f \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u043f\u0440\u0430\u0432\u0438\u043b \u0441 \u043c\u0438\u043d\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u043c \u0432\u0445\u043e\u0434\u043e\u043c.",
+    10000: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442 \u0434\u043b\u044f \u043f\u0435\u0440\u0432\u043e\u0433\u043e \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u0433\u043e \u043e\u043f\u044b\u0442\u0430 \u2014 \u0431\u043e\u043b\u044c\u0448\u0435 \u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u0430 \u0434\u043b\u044f \u043c\u0430\u043d\u0451\u0432\u0440\u0430.",
+    25000: "\u0421\u0430\u043c\u044b\u0439 \u043f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u044b\u0439 \u0431\u0430\u043b\u0430\u043d\u0441 \u043c\u0435\u0436\u0434\u0443 \u0446\u0435\u043d\u043e\u0439, \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c \u0438 \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u043c \u0437\u0430\u043f\u0430\u0441\u043e\u043c \u043f\u043e \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0435.",
+    50000: "\u0421\u0435\u0440\u044c\u0451\u0437\u043d\u044b\u0439 \u0440\u0430\u0437\u043c\u0435\u0440 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430 \u0434\u043b\u044f \u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u044b\u0445 \u0434\u043d\u0435\u0432\u043d\u044b\u0445 \u043a\u0440\u0438\u043f\u0442\u043e-\u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0439.",
+    100000: "\u0421\u043e\u0437\u0434\u0430\u043d \u0434\u043b\u044f \u043e\u043f\u044b\u0442\u043d\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0443\u0436\u0435 \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u044e\u0442 \u0431\u043e\u043b\u044c\u0448\u0438\u043c \u0440\u0438\u0441\u043a\u043e\u043c.",
+    150000: "\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0439 \u043b\u0438\u043c\u0438\u0442 Hash Hedge \u0438 \u043b\u0443\u0447\u0448\u0435\u0435 \u0441\u043e\u043e\u0442\u043d\u043e\u0448\u0435\u043d\u0438\u0435 \u0446\u0435\u043d\u044b \u043a \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0443."
   };
   const mobileStageTabs = [{
     id: "stage1",
-    label: "Этап 1",
-    sub: "Оценка"
+    label: "\u042d\u0442\u0430\u043f 1",
+    sub: "\u041e\u0446\u0435\u043d\u043a\u0430"
   }, {
     id: "stage2",
-    label: "Этап 2",
-    sub: "Верификация"
+    label: "\u042d\u0442\u0430\u043f 2",
+    sub: "\u0412\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f"
   }, {
     id: "funded",
-    label: "Финансируемый",
-    sub: "Финансируемый аккаунт"
+    label: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439",
+    sub: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442"
   }];
   const mobileStageRules = {
-    stage1: [["Цель по прибыли", "8%"], ["Макс. дневной убыток", "5%"], ["Макс. просадка", "10%"], ["Мин. торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Плечо", "1:5"]],
-    stage2: [["Цель по прибыли", "6%"], ["Макс. дневной убыток", "5%"], ["Макс. просадка", "8%"], ["Мин. торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Плечо", "1:5"]],
-    funded: [["Цель по прибыли", "Без цели"], ["Макс. дневной убыток", "5%"], ["Макс. просадка", "8%"], ["Мин. торговых дней", "-"], ["Срок торговли", "Без лимита"], ["Плечо", "1:5"], ["Дележ прибыли", "80%"], ["Выплаты", "USDT на кошелёк"]]
+    stage1: [["\u0426\u0435\u043b\u044c \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438", "8%"], ["\u041c\u0430\u043a\u0441. \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a", "5%"], ["\u041c\u0430\u043a\u0441. \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0430", "10%"], ["\u041c\u0438\u043d. \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439", "5 \u0434\u043d\u0435\u0439"], ["\u0421\u0440\u043e\u043a \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438", "\u0411\u0435\u0437 \u043b\u0438\u043c\u0438\u0442\u0430"], ["\u041f\u043b\u0435\u0447\u043e", "1:5"]],
+    stage2: [["\u0426\u0435\u043b\u044c \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438", "6%"], ["\u041c\u0430\u043a\u0441. \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a", "5%"], ["\u041c\u0430\u043a\u0441. \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0430", "8%"], ["\u041c\u0438\u043d. \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439", "5 \u0434\u043d\u0435\u0439"], ["\u0421\u0440\u043e\u043a \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438", "\u0411\u0435\u0437 \u043b\u0438\u043c\u0438\u0442\u0430"], ["\u041f\u043b\u0435\u0447\u043e", "1:5"]],
+    funded: [["\u0426\u0435\u043b\u044c \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438", "\u0411\u0435\u0437 \u0446\u0435\u043b\u0438"], ["\u041c\u0430\u043a\u0441. \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a", "5%"], ["\u041c\u0430\u043a\u0441. \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0430", "8%"], ["\u041c\u0438\u043d. \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439", "-"], ["\u0421\u0440\u043e\u043a \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438", "\u0411\u0435\u0437 \u043b\u0438\u043c\u0438\u0442\u0430"], ["\u041f\u043b\u0435\u0447\u043e", "1:5"], ["\u0414\u0435\u043b\u0435\u0436 \u043f\u0440\u0438\u0431\u044b\u043b\u0438", "80%"], ["\u0412\u044b\u043f\u043b\u0430\u0442\u044b", "USDT \u043d\u0430 \u043a\u043e\u0448\u0435\u043b\u0451\u043a"]]
   };
 
   // Per-stage rule values – single source of truth.
   const rules = [{
     k: "target",
-    label: "Цель по прибыли",
-    sub: "Прирост капитала, необходимый для перехода на следующий этап.",
+    label: "\u0426\u0435\u043b\u044c \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438",
+    sub: "\u041f\u0440\u0438\u0440\u043e\u0441\u0442 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430, \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u044b\u0439 \u0434\u043b\u044f \u043f\u0435\u0440\u0435\u0445\u043e\u0434\u0430 \u043d\u0430 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u044d\u0442\u0430\u043f.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3158,8 +3158,8 @@ function Тарифы() {
     stages: ["8%", "6%", "∞"]
   }, {
     k: "daily",
-    label: "Макс. дневной убыток",
-    sub: "Падение капитала за один торговый день. Нарушение = провал.",
+    label: "\u041c\u0430\u043a\u0441. \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a",
+    sub: "\u041f\u0430\u0434\u0435\u043d\u0438\u0435 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430 \u0437\u0430 \u043e\u0434\u0438\u043d \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u0434\u0435\u043d\u044c. \u041d\u0430\u0440\u0443\u0448\u0435\u043d\u0438\u0435 = \u043f\u0440\u043e\u0432\u0430\u043b.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3180,8 +3180,8 @@ function Тарифы() {
     stages: ["5%", "5%", "5%"]
   }, {
     k: "dd",
-    label: "Макс. общая просадка",
-    sub: "Лимит убытка от пика до дна за весь челлендж.",
+    label: "\u041c\u0430\u043a\u0441. \u043e\u0431\u0449\u0430\u044f \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0430",
+    sub: "\u041b\u0438\u043c\u0438\u0442 \u0443\u0431\u044b\u0442\u043a\u0430 \u043e\u0442 \u043f\u0438\u043a\u0430 \u0434\u043e \u0434\u043d\u0430 \u0437\u0430 \u0432\u0435\u0441\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3203,8 +3203,8 @@ function Тарифы() {
     stages: ["10%", "8%", "8%"]
   }, {
     k: "days",
-    label: "Минимум торговых дней",
-    sub: "Сколько сессий нужно отторговать, чтобы пройти этап.",
+    label: "\u041c\u0438\u043d\u0438\u043c\u0443\u043c \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439",
+    sub: "\u0421\u043a\u043e\u043b\u044c\u043a\u043e \u0441\u0435\u0441\u0441\u0438\u0439 \u043d\u0443\u0436\u043d\u043e \u043e\u0442\u0442\u043e\u0440\u0433\u043e\u0432\u0430\u0442\u044c, \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u043e\u0439\u0442\u0438 \u044d\u0442\u0430\u043f.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3227,8 +3227,8 @@ function Тарифы() {
     stages: ["5", "5", "–"]
   }, {
     k: "period",
-    label: "Срок торговли",
-    sub: "Общее время на прохождение этапа. Не ограничено.",
+    label: "\u0421\u0440\u043e\u043a \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438",
+    sub: "\u041e\u0431\u0449\u0435\u0435 \u0432\u0440\u0435\u043c\u044f \u043d\u0430 \u043f\u0440\u043e\u0445\u043e\u0436\u0434\u0435\u043d\u0438\u0435 \u044d\u0442\u0430\u043f\u0430. \u041d\u0435 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043e.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3255,8 +3255,8 @@ function Тарифы() {
     })]
   }, {
     k: "lev",
-    label: "Максимальное плечо",
-    sub: "Ограничено 1:5 на всех этапах и по всем активам.",
+    label: "\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043b\u0435\u0447\u043e",
+    sub: "\u041e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043e 1:5 \u043d\u0430 \u0432\u0441\u0435\u0445 \u044d\u0442\u0430\u043f\u0430\u0445 \u0438 \u043f\u043e \u0432\u0441\u0435\u043c \u0430\u043a\u0442\u0438\u0432\u0430\u043c.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3291,7 +3291,7 @@ function Тарифы() {
     style: {
       margin: "18px 0 16px"
     }
-  }, "Выбери свой ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0412\u044b\u0431\u0435\u0440\u0438 \u0441\u0432\u043e\u0439 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
@@ -3304,7 +3304,7 @@ function Тарифы() {
       maxWidth: 640,
       margin: "0 auto"
     }
-  }, "Два этапа отбора. Шесть размеров капитала. Одни и те же правила от старта до выплат — без скрытых consistency-условий и тихих сбросов."))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0414\u0432\u0430 \u044d\u0442\u0430\u043f\u0430 \u043e\u0442\u0431\u043e\u0440\u0430. \u0428\u0435\u0441\u0442\u044c \u0440\u0430\u0437\u043c\u0435\u0440\u043e\u0432 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430. \u041e\u0434\u043d\u0438 \u0438 \u0442\u0435 \u0436\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043e\u0442 \u0441\u0442\u0430\u0440\u0442\u0430 \u0434\u043e \u0432\u044b\u043f\u043b\u0430\u0442 \u2014 \u0431\u0435\u0437 \u0441\u043a\u0440\u044b\u0442\u044b\u0445 consistency-\u0443\u0441\u043b\u043e\u0432\u0438\u0439 \u0438 \u0442\u0438\u0445\u0438\u0445 \u0441\u0431\u0440\u043e\u0441\u043e\u0432."))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3343,9 +3343,9 @@ function Тарифы() {
   }, /*#__PURE__*/React.createElement("button", {
     "data-mobile-scroll-hint": true,
     type: "button",
-    "aria-label": "Прокрутить к следующему размеру",
+    "aria-label": "\u041f\u0440\u043e\u043a\u0440\u0443\u0442\u0438\u0442\u044c \u043a \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u043c\u0443 \u0440\u0430\u0437\u043c\u0435\u0440\u0443",
     onClick: e => {
-      const picker = e.currentTarget.parentElement.queryВыбратьor('[data-mobile-h-scroll]');
+      const picker = e.currentTarget.parentElement.querySelector('[data-mobile-h-scroll]');
       if (picker) picker.scrollBy({
         left: picker.clientWidth * 0.7,
         behavior: 'smooth'
@@ -3364,7 +3364,7 @@ function Тарифы() {
       display: "none",
       alignItems: "center",
       justifyContent: "center",
-      zИндекс: 5,
+      zIndex: 5,
       padding: 0,
       border: "none",
       cursor: "pointer",
@@ -3393,14 +3393,14 @@ function Тарифы() {
     const active = size === s;
     const isPop = s === popular;
     const isBest = s === 150000;
-    const badge = isBest ? "ВЫГОДНЕЕ ВСЕГО" : isPop ? "ПОПУЛЯРНОЕ" : null;
+    const badge = isBest ? "\u0412\u042b\u0413\u041e\u0414\u041d\u0415\u0415 \u0412\u0421\u0415\u0413\u041e" : isPop ? "\u041f\u041e\u041f\u0423\u041b\u042f\u0420\u041d\u041e\u0415" : null;
     const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
       onClick: () => {
         setSize(s);
         setTimeout(() => {
-          const card = document.queryВыбратьor(`[data-mobile-plan-card="${s}"]`);
+          const card = document.querySelector(`[data-mobile-plan-card="${s}"]`);
           if (card) card.scrollIntoView({
             behavior: "smooth",
             inline: "center",
@@ -3446,7 +3446,7 @@ function Тарифы() {
         textTransform: "uppercase",
         marginBottom: 5
       }
-    }, "Аккаунт"), /*#__PURE__*/React.createElement("div", {
+    }, "\u0410\u043a\u043a\u0430\u0443\u043d\u0442"), /*#__PURE__*/React.createElement("div", {
       "data-account-tab-size": true,
       "data-short-label": s >= 1000 ? `${s / 1000}K` : String(s),
       style: {
@@ -3479,7 +3479,7 @@ function Тарифы() {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-plan-rail",
-    "aria-label": "Выбери размер аккаунта"
+    "aria-label": "\u0412\u044b\u0431\u0435\u0440\u0438 \u0440\u0430\u0437\u043c\u0435\u0440 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430"
   }, sizes.map(s => {
     const active = size === s;
     const isPop = s === popular;
@@ -3491,18 +3491,18 @@ function Тарифы() {
       className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
     }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge"
-    }, isBest ? "Выгоднее всего" : "Популярное"), /*#__PURE__*/React.createElement("div", {
+    }, isBest ? "\u0412\u044b\u0433\u043e\u0434\u043d\u0435\u0435 \u0432\u0441\u0435\u0433\u043e" : "\u041f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u043e\u0435"), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Аккаунт"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u0410\u043a\u043a\u0430\u0443\u043d\u0442"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
       onClick: () => setSize(s),
-      "aria-label": `Выбрать $${s.toLocaleString()} account`
-    }, active ? "Выбрано" : "Выбрать")), /*#__PURE__*/React.createElement("div", {
+      "aria-label": `Select $${s.toLocaleString()} account`
+    }, active ? "\u0412\u044b\u0431\u0440\u0430\u043d\u043e" : "\u0412\u044b\u0431\u0440\u0430\u0442\u044c")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "Разовая плата за челлендж"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "\u0420\u0430\u0437\u043e\u0432\u0430\u044f \u043f\u043b\u0430\u0442\u0430 \u0437\u0430 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
-      "aria-label": "Этапы челленджа"
+      "aria-label": "\u042d\u0442\u0430\u043f\u044b \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430"
     }, mobileStageTabs.map(stage => /*#__PURE__*/React.createElement("button", {
       key: stage.id,
       type: "button",
@@ -3519,7 +3519,7 @@ function Тарифы() {
       target: "_blank",
       rel: "noopener",
       className: "btn btn-primary btn-lg"
-    }, "Начать челлендж", /*#__PURE__*/React.createElement("svg", {
+    }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436", /*#__PURE__*/React.createElement("svg", {
       width: "16",
       height: "16",
       viewBox: "0 0 24 24",
@@ -3543,18 +3543,18 @@ function Тарифы() {
     className: "hh-mobile-account-head"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-label"
-  }, "Аккаунт"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0410\u043a\u043a\u0430\u0443\u043d\u0442"), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-size"
   }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-fee"
-  }, /*#__PURE__*/React.createElement("span", null, "Разовая плата"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "\u0420\u0430\u0437\u043e\u0432\u0430\u044f \u043f\u043b\u0430\u0442\u0430"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))), /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u042d\u0442\u0430\u043f 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u042d\u0442\u0430\u043f 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u0414\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u041c\u0430\u043a\u0441. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u041c\u0438\u043d. \u0434\u043d\u0435\u0439"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u0421\u0440\u043e\u043a"), /*#__PURE__*/React.createElement("b", null, "\u0411\u0435\u0437 \u043b\u0438\u043c\u0438\u0442\u0430"))), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Начать челлендж", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -3604,7 +3604,7 @@ function Тарифы() {
       textTransform: "uppercase",
       marginBottom: 5
     }
-  }, "Сравнить"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0421\u0440\u0430\u0432\u043d\u0438\u0442\u044c"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 17,
       fontWeight: 700,
@@ -3612,20 +3612,20 @@ function Тарифы() {
       letterSpacing: "-0.01em",
       lineHeight: 1.12
     }
-  }, "Правила челленджа,", /*#__PURE__*/React.createElement("br", null), "stage by stage")), [{
+  }, "\u041f\u0440\u0430\u0432\u0438\u043b\u0430 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430,", /*#__PURE__*/React.createElement("br", null), "stage by stage")), [{
     n: 1,
-    label: "ЭТАП 1",
-    sub: "Оценочный этап",
+    label: "\u042d\u0422\u0410\u041f 1",
+    sub: "\u041e\u0446\u0435\u043d\u043e\u0447\u043d\u044b\u0439 \u044d\u0442\u0430\u043f",
     accent: false
   }, {
     n: 2,
-    label: "ЭТАП 2",
-    sub: "Этап верификации",
+    label: "\u042d\u0422\u0410\u041f 2",
+    sub: "\u042d\u0442\u0430\u043f \u0432\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0438",
     accent: false
   }, {
     n: 3,
-    label: "ФИНАНСИРУЕМЫЙ",
-    sub: "Реальный капитал, реальные выплаты",
+    label: "\u0424\u0418\u041d\u0410\u041d\u0421\u0418\u0420\u0423\u0415\u041c\u042b\u0419",
+    sub: "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043f\u0438\u0442\u0430\u043b, \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0432\u044b\u043f\u043b\u0430\u0442\u044b",
     accent: true
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
@@ -3675,7 +3675,7 @@ function Тарифы() {
   }, /*#__PURE__*/React.createElement("div", {
     "data-rule-label": true,
     role: "button",
-    tabИндекс: 0,
+    tabIndex: 0,
     onClick: () => setOpenRule(prev => prev === r.k ? null : r.k),
     onKeyDown: e => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -3785,7 +3785,7 @@ function Тарифы() {
       letterSpacing: "0.16em",
       color: "var(--accent)"
     }
-  }, "ТВОЙ АККАУНТ"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0422\u0412\u041e\u0419 \u0410\u041a\u041a\u0410\u0423\u041d\u0422"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "baseline",
@@ -3807,7 +3807,7 @@ function Тарифы() {
       fontSize: 13,
       color: "var(--fg-dim)"
     }
-  }, "Дележ прибыли ", /*#__PURE__*/React.createElement("b", {
+  }, "\u0414\u0435\u043b\u0435\u0436 \u043f\u0440\u0438\u0431\u044b\u043b\u0438 ", /*#__PURE__*/React.createElement("b", {
     style: {
       color: "var(--fg)"
     }
@@ -3823,7 +3823,7 @@ function Тарифы() {
       letterSpacing: "0.16em",
       color: "var(--fg-low)"
     }
-  }, "ЦЕНА ЧЕЛЛЕНДЖА"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0426\u0415\u041d\u0410 \u0427\u0415\u041b\u041b\u0415\u041d\u0414\u0416\u0410"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "baseline",
@@ -3845,11 +3845,11 @@ function Тарифы() {
       fontSize: 13,
       color: "var(--fg-dim)"
     }
-  }, "≈ ", /*#__PURE__*/React.createElement("b", {
+  }, "\u2248 ", /*#__PURE__*/React.createElement("b", {
     style: {
       color: "var(--fg)"
     }
-  }, "$", (price / size * 1000).toFixed(2)), " за $1,000 капитала"))), /*#__PURE__*/React.createElement("a", {
+  }, "$", (price / size * 1000).toFixed(2)), " \u0437\u0430 $1,000 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430"))), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
@@ -3857,7 +3857,7 @@ function Тарифы() {
     style: {
       whiteSpace: "nowrap"
     }
-  }, "Начать челлендж", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -3886,7 +3886,7 @@ function Тарифы() {
       flexWrap: "wrap",
       fontFamily: "Onest, sans-serif"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Оплата"), ["TRC20", "ERC20", "BEP20", "Solana", "Arbitrum", "Optimism"].map(c => /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, "\u041e\u043f\u043b\u0430\u0442\u0430"), ["TRC20", "ERC20", "BEP20", "Solana", "Arbitrum", "Optimism"].map(c => /*#__PURE__*/React.createElement("span", {
     key: c,
     style: {
       padding: "5px 11px",
@@ -3930,49 +3930,49 @@ function WhyUs() {
     n: "01",
     k: "tickers",
     t: "160+ crypto pairs",
-    d: "BTC, ETH, SOL, XRP, DOGE и 160+ спот-пар на институциональной ликвидности. Без синтетических котировок и вмешательства дилера.",
+    d: "BTC, ETH, SOL, XRP, DOGE \u0438 160+ \u0441\u043f\u043e\u0442-\u043f\u0430\u0440 \u043d\u0430 \u0438\u043d\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e\u0439 \u043b\u0438\u043a\u0432\u0438\u0434\u043d\u043e\u0441\u0442\u0438. \u0411\u0435\u0437 \u0441\u0438\u043d\u0442\u0435\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u043a\u043e\u0442\u0438\u0440\u043e\u0432\u043e\u043a \u0438 \u0432\u043c\u0435\u0448\u0430\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0430 \u0434\u0438\u043b\u0435\u0440\u0430.",
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "02",
     k: "stages",
-    t: "Программа из трёх этапов",
-    d: "Этап 1 (+8%) → Этап 2 (+6%) → Этап 3 финансируемый. Одни правила от старта до конца: 5% в день, 8–10% DD, плечо 1:5.",
+    t: "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 \u0438\u0437 \u0442\u0440\u0451\u0445 \u044d\u0442\u0430\u043f\u043e\u0432",
+    d: "\u042d\u0442\u0430\u043f 1 (+8%) \u2192 \u042d\u0442\u0430\u043f 2 (+6%) \u2192 \u042d\u0442\u0430\u043f 3 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439. \u041e\u0434\u043d\u0438 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043e\u0442 \u0441\u0442\u0430\u0440\u0442\u0430 \u0434\u043e \u043a\u043e\u043d\u0446\u0430: 5% \u0432 \u0434\u0435\u043d\u044c, 8\u201310% DD, \u043f\u043b\u0435\u0447\u043e 1:5.",
     art: /*#__PURE__*/React.createElement(ArtStages, null)
   }, {
     n: "03",
     k: "coins",
-    t: "Оплата только криптой",
-    d: "Оплата на TRC20, ERC20, BEP20, Solana, Arbitrum или Optimism. Вывод по тем же сетям — твой кошелёк, твой график.",
+    t: "\u041e\u043f\u043b\u0430\u0442\u0430 \u0442\u043e\u043b\u044c\u043a\u043e \u043a\u0440\u0438\u043f\u0442\u043e\u0439",
+    d: "\u041e\u043f\u043b\u0430\u0442\u0430 \u043d\u0430 TRC20, ERC20, BEP20, Solana, Arbitrum \u0438\u043b\u0438 Optimism. \u0412\u044b\u0432\u043e\u0434 \u043f\u043e \u0442\u0435\u043c \u0436\u0435 \u0441\u0435\u0442\u044f\u043c \u2014 \u0442\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a, \u0442\u0432\u043e\u0439 \u0433\u0440\u0430\u0444\u0438\u043a.",
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
     n: "04",
     k: "infinity",
-    t: "Без ограничения по времени",
-    d: "Никаких 30-дневных таймеров и скрытых сроков. Проходи Этап 1 и Этап 2 в своём темпе. Этап 3 безлимитен по определению.",
+    t: "\u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438",
+    d: "\u041d\u0438\u043a\u0430\u043a\u0438\u0445 30-\u0434\u043d\u0435\u0432\u043d\u044b\u0445 \u0442\u0430\u0439\u043c\u0435\u0440\u043e\u0432 \u0438 \u0441\u043a\u0440\u044b\u0442\u044b\u0445 \u0441\u0440\u043e\u043a\u043e\u0432. \u041f\u0440\u043e\u0445\u043e\u0434\u0438 \u042d\u0442\u0430\u043f 1 \u0438 \u042d\u0442\u0430\u043f 2 \u0432 \u0441\u0432\u043e\u0451\u043c \u0442\u0435\u043c\u043f\u0435. \u042d\u0442\u0430\u043f 3 \u0431\u0435\u0437\u043b\u0438\u043c\u0438\u0442\u0435\u043d \u043f\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u044e.",
     art: /*#__PURE__*/React.createElement(ArtInfinity, null)
   }, {
     n: "05",
     k: "scale",
-    t: "Масштабируй аккаунт",
-    d: "Подтверди стабильность — и расти. Финансируемые трейдеры наращивают капитал по результатам, без произвольных лимитов и листов ожидания.",
+    t: "\u041c\u0430\u0441\u0448\u0442\u0430\u0431\u0438\u0440\u0443\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442",
+    d: "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438 \u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u043e\u0441\u0442\u044c \u2014 \u0438 \u0440\u0430\u0441\u0442\u0438. \u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b \u043d\u0430\u0440\u0430\u0449\u0438\u0432\u0430\u044e\u0442 \u043a\u0430\u043f\u0438\u0442\u0430\u043b \u043f\u043e \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430\u043c, \u0431\u0435\u0437 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u044b\u0445 \u043b\u0438\u043c\u0438\u0442\u043e\u0432 \u0438 \u043b\u0438\u0441\u0442\u043e\u0432 \u043e\u0436\u0438\u0434\u0430\u043d\u0438\u044f.",
     art: /*#__PURE__*/React.createElement(ArtScale, null)
   }, {
     n: "06",
     k: "orderbook",
-    t: "Институциональная инфра",
-    d: "Tier-1 площадки исполнения, глубокие стаканы, минимальный slippage. Та же инфраструктура, что у хедж-фондов — открытая для retail.",
+    t: "\u0418\u043d\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u0430\u044f \u0438\u043d\u0444\u0440\u0430",
+    d: "Tier-1 \u043f\u043b\u043e\u0449\u0430\u0434\u043a\u0438 \u0438\u0441\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f, \u0433\u043b\u0443\u0431\u043e\u043a\u0438\u0435 \u0441\u0442\u0430\u043a\u0430\u043d\u044b, \u043c\u0438\u043d\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0439 slippage. \u0422\u0430 \u0436\u0435 \u0438\u043d\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430, \u0447\u0442\u043e \u0443 \u0445\u0435\u0434\u0436-\u0444\u043e\u043d\u0434\u043e\u0432 \u2014 \u043e\u0442\u043a\u0440\u044b\u0442\u0430\u044f \u0434\u043b\u044f retail.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
   }, {
     n: "07",
     k: "support",
-    t: "Живая поддержка 24/7",
-    d: "Живые трейдеры в Telegram и чате — не боты. Первый ответ менее чем за 5 минут в любом часовом поясе.",
+    t: "\u0416\u0438\u0432\u0430\u044f \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 24/7",
+    d: "\u0416\u0438\u0432\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b \u0432 Telegram \u0438 \u0447\u0430\u0442\u0435 \u2014 \u043d\u0435 \u0431\u043e\u0442\u044b. \u041f\u0435\u0440\u0432\u044b\u0439 \u043e\u0442\u0432\u0435\u0442 \u043c\u0435\u043d\u0435\u0435 \u0447\u0435\u043c \u0437\u0430 5 \u043c\u0438\u043d\u0443\u0442 \u0432 \u043b\u044e\u0431\u043e\u043c \u0447\u0430\u0441\u043e\u0432\u043e\u043c \u043f\u043e\u044f\u0441\u0435.",
     art: /*#__PURE__*/React.createElement(ArtClock, null)
   }, {
     n: "08",
     k: "rules",
-    t: "Прозрачные правила",
-    d: "Все правила всех этапов опубликованы. Без сюрпризов с consistency-условиями и тихими изменениями параметров.",
+    t: "\u041f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u044b\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430",
+    d: "\u0412\u0441\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0432\u0441\u0435\u0445 \u044d\u0442\u0430\u043f\u043e\u0432 \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u044b. \u0411\u0435\u0437 \u0441\u044e\u0440\u043f\u0440\u0438\u0437\u043e\u0432 \u0441 consistency-\u0443\u0441\u043b\u043e\u0432\u0438\u044f\u043c\u0438 \u0438 \u0442\u0438\u0445\u0438\u043c\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\u043c\u0438 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u043e\u0432.",
     art: /*#__PURE__*/React.createElement(ArtRules, null)
   }];
   return /*#__PURE__*/React.createElement("section", {
@@ -4016,18 +4016,18 @@ function WhyUs() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "ПОЧЕМУ HASHHEDGE")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u041f\u041e\u0427\u0415\u041c\u0423 HASHHEDGE")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0"
     }
-  }, "Сделано трейдерами.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0421\u0434\u0435\u043b\u0430\u043d\u043e \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u0430\u043c\u0438.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "Работает как хедж-фонд.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043a\u0430\u043a \u0445\u0435\u0434\u0436-\u0444\u043e\u043d\u0434.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -4035,7 +4035,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Crypto-native prop-фирма, дающая опытным трейдерам до $150,000 реального капитала. Hash Hedge Challenge — то, как мы находим следующего."))), /*#__PURE__*/React.createElement("div", {
+  }, "Crypto-native prop-\u0444\u0438\u0440\u043c\u0430, \u0434\u0430\u044e\u0449\u0430\u044f \u043e\u043f\u044b\u0442\u043d\u044b\u043c \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u0430\u043c \u0434\u043e $150,000 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430. Hash Hedge Challenge \u2014 \u0442\u043e, \u043a\u0430\u043a \u043c\u044b \u043d\u0430\u0445\u043e\u0434\u0438\u043c \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0433\u043e."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -4111,7 +4111,7 @@ function WhyUs() {
       fontWeight: 800,
       letterSpacing: "0.12em",
       fontFamily: "Akrobat, Onest, sans-serif",
-      zИндекс: 4
+      zIndex: 4
     }
   }, c.n)), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4239,7 +4239,7 @@ function ArtTickers() {
       right: 0,
       height: 36,
       background: "linear-gradient(180deg, #0b0b0e 0%, transparent 100%)",
-      zИндекс: 3,
+      zIndex: 3,
       pointerEvents: "none"
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -4250,7 +4250,7 @@ function ArtTickers() {
       right: 0,
       height: 44,
       background: "linear-gradient(0deg, #0b0b0e 0%, transparent 100%)",
-      zИндекс: 3,
+      zIndex: 3,
       pointerEvents: "none"
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -4355,17 +4355,17 @@ function ArtStages() {
     }
   }, [{
     pct: 100,
-    label: "ЭТАП 1",
+    label: "\u042d\u0422\u0410\u041f 1",
     val: "+8%",
     done: true
   }, {
     pct: 72,
-    label: "ЭТАП 2",
+    label: "\u042d\u0422\u0410\u041f 2",
     val: "+6%",
     done: false
   }, {
     pct: 18,
-    label: "ФИНАНСИРУЕМЫЙ",
+    label: "\u0424\u0418\u041d\u0410\u041d\u0421\u0418\u0420\u0423\u0415\u041c\u042b\u0419",
     val: "∞",
     done: false,
     accent: true
@@ -4742,7 +4742,7 @@ function ArtOrderBook() {
     style: {
       color: "var(--green)"
     }
-  }, "↑ 0.8%")), bids.map((r, i) => /*#__PURE__*/React.createElement("div", {
+  }, "\u2191 0.8%")), bids.map((r, i) => /*#__PURE__*/React.createElement("div", {
     key: "b" + i,
     style: {
       position: "relative",
@@ -4895,23 +4895,23 @@ function ArtClock() {
 function ArtRules() {
   // Checklist of rules being ticked off one by one.
   const items = [{
-    k: "Цель Этапа 1",
+    k: "\u0426\u0435\u043b\u044c \u042d\u0442\u0430\u043f\u0430 1",
     v: "+8%",
     done: true
   }, {
-    k: "Цель Этапа 2",
+    k: "\u0426\u0435\u043b\u044c \u042d\u0442\u0430\u043f\u0430 2",
     v: "+6%",
     done: true
   }, {
-    k: "Макс. дневной убыток",
+    k: "\u041c\u0430\u043a\u0441. \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a",
     v: "5%",
     done: true
   }, {
-    k: "Макс. просадка",
+    k: "\u041c\u0430\u043a\u0441. \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0430",
     v: "8–10%",
     done: true
   }, {
-    k: "Плечо",
+    k: "\u041f\u043b\u0435\u0447\u043e",
     v: "1:5",
     done: true
   }];
@@ -4992,7 +4992,7 @@ function PayoutShowcase() {
       height: 320,
       background: "linear-gradient(180deg, var(--bg) 0%, rgba(11,11,14,0.85) 25%, rgba(11,11,14,0.45) 55%, transparent 100%)",
       pointerEvents: "none",
-      zИндекс: 1
+      zIndex: 1
     }
   }), /*#__PURE__*/React.createElement("div", {
     "aria-hidden": true,
@@ -5004,7 +5004,7 @@ function PayoutShowcase() {
       height: 220,
       background: "linear-gradient(0deg, var(--bg) 0%, rgba(11,11,14,0.8) 30%, rgba(11,11,14,0.35) 65%, transparent 100%)",
       pointerEvents: "none",
-      zИндекс: 1
+      zIndex: 1
     }
   }), /*#__PURE__*/React.createElement("div", {
     className: "glow",
@@ -5020,7 +5020,7 @@ function PayoutShowcase() {
     className: "container",
     style: {
       position: "relative",
-      zИндекс: 2
+      zIndex: 2
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5033,17 +5033,17 @@ function PayoutShowcase() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "ВЫПЛАТЫ · ON-CHAIN"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u0412\u042b\u041f\u041b\u0410\u0422\u042b \xb7 ON-CHAIN"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 24px",
       letterSpacing: "-0.025em"
     }
-  }, "Твои средства.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u0432\u043e\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "Твой кошелёк. Напрямую.")), /*#__PURE__*/React.createElement("p", {
+  }, "\u0422\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a. \u041d\u0430\u043f\u0440\u044f\u043c\u0443\u044e.")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -5051,11 +5051,11 @@ function PayoutShowcase() {
       margin: "0 0 36px",
       maxWidth: 520
     }
-  }, "Запрашиваешь вывод из дашборда Hash Hedge. Мы подписываем транзакцию из мультисиг-казны и отправляем крипту через ", /*#__PURE__*/React.createElement("b", {
+  }, "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0448\u044c \u0432\u044b\u0432\u043e\u0434 \u0438\u0437 \u0434\u0430\u0448\u0431\u043e\u0440\u0434\u0430 Hash Hedge. \u041c\u044b \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0435\u043c \u0442\u0440\u0430\u043d\u0437\u0430\u043a\u0446\u0438\u044e \u0438\u0437 \u043c\u0443\u043b\u044c\u0442\u0438\u0441\u0438\u0433-\u043a\u0430\u0437\u043d\u044b \u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u044f\u0435\u043c \u043a\u0440\u0438\u043f\u0442\u0443 \u0447\u0435\u0440\u0435\u0437 ", /*#__PURE__*/React.createElement("b", {
     style: {
       color: "var(--fg)"
     }
-  }, "TRC20, ERC20, BEP20, Solana, Arbitrum или Optimism"), " прямо на твой кошелёк. Получаешь TX-hash и сертификат выплаты для скачивания."), /*#__PURE__*/React.createElement("div", {
+  }, "TRC20, ERC20, BEP20, Solana, Arbitrum \u0438\u043b\u0438 Optimism"), " \u043f\u0440\u044f\u043c\u043e \u043d\u0430 \u0442\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a. \u041f\u043e\u043b\u0443\u0447\u0430\u0435\u0448\u044c TX-hash \u0438 \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043a\u0430\u0442 \u0432\u044b\u043f\u043b\u0430\u0442\u044b \u0434\u043b\u044f \u0441\u043a\u0430\u0447\u0438\u0432\u0430\u043d\u0438\u044f."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr",
@@ -5064,16 +5064,16 @@ function PayoutShowcase() {
     }
   }, [{
     t: "01",
-    k: "Заявка отправлена",
-    d: "Трейдер нажимает «Вывод» в дашборде. Поддержка проверяет — обычно в течение часов."
+    k: "\u0417\u0430\u044f\u0432\u043a\u0430 \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0430",
+    d: "\u0422\u0440\u0435\u0439\u0434\u0435\u0440 \u043d\u0430\u0436\u0438\u043c\u0430\u0435\u0442 \xab\u0412\u044b\u0432\u043e\u0434\xbb \u0432 \u0434\u0430\u0448\u0431\u043e\u0440\u0434\u0435. \u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u2014 \u043e\u0431\u044b\u0447\u043d\u043e \u0432 \u0442\u0435\u0447\u0435\u043d\u0438\u0435 \u0447\u0430\u0441\u043e\u0432."
   }, {
     t: "02",
-    k: "Казна подписывает",
-    d: "Мультисиг-подтверждение из казны Hash Hedge. Подписанты — в трёх юрисдикциях для надёжности."
+    k: "\u041a\u0430\u0437\u043d\u0430 \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0435\u0442",
+    d: "\u041c\u0443\u043b\u044c\u0442\u0438\u0441\u0438\u0433-\u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u0438\u0437 \u043a\u0430\u0437\u043d\u044b Hash Hedge. \u041f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u0442\u044b \u2014 \u0432 \u0442\u0440\u0451\u0445 \u044e\u0440\u0438\u0441\u0434\u0438\u043a\u0446\u0438\u044f\u0445 \u0434\u043b\u044f \u043d\u0430\u0434\u0451\u0436\u043d\u043e\u0441\u0442\u0438."
   }, {
     t: "03",
-    k: "Средства на твоём кошельке",
-    d: "На email приходит TX-hash блокчейна, выдаётся сертификат выплаты для скачивания."
+    k: "\u0421\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u043d\u0430 \u0442\u0432\u043e\u0451\u043c \u043a\u043e\u0448\u0435\u043b\u044c\u043a\u0435",
+    d: "\u041d\u0430 email \u043f\u0440\u0438\u0445\u043e\u0434\u0438\u0442 TX-hash \u0431\u043b\u043e\u043a\u0447\u0435\u0439\u043d\u0430, \u0432\u044b\u0434\u0430\u0451\u0442\u0441\u044f \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043a\u0430\u0442 \u0432\u044b\u043f\u043b\u0430\u0442\u044b \u0434\u043b\u044f \u0441\u043a\u0430\u0447\u0438\u0432\u0430\u043d\u0438\u044f."
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: s.t,
     className: "hh-payout-step",
@@ -5112,7 +5112,7 @@ function PayoutShowcase() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Начать челлендж · от $79"))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \xb7 \u043e\u0442 $79"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5133,7 +5133,7 @@ function PayoutShowcase() {
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: (window.__HH_BASE__+"assets/payout-certificate.png"),
-    alt: "Настоящий сертификат выплаты HashHedge",
+    alt: "\u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0439 \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043a\u0430\u0442 \u0432\u044b\u043f\u043b\u0430\u0442\u044b HashHedge",
     style: {
       display: "block",
       width: "100%",
@@ -5166,7 +5166,7 @@ function PayoutShowcase() {
       borderRadius: "50%",
       background: "#fff"
     }
-  }), "РЕАЛЬНАЯ ВЫПЛАТА"), /*#__PURE__*/React.createElement("div", {
+  }), "\u0420\u0415\u0410\u041b\u042c\u041d\u0410\u042f \u0412\u042b\u041f\u041b\u0410\u0422\u0410"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-row",
     style: {
       marginTop: 20,
@@ -5186,7 +5186,7 @@ function PayoutShowcase() {
       letterSpacing: "0.1em",
       textTransform: "uppercase"
     }
-  }, "Выплачено за"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0412\u044b\u043f\u043b\u0430\u0447\u0435\u043d\u043e \u0437\u0430"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-flags",
     style: {
       display: "grid",
@@ -5206,23 +5206,23 @@ function PayoutShowcase() {
       fontSize: 11,
       color: "var(--fg-dim)"
     }
-  }, "+ ещё 60")))))));
+  }, "+ \u0435\u0449\u0451 60")))))));
 }
 Object.assign(window, {
-  Тарифы,
+  Pricing,
   WhyUs,
   PayoutShowcase
 });
 
-// Hash Hedge – Пресса / Investing.com banner / Telegram-сообществе
+// Hash Hedge – Press / Investing.com banner / Telegram community
 
-function ПрессаStrip() {
+function PressStrip() {
   useRevealOnScroll();
-  // Пресса logos as compact wordmarks – on a dark site, white text wordmarks read as "logos" the way FTMO-style sites do it.
+  // Press logos as compact wordmarks – on a dark site, white text wordmarks read as "logos" the way FTMO-style sites do it.
   // Real press list taken from the Hash Hedge Figma (New-landing press strip).
   // 8 outlets in this exact order: AP · Yahoo Finance · MarketWatch · Benzinga · Cointelegraph · Bitcoin.com · BeInCrypto · Investing.com.
   const press = [{
-    name: "Associated Пресса",
+    name: "Associated Press",
     w: "ASSOCIATED PRESS",
     url: "https://apnews.com/press-release/globenewswire-mobile/hash-hedge-and-walbi-launch-the-world-series-of-crypto-trading-wsct-the-first-global-trading-series-with-a-live-human-vs-ai-final-in-dubai-5c993de719de65a8308e000bf7f6e5be",
     style: {
@@ -5333,7 +5333,7 @@ function ПрессаStrip() {
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "О НАС ПИШУТ"), /*#__PURE__*/React.createElement("div", {
+  }), "\u041e \u041d\u0410\u0421 \u041f\u0418\u0428\u0423\u0422"), /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 1,
       height: 1,
@@ -5356,7 +5356,7 @@ function ПрессаStrip() {
     target: "_blank",
     rel: "noopener noreferrer",
     "aria-hidden": i >= press.length ? "true" : undefined,
-    tabИндекс: i >= press.length ? -1 : undefined,
+    tabIndex: i >= press.length ? -1 : undefined,
     style: {
       height: 64,
       display: "flex",
@@ -5387,61 +5387,61 @@ function ПрессаStrip() {
 function EventsTournaments() {
   useRevealOnScroll();
   // Real Hash Hedge team in the wild – photos provided directly by the team.
-  // Featured = WSCT Qualifying Tour winner moment, Сан-Паулу Brazil (the actual winner-with-prize shot).
-  // Featured = the Дубай Main Stage moment – the biggest, most cinematic shot.
+  // Featured = WSCT Qualifying Tour winner moment, São Paulo Brazil (the actual winner-with-prize shot).
+  // Featured = the Dubai Main Stage moment – the biggest, most cinematic shot.
   const featured = {
-    city: "Сан-Паулу",
+    city: "\u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443",
     flag: "🇧🇷",
-    event: "WSCT Qualifying Tour · Бразилия",
-    role: "Организатор · церемония награждения",
+    event: "WSCT Qualifying Tour \xb7 \u0411\u0440\u0430\u0437\u0438\u043b\u0438\u044f",
+    role: "\u041e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0442\u043e\u0440 \xb7 \u0446\u0435\u0440\u0435\u043c\u043e\u043d\u0438\u044f \u043d\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043d\u0438\u044f",
     date: "2025",
     stat: {
       v: "$10K+",
       l: "prize pool"
     },
-    blurb: "Hash Hedge награждает победителя WSCT Qualifying Tour в Бразилии — одного из четырёх live-отборов, которые мы провели в LATAM в прошлом году.",
+    blurb: "Hash Hedge \u043d\u0430\u0433\u0440\u0430\u0436\u0434\u0430\u0435\u0442 \u043f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b\u044f WSCT Qualifying Tour \u0432 \u0411\u0440\u0430\u0437\u0438\u043b\u0438\u0438 \u2014 \u043e\u0434\u043d\u043e\u0433\u043e \u0438\u0437 \u0447\u0435\u0442\u044b\u0440\u0451\u0445 live-\u043e\u0442\u0431\u043e\u0440\u043e\u0432, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043c\u044b \u043f\u0440\u043e\u0432\u0435\u043b\u0438 \u0432 LATAM \u0432 \u043f\u0440\u043e\u0448\u043b\u043e\u043c \u0433\u043e\u0434\u0443.",
     img: (window.__HH_BASE__+"assets/team/event-headliner-yarik.webp")
   };
   const events = [{
-    city: "Сан-Паулу",
+    city: "\u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443",
     flag: "🇧🇷",
-    event: "WSCT Qualifying Tour · Победитель",
-    role: "Хост",
+    event: "WSCT Qualifying Tour \xb7 \u041f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b\u044c",
+    role: "\u0425\u043e\u0441\u0442",
     date: "2025",
     img: (window.__HH_BASE__+"assets/team/event-bcl-dubai-stage.webp")
   }, {
-    city: "Дубай",
+    city: "\u0414\u0443\u0431\u0430\u0439",
     flag: "🇦🇪",
-    event: "Бренд-амбассадор на главной сцене",
-    role: "Спонсор",
+    event: "\u0411\u0440\u0435\u043d\u0434-\u0430\u043c\u0431\u0430\u0441\u0441\u0430\u0434\u043e\u0440 \u043d\u0430 \u0433\u043b\u0430\u0432\u043d\u043e\u0439 \u0441\u0446\u0435\u043d\u0435",
+    role: "\u0421\u043f\u043e\u043d\u0441\u043e\u0440",
     date: "2025",
     img: (window.__HH_BASE__+"assets/team/event-wsct-booth.jpg")
   }, {
-    city: "Дубай",
+    city: "\u0414\u0443\u0431\u0430\u0439",
     flag: "🇦🇪",
-    event: "WSCT Дубай · live торговый зал",
-    role: "Хост",
-    date: "Октябрь 2025",
+    event: "WSCT \u0414\u0443\u0431\u0430\u0439 \xb7 live \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u0437\u0430\u043b",
+    role: "\u0425\u043e\u0441\u0442",
+    date: "\u041e\u043a\u0442\u044f\u0431\u0440\u044c 2025",
     img: (window.__HH_BASE__+"assets/team/event-afterparty.jpg")
   }, {
-    city: "Москва",
+    city: "\u041c\u043e\u0441\u043a\u0432\u0430",
     flag: "🇷🇺",
-    event: "Партнёрская встреча",
-    role: "Хост",
+    event: "\u041f\u0430\u0440\u0442\u043d\u0451\u0440\u0441\u043a\u0430\u044f \u0432\u0441\u0442\u0440\u0435\u0447\u0430",
+    role: "\u0425\u043e\u0441\u0442",
     date: "2026",
     img: (window.__HH_BASE__+"assets/team/event-qualifier-winner.jpg")
   }, {
-    city: "Сан-Паулу",
+    city: "\u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443",
     flag: "🇧🇷",
-    event: "Live Trading Showcase · WSCT Бразилия",
-    role: "Организатор",
+    event: "Live Trading Showcase \xb7 WSCT \u0411\u0440\u0430\u0437\u0438\u043b\u0438\u044f",
+    role: "\u041e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0442\u043e\u0440",
     date: "2025",
     img: (window.__HH_BASE__+"assets/team/event-booth-screens.webp")
   }, {
-    city: "Москва",
+    city: "\u041c\u043e\u0441\u043a\u0432\u0430",
     flag: "🇷🇺",
     event: "Top Affiliate Awards 2026",
-    role: "Хост",
+    role: "\u0425\u043e\u0441\u0442",
     date: "2026",
     img: (window.__HH_BASE__+"assets/team/awards-top-affiliate.jpg")
   }];
@@ -5462,7 +5462,7 @@ function EventsTournaments() {
       height: 320,
       background: "linear-gradient(180deg, rgba(252,213,53,0.025) 0%, transparent 80%)",
       pointerEvents: "none",
-      zИндекс: 0
+      zIndex: 0
     }
   }), /*#__PURE__*/React.createElement("div", {
     className: "container"
@@ -5478,24 +5478,24 @@ function EventsTournaments() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "КОМАНДА · В ПОЛЯХ"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u041a\u041e\u041c\u0410\u041d\u0414\u0410 \xb7 \u0412 \u041f\u041e\u041b\u042f\u0425"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0",
       letterSpacing: "-0.025em"
     }
-  }, "Мы приходим. ", /*#__PURE__*/React.createElement("span", {
+  }, "\u041c\u044b \u043f\u0440\u0438\u0445\u043e\u0434\u0438\u043c. ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "Туда, где это важно."))), /*#__PURE__*/React.createElement("p", {
+  }, "\u0422\u0443\u0434\u0430, \u0433\u0434\u0435 \u044d\u0442\u043e \u0432\u0430\u0436\u043d\u043e."))), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
       margin: "0 0 8px"
     }
-  }, "Дубай. Сан-Паулу. Москва. От главной сцены и кейноутов до live-торговых стендов и наград за партнёрку — это команда Hash Hedge в работе."))), /*#__PURE__*/React.createElement("div", {
+  }, "\u0414\u0443\u0431\u0430\u0439. \u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443. \u041c\u043e\u0441\u043a\u0432\u0430. \u041e\u0442 \u0433\u043b\u0430\u0432\u043d\u043e\u0439 \u0441\u0446\u0435\u043d\u044b \u0438 \u043a\u0435\u0439\u043d\u043e\u0443\u0442\u043e\u0432 \u0434\u043e live-\u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0441\u0442\u0435\u043d\u0434\u043e\u0432 \u0438 \u043d\u0430\u0433\u0440\u0430\u0434 \u0437\u0430 \u043f\u0430\u0440\u0442\u043d\u0451\u0440\u043a\u0443 \u2014 \u044d\u0442\u043e \u043a\u043e\u043c\u0430\u043d\u0434\u0430 Hash Hedge \u0432 \u0440\u0430\u0431\u043e\u0442\u0435."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.35fr 1fr",
@@ -5549,7 +5549,7 @@ function EventsTournaments() {
       padding: "6px 10px",
       borderRadius: 999
     }
-  }, "ПРОШЕДШЕЕ СОБЫТИЕ"), /*#__PURE__*/React.createElement("span", {
+  }, "\u041f\u0420\u041e\u0428\u0415\u0414\u0428\u0415\u0415 \u0421\u041e\u0411\u042b\u0422\u0418\u0415"), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 10,
       fontWeight: 700,
@@ -5901,7 +5901,7 @@ function LiveTradingShowcase() {
       color: "#fff",
       boxShadow: "0 0 16px rgba(247,147,26,0.4)"
     }
-  }, "₿"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "\u20BF"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 15,
       fontWeight: 800,
@@ -5920,7 +5920,7 @@ function LiveTradingShowcase() {
       marginTop: 1,
       letterSpacing: "0.06em"
     }
-  }, "СПОТ · ПЕРПЕТ"))), /*#__PURE__*/React.createElement("div", {
+  }, "\u0421\u041f\u041e\u0422 \xb7 \u041f\u0415\u0420\u041f\u0415\u0422"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -5943,7 +5943,7 @@ function LiveTradingShowcase() {
       animation: "why-pulse 1.4s ease-in-out infinite",
       boxShadow: "0 0 6px var(--green)"
     }
-  }), "LIVE-ТРЕЙДИНГ")), /*#__PURE__*/React.createElement("div", {
+  }), "LIVE-\u0422\u0420\u0415\u0419\u0414\u0418\u041d\u0413")), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "20px 24px 14px",
       display: "flex",
@@ -6155,7 +6155,7 @@ function LiveTradingShowcase() {
       padding: "3px 0",
       borderBottom: "1px solid var(--line)"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "ЦЕНА"), /*#__PURE__*/React.createElement("span", null, "РАЗМЕР")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "\u0426\u0415\u041d\u0410"), /*#__PURE__*/React.createElement("span", null, "\u0420\u0410\u0417\u041c\u0415\u0420")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -6206,7 +6206,7 @@ function LiveTradingShowcase() {
       color: "var(--fg-dim)",
       fontWeight: 600
     }
-  }, "↕ 3.50")), /*#__PURE__*/React.createElement("div", {
+  }, "\u2195 3.50")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -6261,7 +6261,7 @@ function LiveTradingShowcase() {
       fontWeight: 800,
       letterSpacing: "0.12em"
     }
-  }, "ПОСЛЕДНИЕ СДЕЛКИ"), /*#__PURE__*/React.createElement("span", {
+  }, "\u041f\u041e\u0421\u041b\u0415\u0414\u041d\u0418\u0415 \u0421\u0414\u0415\u041b\u041a\u0418"), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 10,
       color: "var(--fg-dim)"
@@ -6290,7 +6290,7 @@ function LiveTradingShowcase() {
       color: t.side === "buy" ? "var(--green)" : "#ff6b6b",
       letterSpacing: "0.05em"
     }
-  }, t.side === "buy" ? "BUY" : "ПРОДАТЬ"), /*#__PURE__*/React.createElement("div", {
+  }, t.side === "buy" ? "BUY" : "\u041f\u0420\u041e\u0414\u0410\u0422\u042c"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 11,
       fontWeight: 700,
@@ -6319,9 +6319,9 @@ function TelegramCommunity() {
   const msgs = [{
     type: "mod",
     handle: "HashHedge | Max",
-    role: "Админ",
+    role: "\u0410\u0434\u043c\u0438\u043d",
     time: "14:02",
-    body: "Внимание — мы только что подняли максимальную позицию по BTC/USDT на 15% для всех финансируемых аккаунтов от $50k. Неделя FOMC шумнее обычного. Будьте дисциплинированы с размером.",
+    body: "\u0412\u043d\u0438\u043c\u0430\u043d\u0438\u0435 \u2014 \u043c\u044b \u0442\u043e\u043b\u044c\u043a\u043e \u0447\u0442\u043e \u043f\u043e\u0434\u043d\u044f\u043b\u0438 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u0443\u044e \u043f\u043e\u0437\u0438\u0446\u0438\u044e \u043f\u043e BTC/USDT \u043d\u0430 15% \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u043e\u0432 \u043e\u0442 $50k. \u041d\u0435\u0434\u0435\u043b\u044f FOMC \u0448\u0443\u043c\u043d\u0435\u0435 \u043e\u0431\u044b\u0447\u043d\u043e\u0433\u043e. \u0411\u0443\u0434\u044c\u0442\u0435 \u0434\u0438\u0441\u0446\u0438\u043f\u043b\u0438\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u044b \u0441 \u0440\u0430\u0437\u043c\u0435\u0440\u043e\u043c.",
     reacts: [{
       e: "👍",
       n: 127
@@ -6334,7 +6334,7 @@ function TelegramCommunity() {
     handle: "@ryansull",
     country: "🇺🇸",
     time: "14:04",
-    body: "Только что получил $2,707 💸 ровно за 72 часа. Третья выплата за квартал. Эта фирма — топ.",
+    body: "\u0422\u043e\u043b\u044c\u043a\u043e \u0447\u0442\u043e \u043f\u043e\u043b\u0443\u0447\u0438\u043b $2,707 \ud83d\udcb8 \u0440\u043e\u0432\u043d\u043e \u0437\u0430 72 \u0447\u0430\u0441\u0430. \u0422\u0440\u0435\u0442\u044c\u044f \u0432\u044b\u043f\u043b\u0430\u0442\u0430 \u0437\u0430 \u043a\u0432\u0430\u0440\u0442\u0430\u043b. \u042d\u0442\u0430 \u0444\u0438\u0440\u043c\u0430 \u2014 \u0442\u043e\u043f.",
     reacts: [{
       e: "🎉",
       n: 89
@@ -6352,7 +6352,7 @@ function TelegramCommunity() {
     handle: "@sofia_g",
     country: "🇧🇷",
     time: "14:07",
-    body: "вопрос к чату: кто-нибудь держит SOL лонги против BTC шортов в недели выхода CPI? интересно какой сайз используете",
+    body: "\u0432\u043e\u043f\u0440\u043e\u0441 \u043a \u0447\u0430\u0442\u0443: \u043a\u0442\u043e-\u043d\u0438\u0431\u0443\u0434\u044c \u0434\u0435\u0440\u0436\u0438\u0442 SOL \u043b\u043e\u043d\u0433\u0438 \u043f\u0440\u043e\u0442\u0438\u0432 BTC \u0448\u043e\u0440\u0442\u043e\u0432 \u0432 \u043d\u0435\u0434\u0435\u043b\u0438 \u0432\u044b\u0445\u043e\u0434\u0430 CPI? \u0438\u043d\u0442\u0435\u0440\u0435\u0441\u043d\u043e \u043a\u0430\u043a\u043e\u0439 \u0441\u0430\u0439\u0437 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442\u0435",
     reacts: [{
       e: "🤔",
       n: 12
@@ -6362,7 +6362,7 @@ function TelegramCommunity() {
     handle: "@dmitri_v",
     country: "🇦🇪",
     time: "14:09",
-    body: "@sofia_g да — гоняю ~0.5 beta-weighted SOL против 1x шорта BTC спот. Дисперсию режет почти вдвое, апсайд не убивает.",
+    body: "@sofia_g \u0434\u0430 \u2014 \u0433\u043e\u043d\u044f\u044e ~0.5 beta-weighted SOL \u043f\u0440\u043e\u0442\u0438\u0432 1x \u0448\u043e\u0440\u0442\u0430 BTC \u0441\u043f\u043e\u0442. \u0414\u0438\u0441\u043f\u0435\u0440\u0441\u0438\u044e \u0440\u0435\u0436\u0435\u0442 \u043f\u043e\u0447\u0442\u0438 \u0432\u0434\u0432\u043e\u0435, \u0430\u043f\u0441\u0430\u0439\u0434 \u043d\u0435 \u0443\u0431\u0438\u0432\u0430\u0435\u0442.",
     reacts: [{
       e: "💡",
       n: 31
@@ -6373,9 +6373,9 @@ function TelegramCommunity() {
   }, {
     type: "mod",
     handle: "HashHedge | Kate",
-    role: "Сообщество",
+    role: "\u0421\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",
     time: "14:15",
-    body: "Свежий weekly recap уже в #education — разбор топ-20 стратегий финансируемых трейдеров за прошлый месяц. Стоит почитать.",
+    body: "\u0421\u0432\u0435\u0436\u0438\u0439 weekly recap \u0443\u0436\u0435 \u0432 #education \u2014 \u0440\u0430\u0437\u0431\u043e\u0440 \u0442\u043e\u043f-20 \u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0439 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432 \u0437\u0430 \u043f\u0440\u043e\u0448\u043b\u044b\u0439 \u043c\u0435\u0441\u044f\u0446. \u0421\u0442\u043e\u0438\u0442 \u043f\u043e\u0447\u0438\u0442\u0430\u0442\u044c.",
     reacts: [{
       e: "📚",
       n: 67
@@ -6435,14 +6435,14 @@ function TelegramCommunity() {
       background: "#2AABEE",
       boxShadow: "0 0 12px #2AABEE"
     }
-  }), "TELEGRAM-СООБЩЕСТВО")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "TELEGRAM-\u0421\u041e\u041e\u0411\u0429\u0415\u0421\u0422\u0412\u041e")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 24px"
     }
-  }, "Где тусуются ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0413\u0434\u0435 \u0442\u0443\u0441\u0443\u044e\u0442\u0441\u044f ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "#2AABEE"
     }
@@ -6450,7 +6450,7 @@ function TelegramCommunity() {
     style: {
       color: "#2AABEE"
     }
-  }, "финансируемые."))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0435."))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -6459,7 +6459,7 @@ function TelegramCommunity() {
       color: "var(--fg-muted)",
       margin: "0 0 32px"
     }
-  }, "Не вещательный канал и не маркетинговая рассылка. Настоящий групповой чат, где финансируемые трейдеры делятся сетапами, постят выплаты, задают глупые вопросы и напрямую общаются с нашим риск-отделом.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041d\u0435 \u0432\u0435\u0449\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043d\u0430\u043b \u0438 \u043d\u0435 \u043c\u0430\u0440\u043a\u0435\u0442\u0438\u043d\u0433\u043e\u0432\u0430\u044f \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0430. \u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0439 \u0433\u0440\u0443\u043f\u043f\u043e\u0432\u043e\u0439 \u0447\u0430\u0442, \u0433\u0434\u0435 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b \u0434\u0435\u043b\u044f\u0442\u0441\u044f \u0441\u0435\u0442\u0430\u043f\u0430\u043c\u0438, \u043f\u043e\u0441\u0442\u044f\u0442 \u0432\u044b\u043f\u043b\u0430\u0442\u044b, \u0437\u0430\u0434\u0430\u044e\u0442 \u0433\u043b\u0443\u043f\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u0438 \u043d\u0430\u043f\u0440\u044f\u043c\u0443\u044e \u043e\u0431\u0449\u0430\u044e\u0442\u0441\u044f \u0441 \u043d\u0430\u0448\u0438\u043c \u0440\u0438\u0441\u043a-\u043e\u0442\u0434\u0435\u043b\u043e\u043c.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -6473,10 +6473,10 @@ function TelegramCommunity() {
     l: "members"
   }, {
     n: "40–60",
-    l: "сообщений в день"
+    l: "\u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u0432 \u0434\u0435\u043d\u044c"
   }, {
-    n: "< 2 мин",
-    l: "средний ответ админа"
+    n: "< 2 \u043c\u0438\u043d",
+    l: "\u0441\u0440\u0435\u0434\u043d\u0438\u0439 \u043e\u0442\u0432\u0435\u0442 \u0430\u0434\u043c\u0438\u043d\u0430"
   }, {
     n: "24/7",
     l: "coverage"
@@ -6530,7 +6530,7 @@ function TelegramCommunity() {
     fill: "currentColor"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.05-.2-.06-.06-.17-.04-.24-.02-.1.02-1.72 1.09-4.85 3.2-.46.31-.88.47-1.25.46-.41-.01-1.2-.23-1.78-.42-.72-.23-1.29-.35-1.24-.74.02-.2.3-.41.82-.62 3.23-1.41 5.38-2.34 6.46-2.79 3.07-1.28 3.71-1.5 4.13-1.51.09 0 .3.02.44.13.11.09.14.21.16.3-.01.06.01.24 0 .37z"
-  })), "Вступить в сообщество"))), /*#__PURE__*/React.createElement(Reveal, {
+  })), "\u0412\u0441\u0442\u0443\u043f\u0438\u0442\u044c \u0432 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "5"
   }, /*#__PURE__*/React.createElement("p", {
     className: "hh-telegram-note",
@@ -6558,7 +6558,7 @@ function TelegramCommunity() {
     style: {
       color: "var(--fg-dim)"
     }
-  }, "· бесплатно, только верифицированные трейдеры")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\xb7 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e, \u0442\u043e\u043b\u044c\u043a\u043e \u0432\u0435\u0440\u0438\u0444\u0438\u0446\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-telegram-desktop-visual"
@@ -6566,16 +6566,16 @@ function TelegramCommunity() {
 }
 
 // Telegram community channel-list – matches the real Hash Hedge Community screenshot:
-// header "Hash Hedge Сообщество · 926 участников, 218 онлайн", search bar, pinned topic list
+// header "Hash Hedge Community · 926 members, 218 online", search bar, pinned topic list
 // with emoji icons (# Welcome, 🔗 Links, 🔔 Announcements EN, 📢 Анонсы RU, 💰 Payout Wall,
 // 💬 Чат RU, 📊 Торговля RU, 💬 Chat EN, 📈 Trading EN).
 function TelegramChannelList() {
   const channels = [{
     ic: "#",
     icBg: "transparent",
-    title: "Добро пожаловать | Добро пожаловать",
+    title: "Welcome | Добро пожаловать",
     sender: "CAPTCHA",
-    preview: "Привет, Данияр! Добро пожаловать в Hash Hedge comm…",
+    preview: "\u041f\u0440\u0438\u0432\u0435\u0442, \u0414\u0430\u043d\u0438\u044f\u0440! \u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 Hash Hedge comm\u2026",
     time: "15:32",
     pinned: true
   }, {
@@ -6583,7 +6583,7 @@ function TelegramChannelList() {
     icBg: "transparent",
     title: "Links | Ссылки",
     sender: "",
-    preview: "🔗 General | Основное Website | Сайт Поддержка |…",
+    preview: "🔗 General | Основное Website | Сайт Support |…",
     time: "02/04",
     pinned: true
   }, {
@@ -6591,7 +6591,7 @@ function TelegramChannelList() {
     icBg: "transparent",
     title: "Announcements | EN",
     sender: "",
-    preview: "FLASH SALE: осталось 62 из 200 ваучеров…",
+    preview: "FLASH SALE: \u043e\u0441\u0442\u0430\u043b\u043e\u0441\u044c 62 \u0438\u0437 200 \u0432\u0430\u0443\u0447\u0435\u0440\u043e\u0432\u2026",
     time: "Wed",
     pinned: true,
     badge: true
@@ -6609,7 +6609,7 @@ function TelegramChannelList() {
     icBg: "transparent",
     title: "Payout Wall | Стена выплат",
     sender: "",
-    preview: "Фото",
+    preview: "\u0424\u043e\u0442\u043e",
     time: "16/04",
     pinned: true,
     isPhoto: true
@@ -6624,8 +6624,8 @@ function TelegramChannelList() {
     ic: "📊",
     icBg: "transparent",
     title: "Торговля | RU",
-    sender: "Дмитрий",
-    preview: "Фото",
+    sender: "\u0414\u043c\u0438\u0442\u0440\u0438\u0439",
+    preview: "\u0424\u043e\u0442\u043e",
     time: "13:06",
     isPhoto: true
   }, {
@@ -6633,14 +6633,14 @@ function TelegramChannelList() {
     icBg: "transparent",
     title: "Chat | EN",
     sender: "Denis S.",
-    preview: "Коллеги, flash sale закрывается через 4 часа, в 23:…",
+    preview: "\u041a\u043e\u043b\u043b\u0435\u0433\u0438, flash sale \u0437\u0430\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f \u0447\u0435\u0440\u0435\u0437 4 \u0447\u0430\u0441\u0430, \u0432 23:\u2026",
     time: "Wed"
   }, {
     ic: "📈",
     icBg: "transparent",
     title: "Trading | EN",
     sender: "Denis S.",
-    preview: "Биткоин уже $78,140 — мы идём к $80K или че…",
+    preview: "\u0411\u0438\u0442\u043a\u043e\u0438\u043d \u0443\u0436\u0435 $78,140 \u2014 \u043c\u044b \u0438\u0434\u0451\u043c \u043a $80K \u0438\u043b\u0438 \u0447\u0435\u2026",
     time: "Wed"
   }];
 
@@ -6649,37 +6649,37 @@ function TelegramChannelList() {
   // optionally shows a typing indicator or temporarily overrides preview/sender/time/unread.
   const events = React.useMemo(() => [{
     idx: 5,
-    sender: "Max · Сан-Паулу 🇧🇷",
-    preview: "только что прошёл Этап 2 за 6 дней 🔥",
+    sender: "Max \xb7 \u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443 \ud83c\udde7\ud83c\uddf7",
+    preview: "\u0442\u043e\u043b\u044c\u043a\u043e \u0447\u0442\u043e \u043f\u0440\u043e\u0448\u0451\u043b \u042d\u0442\u0430\u043f 2 \u0437\u0430 6 \u0434\u043d\u0435\u0439 \ud83d\udd25",
     time: "now",
     unread: 3,
     typing: false
   }, {
     idx: 8,
-    sender: "Sophie · Лондон",
-    preview: "BTC снова взял 78.5k, лонги ещё живы",
+    sender: "Sophie \xb7 \u041b\u043e\u043d\u0434\u043e\u043d",
+    preview: "BTC \u0441\u043d\u043e\u0432\u0430 \u0432\u0437\u044f\u043b 78.5k, \u043b\u043e\u043d\u0433\u0438 \u0435\u0449\u0451 \u0436\u0438\u0432\u044b",
     time: "now",
     unread: 1,
     typing: false
   }, {
     idx: 6,
-    sender: "Дмитрий",
-    preview: "печатает…",
+    sender: "\u0414\u043c\u0438\u0442\u0440\u0438\u0439",
+    preview: "\u043f\u0435\u0447\u0430\u0442\u0430\u0435\u0442\u2026",
     time: "now",
     unread: 0,
     typing: true
   }, {
     idx: 4,
     sender: "",
-    preview: "+$8,320 выплата подтверждена · 🇩🇪",
+    preview: "+$8,320 \u0432\u044b\u043f\u043b\u0430\u0442\u0430 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0430 \xb7 \ud83c\udde9\ud83c\uddea",
     time: "now",
     unread: 1,
     typing: false,
     isPhoto: false
   }, {
     idx: 7,
-    sender: "Marcus · Нью-Йорк",
-    preview: "кто-нибудь ещё видит спайк по NG?",
+    sender: "Marcus \xb7 \u041d\u044c\u044e-\u0419\u043e\u0440\u043a",
+    preview: "\u043a\u0442\u043e-\u043d\u0438\u0431\u0443\u0434\u044c \u0435\u0449\u0451 \u0432\u0438\u0434\u0438\u0442 \u0441\u043f\u0430\u0439\u043a \u043f\u043e NG?",
     time: "now",
     unread: 2,
     typing: false
@@ -6694,7 +6694,7 @@ function TelegramChannelList() {
   }, {
     idx: 5,
     sender: "Pavel Sokolov",
-    preview: "печатает…",
+    preview: "\u043f\u0435\u0447\u0430\u0442\u0430\u0435\u0442\u2026",
     time: "now",
     unread: 0,
     typing: true
@@ -6758,7 +6758,7 @@ function TelegramChannelList() {
       opacity: 0.55,
       marginLeft: 4
     }
-  }, "🔕")), /*#__PURE__*/React.createElement("div", {
+  }, "\uD83D\uDD15")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -6850,7 +6850,7 @@ function TelegramChannelList() {
       alignItems: "center",
       justifyContent: "center"
     }
-  }, "‹"), /*#__PURE__*/React.createElement("div", {
+  }, "\u2039"), /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: "center"
     }
@@ -6861,7 +6861,7 @@ function TelegramChannelList() {
       color: "#fff",
       letterSpacing: "-0.01em"
     }
-  }, "Hash Hedge Сообщество"), /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge Community"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 13,
       color: textMuted,
@@ -6881,7 +6881,7 @@ function TelegramChannelList() {
       alignItems: "center",
       justifyContent: "center"
     }
-  }, "⋯"))), /*#__PURE__*/React.createElement("div", {
+  }, "\u22EF"))), /*#__PURE__*/React.createElement("div", {
     className: "hh-telegram-search",
     style: {
       padding: "0 16px 12px"
@@ -6913,7 +6913,7 @@ function TelegramChannelList() {
     stroke: textMuted,
     strokeWidth: "2",
     strokeLinecap: "round"
-  })), /*#__PURE__*/React.createElement("span", null, "Поиск"))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("span", null, "\u041f\u043e\u0438\u0441\u043a"))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: panelBg
     }
@@ -7018,7 +7018,7 @@ function TelegramChannelList() {
       strokeWidth: "2",
       strokeLinecap: "round",
       strokeLinejoin: "round"
-    })), /*#__PURE__*/React.createElement("span", null, "Фото")), !showPhoto && typing && /*#__PURE__*/React.createElement("span", {
+    })), /*#__PURE__*/React.createElement("span", null, "\u0424\u043e\u0442\u043e")), !showPhoto && typing && /*#__PURE__*/React.createElement("span", {
       style: {
         display: "inline-flex",
         alignItems: "center",
@@ -7140,7 +7140,7 @@ function SupportLiveChat() {
   // Loops indefinitely. Each step is either a typing indicator or a message bubble.
   const script = [{
     side: "user",
-    text: "Привет, только что прошёл Этап 2 🎉 когда можно запросить первую выплату?",
+    text: "\u041f\u0440\u0438\u0432\u0435\u0442, \u0442\u043e\u043b\u044c\u043a\u043e \u0447\u0442\u043e \u043f\u0440\u043e\u0448\u0451\u043b \u042d\u0442\u0430\u043f 2 \ud83c\udf89 \u043a\u043e\u0433\u0434\u0430 \u043c\u043e\u0436\u043d\u043e \u0437\u0430\u043f\u0440\u043e\u0441\u0438\u0442\u044c \u043f\u0435\u0440\u0432\u0443\u044e \u0432\u044b\u043f\u043b\u0430\u0442\u0443?",
     time: "14:02"
   }, {
     side: "agent",
@@ -7148,11 +7148,11 @@ function SupportLiveChat() {
     dur: 1100
   }, {
     side: "agent",
-    text: "Огромный респект 🚀 Как только тебе откроют финансируемый — заявка в любое время, 80% сплит, USDT на кошелёк в течение 24 часов.",
+    text: "\u041e\u0433\u0440\u043e\u043c\u043d\u044b\u0439 \u0440\u0435\u0441\u043f\u0435\u043a\u0442 \ud83d\ude80 \u041a\u0430\u043a \u0442\u043e\u043b\u044c\u043a\u043e \u0442\u0435\u0431\u0435 \u043e\u0442\u043a\u0440\u043e\u044e\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u2014 \u0437\u0430\u044f\u0432\u043a\u0430 \u0432 \u043b\u044e\u0431\u043e\u0435 \u0432\u0440\u0435\u043c\u044f, 80% \u0441\u043f\u043b\u0438\u0442, USDT \u043d\u0430 \u043a\u043e\u0448\u0435\u043b\u0451\u043a \u0432 \u0442\u0435\u0447\u0435\u043d\u0438\u0435 24 \u0447\u0430\u0441\u043e\u0432.",
     time: "14:02"
   }, {
     side: "user",
-    text: "И это USDT на мой собственный кошелёк, верно?",
+    text: "\u0418 \u044d\u0442\u043e USDT \u043d\u0430 \u043c\u043e\u0439 \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a, \u0432\u0435\u0440\u043d\u043e?",
     time: "14:03"
   }, {
     side: "agent",
@@ -7160,11 +7160,11 @@ function SupportLiveChat() {
     dur: 900
   }, {
     side: "agent",
-    text: "Ага — USDT TRC-20 или ERC-20, на твой выбор. 80% сплит, обрабатывается в течение 24 часов после заявки.",
+    text: "\u0410\u0433\u0430 \u2014 USDT TRC-20 \u0438\u043b\u0438 ERC-20, \u043d\u0430 \u0442\u0432\u043e\u0439 \u0432\u044b\u0431\u043e\u0440. 80% \u0441\u043f\u043b\u0438\u0442, \u043e\u0431\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0435\u0442\u0441\u044f \u0432 \u0442\u0435\u0447\u0435\u043d\u0438\u0435 24 \u0447\u0430\u0441\u043e\u0432 \u043f\u043e\u0441\u043b\u0435 \u0437\u0430\u044f\u0432\u043a\u0438.",
     time: "14:03"
   }, {
     side: "user",
-    text: "идеально, спасибо, Sofia 🙌",
+    text: "\u0438\u0434\u0435\u0430\u043b\u044c\u043d\u043e, \u0441\u043f\u0430\u0441\u0438\u0431\u043e, Sofia \ud83d\ude4c",
     time: "14:03"
   }, {
     side: "agent",
@@ -7172,7 +7172,7 @@ function SupportLiveChat() {
     dur: 700
   }, {
     side: "agent",
-    text: "Всегда пожалуйста — и добро пожаловать в команду финансируемых 👊",
+    text: "\u0412\u0441\u0435\u0433\u0434\u0430 \u043f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430 \u2014 \u0438 \u0434\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 \u043a\u043e\u043c\u0430\u043d\u0434\u0443 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \ud83d\udc4a",
     time: "14:04"
   }];
   const [step, setStep] = React.useState(0);
@@ -7279,9 +7279,9 @@ function SupportLiveChat() {
 function SupportSection() {
   useRevealOnScroll();
   const channels = [{
-    label: "Live-чат",
-    sub: "Средний ответ менее 2 мин",
-    tag: "LIVE-ЧАТ",
+    label: "Live-\u0447\u0430\u0442",
+    sub: "\u0421\u0440\u0435\u0434\u043d\u0438\u0439 \u043e\u0442\u0432\u0435\u0442 \u043c\u0435\u043d\u0435\u0435 2 \u043c\u0438\u043d",
+    tag: "LIVE-\u0427\u0410\u0422",
     href: "#",
     accent: "rgba(124, 216, 160, 0.15)",
     accentText: "var(--green)",
@@ -7297,7 +7297,7 @@ function SupportSection() {
       strokeLinejoin: "round"
     }))
   }, {
-    label: "Telegram-бот",
+    label: "Telegram-\u0431\u043e\u0442",
     sub: "@hashhedgesupportbot",
     tag: "TELEGRAM",
     href: "https://t.me/hashhedgesupportbot",
@@ -7312,7 +7312,7 @@ function SupportSection() {
       d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z"
     }))
   }, {
-    label: "Email-тикет",
+    label: "Email-\u0442\u0438\u043a\u0435\u0442",
     sub: "support@hashhedge.com",
     tag: "EMAIL",
     href: "mailto:support@hashhedge.com",
@@ -7437,17 +7437,17 @@ function SupportSection() {
       marginRight: 8,
       verticalAlign: "middle"
     }
-  }), "ПОДДЕРЖКА 24/7 · СЕЙЧАС ОНЛАЙН"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u041f\u041e\u0414\u0414\u0415\u0420\u0416\u041a\u0410 24/7 \xb7 \u0421\u0415\u0419\u0427\u0410\u0421 \u041e\u041d\u041b\u0410\u0419\u041d"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0",
       letterSpacing: "-0.025em"
     }
-  }, "Живые люди.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0416\u0438\u0432\u044b\u0435 \u043b\u044e\u0434\u0438.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "Прямо сейчас онлайн.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041f\u0440\u044f\u043c\u043e \u0441\u0435\u0439\u0447\u0430\u0441 \u043e\u043d\u043b\u0430\u0439\u043d.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     className: "hh-support-intro",
@@ -7457,11 +7457,11 @@ function SupportSection() {
       color: "var(--fg-muted)",
       margin: 0
     }
-  }, "Никаких ботов с заскриптованными ответами. Команда из 40 человек в 4 часовых поясах, свободно владеющая ", /*#__PURE__*/React.createElement("strong", {
+  }, "\u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u0431\u043e\u0442\u043e\u0432 \u0441 \u0437\u0430\u0441\u043a\u0440\u0438\u043f\u0442\u043e\u0432\u0430\u043d\u043d\u044b\u043c\u0438 \u043e\u0442\u0432\u0435\u0442\u0430\u043c\u0438. \u041a\u043e\u043c\u0430\u043d\u0434\u0430 \u0438\u0437 40 \u0447\u0435\u043b\u043e\u0432\u0435\u043a \u0432 4 \u0447\u0430\u0441\u043e\u0432\u044b\u0445 \u043f\u043e\u044f\u0441\u0430\u0445, \u0441\u0432\u043e\u0431\u043e\u0434\u043d\u043e \u0432\u043b\u0430\u0434\u0435\u044e\u0449\u0430\u044f ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: "var(--fg)"
     }
-  }, "20+ языков"), " — отвечают менее чем за 2 минуты, каждый раз."))), /*#__PURE__*/React.createElement("div", {
+  }, "20+ \u044f\u0437\u044b\u043a\u043e\u0432"), " \u2014 \u043e\u0442\u0432\u0435\u0447\u0430\u044e\u0442 \u043c\u0435\u043d\u0435\u0435 \u0447\u0435\u043c \u0437\u0430 2 \u043c\u0438\u043d\u0443\u0442\u044b, \u043a\u0430\u0436\u0434\u044b\u0439 \u0440\u0430\u0437."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "0.85fr 1fr",
@@ -7479,7 +7479,7 @@ function SupportSection() {
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: (window.__HH_BASE__+"assets/support-agent.png"),
-    alt: "Sofia — Senior Поддержка Lead",
+    alt: "Sofia \u2014 Senior Support Lead",
     style: {
       position: "absolute",
       inset: 0,
@@ -7522,7 +7522,7 @@ function SupportSection() {
       background: "var(--green)",
       animation: "support-status-pulse 1.8s ease-out infinite"
     }
-  }), "Онлайн"), /*#__PURE__*/React.createElement("div", {
+  }), "\u041e\u043d\u043b\u0430\u0439\u043d"), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
       top: 20,
@@ -7567,7 +7567,7 @@ function SupportSection() {
       textTransform: "uppercase",
       marginBottom: 8
     }
-  }, "Senior Поддержка Lead"), /*#__PURE__*/React.createElement("div", {
+  }, "Senior Support Lead"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 28,
       fontWeight: 800,
@@ -7605,7 +7605,7 @@ function SupportSection() {
       border: "1px dashed rgba(255,255,255,0.18)",
       color: "var(--fg-muted)"
     }
-  }, "+ ещё 18 в команде онлайн"))))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "+ \u0435\u0449\u0451 18 \u0432 \u043a\u043e\u043c\u0430\u043d\u0434\u0435 \u043e\u043d\u043b\u0430\u0439\u043d"))))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -7679,7 +7679,7 @@ function SupportSection() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "Senior Поддержка · обычно отвечает за 1 мин")), /*#__PURE__*/React.createElement("div", {
+  }, "Senior Support \xb7 \u043e\u0431\u044b\u0447\u043d\u043e \u043e\u0442\u0432\u0435\u0447\u0430\u0435\u0442 \u0437\u0430 1 \u043c\u0438\u043d")), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 9,
       fontWeight: 800,
@@ -7726,7 +7726,7 @@ function SupportSection() {
       fontSize: 13,
       color: "var(--fg-dim)"
     }
-  }, "Напишите сообщение…"), /*#__PURE__*/React.createElement("button", {
+  }, "\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435\u2026"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     style: {
       width: 38,
@@ -7740,7 +7740,7 @@ function SupportSection() {
       justifyContent: "center",
       color: "#0b0b0e"
     },
-    "aria-label": "Отправить"
+    "aria-label": "\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c"
   }, /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
@@ -7884,7 +7884,7 @@ function SupportSection() {
       color: "var(--fg)",
       marginBottom: 2
     }
-  }, "Языки"), /*#__PURE__*/React.createElement("div", {
+  }, "\u042f\u0437\u044b\u043a\u0438"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 13,
       color: "var(--fg)",
@@ -7936,27 +7936,27 @@ function BlueprintSection() {
   useRevealOnScroll();
   const sections = [{
     n: "01",
-    t: "Создай аккаунт",
-    d: "Регистрация и верификация менее чем за 2 минуты."
+    t: "\u0421\u043e\u0437\u0434\u0430\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442",
+    d: "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0438 \u0432\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f \u043c\u0435\u043d\u0435\u0435 \u0447\u0435\u043c \u0437\u0430 2 \u043c\u0438\u043d\u0443\u0442\u044b."
   }, {
     n: "02",
-    t: "Выбери размер челленджа",
-    d: "От $5K до $150K. Оплата на TRC20, ERC20, BEP20, Solana, Arbitrum или Optimism."
+    t: "\u0412\u044b\u0431\u0435\u0440\u0438 \u0440\u0430\u0437\u043c\u0435\u0440 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430",
+    d: "\u041e\u0442 $5K \u0434\u043e $150K. \u041e\u043f\u043b\u0430\u0442\u0430 \u043d\u0430 TRC20, ERC20, BEP20, Solana, Arbitrum \u0438\u043b\u0438 Optimism."
   }, {
     n: "03",
-    t: "Пройди Этап 1 — цель 8%",
-    d: "5% daily / 10% max DD. Без ограничения по времени."
+    t: "\u041f\u0440\u043e\u0439\u0434\u0438 \u042d\u0442\u0430\u043f 1 \u2014 \u0446\u0435\u043b\u044c 8%",
+    d: "5% daily / 10% max DD. Unlimited time."
   }, {
     n: "04",
-    t: "Пройди Этап 2 — цель 6%",
-    d: "Те же правила, более мягкая цель, место закрепляется."
+    t: "\u041f\u0440\u043e\u0439\u0434\u0438 \u042d\u0442\u0430\u043f 2 \u2014 \u0446\u0435\u043b\u044c 6%",
+    d: "\u0422\u0435 \u0436\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430, \u0431\u043e\u043b\u0435\u0435 \u043c\u044f\u0433\u043a\u0430\u044f \u0446\u0435\u043b\u044c, \u043c\u0435\u0441\u0442\u043e \u0437\u0430\u043a\u0440\u0435\u043f\u043b\u044f\u0435\u0442\u0441\u044f."
   }, {
     n: "05",
-    t: "Активация финансируемого аккаунта",
-    d: "Реальный капитал зачислен в твой дашборд."
+    t: "\u0410\u043a\u0442\u0438\u0432\u0430\u0446\u0438\u044f \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u0433\u043e \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430",
+    d: "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043f\u0438\u0442\u0430\u043b \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d \u0432 \u0442\u0432\u043e\u0439 \u0434\u0430\u0448\u0431\u043e\u0440\u0434."
   }, {
     n: "06",
-    t: "Первая выплата",
+    t: "\u041f\u0435\u0440\u0432\u0430\u044f \u0432\u044b\u043f\u043b\u0430\u0442\u0430",
     d: "80% split, USDT to your wallet, 72h or 3×."
   }];
   return /*#__PURE__*/React.createElement("section", {
@@ -7987,7 +7987,7 @@ function BlueprintSection() {
     "data-mobile-heading-only": true
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
-  }, "РУКОВОДСТВО"), /*#__PURE__*/React.createElement("h2", {
+  }, "\u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0421\u0422\u0412\u041e"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 32px",
@@ -7997,7 +7997,7 @@ function BlueprintSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "Как начать")))), /*#__PURE__*/React.createElement("div", {
+  }, "\u041a\u0430\u043a \u043d\u0430\u0447\u0430\u0442\u044c")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1.1fr",
@@ -8007,7 +8007,7 @@ function BlueprintSection() {
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow",
     "data-mobile-hide-heading": true
-  }, "РУКОВОДСТВО"), /*#__PURE__*/React.createElement("h2", {
+  }, "\u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0421\u0422\u0412\u041e"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     "data-mobile-hide-heading": true,
     style: {
@@ -8018,7 +8018,7 @@ function BlueprintSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "Как начать")), /*#__PURE__*/React.createElement("p", {
+  }, "\u041a\u0430\u043a \u043d\u0430\u0447\u0430\u0442\u044c")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -8026,7 +8026,7 @@ function BlueprintSection() {
       marginBottom: 32,
       maxWidth: 460
     }
-  }, "С нуля разберись, как пройти путь от регистрации до финансируемого аккаунта. Полное пошаговое руководство — предварительных знаний не требуется."), /*#__PURE__*/React.createElement("div", {
+  }, "\u0421 \u043d\u0443\u043b\u044f \u0440\u0430\u0437\u0431\u0435\u0440\u0438\u0441\u044c, \u043a\u0430\u043a \u043f\u0440\u043e\u0439\u0442\u0438 \u043f\u0443\u0442\u044c \u043e\u0442 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438 \u0434\u043e \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u0433\u043e \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430. \u041f\u043e\u043b\u043d\u043e\u0435 \u043f\u043e\u0448\u0430\u0433\u043e\u0432\u043e\u0435 \u0440\u0443\u043a\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u043e \u2014 \u043f\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0445 \u0437\u043d\u0430\u043d\u0438\u0439 \u043d\u0435 \u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044f."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 32,
@@ -8077,7 +8077,7 @@ function BlueprintSection() {
       letterSpacing: "-0.02em",
       lineHeight: 1
     }
-  }, "Бесплатно"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0411\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-muted)",
@@ -8097,7 +8097,7 @@ function BlueprintSection() {
     style: {
       gap: 8
     }
-  }, "Открыть Blueprint", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041e\u0442\u043a\u0440\u044b\u0442\u044c Blueprint", /*#__PURE__*/React.createElement("svg", {
     width: "14",
     height: "14",
     viewBox: "0 0 14 14",
@@ -8178,7 +8178,7 @@ function BlueprintSection() {
       alignItems: "center",
       justifyContent: "space-between"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Содержание"), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, "\u0421\u043e\u0434\u0435\u0440\u0436\u0430\u043d\u0438\u0435"), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -8208,7 +8208,7 @@ function BlueprintSection() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Обновлено · 2 дня назад")))))));
+  }, /*#__PURE__*/React.createElement("span", null, "\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u043e \xb7 2 \u0434\u043d\u044f \u043d\u0430\u0437\u0430\u0434")))))));
 }
 
 // =====================================================================
@@ -8540,17 +8540,17 @@ function YouTubeSection() {
   }), /*#__PURE__*/React.createElement("path", {
     d: "M8.8 11.4l5.8-3.4-5.8-3.4v6.8z",
     fill: "#fff"
-  })), "ОТЗЫВЫ КРИЭЙТОРОВ"), /*#__PURE__*/React.createElement("h2", {
+  })), "\u041e\u0422\u0417\u042b\u0412\u042b \u041a\u0420\u0418\u042d\u0419\u0422\u041e\u0420\u041e\u0412"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0",
       letterSpacing: "-0.025em"
     }
-  }, "Не верь нам на слово.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u041d\u0435 \u0432\u0435\u0440\u044c \u043d\u0430\u043c \u043d\u0430 \u0441\u043b\u043e\u0432\u043e.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "Послушай трейдеров.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041f\u043e\u0441\u043b\u0443\u0448\u0430\u0439 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -8563,7 +8563,7 @@ function YouTubeSection() {
     style: {
       color: "var(--fg)"
     }
-  }, "2,500+ partners worldwide"), " — смотри видео про HashHedge от независимых крипто-криэйторов. Прохождения, доказательства выплат, глубокие разборы платформы. Без скрытых интеграций и заскриптованных текстов.")))), /*#__PURE__*/React.createElement("div", {
+  }, "2,500+ partners worldwide"), " \u2014 \u0441\u043c\u043e\u0442\u0440\u0438 \u0432\u0438\u0434\u0435\u043e \u043f\u0440\u043e HashHedge \u043e\u0442 \u043d\u0435\u0437\u0430\u0432\u0438\u0441\u0438\u043c\u044b\u0445 \u043a\u0440\u0438\u043f\u0442\u043e-\u043a\u0440\u0438\u044d\u0439\u0442\u043e\u0440\u043e\u0432. \u041f\u0440\u043e\u0445\u043e\u0436\u0434\u0435\u043d\u0438\u044f, \u0434\u043e\u043a\u0430\u0437\u0430\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0430 \u0432\u044b\u043f\u043b\u0430\u0442, \u0433\u043b\u0443\u0431\u043e\u043a\u0438\u0435 \u0440\u0430\u0437\u0431\u043e\u0440\u044b \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b. \u0411\u0435\u0437 \u0441\u043a\u0440\u044b\u0442\u044b\u0445 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0439 \u0438 \u0437\u0430\u0441\u043a\u0440\u0438\u043f\u0442\u043e\u0432\u0430\u043d\u043d\u044b\u0445 \u0442\u0435\u043a\u0441\u0442\u043e\u0432.")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.7fr 1fr",
@@ -8754,7 +8754,7 @@ function YouTubeFeatured({
     onError: e => {
       if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback;
     },
-    alt: "Главный обзор HashHedge",
+    alt: "\u0413\u043b\u0430\u0432\u043d\u044b\u0439 \u043e\u0431\u0437\u043e\u0440 HashHedge",
     style: {
       position: "absolute",
       inset: 0,
@@ -8810,7 +8810,7 @@ function YouTubeFeatured({
       marginBottom: 8,
       textTransform: "uppercase"
     }
-  }, "Свежий обзор"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0421\u0432\u0435\u0436\u0438\u0439 \u043e\u0431\u0437\u043e\u0440"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 28,
       fontWeight: 700,
@@ -8820,13 +8820,13 @@ function YouTubeFeatured({
       marginBottom: 6,
       maxWidth: 720
     }
-  }, "От $49 до $5,580 | Как изменить жизнь в 23? Crypto prop-трейдинг | Hash Hedge"), /*#__PURE__*/React.createElement("div", {
+  }, "\u041e\u0442 $49 \u0434\u043e $5,580 | \u041a\u0430\u043a \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0436\u0438\u0437\u043d\u044c \u0432 23? Crypto prop-\u0442\u0440\u0435\u0439\u0434\u0438\u043d\u0433 | Hash Hedge"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 13,
       color: "rgba(255,255,255,0.7)",
       letterSpacing: "0.01em"
     }
-  }, "Открывается на YouTube")));
+  }, "\u041e\u0442\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f \u043d\u0430 YouTube")));
 }
 function YouTubeThumb({
   video
@@ -8867,7 +8867,7 @@ function YouTubeThumb({
   }, /*#__PURE__*/React.createElement("img", {
     className: "yt-thumb-zoom",
     src: thumb,
-    alt: "Обзор HashHedge на YouTube",
+    alt: "\u041e\u0431\u0437\u043e\u0440 HashHedge \u043d\u0430 YouTube",
     loading: "lazy",
     style: {
       position: "absolute",
@@ -8987,7 +8987,7 @@ function ChartArt({
     fill: "#FCD535",
     opacity: "0.05",
     fontFamily: "Akrobat, sans-serif"
-  }, "₿"));
+  }, "\u20BF"));
 }
 Object.assign(window, {
   SupportSection,
@@ -9107,7 +9107,7 @@ function TeamCerts() {
     name: "Aleksandr Popov",
     amount: "7,538.92",
     acc: "$100,000",
-    date: "04 Март 2026",
+    date: "04 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-popov.jpg")
   }, {
     name: "Ryan Sullivan",
@@ -9181,31 +9181,31 @@ function TeamCerts() {
     name: "Rashad Aliyev",
     amount: "9,224.71",
     acc: "$100,000",
-    date: "04 Март 2026",
+    date: "04 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-aliyev.jpeg")
   }, {
     name: "Aleksandr Popov",
     amount: "7,538.92",
     acc: "$100,000",
-    date: "04 Март 2026",
+    date: "04 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-popov2.jpeg")
   }, {
     name: "Aleks Grachev",
     amount: "7,318.92",
     acc: "$100,000",
-    date: "10 Март 2026",
+    date: "10 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-grachev.jpeg")
   }, {
     name: "Pavel Shubin",
     amount: "5,290.17",
     acc: "$100,000",
-    date: "09 Март 2026",
+    date: "09 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-shubin.jpeg")
   }, {
     name: "Ilkin Jafarov",
     amount: "4,157.22",
     acc: "$50,000",
-    date: "14 Март 2026",
+    date: "14 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-jafarov.jpeg")
   },
   // Batch 3 – 14 more real certificates
@@ -9213,85 +9213,85 @@ function TeamCerts() {
     name: "Timur Kulikov",
     amount: "1,902.43",
     acc: "$25,000",
-    date: "14 Март 2026",
+    date: "14 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-kulikov.jpeg")
   }, {
     name: "Aleksandr Kaplin",
     amount: "10,000.00",
     acc: "$100,000",
-    date: "18 Март 2026",
+    date: "18 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-kaplin.jpeg")
   }, {
     name: "Denis Huhlaev",
     amount: "9,820.52",
     acc: "$100,000",
-    date: "16 Март 2026",
+    date: "16 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-huhlaev.jpeg")
   }, {
     name: "Aband Eddy",
     amount: "6,475.88",
     acc: "$100,000",
-    date: "16 Март 2026",
+    date: "16 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-eddy1.jpeg")
   }, {
     name: "Olga Kovlenko",
     amount: "5,096.17",
     acc: "$100,000",
-    date: "16 Март 2026",
+    date: "16 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-kovlenko.jpeg")
   }, {
     name: "Jukeen Bande",
     amount: "8,622.65",
     acc: "$100,000",
-    date: "20 Март 2026",
+    date: "20 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-bande.jpeg")
   }, {
     name: "Vadym Vads",
     amount: "4,644.40",
     acc: "$50,000",
-    date: "16 Март 2026",
+    date: "16 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-vads.jpeg")
   }, {
     name: "Sergi Tolmachev",
     amount: "7,102.34",
     acc: "$100,000",
-    date: "27 Март 2026",
+    date: "27 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-tolmachev.jpeg")
   }, {
     name: "Aleksei Razenkov",
     amount: "6,422.47",
     acc: "$100,000",
-    date: "25 Март 2026",
+    date: "25 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-razenkov.jpeg")
   }, {
     name: "Irina Stuchevskaya",
     amount: "2,517.62",
     acc: "$50,000",
-    date: "25 Март 2026",
+    date: "25 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-stuchevskaya.jpeg")
   }, {
     name: "Olga Kuznetsova",
     amount: "2,404.64",
     acc: "$50,000",
-    date: "28 Март 2026",
+    date: "28 Mar 2026",
     src: (window.__HH_BASE__+"img/cert-kuznetsova.jpeg")
   }, {
     name: "Nik Pechersky",
     amount: "10,000.00",
     acc: "$150,000",
-    date: "07 Апрель 2026",
+    date: "07 Apr 2026",
     src: (window.__HH_BASE__+"img/cert-pechersky.jpeg")
   }, {
     name: "Elzatbek Berenaliev",
     amount: "10,000.00",
     acc: "$100,000",
-    date: "07 Апрель 2026",
+    date: "07 Apr 2026",
     src: (window.__HH_BASE__+"img/cert-berenaliev.jpeg")
   }, {
     name: "Aband Eddy",
     amount: "7,712.92",
     acc: "$100,000",
-    date: "01 Апрель 2026",
+    date: "01 Apr 2026",
     src: (window.__HH_BASE__+"img/cert-eddy2.jpeg")
   }];
 
@@ -9484,18 +9484,18 @@ function TeamCerts() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "СЕРТИФИКАТЫ ВЫПЛАТ")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u0421\u0415\u0420\u0422\u0418\u0424\u0418\u041a\u0410\u0422\u042b \u0412\u042b\u041f\u041b\u0410\u0422")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0"
     }
-  }, "Настоящие трейдеры.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "Настоящие чеки.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0435 \u0447\u0435\u043a\u0438.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -9503,18 +9503,18 @@ function TeamCerts() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Каждая выплата получает подписанный сертификат с именем трейдера, размером аккаунта, суммой и датой. Никаких скрытых имён, никаких «анонимных китов», никаких стоковых фото. Результаты наших трейдеров измеряются в ", /*#__PURE__*/React.createElement("b", {
+  }, "Every payout gets a signed certificate with trader name, account size, amount and date. No hidden names, no \"anonymous whales\", no stock photos. Our traders' results are measured in ", /*#__PURE__*/React.createElement("b", {
     style: {
       color: "var(--fg)"
     }
-  }, "thousands of payouts"), " — больше в нашем ", /*#__PURE__*/React.createElement("a", {
+  }, "thousands of payouts"), " \u2014 \u0431\u043e\u043b\u044c\u0448\u0435 \u0432 \u043d\u0430\u0448\u0435\u043c ", /*#__PURE__*/React.createElement("a", {
     href: "https://t.me/hhcomunity",
     target: "_blank",
     rel: "noopener",
     style: {
       color: "var(--accent)"
     }
-  }, "Telegram-сообществе"), " and ", /*#__PURE__*/React.createElement("a", {
+  }, "Telegram-\u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0435"), " and ", /*#__PURE__*/React.createElement("a", {
     href: "https://t.me/+Ix0pA4YYv9A4NzYy",
     target: "_blank",
     rel: "noopener",
@@ -9574,12 +9574,12 @@ function TeamCerts() {
       fontSize: 15,
       color: "var(--fg-muted)"
     }
-  }, "Выборка из ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0412\u044b\u0431\u043e\u0440\u043a\u0430 \u0438\u0437 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " проведённых · ", /*#__PURE__*/React.createElement("span", {
+  }, "17,800+ payouts"), " \u043f\u0440\u043e\u0432\u0435\u0434\u0451\u043d\u043d\u044b\u0445 \xb7 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
@@ -9658,7 +9658,7 @@ function TeamCerts() {
       color: "var(--fg-dim)",
       marginTop: 4
     }
-  }, "Аккаунт ", lightbox.acc, " · ", lightbox.date)), /*#__PURE__*/React.createElement("div", {
+  }, "\u0410\u043a\u043a\u0430\u0443\u043d\u0442 ", lightbox.acc, " \xB7 ", lightbox.date)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -9688,8 +9688,8 @@ function TeamCerts() {
       alignItems: "center",
       justifyContent: "center"
     },
-    "aria-label": "Закрыть"
-  }, "×"))))));
+    "aria-label": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
+  }, "\xD7"))))));
 }
 function Reviews() {
   useRevealOnScroll();
@@ -9697,59 +9697,59 @@ function Reviews() {
   // Names/countries exactly as Trustpilot displays. Quotes paraphrased for length but faithful to the original sentiment.
   const reviews = [{
     name: "Clarence",
-    country: "Канада",
+    country: "\u041a\u0430\u043d\u0430\u0434\u0430",
     size: "$50,000",
-    quote: "Сначала сомневался, потому что фирма свежая. По факту торговые условия ровно такие, как обещано — никаких сорванных правил, ни диких slippage вокруг новостей. Платформа работает ровно, лимитки исполняются идеально. Наконец-то prop-фирма, где можно просто торговать.",
-    days: "Апрель 2026",
+    quote: "\u0421\u043d\u0430\u0447\u0430\u043b\u0430 \u0441\u043e\u043c\u043d\u0435\u0432\u0430\u043b\u0441\u044f, \u043f\u043e\u0442\u043e\u043c\u0443 \u0447\u0442\u043e \u0444\u0438\u0440\u043c\u0430 \u0441\u0432\u0435\u0436\u0430\u044f. \u041f\u043e \u0444\u0430\u043a\u0442\u0443 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0435 \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0440\u043e\u0432\u043d\u043e \u0442\u0430\u043a\u0438\u0435, \u043a\u0430\u043a \u043e\u0431\u0435\u0449\u0430\u043d\u043e \u2014 \u043d\u0438\u043a\u0430\u043a\u0438\u0445 \u0441\u043e\u0440\u0432\u0430\u043d\u043d\u044b\u0445 \u043f\u0440\u0430\u0432\u0438\u043b, \u043d\u0438 \u0434\u0438\u043a\u0438\u0445 slippage \u0432\u043e\u043a\u0440\u0443\u0433 \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439. \u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0440\u043e\u0432\u043d\u043e, \u043b\u0438\u043c\u0438\u0442\u043a\u0438 \u0438\u0441\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f \u0438\u0434\u0435\u0430\u043b\u044c\u043d\u043e. \u041d\u0430\u043a\u043e\u043d\u0435\u0446-\u0442\u043e prop-\u0444\u0438\u0440\u043c\u0430, \u0433\u0434\u0435 \u043c\u043e\u0436\u043d\u043e \u043f\u0440\u043e\u0441\u0442\u043e \u0442\u043e\u0440\u0433\u043e\u0432\u0430\u0442\u044c.",
+    days: "\u0410\u043f\u0440\u0435\u043b\u044c 2026",
     stars: 5
   }, {
     name: "Sultan A.",
     country: "UAE",
     size: "$25,000",
-    quote: "Прошёл вчера экзамен на 25K. Терминал наконец не лагает, графики грузятся очень быстро. Никаких странных скрытых правил по drawdown как у других — всё прозрачно. Поддержка ответила за 5 минут, когда спросил про KYC.",
-    days: "Апрель 2026",
+    quote: "\u041f\u0440\u043e\u0448\u0451\u043b \u0432\u0447\u0435\u0440\u0430 \u044d\u043a\u0437\u0430\u043c\u0435\u043d \u043d\u0430 25K. \u0422\u0435\u0440\u043c\u0438\u043d\u0430\u043b \u043d\u0430\u043a\u043e\u043d\u0435\u0446 \u043d\u0435 \u043b\u0430\u0433\u0430\u0435\u0442, \u0433\u0440\u0430\u0444\u0438\u043a\u0438 \u0433\u0440\u0443\u0437\u044f\u0442\u0441\u044f \u043e\u0447\u0435\u043d\u044c \u0431\u044b\u0441\u0442\u0440\u043e. \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u0441\u0442\u0440\u0430\u043d\u043d\u044b\u0445 \u0441\u043a\u0440\u044b\u0442\u044b\u0445 \u043f\u0440\u0430\u0432\u0438\u043b \u043f\u043e drawdown \u043a\u0430\u043a \u0443 \u0434\u0440\u0443\u0433\u0438\u0445 \u2014 \u0432\u0441\u0451 \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u043e. \u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u043e\u0442\u0432\u0435\u0442\u0438\u043b\u0430 \u0437\u0430 5 \u043c\u0438\u043d\u0443\u0442, \u043a\u043e\u0433\u0434\u0430 \u0441\u043f\u0440\u043e\u0441\u0438\u043b \u043f\u0440\u043e KYC.",
+    days: "\u0410\u043f\u0440\u0435\u043b\u044c 2026",
     stars: 5
   }, {
     name: "James C.",
-    country: "Великобритания",
+    country: "\u0412\u0435\u043b\u0438\u043a\u043e\u0431\u0440\u0438\u0442\u0430\u043d\u0438\u044f",
     size: "$50,000",
-    quote: "Два месяца, и только что прошёл челлендж на $50K. Больше всего ценю прозрачность. У других prop-ов скрытые drawdown-правила, которые тебя ловят — здесь всё опубликовано открыто. Терминал держит даже на высоковолатильных новостях.",
-    days: "Апрель 2026",
+    quote: "\u0414\u0432\u0430 \u043c\u0435\u0441\u044f\u0446\u0430, \u0438 \u0442\u043e\u043b\u044c\u043a\u043e \u0447\u0442\u043e \u043f\u0440\u043e\u0448\u0451\u043b \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u043d\u0430 $50K. \u0411\u043e\u043b\u044c\u0448\u0435 \u0432\u0441\u0435\u0433\u043e \u0446\u0435\u043d\u044e \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u043e\u0441\u0442\u044c. \u0423 \u0434\u0440\u0443\u0433\u0438\u0445 prop-\u043e\u0432 \u0441\u043a\u0440\u044b\u0442\u044b\u0435 drawdown-\u043f\u0440\u0430\u0432\u0438\u043b\u0430, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0442\u0435\u0431\u044f \u043b\u043e\u0432\u044f\u0442 \u2014 \u0437\u0434\u0435\u0441\u044c \u0432\u0441\u0451 \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u043e \u043e\u0442\u043a\u0440\u044b\u0442\u043e. \u0422\u0435\u0440\u043c\u0438\u043d\u0430\u043b \u0434\u0435\u0440\u0436\u0438\u0442 \u0434\u0430\u0436\u0435 \u043d\u0430 \u0432\u044b\u0441\u043e\u043a\u043e\u0432\u043e\u043b\u0430\u0442\u0438\u043b\u044c\u043d\u044b\u0445 \u043d\u043e\u0432\u043e\u0441\u0442\u044f\u0445.",
+    days: "\u0410\u043f\u0440\u0435\u043b\u044c 2026",
     stars: 5
   }, {
     name: "Donna J.",
-    country: "США",
+    country: "\u0421\u0428\u0410",
     size: "$50,000",
-    quote: "Перешёл сюда специально ради условий по крипте. Процесс выплат прямой — никаких обручей, если соблюдаешь drawdown. Строгая политика no-bots / no-API, но это сохраняет среду честной.",
-    days: "Март 2026",
+    quote: "\u041f\u0435\u0440\u0435\u0448\u0451\u043b \u0441\u044e\u0434\u0430 \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e \u0440\u0430\u0434\u0438 \u0443\u0441\u043b\u043e\u0432\u0438\u0439 \u043f\u043e \u043a\u0440\u0438\u043f\u0442\u0435. \u041f\u0440\u043e\u0446\u0435\u0441\u0441 \u0432\u044b\u043f\u043b\u0430\u0442 \u043f\u0440\u044f\u043c\u043e\u0439 \u2014 \u043d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u0440\u0443\u0447\u0435\u0439, \u0435\u0441\u043b\u0438 \u0441\u043e\u0431\u043b\u044e\u0434\u0430\u0435\u0448\u044c drawdown. \u0421\u0442\u0440\u043e\u0433\u0430\u044f \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 no-bots / no-API, \u043d\u043e \u044d\u0442\u043e \u0441\u043e\u0445\u0440\u0430\u043d\u044f\u0435\u0442 \u0441\u0440\u0435\u0434\u0443 \u0447\u0435\u0441\u0442\u043d\u043e\u0439.",
+    days: "\u041c\u0430\u0440\u0442 2026",
     stars: 5
   }, {
     name: "Marissa T.",
-    country: "США",
+    country: "\u0421\u0428\u0410",
     size: "$25,000",
-    quote: "Терминал работает быстро, нет скрытых правил, которые тебя ловят. Крепкая фирма для крипто-prop-а — ровно то, что искал.",
-    days: "Март 2026",
+    quote: "\u0422\u0435\u0440\u043c\u0438\u043d\u0430\u043b \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0431\u044b\u0441\u0442\u0440\u043e, \u043d\u0435\u0442 \u0441\u043a\u0440\u044b\u0442\u044b\u0445 \u043f\u0440\u0430\u0432\u0438\u043b, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0442\u0435\u0431\u044f \u043b\u043e\u0432\u044f\u0442. \u041a\u0440\u0435\u043f\u043a\u0430\u044f \u0444\u0438\u0440\u043c\u0430 \u0434\u043b\u044f \u043a\u0440\u0438\u043f\u0442\u043e-prop-\u0430 \u2014 \u0440\u043e\u0432\u043d\u043e \u0442\u043e, \u0447\u0442\u043e \u0438\u0441\u043a\u0430\u043b.",
+    days: "\u041c\u0430\u0440\u0442 2026",
     stars: 5
   }, {
     name: "Dolores F. C.",
-    country: "США",
+    country: "\u0421\u0428\u0410",
     size: "$100,000",
-    quote: "Удивительно стабильное исполнение по BTC/USD. Боялся проскальзываний после старых отзывов, но мои лимитки исполняются ровно там, где должны. Лаг в дашборде после тех. апдейта пофикшен.",
-    days: "Март 2026",
+    quote: "\u0423\u0434\u0438\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u043e\u0435 \u0438\u0441\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435 \u043f\u043e BTC/USD. \u0411\u043e\u044f\u043b\u0441\u044f \u043f\u0440\u043e\u0441\u043a\u0430\u043b\u044c\u0437\u044b\u0432\u0430\u043d\u0438\u0439 \u043f\u043e\u0441\u043b\u0435 \u0441\u0442\u0430\u0440\u044b\u0445 \u043e\u0442\u0437\u044b\u0432\u043e\u0432, \u043d\u043e \u043c\u043e\u0438 \u043b\u0438\u043c\u0438\u0442\u043a\u0438 \u0438\u0441\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f \u0440\u043e\u0432\u043d\u043e \u0442\u0430\u043c, \u0433\u0434\u0435 \u0434\u043e\u043b\u0436\u043d\u044b. \u041b\u0430\u0433 \u0432 \u0434\u0430\u0448\u0431\u043e\u0440\u0434\u0435 \u043f\u043e\u0441\u043b\u0435 \u0442\u0435\u0445. \u0430\u043f\u0434\u0435\u0439\u0442\u0430 \u043f\u043e\u0444\u0438\u043a\u0448\u0435\u043d.",
+    days: "\u041c\u0430\u0440\u0442 2026",
     stars: 5
   }, {
     name: "Andrey V.",
-    country: "Люксембург",
+    country: "\u041b\u044e\u043a\u0441\u0435\u043c\u0431\u0443\u0440\u0433",
     size: "$25,000",
-    quote: "Даже когда я провалил челлендж, опыт был отличный. Поддержка была на месте, исход — в моих руках. Уважаю за это.",
-    days: "Ноябрь 2025",
+    quote: "\u0414\u0430\u0436\u0435 \u043a\u043e\u0433\u0434\u0430 \u044f \u043f\u0440\u043e\u0432\u0430\u043b\u0438\u043b \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436, \u043e\u043f\u044b\u0442 \u0431\u044b\u043b \u043e\u0442\u043b\u0438\u0447\u043d\u044b\u0439. \u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u0431\u044b\u043b\u0430 \u043d\u0430 \u043c\u0435\u0441\u0442\u0435, \u0438\u0441\u0445\u043e\u0434 \u2014 \u0432 \u043c\u043e\u0438\u0445 \u0440\u0443\u043a\u0430\u0445. \u0423\u0432\u0430\u0436\u0430\u044e \u0437\u0430 \u044d\u0442\u043e.",
+    days: "\u041d\u043e\u044f\u0431\u0440\u044c 2025",
     stars: 5
   }, {
     name: "Дмитрий",
-    country: "Россия",
+    country: "\u0420\u043e\u0441\u0441\u0438\u044f",
     size: "$50,000",
-    quote: "HashHedge задал новый стандарт для крипто-prop-а. Прозрачно — без скрытых условий и сюрпризов. Промо и конкурсы щедрые и доступные. Поддержка быстрая, компетентная и реально помогает. Пять звёзд, без вариантов.",
-    days: "Ноябрь 2025",
+    quote: "HashHedge \u0437\u0430\u0434\u0430\u043b \u043d\u043e\u0432\u044b\u0439 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442 \u0434\u043b\u044f \u043a\u0440\u0438\u043f\u0442\u043e-prop-\u0430. \u041f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u043e \u2014 \u0431\u0435\u0437 \u0441\u043a\u0440\u044b\u0442\u044b\u0445 \u0443\u0441\u043b\u043e\u0432\u0438\u0439 \u0438 \u0441\u044e\u0440\u043f\u0440\u0438\u0437\u043e\u0432. \u041f\u0440\u043e\u043c\u043e \u0438 \u043a\u043e\u043d\u043a\u0443\u0440\u0441\u044b \u0449\u0435\u0434\u0440\u044b\u0435 \u0438 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0435. \u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u0431\u044b\u0441\u0442\u0440\u0430\u044f, \u043a\u043e\u043c\u043f\u0435\u0442\u0435\u043d\u0442\u043d\u0430\u044f \u0438 \u0440\u0435\u0430\u043b\u044c\u043d\u043e \u043f\u043e\u043c\u043e\u0433\u0430\u0435\u0442. \u041f\u044f\u0442\u044c \u0437\u0432\u0451\u0437\u0434, \u0431\u0435\u0437 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u043e\u0432.",
+    days: "\u041d\u043e\u044f\u0431\u0440\u044c 2025",
     stars: 5
   }];
   return /*#__PURE__*/React.createElement("section", {
@@ -9785,7 +9785,7 @@ function Reviews() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "ОТЗЫВЫ · TRUSTPILOT")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u041e\u0422\u0417\u042b\u0412\u042b \xb7 TRUSTPILOT")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
@@ -9797,7 +9797,7 @@ function Reviews() {
     style: {
       color: "var(--accent)"
     }
-  }, "Отзывы на Trustpilot.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041e\u0442\u0437\u044b\u0432\u044b \u043d\u0430 Trustpilot.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-review-rating-summary",
@@ -9850,7 +9850,7 @@ function Reviews() {
       color: "var(--fg-dim)",
       borderBottom: "1px solid var(--line-strong)"
     }
-  }, "Trustpilot · проверенные отзывы")))))), /*#__PURE__*/React.createElement("div", {
+  }, "Trustpilot \xb7 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u043e\u0442\u0437\u044b\u0432\u044b")))))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, 1fr)",
@@ -9932,7 +9932,7 @@ function Reviews() {
       color: "var(--fg-dim)",
       marginTop: 2
     }
-  }, r.country, " · ", r.size, " финансируемых аккаунтов")))))), /*#__PURE__*/React.createElement(Reveal, {
+  }, r.country, " \xB7 ", r.size, " \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u043e\u0432")))))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://www.trustpilot.com/review/hashhedge.com",
@@ -9983,7 +9983,7 @@ function Reviews() {
       letterSpacing: "-0.02em",
       marginBottom: 8
     }
-  }, "Читать проверенные отзывы"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0427\u0438\u0442\u0430\u0442\u044c \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u043e\u0442\u0437\u044b\u0432\u044b"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 14,
       color: "var(--fg-muted)",
@@ -9991,7 +9991,7 @@ function Reviews() {
       marginBottom: 22,
       maxWidth: 280
     }
-  }, "Каждый отзыв проверяет Trustpilot — пруфы выплат, скриншоты терминала, реальные имена."), /*#__PURE__*/React.createElement("span", {
+  }, "\u041a\u0430\u0436\u0434\u044b\u0439 \u043e\u0442\u0437\u044b\u0432 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 Trustpilot \u2014 \u043f\u0440\u0443\u0444\u044b \u0432\u044b\u043f\u043b\u0430\u0442, \u0441\u043a\u0440\u0438\u043d\u0448\u043e\u0442\u044b \u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b\u0430, \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0438\u043c\u0435\u043d\u0430."), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -10004,7 +10004,7 @@ function Reviews() {
       background: "rgba(24,169,101,0.12)",
       border: "1px solid rgba(24,169,101,0.3)"
     }
-  }, "Читать на Trustpilot", /*#__PURE__*/React.createElement("svg", {
+  }, "\u0427\u0438\u0442\u0430\u0442\u044c \u043d\u0430 Trustpilot", /*#__PURE__*/React.createElement("svg", {
     width: "14",
     height: "14",
     viewBox: "0 0 24 24",
@@ -10026,43 +10026,43 @@ function Reviews() {
       maxWidth: 720,
       margin: "32px auto 0"
     }
-  }, "Отзывы выше — пересказы публичных отзывов с Trustpilot для hashhedge.com. Кликни, чтобы прочитать оригинал на Trustpilot."))));
+  }, "\u041e\u0442\u0437\u044b\u0432\u044b \u0432\u044b\u0448\u0435 \u2014 \u043f\u0435\u0440\u0435\u0441\u043a\u0430\u0437\u044b \u043f\u0443\u0431\u043b\u0438\u0447\u043d\u044b\u0445 \u043e\u0442\u0437\u044b\u0432\u043e\u0432 \u0441 Trustpilot \u0434\u043b\u044f hashhedge.com. \u041a\u043b\u0438\u043a\u043d\u0438, \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u043e\u0447\u0438\u0442\u0430\u0442\u044c \u043e\u0440\u0438\u0433\u0438\u043d\u0430\u043b \u043d\u0430 Trustpilot."))));
 }
 function FAQ() {
   useRevealOnScroll();
   const [open, setOpen] = ____useS(0);
   const items = [{
-    q: "Где найти подробную информацию о том, как работает платформа?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Всё — от покупки челленджа до вывода прибыли — есть в нашем ", /*#__PURE__*/React.createElement("a", {
+    q: "\u0413\u0434\u0435 \u043d\u0430\u0439\u0442\u0438 \u043f\u043e\u0434\u0440\u043e\u0431\u043d\u0443\u044e \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044e \u043e \u0442\u043e\u043c, \u043a\u0430\u043a \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "\u0412\u0441\u0451 \u2014 \u043e\u0442 \u043f\u043e\u043a\u0443\u043f\u043a\u0438 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430 \u0434\u043e \u0432\u044b\u0432\u043e\u0434\u0430 \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u2014 \u0435\u0441\u0442\u044c \u0432 \u043d\u0430\u0448\u0435\u043c ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
       target: "_blank",
       rel: "noopener",
       style: {
         color: "var(--accent)"
       }
-    }, "Руководстве"), ".")
+    }, "\u0420\u0443\u043a\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u0435"), ".")
   }, {
-    q: "Какие способы оплаты доступны?",
-    a: "Принимаем только USDT в сетях: TRC20 (Tron), ERC20 (Ethereum), BEP20 (BNB Smart Chain), Solana, Arbitrum, Optimism."
+    q: "\u041a\u0430\u043a\u0438\u0435 \u0441\u043f\u043e\u0441\u043e\u0431\u044b \u043e\u043f\u043b\u0430\u0442\u044b \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b?",
+    a: "\u041f\u0440\u0438\u043d\u0438\u043c\u0430\u0435\u043c \u0442\u043e\u043b\u044c\u043a\u043e USDT \u0432 \u0441\u0435\u0442\u044f\u0445: TRC20 (Tron), ERC20 (Ethereum), BEP20 (BNB Smart Chain), Solana, Arbitrum, Optimism."
   }, {
-    q: "Почему за челлендж нужно платить?",
-    a: "Плата покрывает доступ к торговой платформе и оценку твоих навыков. Взамен получаешь возможность торговать капиталом до $150,000 и забирать 80% прибыли, не рискуя своими деньгами."
+    q: "\u041f\u043e\u0447\u0435\u043c\u0443 \u0437\u0430 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u043d\u0443\u0436\u043d\u043e \u043f\u043b\u0430\u0442\u0438\u0442\u044c?",
+    a: "\u041f\u043b\u0430\u0442\u0430 \u043f\u043e\u043a\u0440\u044b\u0432\u0430\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f \u043a \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0439 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0435 \u0438 \u043e\u0446\u0435\u043d\u043a\u0443 \u0442\u0432\u043e\u0438\u0445 \u043d\u0430\u0432\u044b\u043a\u043e\u0432. \u0412\u0437\u0430\u043c\u0435\u043d \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0448\u044c \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044c \u0442\u043e\u0440\u0433\u043e\u0432\u0430\u0442\u044c \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c \u0434\u043e $150,000 \u0438 \u0437\u0430\u0431\u0438\u0440\u0430\u0442\u044c 80% \u043f\u0440\u0438\u0431\u044b\u043b\u0438, \u043d\u0435 \u0440\u0438\u0441\u043a\u0443\u044f \u0441\u0432\u043e\u0438\u043c\u0438 \u0434\u0435\u043d\u044c\u0433\u0430\u043c\u0438."
   }, {
-    q: "Каким правилам нужно следовать во время челленджа?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Не выходи за дневной и максимальный лимит просадки и достигни цели по прибыли за нужное количество торговых дней. Детали по каждому пакету — на странице покупки и в ", /*#__PURE__*/React.createElement("a", {
+    q: "\u041a\u0430\u043a\u0438\u043c \u043f\u0440\u0430\u0432\u0438\u043b\u0430\u043c \u043d\u0443\u0436\u043d\u043e \u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u044c \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "\u041d\u0435 \u0432\u044b\u0445\u043e\u0434\u0438 \u0437\u0430 \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0438 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0439 \u043b\u0438\u043c\u0438\u0442 \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0438 \u0438 \u0434\u043e\u0441\u0442\u0438\u0433\u043d\u0438 \u0446\u0435\u043b\u0438 \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u0437\u0430 \u043d\u0443\u0436\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439. \u0414\u0435\u0442\u0430\u043b\u0438 \u043f\u043e \u043a\u0430\u0436\u0434\u043e\u043c\u0443 \u043f\u0430\u043a\u0435\u0442\u0443 \u2014 \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435 \u043f\u043e\u043a\u0443\u043f\u043a\u0438 \u0438 \u0432 ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/introduction/challenge-type",
       target: "_blank",
       rel: "noopener",
       style: {
         color: "var(--accent)"
       }
-    }, "Руководстве"), ".")
+    }, "\u0420\u0443\u043a\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u0435"), ".")
   }, {
-    q: "Что будет, если я превышу лимит убытка?",
-    a: "Челлендж окончательно блокируется. Не важно какой лимит — дневной или общий. Нереализованные убытки тоже учитываются."
+    q: "\u0427\u0442\u043e \u0431\u0443\u0434\u0435\u0442, \u0435\u0441\u043b\u0438 \u044f \u043f\u0440\u0435\u0432\u044b\u0448\u0443 \u043b\u0438\u043c\u0438\u0442 \u0443\u0431\u044b\u0442\u043a\u0430?",
+    a: "\u0427\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u043e\u043a\u043e\u043d\u0447\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0431\u043b\u043e\u043a\u0438\u0440\u0443\u0435\u0442\u0441\u044f. \u041d\u0435 \u0432\u0430\u0436\u043d\u043e \u043a\u0430\u043a\u043e\u0439 \u043b\u0438\u043c\u0438\u0442 \u2014 \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u0438\u043b\u0438 \u043e\u0431\u0449\u0438\u0439. \u041d\u0435\u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0443\u0431\u044b\u0442\u043a\u0438 \u0442\u043e\u0436\u0435 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u044e\u0442\u0441\u044f."
   }, {
-    q: "Как считается лимит дневного убытка (Daily Loss)?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Текущий капитал − Баланс на начало дня. Открытые позиции учитываются. Лимит сбрасывается в 00:13 UTC+4. Нереализованные прибыли/убытки переносятся на следующий день. Подробный разбор с примерами ", /*#__PURE__*/React.createElement("a", {
+    q: "\u041a\u0430\u043a \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044f \u043b\u0438\u043c\u0438\u0442 \u0434\u043d\u0435\u0432\u043d\u043e\u0433\u043e \u0443\u0431\u044b\u0442\u043a\u0430 (Daily Loss)?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = \u0422\u0435\u043a\u0443\u0449\u0438\u0439 \u043a\u0430\u043f\u0438\u0442\u0430\u043b \u2212 \u0411\u0430\u043b\u0430\u043d\u0441 \u043d\u0430 \u043d\u0430\u0447\u0430\u043b\u043e \u0434\u043d\u044f. \u041e\u0442\u043a\u0440\u044b\u0442\u044b\u0435 \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u044e\u0442\u0441\u044f. \u041b\u0438\u043c\u0438\u0442 \u0441\u0431\u0440\u0430\u0441\u044b\u0432\u0430\u0435\u0442\u0441\u044f \u0432 00:13 UTC+4. \u041d\u0435\u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u043f\u0440\u0438\u0431\u044b\u043b\u0438/\u0443\u0431\u044b\u0442\u043a\u0438 \u043f\u0435\u0440\u0435\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043d\u0430 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c. \u041f\u043e\u0434\u0440\u043e\u0431\u043d\u044b\u0439 \u0440\u0430\u0437\u0431\u043e\u0440 \u0441 \u043f\u0440\u0438\u043c\u0435\u0440\u0430\u043c\u0438 ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
       target: "_blank",
       rel: "noopener",
@@ -10071,13 +10071,13 @@ function FAQ() {
       }
     }, "here"), ".")
   }, {
-    q: "Что такое торговый день?",
-    a: "День, в который была открыта хотя бы одна позиция. Если открыл в понедельник и закрыл в среду — считается только понедельник."
+    q: "\u0427\u0442\u043e \u0442\u0430\u043a\u043e\u0435 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u0434\u0435\u043d\u044c?",
+    a: "\u0414\u0435\u043d\u044c, \u0432 \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0431\u044b\u043b\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u0430 \u0445\u043e\u0442\u044f \u0431\u044b \u043e\u0434\u043d\u0430 \u043f\u043e\u0437\u0438\u0446\u0438\u044f. \u0415\u0441\u043b\u0438 \u043e\u0442\u043a\u0440\u044b\u043b \u0432 \u043f\u043e\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u0438\u043a \u0438 \u0437\u0430\u043a\u0440\u044b\u043b \u0432 \u0441\u0440\u0435\u0434\u0443 \u2014 \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044f \u0442\u043e\u043b\u044c\u043a\u043e \u043f\u043e\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u0438\u043a."
   }, {
-    q: "Что такое Settlement Time и когда он происходит?",
-    a: "Ежедневный расчёт результатов аккаунта. Происходит в конце торгового дня по UTC+4. Балансы фиксируются, лимиты обновляются."
+    q: "\u0427\u0442\u043e \u0442\u0430\u043a\u043e\u0435 Settlement Time \u0438 \u043a\u043e\u0433\u0434\u0430 \u043e\u043d \u043f\u0440\u043e\u0438\u0441\u0445\u043e\u0434\u0438\u0442?",
+    a: "\u0415\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u044b\u0439 \u0440\u0430\u0441\u0447\u0451\u0442 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430. \u041f\u0440\u043e\u0438\u0441\u0445\u043e\u0434\u0438\u0442 \u0432 \u043a\u043e\u043d\u0446\u0435 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0433\u043e \u0434\u043d\u044f \u043f\u043e UTC+4. \u0411\u0430\u043b\u0430\u043d\u0441\u044b \u0444\u0438\u043a\u0441\u0438\u0440\u0443\u044e\u0442\u0441\u044f, \u043b\u0438\u043c\u0438\u0442\u044b \u043e\u0431\u043d\u043e\u0432\u043b\u044f\u044e\u0442\u0441\u044f."
   }, {
-    q: "Какими активами можно торговать?",
+    q: "\u041a\u0430\u043a\u0438\u043c\u0438 \u0430\u043a\u0442\u0438\u0432\u0430\u043c\u0438 \u043c\u043e\u0436\u043d\u043e \u0442\u043e\u0440\u0433\u043e\u0432\u0430\u0442\u044c?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "160+ crypto assets, metals (gold, silver, platinum, palladium), oil and natural gas. Full list with position limits ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/coins-limit",
       target: "_blank",
@@ -10087,26 +10087,26 @@ function FAQ() {
       }
     }, "here"), ".")
   }, {
-    q: "Доступна ли спот-торговля?",
-    a: "Нет. Только фьючерсы."
+    q: "\u0414\u043e\u0441\u0442\u0443\u043f\u043d\u0430 \u043b\u0438 \u0441\u043f\u043e\u0442-\u0442\u043e\u0440\u0433\u043e\u0432\u043b\u044f?",
+    a: "\u041d\u0435\u0442. \u0422\u043e\u043b\u044c\u043a\u043e \u0444\u044c\u044e\u0447\u0435\u0440\u0441\u044b."
   }, {
-    q: "Какое максимальное плечо доступно?",
-    a: "До 1:5."
+    q: "\u041a\u0430\u043a\u043e\u0435 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043b\u0435\u0447\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e?",
+    a: "\u0414\u043e 1:5."
   }, {
-    q: "Можно ли торговать в разных маржин-режимах одновременно?",
-    a: "Нет. Только один режим: Cross или Isolated. Чтобы переключиться, сначала закрой все позиции в текущем режиме."
+    q: "\u041c\u043e\u0436\u043d\u043e \u043b\u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u0430\u0442\u044c \u0432 \u0440\u0430\u0437\u043d\u044b\u0445 \u043c\u0430\u0440\u0436\u0438\u043d-\u0440\u0435\u0436\u0438\u043c\u0430\u0445 \u043e\u0434\u043d\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e?",
+    a: "\u041d\u0435\u0442. \u0422\u043e\u043b\u044c\u043a\u043e \u043e\u0434\u0438\u043d \u0440\u0435\u0436\u0438\u043c: Cross \u0438\u043b\u0438 Isolated. \u0427\u0442\u043e\u0431\u044b \u043f\u0435\u0440\u0435\u043a\u043b\u044e\u0447\u0438\u0442\u044c\u0441\u044f, \u0441\u043d\u0430\u0447\u0430\u043b\u0430 \u0437\u0430\u043a\u0440\u043e\u0439 \u0432\u0441\u0435 \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u0432 \u0442\u0435\u043a\u0443\u0449\u0435\u043c \u0440\u0435\u0436\u0438\u043c\u0435."
   }, {
-    q: "Можно ли хеджировать позиции?",
-    a: "Да. Можно открывать позиции в противоположных направлениях по одному и тому же активу."
+    q: "\u041c\u043e\u0436\u043d\u043e \u043b\u0438 \u0445\u0435\u0434\u0436\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438?",
+    a: "\u0414\u0430. \u041c\u043e\u0436\u043d\u043e \u043e\u0442\u043a\u0440\u044b\u0432\u0430\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u0432 \u043f\u0440\u043e\u0442\u0438\u0432\u043e\u043f\u043e\u043b\u043e\u0436\u043d\u044b\u0445 \u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f\u0445 \u043f\u043e \u043e\u0434\u043d\u043e\u043c\u0443 \u0438 \u0442\u043e\u043c\u0443 \u0436\u0435 \u0430\u043a\u0442\u0438\u0432\u0443."
   }, {
-    q: "Можно ли держать позиции открытыми несколько дней?",
-    a: "Да. Но следи за лимитами — открытые позиции учитываются в расчёте просадки."
+    q: "\u041c\u043e\u0436\u043d\u043e \u043b\u0438 \u0434\u0435\u0440\u0436\u0430\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c\u0438 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0434\u043d\u0435\u0439?",
+    a: "\u0414\u0430. \u041d\u043e \u0441\u043b\u0435\u0434\u0438 \u0437\u0430 \u043b\u0438\u043c\u0438\u0442\u0430\u043c\u0438 \u2014 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u0435 \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u044e\u0442\u0441\u044f \u0432 \u0440\u0430\u0441\u0447\u0451\u0442\u0435 \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0438."
   }, {
-    q: "Влияют ли открытые позиции на лимиты убытков?",
-    a: "Да. Нереализованный P&L напрямую влияет на Equity и расчёт drawdown. Можно нарушить лимит, не закрыв позицию."
+    q: "\u0412\u043b\u0438\u044f\u044e\u0442 \u043b\u0438 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u0435 \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u043d\u0430 \u043b\u0438\u043c\u0438\u0442\u044b \u0443\u0431\u044b\u0442\u043a\u043e\u0432?",
+    a: "\u0414\u0430. \u041d\u0435\u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0439 P&L \u043d\u0430\u043f\u0440\u044f\u043c\u0443\u044e \u0432\u043b\u0438\u044f\u0435\u0442 \u043d\u0430 Equity \u0438 \u0440\u0430\u0441\u0447\u0451\u0442 drawdown. \u041c\u043e\u0436\u043d\u043e \u043d\u0430\u0440\u0443\u0448\u0438\u0442\u044c \u043b\u0438\u043c\u0438\u0442, \u043d\u0435 \u0437\u0430\u043a\u0440\u044b\u0432 \u043f\u043e\u0437\u0438\u0446\u0438\u044e."
   }, {
-    q: "Обязательно ли использовать Stop Loss?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Нет. Но мы рекомендуем — это помогает оставаться в пределах просадки. Подробнее про TP/SL ", /*#__PURE__*/React.createElement("a", {
+    q: "\u041e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u043b\u0438 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c Stop Loss?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "\u041d\u0435\u0442. \u041d\u043e \u043c\u044b \u0440\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0443\u0435\u043c \u2014 \u044d\u0442\u043e \u043f\u043e\u043c\u043e\u0433\u0430\u0435\u0442 \u043e\u0441\u0442\u0430\u0432\u0430\u0442\u044c\u0441\u044f \u0432 \u043f\u0440\u0435\u0434\u0435\u043b\u0430\u0445 \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0438. \u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u043f\u0440\u043e TP/SL ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/take-profit-stop-loss",
       target: "_blank",
       rel: "noopener",
@@ -10115,11 +10115,11 @@ function FAQ() {
       }
     }, "here"), ".")
   }, {
-    q: "Можно ли торговать на выходных и важных новостях?",
-    a: "Да. Без ограничений."
+    q: "\u041c\u043e\u0436\u043d\u043e \u043b\u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u0430\u0442\u044c \u043d\u0430 \u0432\u044b\u0445\u043e\u0434\u043d\u044b\u0445 \u0438 \u0432\u0430\u0436\u043d\u044b\u0445 \u043d\u043e\u0432\u043e\u0441\u0442\u044f\u0445?",
+    a: "\u0414\u0430. \u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u0439."
   }, {
-    q: "Какие комиссии у платформы?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Детали по комиссиям и funding rates ", /*#__PURE__*/React.createElement("a", {
+    q: "\u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u0438 \u0443 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "\u0414\u0435\u0442\u0430\u043b\u0438 \u043f\u043e \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f\u043c \u0438 funding rates ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/trading-module/fees-and-funding-rate",
       target: "_blank",
       rel: "noopener",
@@ -10128,35 +10128,35 @@ function FAQ() {
       }
     }, "here"), ".")
   }, {
-    q: "Можно ли участвовать в нескольких челленджах одновременно?",
-    a: "Да, на Этапах 1 и 2 можно вести несколько челленджей параллельно. На Этапе 3 (финансируемом) — только один челлендж на каждый размер аккаунта."
+    q: "\u041c\u043e\u0436\u043d\u043e \u043b\u0438 \u0443\u0447\u0430\u0441\u0442\u0432\u043e\u0432\u0430\u0442\u044c \u0432 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u0438\u0445 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430\u0445 \u043e\u0434\u043d\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e?",
+    a: "\u0414\u0430, \u043d\u0430 \u042d\u0442\u0430\u043f\u0430\u0445 1 \u0438 2 \u043c\u043e\u0436\u043d\u043e \u0432\u0435\u0441\u0442\u0438 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0435\u0439 \u043f\u0430\u0440\u0430\u043b\u043b\u0435\u043b\u044c\u043d\u043e. \u041d\u0430 \u042d\u0442\u0430\u043f\u0435 3 (\u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u043c) \u2014 \u0442\u043e\u043b\u044c\u043a\u043e \u043e\u0434\u0438\u043d \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u043d\u0430 \u043a\u0430\u0436\u0434\u044b\u0439 \u0440\u0430\u0437\u043c\u0435\u0440 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430."
   }, {
-    q: "Я прошёл челлендж. Что дальше?",
-    a: "Ты получаешь финансируемый аккаунт (накопительный). Торгуешь нашим капиталом, забираешь 80% прибыли."
+    q: "\u042f \u043f\u0440\u043e\u0448\u0451\u043b \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436. \u0427\u0442\u043e \u0434\u0430\u043b\u044c\u0448\u0435?",
+    a: "\u0422\u044b \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0448\u044c \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442 (\u043d\u0430\u043a\u043e\u043f\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439). \u0422\u043e\u0440\u0433\u0443\u0435\u0448\u044c \u043d\u0430\u0448\u0438\u043c \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c, \u0437\u0430\u0431\u0438\u0440\u0430\u0435\u0448\u044c 80% \u043f\u0440\u0438\u0431\u044b\u043b\u0438."
   }, {
-    q: "Условия финансируемого аккаунта отличаются от оценочных этапов?",
-    a: "Нет. Просадки, плечо, исполнение, комиссии — всё одинаково на всех этапах. Что видишь на оценке — то и получишь на финансировании."
+    q: "\u0423\u0441\u043b\u043e\u0432\u0438\u044f \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u0433\u043e \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430 \u043e\u0442\u043b\u0438\u0447\u0430\u044e\u0442\u0441\u044f \u043e\u0442 \u043e\u0446\u0435\u043d\u043e\u0447\u043d\u044b\u0445 \u044d\u0442\u0430\u043f\u043e\u0432?",
+    a: "\u041d\u0435\u0442. \u041f\u0440\u043e\u0441\u0430\u0434\u043a\u0438, \u043f\u043b\u0435\u0447\u043e, \u0438\u0441\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435, \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u0438 \u2014 \u0432\u0441\u0451 \u043e\u0434\u0438\u043d\u0430\u043a\u043e\u0432\u043e \u043d\u0430 \u0432\u0441\u0435\u0445 \u044d\u0442\u0430\u043f\u0430\u0445. \u0427\u0442\u043e \u0432\u0438\u0434\u0438\u0448\u044c \u043d\u0430 \u043e\u0446\u0435\u043d\u043a\u0435 \u2014 \u0442\u043e \u0438 \u043f\u043e\u043b\u0443\u0447\u0438\u0448\u044c \u043d\u0430 \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0438."
   }, {
-    q: "Есть ли consistency-правило или дневной лимит прибыли?",
-    a: "Нет. Не нужно равномерно распределять прибыль по дням. Никакого лимита на прибыль за один день. Достигни цели за минимум торговых дней — и идёшь дальше."
+    q: "\u0415\u0441\u0442\u044c \u043b\u0438 consistency-\u043f\u0440\u0430\u0432\u0438\u043b\u043e \u0438\u043b\u0438 \u0434\u043d\u0435\u0432\u043d\u043e\u0439 \u043b\u0438\u043c\u0438\u0442 \u043f\u0440\u0438\u0431\u044b\u043b\u0438?",
+    a: "\u041d\u0435\u0442. \u041d\u0435 \u043d\u0443\u0436\u043d\u043e \u0440\u0430\u0432\u043d\u043e\u043c\u0435\u0440\u043d\u043e \u0440\u0430\u0441\u043f\u0440\u0435\u0434\u0435\u043b\u044f\u0442\u044c \u043f\u0440\u0438\u0431\u044b\u043b\u044c \u043f\u043e \u0434\u043d\u044f\u043c. \u041d\u0438\u043a\u0430\u043a\u043e\u0433\u043e \u043b\u0438\u043c\u0438\u0442\u0430 \u043d\u0430 \u043f\u0440\u0438\u0431\u044b\u043b\u044c \u0437\u0430 \u043e\u0434\u0438\u043d \u0434\u0435\u043d\u044c. \u0414\u043e\u0441\u0442\u0438\u0433\u043d\u0438 \u0446\u0435\u043b\u0438 \u0437\u0430 \u043c\u0438\u043d\u0438\u043c\u0443\u043c \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0445 \u0434\u043d\u0435\u0439 \u2014 \u0438 \u0438\u0434\u0451\u0448\u044c \u0434\u0430\u043b\u044c\u0448\u0435."
   }, {
-    q: "Есть ли дополнительная плата за активацию финансируемого аккаунта?",
-    a: "Нет. Плата за челлендж — единственный платёж. Финансируемый аккаунт активируется без доплат."
+    q: "\u0415\u0441\u0442\u044c \u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u0430\u044f \u043f\u043b\u0430\u0442\u0430 \u0437\u0430 \u0430\u043a\u0442\u0438\u0432\u0430\u0446\u0438\u044e \u0444\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u043e\u0433\u043e \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430?",
+    a: "\u041d\u0435\u0442. \u041f\u043b\u0430\u0442\u0430 \u0437\u0430 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u2014 \u0435\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u043f\u043b\u0430\u0442\u0451\u0436. \u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0439 \u0430\u043a\u043a\u0430\u0443\u043d\u0442 \u0430\u043a\u0442\u0438\u0432\u0438\u0440\u0443\u0435\u0442\u0441\u044f \u0431\u0435\u0437 \u0434\u043e\u043f\u043b\u0430\u0442."
   }, {
-    q: "Как связаться с поддержкой?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Чат на сайте (иконка справа внизу), email ", /*#__PURE__*/React.createElement("a", {
+    q: "\u041a\u0430\u043a \u0441\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f \u0441 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u043e\u0439?",
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "\u0427\u0430\u0442 \u043d\u0430 \u0441\u0430\u0439\u0442\u0435 (\u0438\u043a\u043e\u043d\u043a\u0430 \u0441\u043f\u0440\u0430\u0432\u0430 \u0432\u043d\u0438\u0437\u0443), email ", /*#__PURE__*/React.createElement("a", {
       href: "mailto:support@hashhedge.com",
       style: {
         color: "var(--accent)"
       }
-    }, "support@hashhedge.com"), ", Telegram-бот ", /*#__PURE__*/React.createElement("a", {
+    }, "support@hashhedge.com"), ", Telegram-\u0431\u043e\u0442 ", /*#__PURE__*/React.createElement("a", {
       href: "https://t.me/hashhedgesupportbot",
       target: "_blank",
       rel: "noopener",
       style: {
         color: "var(--accent)"
       }
-    }, "@hashhedgesupportbot"), ". Поддержка is available 24/7.")
+    }, "@hashhedgesupportbot"), ". Support is available 24/7.")
   }].slice(0, 6);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
@@ -10192,21 +10192,21 @@ function FAQ() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "ВОПРОСЫ")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u0412\u041e\u041f\u0420\u041e\u0421\u042b")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0"
     }
-  }, "Честный FAQ.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0427\u0435\u0441\u0442\u043d\u044b\u0439 FAQ.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       color: "var(--fg-muted)"
     }
-  }, "Всё, что нам самим хотелось бы знать, прежде чем отдавать prop-фирме деньги."))), /*#__PURE__*/React.createElement("div", {
+  }, "\u0412\u0441\u0451, \u0447\u0442\u043e \u043d\u0430\u043c \u0441\u0430\u043c\u0438\u043c \u0445\u043e\u0442\u0435\u043b\u043e\u0441\u044c \u0431\u044b \u0437\u043d\u0430\u0442\u044c, \u043f\u0440\u0435\u0436\u0434\u0435 \u0447\u0435\u043c \u043e\u0442\u0434\u0430\u0432\u0430\u0442\u044c prop-\u0444\u0438\u0440\u043c\u0435 \u0434\u0435\u043d\u044c\u0433\u0438."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -10291,7 +10291,7 @@ function FAQ() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-ghost"
-  }, "Открыть полный FAQ", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043f\u043e\u043b\u043d\u044b\u0439 FAQ", /*#__PURE__*/React.createElement("svg", {
     width: "14",
     height: "14",
     viewBox: "0 0 14 14",
@@ -10589,7 +10589,7 @@ function BigCTA() {
     x: "250",
     y: "134",
     className: "up"
-  }, "+$4,820 · 🇺🇸")), /*#__PURE__*/React.createElement("g", {
+  }, "+$4,820 \xB7 \uD83C\uDDFA\uD83C\uDDF8")), /*#__PURE__*/React.createElement("g", {
     className: "item",
     style: {
       animationDelay: "1.5s"
@@ -10603,7 +10603,7 @@ function BigCTA() {
     x: "550",
     y: "94",
     className: "up"
-  }, "+$8,120 · 🇩🇪")), /*#__PURE__*/React.createElement("g", {
+  }, "+$8,120 \xB7 \uD83C\uDDE9\uD83C\uDDEA")), /*#__PURE__*/React.createElement("g", {
     className: "item",
     style: {
       animationDelay: "3s"
@@ -10617,7 +10617,7 @@ function BigCTA() {
     x: "850",
     y: "44",
     className: "up"
-  }, "+$11,300 · 🇧🇷")), /*#__PURE__*/React.createElement("g", {
+  }, "+$11,300 \xB7 \uD83C\uDDE7\uD83C\uDDF7")), /*#__PURE__*/React.createElement("g", {
     className: "item",
     style: {
       animationDelay: "4.5s"
@@ -10632,7 +10632,7 @@ function BigCTA() {
     y: "24",
     textAnchor: "end",
     className: "up"
-  }, "+$22,640 · 🇦🇪")))), /*#__PURE__*/React.createElement("div", {
+  }, "+$22,640 \xB7 \uD83C\uDDE6\uD83C\uDDEA")))), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative",
       zIndex: 2
@@ -10649,29 +10649,29 @@ function BigCTA() {
       background: "var(--accent)",
       boxShadow: "0 0 10px var(--accent)"
     }
-  }), "ГОТОВ?"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u0413\u041e\u0422\u041e\u0412?"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "24px auto 24px",
       maxWidth: 900,
       fontSize: "clamp(44px, 5.5vw, 76px)"
     }
-  }, "Твой первый ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u0432\u043e\u0439 \u043f\u0435\u0440\u0432\u044b\u0439 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "аккаунт на $5,000"), /*#__PURE__*/React.createElement("br", null), "is ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0430\u043a\u043a\u0430\u0443\u043d\u0442 \u043d\u0430 $5,000"), /*#__PURE__*/React.createElement("br", null), "is ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "79 долларов"), " — на расстоянии."), /*#__PURE__*/React.createElement("p", {
+  }, "79 \u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432"), " \u2014 \u043d\u0430 \u0440\u0430\u0441\u0441\u0442\u043e\u044f\u043d\u0438\u0438."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 19,
       color: "var(--fg-muted)",
       maxWidth: 640,
       margin: "0 auto 40px"
     }
-  }, "Двухэтапный челлендж. Без ограничения по времени. 80% сплит прибыли. USDT прямо на твой кошелёк."), /*#__PURE__*/React.createElement("div", {
+  }, "\u0414\u0432\u0443\u0445\u044d\u0442\u0430\u043f\u043d\u044b\u0439 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436. \u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438. 80% \u0441\u043f\u043b\u0438\u0442 \u043f\u0440\u0438\u0431\u044b\u043b\u0438. USDT \u043f\u0440\u044f\u043c\u043e \u043d\u0430 \u0442\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a."), /*#__PURE__*/React.createElement("div", {
     className: "hh-final-cta-actions",
     style: {
       display: "flex",
@@ -10684,54 +10684,54 @@ function BigCTA() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Начать челлендж · $79"), /*#__PURE__*/React.createElement("a", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \xb7 $79"), /*#__PURE__*/React.createElement("a", {
     href: "https://hashhedge.gitbook.io/hashhedge-user-guide?fpr=123456",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-ghost btn-lg cta-secondary"
-  }, "Читать правила")))))));
+  }, "\u0427\u0438\u0442\u0430\u0442\u044c \u043f\u0440\u0430\u0432\u0438\u043b\u0430")))))));
 }
 function Footer() {
   const columns = [{
-    t: "Продукт",
+    t: "\u041f\u0440\u043e\u0434\u0443\u043a\u0442",
     l: [{
-      label: "Челленджи",
+      label: "\u0427\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0438",
       href: "https://www.hashhedge.com/"
     }, {
-      label: "Партнёрская программа",
+      label: "\u041f\u0430\u0440\u0442\u043d\u0451\u0440\u0441\u043a\u0430\u044f \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430",
       href: "https://www.hashhedge.com/affiliateprogram"
     }, {
-      label: "Блог",
+      label: "\u0411\u043b\u043e\u0433",
       href: "https://www.hashhedge.com/blog"
     }, {
-      label: "Открыть руководство",
+      label: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0440\u0443\u043a\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u043e",
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide"
     }]
   }, {
-    t: "О нас",
+    t: "\u041e \u043d\u0430\u0441",
     l: [{
-      label: "Поддержка",
+      label: "\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430",
       href: "https://t.me/hashhedgesupportbot"
     }, {
       label: "FAQ",
       href: "https://www.hashhedge.com/faq"
     }, {
-      label: "Вакансии",
+      label: "\u0412\u0430\u043a\u0430\u043d\u0441\u0438\u0438",
       href: "https://www.hashhedge.com/vacancies"
     }]
   }, {
-    t: "Другое",
+    t: "\u0414\u0440\u0443\u0433\u043e\u0435",
     l: [{
-      label: "Политика конфиденциальности",
+      label: "\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438",
       href: "https://www.hashhedge.com/privacy-policy"
     }, {
-      label: "Условия и положения",
+      label: "\u0423\u0441\u043b\u043e\u0432\u0438\u044f \u0438 \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u044f",
       href: "https://www.hashhedge.com/terms-and-conditions"
     }, {
-      label: "Коммерческие условия",
+      label: "\u041a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u0438\u0435 \u0443\u0441\u043b\u043e\u0432\u0438\u044f",
       href: "https://www.hashhedge.com/commercial-terms"
     }, {
-      label: "Партнёрская политика",
+      label: "\u041f\u0430\u0440\u0442\u043d\u0451\u0440\u0441\u043a\u0430\u044f \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u0430",
       href: "https://www.hashhedge.com/affiliate-politics"
     }]
   }];
@@ -10796,7 +10796,7 @@ function Footer() {
       lineHeight: 1.45,
       maxWidth: 260
     }
-  }, "Hash Hedge — Crypto Prop-Trading Платформа: торгуй, доказывай свои навыки, управляй капиталом.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge \u2014 Crypto Prop-Trading \u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430: \u0442\u043e\u0440\u0433\u0443\u0439, \u0434\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0439 \u0441\u0432\u043e\u0438 \u043d\u0430\u0432\u044b\u043a\u0438, \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u0439 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
     key: col.t
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -10841,7 +10841,7 @@ function Footer() {
       fontWeight: 800,
       color: "rgba(238,238,243,0.8)"
     }
-  }, "Наши партнёры"), /*#__PURE__*/React.createElement("div", {
+  }, "\u041d\u0430\u0448\u0438 \u043f\u0430\u0440\u0442\u043d\u0451\u0440\u044b"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -10867,7 +10867,7 @@ function Footer() {
       color: "rgba(238,238,243,0.86)",
       marginBottom: 34
     }
-  }, "© 2025 HashHedge. All Right Reserved."), /*#__PURE__*/React.createElement("p", {
+  }, "\xA9 2025 HashHedge. All Right Reserved."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 12,
       lineHeight: 1.35,
@@ -10875,7 +10875,7 @@ function Footer() {
       maxWidth: 1050,
       margin: "0 auto"
     }
-  }, "Вся информация на этом сайте предназначена исключительно для ознакомления с торговлей на финансовых рынках и ни в коей мере не является конкретной инвестиционной, бизнес- или иной рекомендацией относительно торговли инвестиционными инструментами."))));
+  }, "\u0412\u0441\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043d\u0430 \u044d\u0442\u043e\u043c \u0441\u0430\u0439\u0442\u0435 \u043f\u0440\u0435\u0434\u043d\u0430\u0437\u043d\u0430\u0447\u0435\u043d\u0430 \u0438\u0441\u043a\u043b\u044e\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0434\u043b\u044f \u043e\u0437\u043d\u0430\u043a\u043e\u043c\u043b\u0435\u043d\u0438\u044f \u0441 \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0435\u0439 \u043d\u0430 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432\u044b\u0445 \u0440\u044b\u043d\u043a\u0430\u0445 \u0438 \u043d\u0438 \u0432 \u043a\u043e\u0435\u0439 \u043c\u0435\u0440\u0435 \u043d\u0435 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043a\u043e\u043d\u043a\u0440\u0435\u0442\u043d\u043e\u0439 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u043e\u043d\u043d\u043e\u0439, \u0431\u0438\u0437\u043d\u0435\u0441- \u0438\u043b\u0438 \u0438\u043d\u043e\u0439 \u0440\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0430\u0446\u0438\u0435\u0439 \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438 \u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u043e\u043d\u043d\u044b\u043c\u0438 \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430\u043c\u0438."))));
 }
 Object.assign(window, {
   TeamCerts,
@@ -10946,13 +10946,13 @@ function Nav({
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#how"
-  }, "Как это работает")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "\u041a\u0430\u043a \u044d\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#pricing"
-  }, "Тарифы")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "\u0422\u0430\u0440\u0438\u0444\u044b")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#why"
-  }, "Почему мы")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "\u041f\u043e\u0447\u0435\u043c\u0443 \u043c\u044b")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#press"
-  }, "Пресса")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "\u041f\u0440\u0435\u0441\u0441\u0430")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#faq"
   }, "FAQ"))), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -10970,20 +10970,20 @@ function Nav({
       color: "var(--fg-muted)",
       padding: "10px 14px"
     }
-  }, "Войти"), /*#__PURE__*/React.createElement("a", {
+  }, "\u0412\u043e\u0439\u0442\u0438"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
-  }, "Начать челлендж"), /*#__PURE__*/React.createElement("div", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436"), /*#__PURE__*/React.createElement("div", {
     className: "hh-lang-switcher"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "hh-lang-trigger",
     onClick: () => setLangOpen(v => !v),
     "aria-expanded": langOpen,
-    "aria-label": "Выбрать язык"
-  }, /*#__PURE__*/React.createElement("span", null, "🇬🇧"), /*#__PURE__*/React.createElement("b", null, "EN"), /*#__PURE__*/React.createElement("svg", {
+    "aria-label": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u044f\u0437\u044b\u043a"
+  }, /*#__PURE__*/React.createElement("span", null, "\uD83C\uDDEC\uD83C\uDDE7"), /*#__PURE__*/React.createElement("b", null, "EN"), /*#__PURE__*/React.createElement("svg", {
     width: "12",
     height: "12",
     viewBox: "0 0 12 12",
@@ -11002,7 +11002,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement("span", null, l.flag), /*#__PURE__*/React.createElement("em", null, l.label))))), /*#__PURE__*/React.createElement("button", {
     className: "nav-burger",
     onClick: onMenuOpen,
-    "aria-label": "Открыть меню"
+    "aria-label": "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e"
   }, /*#__PURE__*/React.createElement("svg", {
     width: "22",
     height: "22",
@@ -11031,7 +11031,7 @@ function MobileMenu({
   }, /*#__PURE__*/React.createElement("button", {
     className: "mobile-menu-close",
     onClick: close,
-    "aria-label": "Закрыть меню"
+    "aria-label": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e"
   }, /*#__PURE__*/React.createElement("svg", {
     width: "22",
     height: "22",
@@ -11045,16 +11045,16 @@ function MobileMenu({
   }))), /*#__PURE__*/React.createElement("a", {
     href: "#how",
     onClick: close
-  }, "Как это работает"), /*#__PURE__*/React.createElement("a", {
+  }, "\u041a\u0430\u043a \u044d\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442"), /*#__PURE__*/React.createElement("a", {
     href: "#pricing",
     onClick: close
-  }, "Тарифы"), /*#__PURE__*/React.createElement("a", {
+  }, "\u0422\u0430\u0440\u0438\u0444\u044b"), /*#__PURE__*/React.createElement("a", {
     href: "#why",
     onClick: close
-  }, "Почему мы"), /*#__PURE__*/React.createElement("a", {
+  }, "\u041f\u043e\u0447\u0435\u043c\u0443 \u043c\u044b"), /*#__PURE__*/React.createElement("a", {
     href: "#press",
     onClick: close
-  }, "Пресса"), /*#__PURE__*/React.createElement("a", {
+  }, "\u041f\u0440\u0435\u0441\u0441\u0430"), /*#__PURE__*/React.createElement("a", {
     href: "#faq",
     onClick: close
   }, "FAQ"), /*#__PURE__*/React.createElement("div", {
@@ -11065,13 +11065,13 @@ function MobileMenu({
     rel: "noopener",
     className: "btn btn-primary btn-lg",
     onClick: close
-  }, "Начать челлендж · от $79"), /*#__PURE__*/React.createElement("a", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \xb7 \u043e\u0442 $79"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/index",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-ghost",
     onClick: close
-  }, "Войти")));
+  }, "\u0412\u043e\u0439\u0442\u0438")));
 }
 function MobileCTABar() {
   const [vis, setVis] = React.useState(false);
@@ -11088,7 +11088,7 @@ function MobileCTABar() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary"
-  }, "Начать челлендж · от $79", /*#__PURE__*/React.createElement("svg", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \xb7 \u043e\u0442 $79", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -11220,11 +11220,11 @@ function PromoPopup() {
     className: "hh-popup",
     role: "dialog",
     "aria-modal": "true",
-    "aria-label": "Спец-предложение"
+    "aria-label": "\u0421\u043f\u0435\u0446-\u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435"
   }, /*#__PURE__*/React.createElement("button", {
     className: "hh-popup-close",
     onClick: () => setOpen(false),
-    "aria-label": "Закрыть"
+    "aria-label": "\u0417\u0430\u043a\u0440\u044b\u0442\u044c"
   }, /*#__PURE__*/React.createElement("svg", {
     width: "18",
     height: "18",
@@ -11243,13 +11243,13 @@ function PromoPopup() {
     className: "hh-popup-badge"
   }, "48 hours"), /*#__PURE__*/React.createElement("h2", {
     className: "hh-popup-title"
-  }, "Получай 90%", /*#__PURE__*/React.createElement("br", null), "прибыли"), /*#__PURE__*/React.createElement("p", {
+  }, "\u041f\u043e\u043b\u0443\u0447\u0430\u0439 90%", /*#__PURE__*/React.createElement("br", null), "\u043f\u0440\u0438\u0431\u044b\u043b\u0438"), /*#__PURE__*/React.createElement("p", {
     className: "hh-popup-sub"
-  }, "Повышенный сплит 90/10 на всех челленджах"), /*#__PURE__*/React.createElement("div", {
+  }, "\u041f\u043e\u0432\u044b\u0448\u0435\u043d\u043d\u044b\u0439 \u0441\u043f\u043b\u0438\u0442 90/10 \u043d\u0430 \u0432\u0441\u0435\u0445 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430\u0445"), /*#__PURE__*/React.createElement("div", {
     className: "hh-popup-timer"
   }, /*#__PURE__*/React.createElement("span", {
     className: "hh-popup-timer-label"
-  }, "До конца акции"), /*#__PURE__*/React.createElement("div", {
+  }, "\u0414\u043e \u043a\u043e\u043d\u0446\u0430 \u0430\u043a\u0446\u0438\u0438"), /*#__PURE__*/React.createElement("div", {
     className: "hh-popup-timer-digits"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-popup-timer-unit"
@@ -11267,9 +11267,9 @@ function PromoPopup() {
     rel: "noopener",
     className: "btn btn-primary hh-popup-cta",
     onClick: () => setOpen(false)
-  }, "Начать челлендж"), /*#__PURE__*/React.createElement("p", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436"), /*#__PURE__*/React.createElement("p", {
     className: "hh-popup-disclaimer"
-  }, "Сплит 90/10 закрепляется за тобой навсегда на каждой выплате с челленджа")), /*#__PURE__*/React.createElement("div", {
+  }, "\u0421\u043f\u043b\u0438\u0442 90/10 \u0437\u0430\u043a\u0440\u0435\u043f\u043b\u044f\u0435\u0442\u0441\u044f \u0437\u0430 \u0442\u043e\u0431\u043e\u0439 \u043d\u0430\u0432\u0441\u0435\u0433\u0434\u0430 \u043d\u0430 \u043a\u0430\u0436\u0434\u043e\u0439 \u0432\u044b\u043f\u043b\u0430\u0442\u0435 \u0441 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430")), /*#__PURE__*/React.createElement("div", {
     className: "hh-popup-art",
     "aria-hidden": "true"
   }, /*#__PURE__*/React.createElement(PopupChartBg, null), /*#__PURE__*/React.createElement(PromoProfitSplitArt, null)))));
