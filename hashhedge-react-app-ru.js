@@ -2447,7 +2447,7 @@ function HowItWorks() {
     style: {
       color: "var(--accent)"
     }
-  }, "\u0434\u043e \u0432\u044b\u043f\u043b\u0430\u0442\u044b.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0434\u043e \u0432\u044b\u043f\u043b\u0430\u0442\u044b")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -4034,7 +4034,7 @@ function WhyUs() {
     style: {
       color: "var(--accent)"
     }
-  }, "\u0434\u043b\u044f \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0434\u043b\u044f \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -5050,7 +5050,7 @@ function PayoutShowcase() {
     style: {
       color: "var(--accent)"
     }
-  }, "\u043d\u0430 \u0441\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a.")), /*#__PURE__*/React.createElement("p", {
+  }, "\u043d\u0430 \u0441\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -7450,7 +7450,7 @@ function SupportSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "\u043d\u0430 \u0441\u0432\u044f\u0437\u0438.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u043d\u0430 \u0441\u0432\u044f\u0437\u0438")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     className: "hh-support-intro",
@@ -9497,11 +9497,11 @@ function TeamCerts() {
       lineHeight: 1.05,
       whiteSpace: "nowrap"
     }
-  }, "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0432\u044b\u043f\u043b\u0430\u0442\u044b.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0432\u044b\u043f\u043b\u0430\u0442\u044b")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -9789,11 +9789,11 @@ function Reviews() {
       margin: "20px 0 0",
       maxWidth: 860
     }
-  }, "5 120 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432 \u043f\u043e\u043b\u0443\u0447\u0438\u043b\u0438 \u0444\u043e\u043d\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "5 120 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432 \u043f\u043e\u043b\u0443\u0447\u0438\u043b\u0438 \u0444\u043e\u043d\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "\u041e\u0442\u0437\u044b\u0432\u044b \u043d\u0430 Trustpilot.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u041e\u0442\u0437\u044b\u0432\u044b \u043d\u0430 Trustpilot")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-review-rating-summary",
@@ -10195,7 +10195,7 @@ function FAQ() {
     style: {
       margin: "20px 0"
     }
-  }, "FAQ.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "FAQ")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -10660,7 +10660,7 @@ function BigCTA() {
     style: {
       color: "var(--accent)"
     }
-  }, "$79"), "."), /*#__PURE__*/React.createElement("p", {
+  }, "$79")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 19,
       color: "var(--fg-muted)",
