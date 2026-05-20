@@ -7433,17 +7433,17 @@ function SupportSection() {
       marginRight: 8,
       verticalAlign: "middle"
     }
-  }), "\u041f\u041e\u0414\u0414\u0415\u0420\u0416\u041a\u0410 24/7 \xb7 \u0421\u0415\u0419\u0427\u0410\u0421 \u041e\u041d\u041b\u0410\u0419\u041d"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u041f\u041e\u0414\u0414\u0415\u0420\u0416\u041a\u0410 24/7"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0",
       letterSpacing: "-0.025em"
     }
-  }, "\u0416\u0438\u0432\u044b\u0435 \u043b\u044e\u0434\u0438.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u041c\u044b \u0432\u0441\u0435\u0433\u0434\u0430", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "\u041f\u0440\u044f\u043c\u043e \u0441\u0435\u0439\u0447\u0430\u0441 \u043e\u043d\u043b\u0430\u0439\u043d.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\u043d\u0430 \u0441\u0432\u044f\u0437\u0438.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     className: "hh-support-intro",
@@ -7453,7 +7453,7 @@ function SupportSection() {
       color: "var(--fg-muted)",
       margin: 0
     }
-  }, "\u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u0431\u043e\u0442\u043e\u0432 \u0441 \u0437\u0430\u0441\u043a\u0440\u0438\u043f\u0442\u043e\u0432\u0430\u043d\u043d\u044b\u043c\u0438 \u043e\u0442\u0432\u0435\u0442\u0430\u043c\u0438. \u041a\u043e\u043c\u0430\u043d\u0434\u0430 \u0438\u0437 40 \u0447\u0435\u043b\u043e\u0432\u0435\u043a \u0432 4 \u0447\u0430\u0441\u043e\u0432\u044b\u0445 \u043f\u043e\u044f\u0441\u0430\u0445, \u0441\u0432\u043e\u0431\u043e\u0434\u043d\u043e \u0432\u043b\u0430\u0434\u0435\u044e\u0449\u0430\u044f ", /*#__PURE__*/React.createElement("strong", {
+  }, "40 \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u043e\u0432 \u0433\u043e\u0442\u043e\u0432\u044b \u043f\u043e\u043c\u043e\u0447\u044c \u2014 \u0431\u0435\u0437 \u0431\u043e\u0442\u043e\u0432 \u0438 \u0437\u0430\u0441\u043a\u0440\u0438\u043f\u0442\u043e\u0432\u0430\u043d\u043d\u044b\u0445 \u043e\u0442\u0432\u0435\u0442\u043e\u0432. \u041a\u043e\u043c\u0430\u043d\u0434\u0430 \u0432 4 \u0447\u0430\u0441\u043e\u0432\u044b\u0445 \u043f\u043e\u044f\u0441\u0430\u0445, \u0441\u0432\u043e\u0431\u043e\u0434\u043d\u043e \u0432\u043b\u0430\u0434\u0435\u044e\u0449\u0430\u044f ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: "var(--fg)"
     }
@@ -7989,11 +7989,11 @@ function BlueprintSection() {
       margin: "20px 0 32px",
       letterSpacing: "-0.025em"
     }
-  }, "Blueprint:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0413\u0430\u0439\u0434 \u043f\u043e \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0435", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "\u041a\u0430\u043a \u043d\u0430\u0447\u0430\u0442\u044c")))), /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1.1fr",
@@ -8010,11 +8010,11 @@ function BlueprintSection() {
       margin: "20px 0 24px",
       letterSpacing: "-0.025em"
     }
-  }, "Blueprint:", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "\u0413\u0430\u0439\u0434 \u043f\u043e \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0435", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "\u041a\u0430\u043a \u043d\u0430\u0447\u0430\u0442\u044c")), /*#__PURE__*/React.createElement("p", {
+  }, "Hash Hedge")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -8047,7 +8047,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "chapters")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "\u0440\u0430\u0437\u0434\u0435\u043b\u043e\u0432")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 32,
       fontWeight: 800,
@@ -8056,7 +8056,7 @@ function BlueprintSection() {
       letterSpacing: "-0.02em",
       lineHeight: 1
     }
-  }, "15 min"), /*#__PURE__*/React.createElement("div", {
+  }, "15 \u043c\u0438\u043d"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-muted)",
@@ -8064,7 +8064,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "read time")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "\u043d\u0430 \u043f\u0440\u043e\u0447\u0442\u0435\u043d\u0438\u0435")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 32,
       fontWeight: 800,
@@ -8081,7 +8081,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "always"))), /*#__PURE__*/React.createElement("a", {
+  }, "\u043d\u0430\u0432\u0441\u0435\u0433\u0434\u0430"))), /*#__PURE__*/React.createElement("a", {
     href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
     target: "_blank",
     rel: "noopener noreferrer",
@@ -8093,7 +8093,7 @@ function BlueprintSection() {
     style: {
       gap: 8
     }
-  }, "\u041e\u0442\u043a\u0440\u044b\u0442\u044c Blueprint", /*#__PURE__*/React.createElement("svg", {
+  }, "\u0427\u0438\u0442\u0430\u0442\u044c \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u044e", /*#__PURE__*/React.createElement("svg", {
     width: "14",
     height: "14",
     viewBox: "0 0 14 14",
@@ -10188,21 +10188,21 @@ function FAQ() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "\u0412\u041e\u041f\u0420\u041e\u0421\u042b")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u0412\u041e\u041f\u0420\u041e\u0421\u042b \u0418 \u041e\u0422\u0412\u0415\u0422\u042b")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0"
     }
-  }, "\u0427\u0435\u0441\u0442\u043d\u044b\u0439 FAQ.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "FAQ.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       color: "var(--fg-muted)"
     }
-  }, "\u0412\u0441\u0451, \u0447\u0442\u043e \u043d\u0430\u043c \u0441\u0430\u043c\u0438\u043c \u0445\u043e\u0442\u0435\u043b\u043e\u0441\u044c \u0431\u044b \u0437\u043d\u0430\u0442\u044c, \u043f\u0440\u0435\u0436\u0434\u0435 \u0447\u0435\u043c \u043e\u0442\u0434\u0430\u0432\u0430\u0442\u044c prop-\u0444\u0438\u0440\u043c\u0435 \u0434\u0435\u043d\u044c\u0433\u0438."))), /*#__PURE__*/React.createElement("div", {
+  }, "\u0412\u0441\u0451, \u0447\u0442\u043e \u0432\u0430\u0436\u043d\u043e \u0437\u043d\u0430\u0442\u044c \u043f\u0435\u0440\u0435\u0434 \u0432\u044b\u0431\u043e\u0440\u043e\u043c \u043f\u0440\u043e\u043f-\u0444\u0438\u0440\u043c\u044b \u0438 \u043f\u043e\u043a\u0443\u043f\u043a\u043e\u0439 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -10652,22 +10652,18 @@ function BigCTA() {
       maxWidth: 900,
       fontSize: "clamp(44px, 5.5vw, 76px)"
     }
-  }, "\u0422\u0432\u043e\u0439 \u043f\u0435\u0440\u0432\u044b\u0439 ", /*#__PURE__*/React.createElement("span", {
+  }, "\u041f\u0440\u043e\u0439\u0434\u0438 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436", /*#__PURE__*/React.createElement("br", null), "\u0438 \u043f\u043e\u043b\u0443\u0447\u0438 \u0441\u0447\u0451\u0442 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "\u0430\u043a\u043a\u0430\u0443\u043d\u0442 \u043d\u0430 $5,000"), /*#__PURE__*/React.createElement("br", null), "is ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--accent)"
-    }
-  }, "79 \u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432"), " \u2014 \u043d\u0430 \u0440\u0430\u0441\u0441\u0442\u043e\u044f\u043d\u0438\u0438."), /*#__PURE__*/React.createElement("p", {
+  }, "$5,000 \u0437\u0430 $79"), "."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 19,
       color: "var(--fg-muted)",
       maxWidth: 640,
       margin: "0 auto 40px"
     }
-  }, "\u0414\u0432\u0443\u0445\u044d\u0442\u0430\u043f\u043d\u044b\u0439 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436. \u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438. 90% \u0441\u043f\u043b\u0438\u0442 \u043f\u0440\u0438\u0431\u044b\u043b\u0438. USDT \u043f\u0440\u044f\u043c\u043e \u043d\u0430 \u0442\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a."), /*#__PURE__*/React.createElement("div", {
+  }, "\u041f\u0440\u043e\u0439\u0434\u0438 \u0434\u0432\u0443\u0445\u044d\u0442\u0430\u043f\u043d\u044b\u0439 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u0439 \u0434\u043e 90% \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u0432 USDT \u043d\u0430 \u0441\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a."), /*#__PURE__*/React.createElement("div", {
     className: "hh-final-cta-actions",
     style: {
       display: "flex",
@@ -10680,7 +10676,7 @@ function BigCTA() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \xb7 $79"), /*#__PURE__*/React.createElement("a", {
+  }, "\u041d\u0430\u0447\u0430\u0442\u044c \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 $79"), /*#__PURE__*/React.createElement("a", {
     href: "https://hashhedge.gitbook.io/hashhedge-user-guide?fpr=123456",
     target: "_blank",
     rel: "noopener",
@@ -10700,7 +10696,7 @@ function Footer() {
       label: "\u0411\u043b\u043e\u0433",
       href: "https://www.hashhedge.com/blog"
     }, {
-      label: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0440\u0443\u043a\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u043e",
+      label: "\u0420\u0443\u043a\u043e\u0432\u043e\u0434\u0441\u0442\u0432\u043e",
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide"
     }]
   }, {
@@ -10716,12 +10712,12 @@ function Footer() {
       href: "https://www.hashhedge.com/vacancies"
     }]
   }, {
-    t: "\u0414\u0440\u0443\u0433\u043e\u0435",
+    t: "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b",
     l: [{
       label: "\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438",
       href: "https://www.hashhedge.com/privacy-policy"
     }, {
-      label: "\u0423\u0441\u043b\u043e\u0432\u0438\u044f \u0438 \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u044f",
+      label: "\u0423\u0441\u043b\u043e\u0432\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f",
       href: "https://www.hashhedge.com/terms-and-conditions"
     }, {
       label: "\u041a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u0438\u0435 \u0443\u0441\u043b\u043e\u0432\u0438\u044f",
@@ -10792,7 +10788,7 @@ function Footer() {
       lineHeight: 1.45,
       maxWidth: 260
     }
-  }, "Hash Hedge \u2014 Crypto Prop-Trading \u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430: \u0442\u043e\u0440\u0433\u0443\u0439, \u0434\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0439 \u0441\u0432\u043e\u0438 \u043d\u0430\u0432\u044b\u043a\u0438, \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u0439 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge \u2014 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430 \u0434\u043b\u044f \u043f\u0440\u043e\u043f-\u0442\u0440\u0435\u0439\u0434\u0438\u043d\u0433\u0430: \u0442\u043e\u0440\u0433\u0443\u0439\u0442\u0435 \u043a\u0440\u0438\u043f\u0442\u043e\u0432\u0430\u043b\u044e\u0442\u043e\u0439 \u0438 TradFi-\u0430\u043a\u0442\u0438\u0432\u0430\u043c\u0438. \u0423\u043f\u0440\u0430\u0432\u043b\u044f\u0439\u0442\u0435 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c \u0434\u043e $150K.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
     key: col.t
   }, /*#__PURE__*/React.createElement("div", {
     style: {
