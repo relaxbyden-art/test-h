@@ -1387,9 +1387,11 @@ function Hero({
     className: "display",
     style: {
       margin: "20px 0 24px",
-      color: "var(--fg)"
+      color: "var(--fg)",
+      fontSize: "clamp(40px, 5.4vw, 76px)",
+      lineHeight: 1.05
     }
-  }, "\u0422\u043e\u0440\u0433\u0443\u0439 \u0441 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c \u0434\u043e", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u043e\u0440\u0433\u0443\u0439", /*#__PURE__*/React.createElement("br", null), "\u0441 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u043e\u043c", /*#__PURE__*/React.createElement("br", null), "\u0434\u043e ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
@@ -1412,7 +1414,7 @@ function Hero({
     strokeWidth: "3",
     strokeLinecap: "round",
     opacity: "0.6"
-  }))), " ", /*#__PURE__*/React.createElement("br", null), "\u0412\u044b\u0432\u043e\u0434\u0438 \u043f\u0440\u0438\u0431\u044b\u043b\u044c")), /*#__PURE__*/React.createElement(Reveal, {
+  }))), /*#__PURE__*/React.createElement("br", null), "\u0412\u044b\u0432\u043e\u0434\u0438 \u043f\u0440\u0438\u0431\u044b\u043b\u044c")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -1497,7 +1499,7 @@ function Hero({
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "5,120 funded traders"))), /*#__PURE__*/React.createElement("div", {
+  }, "5 120 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432 \u043f\u043e\u043b\u0443\u0447\u0438\u043b\u0438 \u0444\u043e\u043d\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435"))), /*#__PURE__*/React.createElement("div", {
     style: {
       height: 32,
       width: 1,
@@ -3474,7 +3476,7 @@ function Pricing() {
         color: "var(--fg-low)",
         marginTop: 1
       }
-    }, "\u0446\u0435\u043d\u0430"));
+    }, "\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c"));
   })))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
@@ -5033,7 +5035,7 @@ function PayoutShowcase() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "\u0412\u042b\u041f\u041b\u0410\u0422\u042b \xb7 ON-CHAIN"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u0412\u042b\u041f\u041b\u0410\u0422\u042b"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 24px",
@@ -7880,7 +7882,7 @@ function SupportSection() {
       color: "var(--fg)",
       marginBottom: 2
     }
-  }, "\u042f\u0437\u044b\u043a\u0438"), /*#__PURE__*/React.createElement("div", {
+  }, "\u042f\u0437\u044b\u043a\u043e\u0432"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 13,
       color: "var(--fg)",
@@ -9766,7 +9768,7 @@ function Reviews() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "\u041e\u0422\u0417\u042b\u0412\u042b \xb7 TRUSTPILOT")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "\u041e\u0422\u0417\u042b\u0412\u042b")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
@@ -9774,7 +9776,7 @@ function Reviews() {
       margin: "20px 0 0",
       maxWidth: 860
     }
-  }, "5,120 funded traders.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "5 120 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432 \u043f\u043e\u043b\u0443\u0447\u0438\u043b\u0438 \u0444\u043e\u043d\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
