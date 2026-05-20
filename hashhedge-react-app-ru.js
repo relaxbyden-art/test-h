@@ -741,23 +741,23 @@ function LivePayoutsTable() {
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
-    k: "\u0421\u043e\u0432\u043e\u043a\u0443\u043f\u043d\u044b\u0439 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u043e\u0431\u044a\u0451\u043c",
+    k: "\u041e\u0431\u0449\u0438\u0439 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u043e\u0431\u044a\u0451\u043c",
     v: fmtMoney(volumeTotal),
-    sub: "today",
+    sub: "\u0421\u0435\u0433\u043e\u0434\u043d\u044f",
     subV: `+${fmtMoney(volumeToday)}`,
     color: "var(--accent)",
     chart: [0.52, 0.57, 0.62, 0.66, 0.70, 0.73, 0.76, 0.80, 0.84, 0.88, 0.92, 0.95]
   }, {
-    k: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
+    k: "\u0412\u0441\u0435\u0433\u043e Funded-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     v: fmtCount(tradersTotal),
-    sub: "today",
+    sub: "\u0421\u0435\u0433\u043e\u0434\u043d\u044f",
     subV: `+${Math.max(1, Math.round(secToday * 18 / 86400))}`,
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
-    k: "\u0412\u0441\u0435\u0433\u043e \u0432\u044b\u043f\u043b\u0430\u0442",
+    k: "\u0421\u0443\u043c\u043c\u0430 \u0432\u044b\u043f\u043b\u0430\u0442",
     v: fmtMoney(payoutsTotal),
-    sub: "today",
+    sub: "\u0421\u0435\u0433\u043e\u0434\u043d\u044f",
     subV: `+${fmtMoney(payoutsToday)}`,
     color: "var(--green)",
     chart: [0.38, 0.44, 0.51, 0.57, 0.62, 0.66, 0.70, 0.75, 0.80, 0.84, 0.88, 0.92]
@@ -1381,7 +1381,7 @@ function Hero({
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "#1 CRYPTO PROP TRADING FIRM \xB7 WEB3 NATIVE")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "#1 \u041a\u0420\u0418\u041f\u0422\u041e \u041f\u0420\u041e\u041f-\u0422\u0420\u0415\u0419\u0414\u0418\u041d\u0413\u041e\u0412\u0410\u042f \u041f\u041b\u0410\u0422\u0424\u041e\u0420\u041c\u0410")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h1", {
     className: "display",
@@ -1389,13 +1389,13 @@ function Hero({
       margin: "20px 0 24px",
       color: "var(--fg)"
     }
-  }, "\u0422\u043e\u0440\u0433\u0443\u0439", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
+  }, "\u0422\u041e\u0420\u0413\u0423\u0419 \u0421 \u041a\u0410\u041f\u0418\u0422\u0410\u041b\u041e\u041c \u0414\u041e", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
       display: "inline-block"
     }
-  }, "\u043a\u0440\u0438\u043f\u0442\u043e-\u043a\u0430\u043f\u0438\u0442\u0430\u043b.", /*#__PURE__*/React.createElement("svg", {
+  }, "$150K", /*#__PURE__*/React.createElement("svg", {
     style: {
       position: "absolute",
       bottom: -8,
@@ -1412,7 +1412,7 @@ function Hero({
     strokeWidth: "3",
     strokeLinecap: "round",
     opacity: "0.6"
-  }))), " ", /*#__PURE__*/React.createElement("br", null), "\u041f\u043e\u043b\u0443\u0447\u0430\u0439", /*#__PURE__*/React.createElement("br", null), "\u043a\u0430\u043a \u043f\u0440\u043e\u0444\u0438.")), /*#__PURE__*/React.createElement(Reveal, {
+  }))), " ", /*#__PURE__*/React.createElement("br", null), "\u0412\u042b\u0412\u041e\u0414\u0418 \u041f\u0420\u0418\u0411\u042b\u041b\u042c")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -1423,12 +1423,12 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "\u041c\u044b \u0434\u0430\u0451\u043c \u043e\u043f\u044b\u0442\u043d\u044b\u043c \u043a\u0440\u0438\u043f\u0442\u043e-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u0430\u043c \u0434\u043e ", /*#__PURE__*/React.createElement("span", {
+  }, "\u041f\u043e\u043b\u0443\u0447\u0438 \u043a\u0430\u043f\u0438\u0442\u0430\u043b ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "$150,000"), " \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0430 \u2014 \u0431\u0435\u0437 \u0440\u0438\u0441\u043a\u0430 \u0434\u043b\u044f \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0445 \u0441\u0440\u0435\u0434\u0441\u0442\u0432. 160+ \u043a\u0440\u0438\u043f\u0442\u043e-\u043f\u0430\u0440. \u0414\u0432\u0443\u0445\u044d\u0442\u0430\u043f\u043d\u044b\u0439 Hash Hedge Challenge \u2014 \u043f\u0440\u043e\u0439\u0434\u0438 \u042d\u0442\u0430\u043f 1 \u0438 \u042d\u0442\u0430\u043f 2, \u0442\u043e\u0440\u0433\u0443\u0439 \u043d\u0430 \u043d\u0430\u0448\u0435\u043c \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u0435. \u041f\u043b\u0435\u0447\u043e 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Hash Hedge"), " \u0438 \u0442\u043e\u0440\u0433\u0443\u0439 \u043d\u0430 \u043a\u0440\u0438\u043f\u0442\u043e \u0440\u044b\u043d\u043a\u0435 \u0431\u0435\u0437 \u0440\u0438\u0441\u043a\u0430 \u0434\u043b\u044f \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0445 \u0441\u0440\u0435\u0434\u0441\u0442\u0432.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -1540,23 +1540,23 @@ function Hero({
   }, [{
     v: 17800,
     suf: "+",
-    l: "\u0412\u044b\u043f\u043b\u0430\u0442\u044b \u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u044b",
+    l: "\u0432\u044b\u043f\u043b\u0430\u0442 \u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u043e",
     sub: "\u0411\u044b\u0441\u0442\u0440\u043e, \u0431\u0435\u0437 \u0437\u0430\u0434\u0435\u0440\u0436\u0435\u043a \u0438 \u0432\u0441\u0435\u0433\u0434\u0430 \u0432\u043e\u0432\u0440\u0435\u043c\u044f."
   }, {
-    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400)),
+    v: Math.round(12_120 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400)),
     suf: "",
-    l: "\u0424\u0438\u043d\u0430\u043d\u0441\u0438\u0440\u0443\u0435\u043c\u044b\u0445 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
+    l: "Funded-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     sub: "\u0420\u0430\u0441\u0442\u0451\u043c \u043a\u0430\u0436\u0434\u044b\u0439 \u0434\u0435\u043d\u044c."
   }, {
     v: 160,
     suf: "+",
-    l: "\u041a\u0440\u0438\u043f\u0442\u043e-\u043f\u0430\u0440\u044b",
+    l: "\u043a\u0440\u0438\u043f\u0442\u043e-\u043f\u0430\u0440",
     sub: "\u0421\u043f\u043e\u0442-\u043b\u0438\u043a\u0432\u0438\u0434\u043d\u043e\u0441\u0442\u044c \u043f\u043e \u043c\u0435\u0439\u0434\u0436\u043e\u0440\u0430\u043c \u0438 \u0430\u043b\u044c\u0442\u0430\u043c."
   }, {
     v: 4.4,
     suf: "/5",
     dec: 1,
-    l: "\u0420\u0435\u0439\u0442\u0438\u043d\u0433 Trustpilot",
+    l: "\u0440\u0435\u0439\u0442\u0438\u043d\u0433 Trustpilot",
     sub: "\u041d\u0430 \u043e\u0441\u043d\u043e\u0432\u0435 79 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0445 \u043e\u0442\u0437\u044b\u0432\u043e\u0432."
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: i
