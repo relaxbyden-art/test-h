@@ -7990,7 +7990,9 @@ function BlueprintSection() {
     "data-mobile-heading-only": true
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
-  }, "\u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0421\u0422\u0412\u041e."), /*#__PURE__*/React.createElement("h2", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }), "\u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0421\u0422\u0412\u041e"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 32px",
@@ -8010,7 +8012,9 @@ function BlueprintSection() {
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow",
     "data-mobile-hide-heading": true
-  }, "\u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0421\u0422\u0412\u041e."), /*#__PURE__*/React.createElement("h2", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }), "\u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0421\u0422\u0412\u041e"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     "data-mobile-hide-heading": true,
     style: {
@@ -9488,7 +9492,10 @@ function TeamCerts() {
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
-      margin: "20px 0 0"
+      margin: "20px 0 0",
+      fontSize: "clamp(36px, 4.4vw, 64px)",
+      lineHeight: 1.05,
+      whiteSpace: "nowrap"
     }
   }, "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u044b.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
@@ -9507,9 +9514,10 @@ function TeamCerts() {
     target: "_blank",
     rel: "noopener",
     style: {
-      color: "var(--accent)"
+      color: "var(--accent)",
+      whiteSpace: "nowrap"
     }
-  }, "Telegram-\u043a\u0430\u043d\u0430\u043b\u0435"), ".")))), /*#__PURE__*/React.createElement(React.Fragment, null,
+  }, "Telegram-\u043a\u0430\u043d\u0430\u043b\u0435."), "")))), /*#__PURE__*/React.createElement(React.Fragment, null,
     /*#__PURE__*/React.createElement("div", {
       className: "hh-cert-desktop",
       style: { display: "flex", flexDirection: "column", gap: 20 }
