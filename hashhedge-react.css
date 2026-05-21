@@ -6357,18 +6357,24 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] .hh-why-art-stage > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="coins"] > div[style*="display: flex"] > *,
-  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] .hh-why-art-stage > *,
-  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] > div[style*="display: flex"] > *,
-  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="coins"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > *,
-  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="infinity"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="coins"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
     transform: translate(-50%, -50%) scale(0.56) !important;
     transform-origin: center center !important;
   }
 
+  /* Infinity art uses position:absolute;inset:0 + flex centering — plain scale, no translate */
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] .hh-why-art-stage > *,
+  #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="infinity"] > div[style*="display: flex"] > *,
+  #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="infinity"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
+    transform: scale(0.56) !important;
+    transform-origin: center center !important;
+  }
+
+  /* Support art (Clock) uses position:absolute;inset:0 + flex centering — plain scale, no translate */
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] .hh-why-art-stage > *,
   #hashhedge-root .tilda-html-hashhedge #why .hh-why-art[data-why-art="support"] > div[style*="display: flex"] > *,
   #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="support"] > div.hh-why-art-stage[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
-    transform: translate(-50%, -54%) scale(0.56) !important;
+    transform: scale(0.56) !important;
     transform-origin: center center !important;
   }
 }
