@@ -737,7 +737,7 @@ function LivePayoutsTable() {
   const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
 
   // Traders: fixed to match the hero metric and avoid competing live totals.
-  const tradersTotal = Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400));
+  const tradersTotal = Math.round(5_120 + Math.max(0, (Date.now() - 1779667200000) / 1000) * (4/86400));
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
@@ -751,7 +751,7 @@ function LivePayoutsTable() {
     k: "\u0412\u0441\u0435\u0433\u043e Funded-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     v: fmtCount(tradersTotal),
     sub: "\u0421\u0435\u0433\u043e\u0434\u043d\u044f",
-    subV: `+${Math.max(1, Math.round(secToday * 18 / 86400))}`,
+    subV: `+${Math.max(1, Math.round(secToday * 4 / 86400))}`,
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
@@ -817,7 +817,7 @@ function LivePayoutsTable() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "live")), /*#__PURE__*/React.createElement("div", {
+  }, "\u041e\u0431\u043d\u043e\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043e\u043d\u043b\u0430\u0439\u043d")), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "4px 0"
     }
@@ -1541,7 +1541,7 @@ function Hero({
     l: "\u0432\u044b\u043f\u043b\u0430\u0442 \u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u043e",
     sub: "\u0411\u044b\u0441\u0442\u0440\u043e \u0438 \u0431\u0435\u0437 \u0437\u0430\u0434\u0435\u0440\u0436\u0435\u043a."
   }, {
-    v: 12120,
+    v: 5120,
     suf: "",
     l: "Funded-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     sub: "\u041a\u0430\u0436\u0434\u044b\u0439 \u0434\u0435\u043d\u044c \u0438\u0445 \u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0441\u044f \u0431\u043e\u043b\u044c\u0448\u0435."
@@ -3946,25 +3946,25 @@ function WhyUs() {
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
-    k: "infinity",
+    k: "orderbook",
     t: "\u0421\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b",
     d: "\u0412\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u0439 \u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b \u043f\u0440\u044f\u043c\u043e \u0432 \u043b\u0438\u0447\u043d\u043e\u043c \u043a\u0430\u0431\u0438\u043d\u0435\u0442\u0435. \u0422\u0435\u0431\u0435 \u043d\u0435 \u043d\u0443\u0436\u043d\u043e \u0442\u0440\u0430\u0442\u0438\u0442\u044c \u0432\u0440\u0435\u043c\u044f \u043d\u0430 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u0441\u0442\u043e\u0440\u043e\u043d\u043d\u0438\u0445 \u0431\u0438\u0440\u0436.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
   }, {
     n: "06",
-    k: "orderbook",
+    k: "infinity",
     t: "\u0411\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438",
     d: "\u0422\u043e\u0440\u0433\u0443\u0439 \u0438 \u043f\u0440\u043e\u0445\u043e\u0434\u0438 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u0432 \u0441\u0432\u043e\u0451\u043c \u0442\u0435\u043c\u043f\u0435, \u0431\u0435\u0437 30-\u0434\u043d\u0435\u0432\u043d\u044b\u0445 \u0434\u0435\u0434\u043b\u0430\u0439\u043d\u043e\u0432.",
     art: /*#__PURE__*/React.createElement(ArtInfinity, null)
   }, {
     n: "07",
-    k: "support",
+    k: "rules",
     t: "\u041f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u044b\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430",
     d: "\u0426\u0435\u043b\u0438 \u043f\u043e \u043f\u0440\u0438\u0431\u044b\u043b\u0438, \u043b\u0438\u043c\u0438\u0442\u044b \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0438 \u0438 \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0432\u044b\u043f\u043b\u0430\u0442 \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u044b \u043d\u0430 \u0441\u0430\u0439\u0442\u0435. \u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u043a\u0443\u043f\u043a\u0438 \u044d\u0442\u0438 \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u043d\u0435 \u0438\u0437\u043c\u0435\u043d\u044f\u0442\u0441\u044f.",
     art: /*#__PURE__*/React.createElement(ArtRules, null)
   }, {
     n: "08",
-    k: "rules",
+    k: "support",
     t: "\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 24/7",
     d: "\u041a\u043e\u043c\u0430\u043d\u0434\u0430 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0438 Hash Hedge \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043a\u0440\u0443\u0433\u043b\u043e\u0441\u0443\u0442\u043e\u0447\u043d\u043e. \u0421\u0440\u0435\u0434\u043d\u0435\u0435 \u0432\u0440\u0435\u043c\u044f \u043e\u0442\u0432\u0435\u0442\u0430 \u043c\u0435\u043d\u0435\u0435 5 \u043c\u0438\u043d\u0443\u0442.",
     art: /*#__PURE__*/React.createElement(ArtClock, null)
