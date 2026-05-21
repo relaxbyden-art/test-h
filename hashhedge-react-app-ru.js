@@ -3635,7 +3635,7 @@ function Pricing() {
     style: {
       fontSize: 10,
       fontWeight: 800,
-      letterSpacing: "0.14em",
+      letterSpacing: "0.04em",
       color: col.accent ? "var(--accent)" : "var(--fg-dim)",
       marginBottom: 4,
       marginTop: 0
@@ -3922,7 +3922,7 @@ function WhyUs() {
   useRevealOnScroll();
   const cards = [{
     n: "01",
-    k: "tickers",
+    k: "profitsplit",
     t: "\u0414\u043e 90/10 \u041f\u0440\u043e\u0444\u0438\u0442-\u0441\u043f\u043b\u0438\u0442",
     d: "\u0418\u0437 \u043a\u0430\u0436\u0434\u044b\u0445 $100 \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u0442\u044b \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0448\u044c \u0434\u043e $90. \u041e\u0441\u0442\u0430\u0432\u0448\u0438\u0435\u0441\u044f $10 Hash Hedge \u0443\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 \u043a\u0430\u043a \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u0437\u0430 \u043a\u0430\u043f\u0438\u0442\u0430\u043b \u0438 \u0438\u043d\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0443.",
     art: /*#__PURE__*/React.createElement(ArtProfitSplit, null)
@@ -3940,13 +3940,13 @@ function WhyUs() {
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
     n: "04",
-    k: "infinity",
+    k: "tickers",
     t: "TradFi \u043d\u0430 \u0442\u0435\u0445 \u0436\u0435 \u0441\u0447\u0435\u0442\u0430\u0445",
     d: "\u041a\u0443\u043f\u0438 \u043e\u0434\u0438\u043d \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u0438 \u0442\u043e\u0440\u0433\u0443\u0439 \u043a\u0440\u0438\u043f\u0442\u0443, \u0430\u043a\u0446\u0438\u0438, \u0438\u043d\u0434\u0435\u043a\u0441\u044b, \u043d\u0435\u0444\u0442\u044c \u0438 \u043f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u0433\u0430\u0437. \u041d\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u0442\u043a\u0440\u044b\u0432\u0430\u0442\u044c \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u0441\u0447\u0451\u0442 \u043f\u043e\u0434 \u043a\u0430\u0436\u0434\u044b\u0439 \u0440\u044b\u043d\u043e\u043a.",
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
-    k: "scale",
+    k: "infinity",
     t: "\u0421\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b",
     d: "\u0412\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u0439 \u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b \u043f\u0440\u044f\u043c\u043e \u0432 \u043b\u0438\u0447\u043d\u043e\u043c \u043a\u0430\u0431\u0438\u043d\u0435\u0442\u0435. \u0422\u0435\u0431\u0435 \u043d\u0435 \u043d\u0443\u0436\u043d\u043e \u0442\u0440\u0430\u0442\u0438\u0442\u044c \u0432\u0440\u0435\u043c\u044f \u043d\u0430 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u0441\u0442\u043e\u0440\u043e\u043d\u043d\u0438\u0445 \u0431\u0438\u0440\u0436.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
@@ -4134,6 +4134,7 @@ function WhyUs() {
 
 function ArtProfitSplit() {
   // Animated profit-split bar card: Trader 90% vs Hash Hedge 10%
+  // Outer wrapper = display:flex center so existing CSS scale(0.48/0.7) applies on mobile
   const [filled, setFilled] = useState(false);
   useEffect(() => { const t = setTimeout(() => setFilled(true), 300); return () => clearTimeout(t); }, []);
   const bar = (pct, color, height) => /*#__PURE__*/React.createElement("div", {
@@ -4149,8 +4150,11 @@ function ArtProfitSplit() {
   }));
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "absolute", top: "50%", left: "50%",
-      transform: "translate(-50%, -50%)",
+      position: "absolute", inset: 0,
+      display: "flex", alignItems: "center", justifyContent: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
       width: 220,
       background: "rgba(14,14,18,0.96)",
       border: "1px solid rgba(252,213,53,0.22)",
@@ -4177,7 +4181,7 @@ function ArtProfitSplit() {
       ),
       bar(10, "rgba(180,180,190,0.35)", 6)
     )
-  );
+  ));
 }
 
 function ArtTickers() {

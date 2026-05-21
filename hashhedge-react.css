@@ -4767,14 +4767,14 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     opacity: 1;
   }
 
-  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(1) .why-card > div:first-child::after { content: "160+"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(1) .why-card > div:first-child::after { content: "90/10"; }
   #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(2) .why-card > div:first-child::after { content: "S1/S2"; }
   #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(3) .why-card > div:first-child::after { content: "USDT"; }
-  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(4) .why-card > div:first-child::after { content: "∞"; font-size: 32px; }
-  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(5) .why-card > div:first-child::after { content: "200K"; }
-  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(6) .why-card > div:first-child::after { content: "1:5"; }
-  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(7) .why-card > div:first-child::after { content: "24/7"; }
-  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(8) .why-card > div:first-child::after { content: "RULES"; font-size: 16px; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(4) .why-card > div:first-child::after { content: "160+"; font-size: 19px; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(5) .why-card > div:first-child::after { content: "⊞"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(6) .why-card > div:first-child::after { content: "∞"; font-size: 32px; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(7) .why-card > div:first-child::after { content: "✓"; }
+  #hashhedge-root .tilda-html-hashhedge #why .container > div:nth-child(2) > div:nth-child(8) .why-card > div:first-child::after { content: "24/7"; font-size: 16px; }
 
   #hashhedge-root .tilda-html-hashhedge #telegram [data-mobile-image-first] {
     display: block !important;
@@ -7884,4 +7884,14 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-hero-copy {
 
 body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-hero-actions {
   margin-top: 88px !important;
+}
+
+/* ---- ArtProfitSplit: scale on tablet/phone columns ---- */
+#hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="profitsplit"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
+  transform: scale(0.6) !important;
+  transform-origin: center center !important;
+}
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh-why-art[data-why-art="profitsplit"] > div[style*="display: flex"][style*="align-items: center"][style*="justify-content: center"] > * {
+  transform: scale(0.42) !important;
+  transform-origin: center center !important;
 }
