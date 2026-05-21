@@ -3925,7 +3925,7 @@ function WhyUs() {
     k: "tickers",
     t: "\u0414\u043e 90/10 \u041f\u0440\u043e\u0444\u0438\u0442-\u0441\u043f\u043b\u0438\u0442",
     d: "\u0418\u0437 \u043a\u0430\u0436\u0434\u044b\u0445 $100 \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u0442\u044b \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0448\u044c \u0434\u043e $90. \u041e\u0441\u0442\u0430\u0432\u0448\u0438\u0435\u0441\u044f $10 Hash Hedge \u0443\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 \u043a\u0430\u043a \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u0437\u0430 \u043a\u0430\u043f\u0438\u0442\u0430\u043b \u0438 \u0438\u043d\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0443.",
-    art: /*#__PURE__*/React.createElement(ArtTickers, null)
+    art: /*#__PURE__*/React.createElement(ArtProfitSplit, null)
   }, {
     n: "02",
     k: "stages",
@@ -3943,7 +3943,7 @@ function WhyUs() {
     k: "infinity",
     t: "TradFi \u043d\u0430 \u0442\u0435\u0445 \u0436\u0435 \u0441\u0447\u0435\u0442\u0430\u0445",
     d: "\u041a\u0443\u043f\u0438 \u043e\u0434\u0438\u043d \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u0438 \u0442\u043e\u0440\u0433\u0443\u0439 \u043a\u0440\u0438\u043f\u0442\u0443, \u0430\u043a\u0446\u0438\u0438, \u0438\u043d\u0434\u0435\u043a\u0441\u044b, \u043d\u0435\u0444\u0442\u044c \u0438 \u043f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u0433\u0430\u0437. \u041d\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u0442\u043a\u0440\u044b\u0432\u0430\u0442\u044c \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u0441\u0447\u0451\u0442 \u043f\u043e\u0434 \u043a\u0430\u0436\u0434\u044b\u0439 \u0440\u044b\u043d\u043e\u043a.",
-    art: /*#__PURE__*/React.createElement(ArtInfinity, null)
+    art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
     k: "scale",
@@ -4131,6 +4131,54 @@ function WhyUs() {
 }
 
 // ====== Why Us – themed visuals (pure CSS/SVG, no stock images) ============
+
+function ArtProfitSplit() {
+  // Animated profit-split bar card: Trader 90% vs Hash Hedge 10%
+  const [filled, setFilled] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setFilled(true), 300); return () => clearTimeout(t); }, []);
+  const bar = (pct, color, height) => /*#__PURE__*/React.createElement("div", {
+    style: { height: height, borderRadius: height / 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: filled ? pct + "%" : "0%",
+      borderRadius: height / 2,
+      background: color,
+      transition: "width 1.1s cubic-bezier(0.22,1,0.36,1)"
+    }
+  }));
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute", top: "50%", left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: 220,
+      background: "rgba(14,14,18,0.96)",
+      border: "1px solid rgba(252,213,53,0.22)",
+      borderRadius: 18,
+      padding: "20px 22px 20px",
+      fontFamily: "Akrobat, Onest, sans-serif",
+      boxShadow: "0 8px 40px rgba(0,0,0,0.5)"
+    }
+  },
+    /*#__PURE__*/React.createElement("div", {
+      style: { fontSize: 11, fontWeight: 800, letterSpacing: "0.14em", color: "var(--accent)", textTransform: "uppercase", marginBottom: 20 }
+    }, "ПРОФИТ-СПЛИТ"),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: 16 } },
+      /*#__PURE__*/React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 } },
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 15, fontWeight: 700, color: "var(--fg)" } }, "Trader"),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 32, fontWeight: 900, color: "var(--accent)", letterSpacing: "-0.02em", lineHeight: 1 } }, "90%")
+      ),
+      bar(90, "linear-gradient(90deg, #c8a800 0%, var(--accent) 100%)", 9)
+    ),
+    /*#__PURE__*/React.createElement("div", null,
+      /*#__PURE__*/React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 7 } },
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 14, fontWeight: 600, color: "var(--fg-dim)" } }, "Hash Hedge"),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "var(--fg-dim)", letterSpacing: "-0.01em" } }, "10%")
+      ),
+      bar(10, "rgba(180,180,190,0.35)", 6)
+    )
+  );
+}
 
 function ArtTickers() {
   // Live-price board: 6 visible tickers, prices tick randomly every 1-2s with flash highlight.
