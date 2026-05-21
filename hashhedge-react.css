@@ -4694,6 +4694,13 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     line-height: 1;
     font-weight: 900;
     text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Funded tab label "ФИНАНСИРУЕМЫЙ" is long — shrink and tighten so it fits the column */
+  #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs button:last-child b {
+    font-size: 8.5px;
+    letter-spacing: -0.04em;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-mobile-stage-tabs span {
