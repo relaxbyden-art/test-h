@@ -739,7 +739,7 @@ function LivePayoutsTable() {
   // Traders: fixed to match the hero metric and avoid competing live totals.
   const tradersTotal = Math.round(5_120 + Math.max(0, (Date.now() - 1779667200000) / 1000) * (4/86400));
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
-  const fmtCount = n => n.toLocaleString("en-US");
+  const fmtCount = n => String(n);
   const stats = [{
     k: "\u041e\u0431\u0449\u0438\u0439 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u0439 \u043e\u0431\u044a\u0451\u043c",
     v: fmtMoney(volumeTotal),
@@ -751,7 +751,7 @@ function LivePayoutsTable() {
     k: "\u0412\u0441\u0435\u0433\u043e Funded-\u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
     v: fmtCount(tradersTotal),
     sub: "\u0421\u0435\u0433\u043e\u0434\u043d\u044f",
-    subV: `+${Math.max(1, Math.round(secToday * 4 / 86400))}`,
+    subV: "+4",
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
@@ -2531,14 +2531,14 @@ function HowItWorks() {
       fontWeight: 800,
       letterSpacing: "0.14em",
       color: "var(--accent)",
-      marginBottom: 12
+      marginBottom: 8
     }
   }, s.k), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontSize: 26,
       fontWeight: 700,
       letterSpacing: "-0.02em",
-      margin: "0 0 14px"
+      margin: "0 0 6px"
     }
   }, s.t), /*#__PURE__*/React.createElement("p", {
     style: {
@@ -9419,9 +9419,8 @@ function TeamCerts() {
     }
   }, c.name), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 11,
-      color: "var(--fg-dim)",
-      fontFamily: "Akrobat, Onest, sans-serif"
+      fontSize: 12,
+      color: "var(--fg-dim)"
     }
   }, c.date)), /*#__PURE__*/React.createElement("div", {
     style: {
