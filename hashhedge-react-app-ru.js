@@ -2171,7 +2171,7 @@ function PromoBanner() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "10+ TradFi-\u0430\u043a\u0442\u0438\u0432\u0430\u043c\u0438"), " \u0432 \u043e\u0434\u043d\u043e\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0435."), /*#__PURE__*/React.createElement("p", {
+  }, "10+ TradFi-\u0430\u043a\u0442\u0438\u0432\u043e\u0432"), " \u0432 \u043e\u0434\u043d\u043e\u043c \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0435."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
