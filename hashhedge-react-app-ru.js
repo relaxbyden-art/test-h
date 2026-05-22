@@ -9102,18 +9102,15 @@ function useCertRow(defaultDir) {
 }
 
 function MobileCertMarquee({ certs, CertCard }) {
-  const row1 = certs.filter((_, i) => i % 2 === 0);
-  const row2 = certs.filter((_, i) => i % 2 === 1);
+  const row1 = certs;
   const doubled1 = [...row1, ...row1];
-  const doubled2 = [...row2, ...row2];
   const r1 = useCertRow(1);
-  const r2 = useCertRow(-1);
   const animRef = React.useRef(null);
   const SPEED = 0.45;
 
   React.useEffect(() => {
     const animate = () => {
-      [r1, r2].forEach(r => {
+      [r1].forEach(r => {
         if (!r.isTouching.current && r.trackRef.current) {
           const half = r.trackRef.current.scrollWidth / 2;
           r.posRef.current += SPEED * r.dirRef.current;
@@ -9140,8 +9137,7 @@ function MobileCertMarquee({ certs, CertCard }) {
       /*#__PURE__*/React.createElement(CertCard, { c: c })))));
 
   return /*#__PURE__*/React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8 } },
-    makeRow(r1, doubled1),
-    makeRow(r2, doubled2)
+    makeRow(r1, doubled1)
   );
 }
 

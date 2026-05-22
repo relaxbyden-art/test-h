@@ -7923,3 +7923,8 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
     display: none !important;
   }
 }
+
+/* Hide payout sample caption on mobile (under certificates marquee) */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-payout-sample { display: none !important; }
+}
