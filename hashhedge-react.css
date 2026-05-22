@@ -1635,7 +1635,7 @@ html {
   }
 
   #hashhedge-root .tilda-html-hashhedge section:has(.hh-review-card) .container > div:first-child h2 br {
-    display: none !important;
+    display: block !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge section:has(.hh-review-card) .container > div:first-child > div:nth-child(2) > div {
@@ -7910,4 +7910,16 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
 .hh-hero-sub-br { display: inline; }
 @media (max-width: 768px) {
   .hh-hero-sub-br { display: none !important; }
+}
+
+/* Mobile: allow accent number spans in hero subtitle to wrap (overflow fix) */
+@media (max-width: 640px) {
+  .hh-hero-num { white-space: normal !important; }
+}
+
+/* Featured event prize badge: hide on mobile — prize fund info is duplicated in the blurb below. */
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-event-prize-badge {
+    display: none !important;
+  }
 }

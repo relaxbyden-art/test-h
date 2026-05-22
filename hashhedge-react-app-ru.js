@@ -2160,11 +2160,13 @@ function PromoBanner() {
       color: "var(--fg)"
     }
   }, "\u0422\u043e\u0440\u0433\u0443\u0439 ", /*#__PURE__*/React.createElement("span", {
+    className: "hh-hero-num",
     style: {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
   }, "160+ \u043a\u0440\u0438\u043f\u0442\u043e\u043f\u0430\u0440"), /*#__PURE__*/React.createElement("br", { className: "hh-hero-sub-br" }), " \u0438 ", /*#__PURE__*/React.createElement("span", {
+    className: "hh-hero-num",
     style: {
       color: "var(--accent)",
       whiteSpace: "nowrap"
@@ -5638,6 +5640,7 @@ function EventsTournaments() {
       backdropFilter: "blur(6px)"
     }
   }, featured.date.toUpperCase())), /*#__PURE__*/React.createElement("div", {
+    className: "hh-event-prize-badge",
     style: {
       position: "absolute",
       top: 24,
