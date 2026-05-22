@@ -7903,3 +7903,9 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
   transform: scale(0.42) !important;
   transform-origin: center center !important;
 }
+
+/* Desktop hero subtitle break — hide on mobile */
+.hh-hero-sub-br { display: inline; }
+@media (max-width: 768px) {
+  .hh-hero-sub-br { display: none !important; }
+}

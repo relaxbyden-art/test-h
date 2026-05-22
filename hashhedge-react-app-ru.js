@@ -2164,7 +2164,7 @@ function PromoBanner() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "160+ \u043a\u0440\u0438\u043f\u0442\u043e\u043f\u0430\u0440"), " \u0438 ", /*#__PURE__*/React.createElement("span", {
+  }, "160+ \u043a\u0440\u0438\u043f\u0442\u043e\u043f\u0430\u0440"), /*#__PURE__*/React.createElement("br", { className: "hh-hero-sub-br" }), " \u0438 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       whiteSpace: "nowrap"
@@ -2431,7 +2431,7 @@ function HowItWorks() {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
       gap: 80,
-      marginBottom: 80,
+      marginBottom: 48,
       alignItems: "end"
     }
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
@@ -2522,7 +2522,6 @@ function HowItWorks() {
       padding: 32,
       height: "100%",
       width: "100%",
-      minHeight: 410,
       display: "flex",
       flexDirection: "column"
     }
@@ -2546,8 +2545,7 @@ function HowItWorks() {
       fontSize: 15,
       lineHeight: 1.55,
       color: "var(--fg-muted)",
-      margin: "0 0 20px",
-      minHeight: 118,
+      margin: "0 0 16px",
       overflowWrap: "anywhere"
     }
   }, s.d), /*#__PURE__*/React.createElement("ul", {
@@ -4035,7 +4033,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "\u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430 Hash Hedge \u0441\u043e\u0437\u0434\u0430\u043d\u0430 \u0447\u0442\u043e\u0431\u044b \u0442\u044b \u043c\u043e\u0433 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u0442\u044c \u0441\u0432\u043e\u044e \u0442\u043e\u0440\u0433\u043e\u0432\u0443\u044e \u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044e \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u043c\u0430\u043a\u0441\u0438\u043c\u0443\u043c \u043f\u0440\u0438\u0431\u044b\u043b\u0438. \u041c\u044b \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u043c \u043a\u0430\u043f\u0438\u0442\u0430\u043b, \u0431\u0435\u0440\u0451\u043c \u043d\u0430 \u0441\u0435\u0431\u044f \u0440\u0438\u0441\u043a\u0438 \u0438 \u0441\u043e\u0437\u0434\u0430\u0451\u043c \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0434\u043b\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438."))), /*#__PURE__*/React.createElement("div", {
+  }, "\u041f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430 Hash Hedge \u0441\u043e\u0437\u0434\u0430\u043d\u0430, \u0447\u0442\u043e\u0431\u044b \u0442\u044b \u043c\u043e\u0433 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u0442\u044c \u0441\u0432\u043e\u044e \u0442\u043e\u0440\u0433\u043e\u0432\u0443\u044e \u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044e \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u043c\u0430\u043a\u0441\u0438\u043c\u0443\u043c \u043f\u0440\u0438\u0431\u044b\u043b\u0438. \u041c\u044b \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u043c \u043a\u0430\u043f\u0438\u0442\u0430\u043b, \u0431\u0435\u0440\u0451\u043c \u043d\u0430 \u0441\u0435\u0431\u044f \u0440\u0438\u0441\u043a\u0438 \u0438 \u0441\u043e\u0437\u0434\u0430\u0451\u043c \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0434\u043b\u044f \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -4115,9 +4113,8 @@ function WhyUs() {
     }
   }, c.n)), /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: 24,
-      flex: 1,
-      minHeight: 214
+      padding: "24px 24px 20px",
+      flex: 1
     }
   }, /*#__PURE__*/React.createElement("h3", {
     style: {
@@ -5464,13 +5461,13 @@ function EventsTournaments() {
     city: "\u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443",
     flag: "🇧🇷",
     event: "WSCT Qualifying Tour, \u0411\u0440\u0430\u0437\u0438\u043b\u0438\u044f",
-    role: "\u0426\u0435\u0440\u0435\u043c\u043e\u043d\u0438\u044f \u043d\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043d\u0438\u044f",
+    role: "\u0422\u0443\u0440\u043d\u0438\u0440 \u043f\u043e \u0442\u0440\u0435\u0439\u0434\u0438\u043d\u0433\u0443",
     date: "2025",
     stat: {
       v: "$10K+",
       l: "\u041f\u0440\u0438\u0437\u043e\u0432\u043e\u0439 \u0444\u043e\u043d\u0434"
     },
-    blurb: "\u041e\u0434\u0438\u043d \u0438\u0437 \u0447\u0435\u0442\u044b\u0440\u0451\u0445 \u043e\u0442\u0431\u043e\u0440\u043e\u0447\u043d\u044b\u0445 \u0442\u0443\u0440\u043d\u0438\u0440\u043e\u0432 WSCT \u0432 \u041b\u0430\u0442\u0438\u043d\u0441\u043a\u043e\u0439 \u0410\u043c\u0435\u0440\u0438\u043a\u0435 \u0437\u0430 2025 \u0433\u043e\u0434. \u041d\u0430 \u0444\u0438\u043d\u0430\u043b\u044c\u043d\u043e\u0439 \u0446\u0435\u0440\u0435\u043c\u043e\u043d\u0438\u0438 \u0432 \u0421\u0430\u043d-\u041f\u0430\u0443\u043b\u0443 \u043c\u044b \u043d\u0430\u0433\u0440\u0430\u0434\u0438\u043b\u0438 \u043f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b\u044f \u043e\u0442\u0431\u043e\u0440\u043e\u0447\u043d\u043e\u0433\u043e \u044d\u0442\u0430\u043f\u0430.",
+    blurb: "\u041e\u0442\u0431\u043e\u0440\u043e\u0447\u043d\u044b\u0439 \u0442\u0443\u0440\u043d\u0438\u0440 WSCT \u0432 \u0411\u0440\u0430\u0437\u0438\u043b\u0438\u0438. \u0422\u0440\u0435\u0439\u0434\u0435\u0440\u044b \u0441\u0440\u0430\u0436\u0430\u043b\u0438\u0441\u044c \u0437\u0430 \u0442\u0438\u0442\u0443\u043b \u043f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b\u044f \u0438 \u043f\u0440\u0438\u0437\u043e\u0432\u043e\u0439 \u0444\u043e\u043d\u0434 $10 000.",
     img: (window.__HH_BASE__+"assets/team/event-headliner-yarik.webp")
   };
   const events = [{
@@ -5511,7 +5508,7 @@ function EventsTournaments() {
   }, {
     city: "\u041c\u043e\u0441\u043a\u0432\u0430",
     flag: "🇷🇺",
-    event: "Top Affiliate Awards 2026",
+    event: "\u041d\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043d\u0438\u0435 \u0422\u043e\u043f-\u043f\u0430\u0440\u0442\u043d\u0451\u0440\u043e\u0432",
     role: "\u041e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0442\u043e\u0440",
     date: "2026",
     img: (window.__HH_BASE__+"assets/team/awards-top-affiliate.jpg")
@@ -7532,11 +7529,11 @@ function SupportSection() {
       color: "var(--fg-muted)",
       margin: 0
     }
-  }, "40 \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u043e\u0432 \u0433\u043e\u0442\u043e\u0432\u044b \u043f\u043e\u043c\u043e\u0447\u044c \u0432 \u043b\u044e\u0431\u043e\u0439 \u043c\u043e\u043c\u0435\u043d\u0442. \u041c\u044b \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u043c \u0432 4 \u0447\u0430\u0441\u043e\u0432\u044b\u0445 \u043f\u043e\u044f\u0441\u0430\u0445, \u0433\u043e\u0432\u043e\u0440\u0438\u043c \u043d\u0430 ", /*#__PURE__*/React.createElement("strong", {
+  }, "\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043a\u0440\u0443\u0433\u043b\u043e\u0441\u0443\u0442\u043e\u0447\u043d\u043e \u0438 \u0433\u043e\u0432\u043e\u0440\u0438\u0442 \u043d\u0430 ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: "var(--fg)"
     }
-  }, "20+ \u044f\u0437\u044b\u043a\u043e\u0432"), " \u0438 \u043e\u0442\u0432\u0435\u0447\u0430\u0435\u043c \u0432 \u0441\u0440\u0435\u0434\u043d\u0435\u043c \u0432 \u0442\u0435\u0447\u0435\u043d\u0438\u0435 2 \u043c\u0438\u043d\u0443\u0442."))), /*#__PURE__*/React.createElement("div", {
+  }, "20+ \u044f\u0437\u044b\u043a\u0430\u0445"), ", \u0447\u0442\u043e\u0431\u044b \u0442\u044b \u043c\u043e\u0433 \u0431\u044b\u0441\u0442\u0440\u043e \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043e\u0442\u0432\u0435\u0442 \u043d\u0430 \u043b\u044e\u0431\u043e\u0439 \u0432\u043e\u043f\u0440\u043e\u0441."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "0.85fr 1fr",
@@ -7618,7 +7615,7 @@ function SupportSection() {
       letterSpacing: "-0.02em",
       lineHeight: 1
     }
-  }, "1m 47s"), /*#__PURE__*/React.createElement("div", {
+  }, "2 \u043c\u0438\u043d"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 10,
       color: "var(--fg-dim)",
@@ -7626,7 +7623,7 @@ function SupportSection() {
       textTransform: "uppercase",
       marginTop: 4
     }
-  }, "avg today")), /*#__PURE__*/React.createElement("div", {
+  }, "\u0412\u0440\u0435\u043c\u044f \u043e\u0442\u0432\u0435\u0442\u0430")), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
       left: 24,
@@ -7880,15 +7877,6 @@ function SupportSection() {
       flex: 1
     }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 9,
-      fontWeight: 800,
-      letterSpacing: "0.16em",
-      color: c.accentText,
-      textTransform: "uppercase",
-      marginBottom: 4
-    }
-  }, c.tag), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 15,
       fontWeight: 700,
@@ -10051,7 +10039,7 @@ function Reviews() {
       letterSpacing: "-0.02em",
       marginBottom: 8
     }
-  }, "\u0427\u0438\u0442\u0430\u0442\u044c \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u043e\u0442\u0437\u044b\u0432\u044b"), /*#__PURE__*/React.createElement("div", {
+  }, "\u041f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u044b\u0435 \u043e\u0442\u0437\u044b\u0432\u044b"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 14,
       color: "var(--fg-muted)",
@@ -10059,7 +10047,7 @@ function Reviews() {
       marginBottom: 22,
       maxWidth: 280
     }
-  }, "\u041a\u0430\u0436\u0434\u044b\u0439 \u043e\u0442\u0437\u044b\u0432 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 Trustpilot \u2014 \u043f\u0440\u0443\u0444\u044b \u0432\u044b\u043f\u043b\u0430\u0442, \u0441\u043a\u0440\u0438\u043d\u0448\u043e\u0442\u044b \u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b\u0430, \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0438\u043c\u0435\u043d\u0430."), /*#__PURE__*/React.createElement("span", {
+  }, "Trustpilot \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u043a\u0430\u0436\u0434\u044b\u0439 \u043e\u0442\u0437\u044b\u0432. \u041c\u044b \u043d\u0435 \u0444\u0438\u043b\u044c\u0442\u0440\u0443\u0435\u043c \u0438\u0445 \u0441\u043e \u0441\u0432\u043e\u0435\u0439 \u0441\u0442\u043e\u0440\u043e\u043d\u044b."), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -10083,14 +10071,14 @@ function Reviews() {
       maxWidth: 720,
       margin: "32px auto 0"
     }
-  }, "\u0412\u044b\u0448\u0435 \u043f\u0440\u0438\u0432\u0435\u0434\u0435\u043d\u044b \u0441\u043e\u043a\u0440\u0430\u0449\u0451\u043d\u043d\u044b\u0435 \u0432\u0435\u0440\u0441\u0438\u0438 \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0445 \u043e\u0442\u0437\u044b\u0432\u043e\u0432 \u0441 Trustpilot \u043e Hash Hedge. \u041a\u043b\u0438\u043a\u043d\u0438, \u0447\u0442\u043e\u0431\u044b \u043e\u0442\u043a\u0440\u044b\u0442\u044c \u043e\u0440\u0438\u0433\u0438\u043d\u0430\u043b \u043d\u0430 ", /*#__PURE__*/React.createElement("a", {
+  }, "\u0412\u044b\u0448\u0435 \u043f\u0440\u0438\u0432\u0435\u0434\u0435\u043d\u044b \u0441\u043e\u043a\u0440\u0430\u0449\u0451\u043d\u043d\u044b\u0435 \u0432\u0435\u0440\u0441\u0438\u0438 \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0445 \u043e\u0442\u0437\u044b\u0432\u043e\u0432 \u0441 Trustpilot \u043e Hash Hedge. ", /*#__PURE__*/React.createElement("a", {
     href: "https://www.trustpilot.com/review/hashhedge.com",
     target: "_blank",
     rel: "noopener",
     style: {
       color: "var(--accent)"
     }
-  }, "Trustpilot"), "."))));
+  }, "\u041a\u043b\u0438\u043a\u043d\u0438, \u0447\u0442\u043e\u0431\u044b \u043e\u0442\u043a\u0440\u044b\u0442\u044c \u043e\u0440\u0438\u0433\u0438\u043d\u0430\u043b \u043d\u0430 Trustpilot.")))));
 }
 function FAQ() {
   useRevealOnScroll();
@@ -10713,7 +10701,7 @@ function BigCTA() {
       background: "var(--accent)",
       boxShadow: "0 0 10px var(--accent)"
     }
-  }), "\u0413\u041e\u0422\u041e\u0412?"), /*#__PURE__*/React.createElement("h2", {
+  }), "\u0413\u041e\u0422\u041e\u0412 \u041d\u0410\u0427\u0410\u0422\u042c?"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "24px auto 24px",
@@ -10725,19 +10713,7 @@ function BigCTA() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "$5,000 \u0437\u0430 $79")), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 19,
-      color: "var(--fg-muted)",
-      maxWidth: 640,
-      margin: "0 auto 40px"
-    }
-  }, "\u041f\u0440\u043e\u0439\u0434\u0438 \u0434\u0432\u0443\u0445\u044d\u0442\u0430\u043f\u043d\u044b\u0439 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436 \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u0439 \u0434\u043e ", /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: "var(--fg)",
-      fontWeight: 800
-    }
-  }, "90%"), " \u043f\u0440\u0438\u0431\u044b\u043b\u0438 \u0432 USDT \u043d\u0430 \u0441\u0432\u043e\u0439 \u043a\u043e\u0448\u0435\u043b\u0451\u043a."), /*#__PURE__*/React.createElement("div", {
+  }, "$5,000 \u0437\u0430 $79")), /*#__PURE__*/React.createElement("div", {
     className: "hh-final-cta-actions",
     style: {
       display: "flex",
