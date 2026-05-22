@@ -3503,7 +3503,7 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "\u0412\u044b\u0431\u0440\u0430\u043d\u043e" : "\u0412\u044b\u0431\u0440\u0430\u0442\u044c")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "\u0420\u0430\u0437\u043e\u0432\u0430\u044f \u043f\u043b\u0430\u0442\u0430 \u0437\u0430 \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
       "aria-label": "\u042d\u0442\u0430\u043f\u044b \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430"
