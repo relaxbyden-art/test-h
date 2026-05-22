@@ -3503,7 +3503,7 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "\u0412\u044b\u0431\u0440\u0430\u043d\u043e" : "\u0412\u044b\u0431\u0440\u0430\u0442\u044c")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
       "aria-label": "\u042d\u0442\u0430\u043f\u044b \u0447\u0435\u043b\u043b\u0435\u043d\u0434\u0436\u0430"
@@ -3551,7 +3551,7 @@ function Pricing() {
     className: "hh-mobile-account-size"
   }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-fee"
-  }, /*#__PURE__*/React.createElement("span", null, "\u0420\u0430\u0437\u043e\u0432\u0430\u044f \u043f\u043b\u0430\u0442\u0430"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u042d\u0442\u0430\u043f 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u042d\u0442\u0430\u043f 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u0414\u043d\u0435\u0432\u043d\u043e\u0439 \u0443\u0431\u044b\u0442\u043e\u043a"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u041c\u0430\u043a\u0441. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u041c\u0438\u043d. \u0434\u043d\u0435\u0439"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "\u0421\u0440\u043e\u043a"), /*#__PURE__*/React.createElement("b", null, "\u0411\u0435\u0437 \u043b\u0438\u043c\u0438\u0442\u0430"))), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
