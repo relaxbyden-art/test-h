@@ -2175,7 +2175,7 @@ function PromoBanner() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "10+ TradFi-активов"), " в одном аккаунте"), /*#__PURE__*/React.createElement("p", {
+  }, "10+ TradFi-активов"), " на любом челлендже"), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
