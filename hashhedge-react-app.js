@@ -1388,7 +1388,7 @@ function Hero({
     style: {
       margin: "20px 0 24px",
       color: "var(--fg)",
-      fontSize: "clamp(28px, 3.5vw, 48px)"
+      fontSize: "clamp(36px, 4.5vw, 62px)"
     }
   }, "Pass a ", /*#__PURE__*/React.createElement("span", {style: {color: "var(--accent)"}}, "trading challenge"), " and trade without depositing your own money.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
@@ -10085,7 +10085,7 @@ function FAQ() {
     a: "We accept USDT only, on the following networks: TRC20 (Tron), ERC20 (Ethereum), BEP20 (BNB Smart Chain), Solana, Arbitrum, Optimism."
   }, {
     q: "Why do I have to pay for the challenge?",
-    a: "The fee covers access to the trading platform and evaluation of your skills. In return you get a chance to trade with up to $150,000 and keep 90% of the profit without risking your own money."
+    a: "The entry fee works as a filter, and the challenge itself is the exam. Its job is to find traders who can genuinely trade with a system and deliver consistent profit, not a one-off result from a single lucky trade. Traders who pass get funded and withdraw their profit in real money."
   }, {
     q: "What rules must I follow during a challenge?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Stay within the daily and maximum drawdown limits and hit the profit target within the required number of trading days. Details for each package are on the purchase page and in the ", /*#__PURE__*/React.createElement("a", {
