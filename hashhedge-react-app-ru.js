@@ -11316,7 +11316,7 @@ function PromoPopup() {
           "aria-hidden": "true"
         }, /*#__PURE__*/React.createElement("img", {
           className: "hh-popup-dashboard-img",
-          src: window.__HH_BASE__ + "assets/new-dashboard-popup.png",
+          src: window.__HH_BASE__ + "img/1GadgeMockup3 21.png",
           alt: "",
           loading: "eager",
           decoding: "async"
