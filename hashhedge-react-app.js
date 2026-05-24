@@ -5217,14 +5217,13 @@ function PayoutShowcase() {
       right: -14,
       padding: "8px 14px",
       borderRadius: 999,
-      background: "rgba(160,160,170,0.18)",
-      color: "rgba(255,255,255,0.75)",
+      background: "#2a2a2e",
+      color: "#fff",
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
       fontFamily: "Onest, sans-serif",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-      border: "1px solid rgba(255,255,255,0.12)",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
       display: "flex",
       alignItems: "center",
       gap: 6
@@ -5234,7 +5233,7 @@ function PayoutShowcase() {
       width: 6,
       height: 6,
       borderRadius: "50%",
-      background: "rgba(255,255,255,0.6)"
+      background: "#fff"
     }
   }), "PAYOUT CERTIFICATE"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-row",
