@@ -4042,7 +4042,7 @@ function WhyUs() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "WHY HASHHEDGE")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "WHY HASH HEDGE")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
@@ -5124,11 +5124,7 @@ function PayoutShowcase() {
       margin: "0 0 36px",
       maxWidth: 520
     }
-  }, "Request a withdrawal from your Hash Hedge dashboard. We sign from our multi-sig treasury and send crypto across ", /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: "var(--fg)"
-    }
-  }, "TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism"), " straight to the wallet on file. You get a TX hash and a downloadable payout certificate."), /*#__PURE__*/React.createElement("div", {
+  }, "If your payout is more than 72 hours late, we triple it."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr",
@@ -9577,25 +9573,12 @@ function TeamCerts() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Every payout gets a signed certificate with trader name, account size, amount and date. No hidden names, no \"anonymous whales\", no stock photos. Our traders' results are measured in ", /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: "var(--fg)"
-    }
-  }, "thousands of payouts"), " \u2013 more in our ", /*#__PURE__*/React.createElement("a", {
+  }, "Hash Hedge trader's results are measured in real payouts. Every payout is recorded with a payout certificate. See more payouts in our ", /*#__PURE__*/React.createElement("a", {
     href: "https://t.me/hhcomunity",
     target: "_blank",
     rel: "noopener",
-    style: {
-      color: "var(--accent)"
-    }
-  }, "Telegram community"), " and ", /*#__PURE__*/React.createElement("a", {
-    href: "https://t.me/+Ix0pA4YYv9A4NzYy",
-    target: "_blank",
-    rel: "noopener",
-    style: {
-      color: "var(--accent)"
-    }
-  }, "news channel"), ".")))), /*#__PURE__*/React.createElement(React.Fragment, null,
+    style: { color: "var(--accent)", textDecoration: "underline", textUnderlineOffset: "3px" }
+  }, "Telegram community"), ".")))), /*#__PURE__*/React.createElement(React.Fragment, null,
     /*#__PURE__*/React.createElement("div", {
       className: "hh-cert-desktop",
       style: { display: "flex", flexDirection: "column", gap: 20 }
@@ -9772,57 +9755,57 @@ function Reviews() {
   const reviews = [{
     name: "Clarence",
     country: "Canada",
-    size: "$50,000",
-    quote: "Wasn't sure at first since they're newer. Trading conditions are exactly as advertised – no breached rules, no crazy slippage around news events. Platform runs smooth and limit orders hit perfectly. Finally a prop firm where you can just trade.",
+    size: "$25,000",
+    quote: "Wasn't sure about these guys at first because they are relatively new. But honestly, the trading conditions are exactly as advertised. I usually trade around big news events and haven't had any issues with breached rules or crazy slippage here. The built-in platform is actually super smooth now and limit orders trigger perfectly. Good to finally see a prop firm that lets you just trade without stressing over hidden restrictions.",
     days: "Apr 2026",
     stars: 5
   }, {
-    name: "Sultan A.",
+    name: "Sultan Al-Haili",
     country: "UAE",
     size: "$25,000",
-    quote: "Passed the 25K exam yesterday. Terminal is finally not lagging, charts load super fast. No weird hidden drawdown rules like other props – everything is straightforward. Support replied in 5 minutes when I asked about KYC.",
+    quote: "Passed the 25k exam yesterday. Terminal is finally not lagging, charts load super fast now. No weird hidden drawdown rules like other props, everything is straight forward. Support replied in 5 mins when I asked about KYC. So far so good.",
     days: "Apr 2026",
     stars: 5
   }, {
-    name: "James C.",
+    name: "James Coonce-Lounsbury",
     country: "United Kingdom",
     size: "$50,000",
-    quote: "Two months in, just passed the $50K challenge. What I appreciate most is the transparency. Other props have hidden drawdown rules that catch you out – here everything is published clearly. Terminal holds up even during high-volatility news.",
+    quote: "I have been trading with Hash Hedge for about two months now, and I recently passed the $50,000 challenge. What I appreciate most is the transparency. A lot of prop firms have hidden drawdown rules that catch you by surprise, but here everything is straightforward and published clearly. The built-in terminal is also very responsive, even during high volatility news events.",
     days: "Apr 2026",
     stars: 5
   }, {
-    name: "Donna J.",
+    name: "Donna Jackson",
     country: "United States",
     size: "$50,000",
-    quote: "Switched over for the crypto conditions specifically. Payout process is straightforward – no hoops to jump through as long as you respect the drawdown rules. Strict on the no-bots/no-API policy, but that keeps the environment fair.",
+    quote: "Switched to Hash Hedge mainly because of their crypto trading conditions. The payout process is straightforward — no jumping through hoops as long as you follow the drawdown rules. If you are a manual trader looking for consistency, this works well.",
     days: "Mar 2026",
     stars: 5
   }, {
-    name: "Marissa T.",
+    name: "Marissa Tundale",
     country: "United States",
     size: "$25,000",
-    quote: "Terminal works fast, no hidden rules that catch you out. Solid firm for crypto prop – exactly what I was looking for.",
+    quote: "The terminal works quickly, and there are no hidden rules that could confuse you. Overall, a good firm dealing with securities operations, exactly what I was looking for.",
     days: "Mar 2026",
     stars: 5
   }, {
-    name: "Dolores F. C.",
+    name: "Dolores F. Castro",
     country: "United States",
     size: "$100,000",
-    quote: "Surprisingly stable execution on BTC/USD. Was worried about slippage after reading older reviews, but my limit orders hit exactly where they should. Dashboard lag seems fixed after the tech update.",
+    quote: "Surprisingly stable execution on BTC/USD pairs. I was worried about the slippage after reading some old reviews, but my limit orders hit exactly where they should. The dashboard lag seems to be fixed now. Good job on the tech update.",
     days: "Mar 2026",
     stars: 5
   }, {
-    name: "Andrey V.",
+    name: "Andrey Varlamov",
     country: "Luxembourg",
     size: "$25,000",
-    quote: "Even when I failed the challenge, the experience was great. Support was there, and the outcome was in my hands. Respect that.",
+    quote: "So basically even I failed the challenge, all was good. The support is there and all is in my hands.",
     days: "Nov 2025",
     stars: 5
   }, {
     name: "Дмитрий",
     country: "Russia",
     size: "$50,000",
-    quote: "HashHedge set a new standard for crypto prop. Transparent – no hidden terms, no surprises. Promos and contests are generous and easy to join. Customer support is fast, knowledgeable and helpful. Five stars, easily.",
+    quote: "HashHedge has truly set a new standard for what a crypto prop company should be. Their transparency is refreshing – no hidden terms or surprises. The promotional offers are generous and easy to participate in. Customer support is fast, knowledgeable and helpful. A well-deserved 5 stars!",
     days: "Nov 2025",
     stars: 5
   }];
@@ -10100,7 +10083,12 @@ function Reviews() {
       maxWidth: 720,
       margin: "32px auto 0"
     }
-  }, "Reviews displayed above are paraphrased summaries of public Trustpilot reviews for hashhedge.com. Click through to read the originals on Trustpilot."))));
+  }, "Reviews from real traders on Trustpilot.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.trustpilot.com/review/hashhedge.com",
+    target: "_blank",
+    rel: "noopener",
+    style: { color: "var(--accent)", textDecoration: "underline", textUnderlineOffset: "3px" }
+  }, "Click through to read the originals on Trustpilot.")))));
 }
 function FAQ() {
   useRevealOnScroll();
@@ -10963,6 +10951,17 @@ function Nav({
   onMenuOpen
 }) {
   const [langOpen, setLangOpen] = React.useState(false);
+  const langRef = React.useRef(null);
+  React.useEffect(() => {
+    if (!langOpen) return;
+    const handler = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false);
+      }
+    };
+    const id = setTimeout(() => document.addEventListener('click', handler), 0);
+    return () => { clearTimeout(id); document.removeEventListener('click', handler); };
+  }, [langOpen]);
   const langs = [{
     flag: "🇬🇧",
     code: "EN",
@@ -11050,7 +11049,8 @@ function Nav({
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
   }, "Start Challenge"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-lang-switcher"
+    className: "hh-lang-switcher",
+    ref: langRef
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "hh-lang-trigger",
