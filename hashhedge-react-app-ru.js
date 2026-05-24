@@ -7559,11 +7559,11 @@ function SupportSection() {
       color: "var(--fg-muted)",
       margin: 0
     }
-  }, "Поддержка работает круглосуточно и говорит на ", /*#__PURE__*/React.createElement("strong", {
+  }, "Поддержка работает круглосуточно на ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: "var(--fg)"
     }
-  }, "20+ языках"), ", чтобы ты мог быстро получить ответ на любой вопрос."))), /*#__PURE__*/React.createElement("div", {
+  }, "20+ языках"), ". Быстрый ответ на любой ваш вопрос."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "0.85fr 1fr",
@@ -11024,7 +11024,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement("div", {
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru#challenge"
+    href: "#challenge"
   }, "Челленджи")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/ru/affiliateprogram"
   }, "Партнёрская программа")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
@@ -11121,7 +11121,7 @@ function MobileMenu({
     strokeWidth: "2",
     strokeLinecap: "round"
   }))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru#challenge",
+    href: "#challenge",
     onClick: close
   }, "Челленджи"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/ru/affiliateprogram",

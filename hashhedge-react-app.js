@@ -4038,7 +4038,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $150,000. The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
+  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $150,000.", /*#__PURE__*/React.createElement("br", null), "The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -7503,11 +7503,11 @@ function SupportSection() {
       color: "var(--fg-muted)",
       margin: 0
     }
-  }, "No bots reading scripts. A 40-person team across 4 timezones, fluent in ", /*#__PURE__*/React.createElement("strong", {
+  }, "Our support team is available around the clock and speaks ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: "var(--fg)"
     }
-  }, "20+ languages"), ", answering in under 2 minutes \u2013 every single time."))), /*#__PURE__*/React.createElement("div", {
+  }, "20+ languages"), ". Get a fast answer to any question."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "0.85fr 1fr",
@@ -10994,7 +10994,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement("div", {
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/#challenge"
+    href: "#challenge"
   }, "Challenges")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/affiliateprogram"
   }, "Affiliate Program")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
@@ -11091,7 +11091,7 @@ function MobileMenu({
     strokeWidth: "2",
     strokeLinecap: "round"
   }))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/#challenge",
+    href: "#challenge",
     onClick: close
   }, "Challenges"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/affiliateprogram",
@@ -11172,11 +11172,11 @@ function HashHedgeReactApp() {
       padding: "10px 16px",
       lineHeight: 1.4
     }
-  }, "Already have an account? New challenges can only be purchased in the new ", /*#__PURE__*/React.createElement("a", {
+  }, "Already have an account? New challenges can only be purchased in the ", /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/en/login",
     className: "hh-banner-lk-link",
     style: { color: "#000", fontWeight: 700 }
-  }, "dashboard")), /*#__PURE__*/React.createElement(Nav, {
+  }, "new dashboard")), /*#__PURE__*/React.createElement(Nav, {
     onMenuOpen: () => setMenuOpen(true)
   })), /*#__PURE__*/React.createElement(MobileMenu, {
     open: menuOpen,
