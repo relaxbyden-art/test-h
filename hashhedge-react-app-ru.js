@@ -5511,6 +5511,7 @@ function EventsTournaments() {
     img: (window.__HH_BASE__+"assets/team/awards-top-affiliate.jpg")
   }];
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-events-section",
     style: {
       padding: "100px 0",
       background: "var(--bg)",
@@ -5525,7 +5526,7 @@ function EventsTournaments() {
       left: 0,
       right: 0,
       height: 320,
-      background: "linear-gradient(180deg, rgba(252,213,53,0.025) 0%, transparent 80%)",
+      background: "linear-gradient(180deg, rgba(16,16,18,0.82) 0%, rgba(16,16,18,0) 76%)",
       pointerEvents: "none",
       zIndex: 0
     }
@@ -8548,6 +8549,7 @@ function YouTubeSection() {
   const midIdx = Math.floor(rest.length / 2);
   const rail = [...pinnedFront, ...rest.slice(0, midIdx), ...pinnedMid, ...rest.slice(midIdx)];
   return /*#__PURE__*/React.createElement("section", {
+    className: "hh-youtube-section",
     style: {
       padding: "120px 0",
       background: "var(--bg)",
@@ -8562,7 +8564,7 @@ function YouTubeSection() {
       background: "#ff0000",
       bottom: "-25%",
       left: "-10%",
-      opacity: 0.04
+      opacity: 0
     }
   }), /*#__PURE__*/React.createElement("div", {
     "aria-hidden": true,
@@ -8572,7 +8574,7 @@ function YouTubeSection() {
       left: 0,
       right: 0,
       height: 320,
-      background: "linear-gradient(0deg, rgba(252,213,53,0.025) 0%, transparent 70%)",
+      background: "linear-gradient(0deg, rgba(16,16,18,0.82) 0%, rgba(16,16,18,0) 72%)",
       pointerEvents: "none",
       zIndex: 0
     }
@@ -11178,7 +11180,10 @@ function HashHedgeReactApp() {
     href: "https://app.hashhedge.com/ru/login",
     style: {
       color: "#000",
-      textDecoration: "underline",
+      textDecorationLine: "underline",
+      textDecorationThickness: "2px",
+      textUnderlineOffset: "3px",
+      textDecorationColor: "rgba(0,0,0,0.72)",
       fontWeight: 700
     }
   }, "личном кабинете")), /*#__PURE__*/React.createElement(Nav, {
