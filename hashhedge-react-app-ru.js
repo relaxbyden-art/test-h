@@ -2503,7 +2503,7 @@ function HowItWorks() {
       fontSize: 28,
       fontWeight: 800,
       color: "var(--accent)",
-      margin: "0 auto 12px",
+      margin: "0 auto 28px",
       fontFamily: "Akrobat, Onest, sans-serif",
       position: "relative",
       animationDelay: `${i * 0.6}s`
@@ -2516,7 +2516,7 @@ function HowItWorks() {
   }, s.n)), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
-      padding: "16px 32px 32px",
+      padding: "24px 32px 32px",
       height: "100%",
       width: "100%",
       display: "flex",
