@@ -11215,7 +11215,7 @@ function HashHedgeReactApp() {
     }
   }, "dashboard")), /*#__PURE__*/React.createElement(Nav, {
     onMenuOpen: () => setMenuOpen(true)
-  }))), /*#__PURE__*/React.createElement(MobileMenu, {
+  })), /*#__PURE__*/React.createElement(MobileMenu, {
     open: menuOpen,
     onClose: () => setMenuOpen(false)
   }), /*#__PURE__*/React.createElement(Hero, {
