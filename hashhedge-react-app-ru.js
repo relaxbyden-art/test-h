@@ -1437,7 +1437,7 @@ function Hero({
       justifyContent: variant === "cosmic" ? "center" : "flex-start"
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -2657,7 +2657,7 @@ function PromoSliderBanner() {
     className: "hh-promo-slide-art",
     "aria-hidden": "true"
   }, slide.art === "x3" ? /*#__PURE__*/React.createElement(PromoX3Art, null) : slide.art === "split" ? /*#__PURE__*/React.createElement(PromoProfitSplitArt, null) : /*#__PURE__*/React.createElement(PromoMetalsArt, null)), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary hh-promo-slide-cta"
@@ -3514,7 +3514,7 @@ function Pricing() {
     }, mobileStageRules[mobileStage].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
       key: label
     }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
-      href: "https://www.hashhedge.com/client/register",
+      href: "https://app.hashhedge.com/ru/login",
       target: "_blank",
       rel: "noopener",
       className: "btn btn-primary btn-lg"
@@ -3549,7 +3549,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -3845,7 +3845,7 @@ function Pricing() {
       color: "var(--fg)"
     }
   }, "$", (price / size * 1000).toFixed(2)), " за $1,000 капитала"))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg",
@@ -3942,8 +3942,8 @@ function WhyUs() {
   }, {
     n: "04",
     k: "tickers",
-    t: "Один аккаунт для всех рынков",
-    d: "Торгуй крипту, акции, индексы, нефть и природный газ на одном аккаунте.",
+    t: "Один челлендж для всех рынков",
+    d: "Торгуй крипту, акции, нефть и природный газ на челлендже любого номинала",
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
@@ -5173,7 +5173,7 @@ function PayoutShowcase() {
       color: "var(--fg-dim)"
     }
   }, s.d))))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -10091,10 +10091,10 @@ function FAQ() {
     a: "Оплата доступна в USDT через сети Tron (TRC20), Ethereum (ERC20), BNB Chain (BEP20), Solana, Arbitrum и Optimism."
   }, {
     q: "Почему за челлендж нужно платить?",
-    a: "Оплата открывает доступ к платформе, рыночным данным и проверке торговых навыков. После успешного прохождения челленджа трейдер получает финансируемый аккаунт до $150,000 и может забирать до 90% прибыли."
+    a: "Платный вход работает как фильтр, а сам челлендж выполняет функцию отбора или экзамен. После получения фондирования трейдеры торгуют на капитале компании и получают выплату реальными деньгами. Ключевая задача челленджа — отобрать трейдеров, кто действительно умеет торговать системно и показывать стабильную прибыль, а не разовый результат на одной удачной сделке."
   }, {
     q: "Каким правилам нужно следовать во время челленджа?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Нужно соблюдать лимиты дневной и максимальной просадки, а также достичь цели по прибыли за установленное количество торговых дней. Детали по каждому пакету указаны на странице покупки и в ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Нужно соблюдать лимиты дневной и максимальной просадки, а также достичь цели по прибыли за установленное количество торговых дней. Детали по каждому челленджу указаны на странице покупки и в ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/introduction/challenge-type",
       target: "_blank",
       rel: "noopener",
@@ -10715,7 +10715,7 @@ function BigCTA() {
       flexWrap: "wrap"
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -11017,7 +11017,7 @@ function Nav({
       padding: "10px 14px"
     }
   }, "Войти"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
@@ -11107,7 +11107,7 @@ function MobileMenu({
   }, "FAQ"), /*#__PURE__*/React.createElement("div", {
     className: "menu-cta"
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg",
@@ -11131,7 +11131,7 @@ function MobileCTABar() {
     className: "mobile-cta-bar",
     style: { transform: vis ? "translateY(0)" : "translateY(120%)", transition: "transform 0.4s cubic-bezier(0.32,0.72,0,1)" }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary"
@@ -11158,7 +11158,23 @@ function HashHedgeReactApp() {
   return /*#__PURE__*/React.createElement("div", {
     className: "tilda-html-hashhedge",
     "data-anim": "max"
-  }, /*#__PURE__*/React.createElement(Nav, {
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fcd535",
+      color: "#000",
+      textAlign: "center",
+      fontSize: 14,
+      fontWeight: 600,
+      padding: "10px 16px",
+      lineHeight: 1.4
+    }
+  }, "Для зарегистрированных пользователей: Покупка новых челленджей доступна только в новом ", /*#__PURE__*/React.createElement("a", {
+    href: "https://app.hashhedge.com/ru/login",
+    style: {
+      color: "#000",
+      textDecoration: "underline"
+    }
+  }, "личном кабинете")), /*#__PURE__*/React.createElement(Nav, {
     onMenuOpen: () => setMenuOpen(true)
   }), /*#__PURE__*/React.createElement(MobileMenu, {
     open: menuOpen,
@@ -11309,7 +11325,7 @@ function PromoPopup() {
   }, ":"), /*#__PURE__*/React.createElement("div", {
     className: "hh-popup-timer-unit"
   }, /*#__PURE__*/React.createElement("span", null, pad(time.s)), /*#__PURE__*/React.createElement("em", null, "s")))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary hh-popup-cta",
