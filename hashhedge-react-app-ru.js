@@ -11255,94 +11255,70 @@ function PopupChartBg() {
 }
 
 function PromoPopup() {
-  return null;
   const [open, setOpen] = __useS(true);
-  const [time, setTime] = __useS({
-    h: 47,
-    m: 59,
-    s: 59
-  });
-  __useE(() => {
-    const KEY = "hh_popup_end_v1";
-    let end = parseInt(localStorage.getItem(KEY) || "0");
-    if (!end || end < Date.now()) {
-      end = Date.now() + 48 * 3600 * 1000;
-      localStorage.setItem(KEY, String(end));
-    }
-    const tick = () => {
-      const diff = Math.max(0, end - Date.now());
-      setTime({
-        h: Math.floor(diff / 3600000),
-        m: Math.floor(diff % 3600000 / 60000),
-        s: Math.floor(diff % 60000 / 1000)
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
   if (!open) return null;
-  const pad = n => String(n).padStart(2, "0");
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-backdrop",
-    onClick: () => setOpen(false)
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup",
-    role: "dialog",
-    "aria-modal": "true",
-    "aria-label": "Спец-предложение"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "hh-popup-close",
-    onClick: () => setOpen(false),
-    "aria-label": "Закрыть"
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "18",
-    height: "18",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M18 6L6 18M6 6l12 12",
-    stroke: "currentColor",
-    strokeWidth: "2.2",
-    strokeLinecap: "round"
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-inner"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-copy"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-badge"
-  }, "48 hours"), /*#__PURE__*/React.createElement("h2", {
-    className: "hh-popup-title"
-  }, "Получай 90%", /*#__PURE__*/React.createElement("br", null), "прибыли"), /*#__PURE__*/React.createElement("p", {
-    className: "hh-popup-sub"
-  }, "Повышенный сплит 90/10 на всех челленджах"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-timer-label"
-  }, "До конца акции"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-digits"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-unit"
-  }, /*#__PURE__*/React.createElement("span", null, pad(time.h)), /*#__PURE__*/React.createElement("em", null, "h")), /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-colon"
-  }, ":"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-unit"
-  }, /*#__PURE__*/React.createElement("span", null, pad(time.m)), /*#__PURE__*/React.createElement("em", null, "m")), /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-colon"
-  }, ":"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-unit"
-  }, /*#__PURE__*/React.createElement("span", null, pad(time.s)), /*#__PURE__*/React.createElement("em", null, "s")))), /*#__PURE__*/React.createElement("a", {
-    href: "https://app.hashhedge.com/ru/login",
-    target: "_blank",
-    rel: "noopener",
-    className: "btn btn-primary hh-popup-cta",
-    onClick: () => setOpen(false)
-  }, "Начать челлендж"), /*#__PURE__*/React.createElement("p", {
-    className: "hh-popup-disclaimer"
-  }, "Сплит 90/10 закрепляется за тобой навсегда на каждой выплате с челленджа")), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-art",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement(PopupChartBg, null), /*#__PURE__*/React.createElement(PromoProfitSplitArt, null)))));
+  return /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-popup-backdrop",
+      onClick: () => setOpen(false)
+    }),
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-popup",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": "Новый личный кабинет"
+    },
+      /*#__PURE__*/React.createElement("button", {
+        className: "hh-popup-close",
+        onClick: () => setOpen(false),
+        "aria-label": "Закрыть"
+      }, /*#__PURE__*/React.createElement("svg", {
+        width: "18",
+        height: "18",
+        viewBox: "0 0 24 24",
+        fill: "none"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M18 6L6 18M6 6l12 12",
+        stroke: "currentColor",
+        strokeWidth: "2.2",
+        strokeLinecap: "round"
+      }))),
+      /*#__PURE__*/React.createElement("div", {
+        className: "hh-popup-inner"
+      },
+        /*#__PURE__*/React.createElement("div", {
+          className: "hh-popup-copy"
+        },
+          /*#__PURE__*/React.createElement("span", {
+            className: "hh-popup-badge"
+          }, "Обновление платформы"),
+          /*#__PURE__*/React.createElement("h2", {
+            className: "hh-popup-title"
+          }, "Новый личный кабинет"),
+          /*#__PURE__*/React.createElement("p", {
+            className: "hh-popup-sub"
+          }, "Регистрация на платформе и покупка челленджей доступны только в новом личном кабинете."),
+          /*#__PURE__*/React.createElement("a", {
+            href: "https://app.hashhedge.com/ru/login",
+            target: "_blank",
+            rel: "noopener",
+            className: "btn btn-primary hh-popup-cta",
+            onClick: () => setOpen(false)
+          }, "Регистрация")
+        ),
+        /*#__PURE__*/React.createElement("div", {
+          className: "hh-popup-art",
+          "aria-hidden": "true"
+        }, /*#__PURE__*/React.createElement("img", {
+          className: "hh-popup-dashboard-img",
+          src: window.__HH_BASE__ + "assets/new-dashboard-popup.png",
+          alt: "",
+          loading: "eager",
+          decoding: "async"
+        }))
+      )
+    )
+  );
 }
 
 ReactDOM.createRoot(document.getElementById("hashhedge-root")).render(/*#__PURE__*/React.createElement(HashHedgeReactApp, null));

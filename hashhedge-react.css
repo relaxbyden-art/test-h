@@ -8,6 +8,132 @@
   src: url('https://fonts.cdnfonts.com/s/12165/Akrobat-ExtraBold.woff') format('woff');
 }
 
+/* 2026-05-24: RU new dashboard popup */
+#hashhedge-root .tilda-html-hashhedge .hh-popup {
+  width: min(940px, calc(100vw - 32px)) !important;
+  border-radius: 24px !important;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(252,213,53,0.14), transparent 34%),
+    linear-gradient(135deg, #1f1d25 0%, #111016 100%) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-inner {
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr) !important;
+  gap: 22px !important;
+  padding: 42px 42px 38px !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-copy {
+  align-self: center !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-badge {
+  background: rgba(252,213,53,0.14) !important;
+  border: 1px solid rgba(252,213,53,0.38) !important;
+  color: var(--accent) !important;
+  margin-bottom: 16px !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-title {
+  max-width: 390px !important;
+  margin-bottom: 14px !important;
+  font-size: clamp(38px, 4.1vw, 56px) !important;
+  line-height: 1.02 !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-sub {
+  max-width: 390px !important;
+  margin-bottom: 28px !important;
+  font-size: clamp(16px, 1.35vw, 19px) !important;
+  line-height: 1.48 !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-cta {
+  max-width: 260px !important;
+  height: 58px !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-art {
+  min-height: 330px !important;
+  overflow: visible !important;
+}
+
+#hashhedge-root .tilda-html-hashhedge .hh-popup-dashboard-img {
+  display: block !important;
+  width: min(510px, 100%) !important;
+  height: auto !important;
+  transform: translateX(10px) !important;
+  filter: drop-shadow(0 34px 60px rgba(0,0,0,0.62)) !important;
+}
+
+@media (max-width: 640px) {
+  #hashhedge-root .tilda-html-hashhedge .hh-popup {
+    width: calc(100vw - 20px) !important;
+    max-height: calc(100svh - 28px) !important;
+    overflow: auto !important;
+    border-radius: 22px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    padding: 26px 20px 20px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-copy {
+    order: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-badge {
+    margin-bottom: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-title {
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    font-size: clamp(31px, 9vw, 38px) !important;
+    line-height: 1.04 !important;
+    margin-bottom: 12px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-sub {
+    max-width: 100% !important;
+    margin-bottom: 18px !important;
+    font-size: 15px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-cta {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 54px !important;
+    font-size: 16px !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-art {
+    order: 1 !important;
+    display: flex !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-popup-dashboard-img {
+    width: min(340px, 96%) !important;
+    transform: none !important;
+  }
+}
+
 @font-face {
   font-family: 'Akrobat';
   font-weight: 900;
