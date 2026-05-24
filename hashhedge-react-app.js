@@ -1423,12 +1423,7 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "We back skilled crypto traders with up to ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--fg)",
-      fontWeight: 700
-    }
-  }, "$150,000"), " in live capital \u2013 no risk to your own funds. 160+ crypto pairs. Two-phase Hash Hedge Challenge \u2013 pass Phases 1 and 2, then trade funded. Leverage 1:5.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Pass a trading challenge and trade without depositing your own money.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "Pick your account size, up to $150,000. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -2165,7 +2160,7 @@ function PromoBanner() {
     style: {
       color: "var(--accent)"
     }
-  }, "metals, energy & indices"), " alongside crypto."), /*#__PURE__*/React.createElement("p", {
+  }, "160+ crypto pairs"), " and 10+ TradFi assets."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -2173,7 +2168,7 @@ function PromoBanner() {
       margin: 0,
       maxWidth: 735
     }
-  }, "Gold, silver, palladium, platinum, Brent and WTI crude, natural gas, and the S&P 500 \u2013 all as USDT-quoted perpetuals. Same funded account, same 1:5 leverage, one unified PnL.")), /*#__PURE__*/React.createElement("a", {
+  }, "Gold, silver, platinum, palladium, Brent and WTI crude, natural gas, and the S&P 500, all quoted in USDT. Same funded account, same 1:5 leverage, one unified PnL.")), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
@@ -2182,7 +2177,7 @@ function PromoBanner() {
     style: {
       whiteSpace: "nowrap"
     }
-  }, "Start a funded account", /*#__PURE__*/React.createElement("svg", {
+  }, "Start Challenge", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -2328,7 +2323,7 @@ function PromoBanner() {
       width: "100%",
       justifyContent: "center"
     }
-  }, "Start a funded account", /*#__PURE__*/React.createElement("svg", {
+  }, "Start Challenge", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -2392,7 +2387,7 @@ function PromoBanner() {
     style: {
       color: "var(--fg-muted)"
     }
-  }, "Plus 160+ crypto pairs \u2013 all in the same funded account."))))));
+  }, "New assets every week."))))));
 }
 function HowItWorks() {
   useRevealOnScroll();
@@ -2453,7 +2448,7 @@ function HowItWorks() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Skip the 5-year grind of building personal capital. Prove your trading edge in our Challenge and unlock institutional-grade funding within days \u2013 not years."))), /*#__PURE__*/React.createElement("div", {
+  }, "Skip years of grinding to build your own capital. Prove your trading edge in our Challenge and get funded with up to $150,000, in weeks, not years."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -3235,7 +3230,7 @@ function Pricing() {
   }, {
     k: "days",
     label: "Minimum Trading Days",
-    sub: "How many sessions you must trade before you can pass.",
+    sub: "Days you must trade before the stage can be passed.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3335,7 +3330,7 @@ function Pricing() {
       maxWidth: 640,
       margin: "0 auto"
     }
-  }, "Two stages to qualify. Six capital sizes. Same rules end-to-end \u2013 no surprise consistency clauses, no hidden resets."))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Two phases to qualify. Six account sizes. Same rules end-to-end: no consistency rule, no hidden resets."))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -11206,13 +11201,14 @@ function HashHedgeReactApp() {
       padding: "10px 16px",
       lineHeight: 1.4
     }
-  }, "Already have an account? New challenges can only be purchased in the new ", /*#__PURE__*/React.createElement("a", {
+  }, "Already have an account? ", /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/en/login",
     className: "hh-banner-lk-link",
-    style: {
-      color: "#000",
-      fontWeight: 700
-    }
+    style: { color: "#000", fontWeight: 700 }
+  }, "New"), " challenges can only be purchased in the new ", /*#__PURE__*/React.createElement("a", {
+    href: "https://app.hashhedge.com/en/login",
+    className: "hh-banner-lk-link",
+    style: { color: "#000", fontWeight: 700 }
   }, "dashboard")), /*#__PURE__*/React.createElement(Nav, {
     onMenuOpen: () => setMenuOpen(true)
   })), /*#__PURE__*/React.createElement(MobileMenu, {
