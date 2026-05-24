@@ -8577,7 +8577,7 @@ function YouTubeSection() {
       left: 0,
       right: 0,
       height: 320,
-      background: "linear-gradient(0deg, rgba(252,213,53,0.025) 0%, transparent 70%)",
+      background: "linear-gradient(0deg, rgba(16,16,18,0.82) 0%, rgba(16,16,18,0) 72%)",
       pointerEvents: "none",
       zIndex: 0
     }
@@ -11018,16 +11018,14 @@ function Nav({
   }, /*#__PURE__*/React.createElement("div", {
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#how"
-  }, "How it works")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#pricing"
-  }, "Pricing")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#why"
-  }, "Why us")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#press"
-  }, "Press")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#faq"
-  }, "FAQ"))), /*#__PURE__*/React.createElement("div", {
+    href: "https://www.hashhedge.com/#challenge"
+  }, "Challenges")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/affiliateprogram"
+  }, "Affiliate Program")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/faq"
+  }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/blog"
+  }, "Blog"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 12,
@@ -11117,21 +11115,18 @@ function MobileMenu({
     strokeWidth: "2",
     strokeLinecap: "round"
   }))), /*#__PURE__*/React.createElement("a", {
-    href: "#how",
+    href: "https://www.hashhedge.com/#challenge",
     onClick: close
-  }, "How it works"), /*#__PURE__*/React.createElement("a", {
-    href: "#pricing",
+  }, "Challenges"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/affiliateprogram",
     onClick: close
-  }, "Pricing"), /*#__PURE__*/React.createElement("a", {
-    href: "#why",
+  }, "Affiliate Program"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/faq",
     onClick: close
-  }, "Why us"), /*#__PURE__*/React.createElement("a", {
-    href: "#press",
+  }, "FAQ"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/blog",
     onClick: close
-  }, "Press"), /*#__PURE__*/React.createElement("a", {
-    href: "#faq",
-    onClick: close
-  }, "FAQ"), /*#__PURE__*/React.createElement("div", {
+  }, "Blog"), /*#__PURE__*/React.createElement("div", {
     className: "menu-cta"
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
@@ -11201,11 +11196,7 @@ function HashHedgeReactApp() {
       padding: "10px 16px",
       lineHeight: 1.4
     }
-  }, "Already have an account? ", /*#__PURE__*/React.createElement("a", {
-    href: "https://app.hashhedge.com/en/login",
-    className: "hh-banner-lk-link",
-    style: { color: "#000", fontWeight: 700 }
-  }, "New"), " challenges can only be purchased in the new ", /*#__PURE__*/React.createElement("a", {
+  }, "Already have an account? New challenges can only be purchased in the new ", /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/en/login",
     className: "hh-banner-lk-link",
     style: { color: "#000", fontWeight: 700 }

@@ -11024,16 +11024,14 @@ function Nav({
   }, /*#__PURE__*/React.createElement("div", {
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#how"
-  }, "Как это работает")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#pricing"
-  }, "Тарифы")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#why"
-  }, "Почему мы")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#press"
-  }, "Пресса")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#faq"
-  }, "FAQ"))), /*#__PURE__*/React.createElement("div", {
+    href: "https://www.hashhedge.com/ru#challenge"
+  }, "Челленджи")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/ru/affiliateprogram"
+  }, "Партнёрская программа")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/ru/faq"
+  }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/ru/blog"
+  }, "Блог"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 12,
@@ -11123,21 +11121,18 @@ function MobileMenu({
     strokeWidth: "2",
     strokeLinecap: "round"
   }))), /*#__PURE__*/React.createElement("a", {
-    href: "#how",
+    href: "https://www.hashhedge.com/ru#challenge",
     onClick: close
-  }, "Как это работает"), /*#__PURE__*/React.createElement("a", {
-    href: "#pricing",
+  }, "Челленджи"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/ru/affiliateprogram",
     onClick: close
-  }, "Тарифы"), /*#__PURE__*/React.createElement("a", {
-    href: "#why",
+  }, "Партнёрская программа"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/ru/faq",
     onClick: close
-  }, "Почему мы"), /*#__PURE__*/React.createElement("a", {
-    href: "#press",
+  }, "FAQ"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.hashhedge.com/ru/blog",
     onClick: close
-  }, "Пресса"), /*#__PURE__*/React.createElement("a", {
-    href: "#faq",
-    onClick: close
-  }, "FAQ"), /*#__PURE__*/React.createElement("div", {
+  }, "Блог"), /*#__PURE__*/React.createElement("div", {
     className: "menu-cta"
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/ru/login",
