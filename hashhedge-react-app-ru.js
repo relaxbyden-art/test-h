@@ -2183,9 +2183,7 @@ function PromoBanner() {
       margin: 0,
       maxWidth: 735
     }
-  }, "Золото, серебро, палладий, платина, Brent, WTI, природный газ и S&P 500 ", /*#__PURE__*/React.createElement("br", {
-    className: "hh-br-desktop"
-  }), "доступны в формате USDT-пар.")), /*#__PURE__*/React.createElement("a", {
+  }, "Торгуй золотом, серебром, платиной, палладием, нефтью Brent и WTI, газом и индексом S&P 500 - все инструменты в паре с USDT.")), /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
