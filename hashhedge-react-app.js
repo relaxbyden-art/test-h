@@ -10699,11 +10699,11 @@ function BigCTA() {
     style: {
       color: "var(--accent)"
     }
-  }, "$5,000 account"), /*#__PURE__*/React.createElement("br", null), "is ", /*#__PURE__*/React.createElement("span", {
+  }, "$5,000 challenge"), " is just ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "79 dollars"), " away."), /*#__PURE__*/React.createElement("p", {
+  }, "$79"), "."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 19,
       color: "var(--fg-muted)",
