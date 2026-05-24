@@ -1391,7 +1391,7 @@ function Hero({
       fontSize: "clamp(40px, 5.4vw, 76px)",
       lineHeight: 1.05
     }
-  }, "Пройди челлендж и торгуй на капитале ", /*#__PURE__*/React.createElement("span", {
+  }, "Пройди челлендж и торгуй", /*#__PURE__*/React.createElement("br", { className: "hh-br-desktop" }), "на капитале ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
@@ -2179,8 +2179,8 @@ function PromoBanner() {
       margin: 0,
       maxWidth: 735
     }
-  }, "Торгуй золотом, серебром, платиной, палладием, нефтью Brent и WTI, газом и индексом S&P 500 - все инструменты в паре с USDT.")), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+  }, "Торгуй золотом, серебром, платиной, палладием, нефтью Brent и WTI, газом и индексом S&P 500 - все инструменты в паре с USDT.")), /*#__PURE__*/React.createElement("a", {
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary",
@@ -2323,7 +2323,7 @@ function PromoBanner() {
       fontFamily: "Akrobat, Onest, sans-serif"
     }
   }, m.ch))))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary",
@@ -2503,7 +2503,7 @@ function HowItWorks() {
       fontSize: 28,
       fontWeight: 800,
       color: "var(--accent)",
-      margin: "0 auto 32px",
+      margin: "0 auto 12px",
       fontFamily: "Akrobat, Onest, sans-serif",
       position: "relative",
       animationDelay: `${i * 0.6}s`
@@ -2516,7 +2516,7 @@ function HowItWorks() {
   }, s.n)), /*#__PURE__*/React.createElement("div", {
     className: "card",
     style: {
-      padding: 32,
+      padding: "16px 32px 32px",
       height: "100%",
       width: "100%",
       display: "flex",
@@ -3135,7 +3135,7 @@ function Pricing() {
   const rules = [{
     k: "target",
     label: "Цель по прибыли",
-    sub: "Процент прибыли, необходимый для перехода на следующий этап.",
+    sub: "Процент прибыли, необходимый для перехода на следующий этап",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3158,7 +3158,7 @@ function Pricing() {
   }, {
     k: "daily",
     label: "Макс. дневная просадка",
-    sub: "Максимальный убыток, допустимый в течение одного торгового дня.",
+    sub: "Максимальный убыток, допустимый в течение одного торгового дня",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3203,7 +3203,7 @@ function Pricing() {
   }, {
     k: "days",
     label: "Мин. торговых дней",
-    sub: "Минимальное количество торговых дней для прохождения этапа.",
+    sub: "Минимальное количество торговых дней для прохождения этапа",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3227,7 +3227,7 @@ function Pricing() {
   }, {
     k: "period",
     label: "Срок торговли",
-    sub: "Максимальное количество дней, отведённое на прохождение этапа.",
+    sub: "Максимальное количество дней, отведённое на прохождение этапа",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3255,7 +3255,7 @@ function Pricing() {
   }, {
     k: "lev",
     label: "Максимальное плечо",
-    sub: "Максимальное кредитное плечо, доступное при прохождении этапа.",
+    sub: "Максимальное кредитное плечо, доступное при прохождении этапа",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -5116,11 +5116,7 @@ function PayoutShowcase() {
       margin: "0 0 36px",
       maxWidth: 520
     }
-  }, "Доступные сети: ", /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: "var(--fg)"
-    }
-  }, "Tron, Ethereum, BNB Chain, Solana, Arbitrum и Optimism"), "."), /*#__PURE__*/React.createElement("div", {
+  }, "Если выплата задерживается более чем на 72 часа, мы выплатим сумму в тройном размере."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr",
@@ -5231,7 +5227,7 @@ function PayoutShowcase() {
       borderRadius: "50%",
       background: "#fff"
     }
-  }), "РЕАЛЬНАЯ ВЫПЛАТА"), /*#__PURE__*/React.createElement("div", {
+  }), "СЕРТИФИКАТ О ВЫПЛАТЕ"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-row",
     style: {
       marginTop: 20,
@@ -8091,7 +8087,7 @@ function BlueprintSection() {
       marginBottom: 32,
       maxWidth: 460
     }
-  }, "Пошаговый гайд как работает платформа от регистрации до вывода прибыли"), /*#__PURE__*/React.createElement("div", {
+  }, "Пошаговый гайд как работает платформа ", /*#__PURE__*/React.createElement("br", { className: "hh-br-desktop" }), "от регистрации до вывода прибыли"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 32,
@@ -10064,7 +10060,7 @@ function Reviews() {
       maxWidth: 720,
       margin: "32px auto 0"
     }
-  }, "Выше приведены сокращённые версии реальных отзывов с Trustpilot о Hash Hedge. ", /*#__PURE__*/React.createElement("a", {
+  }, "Выше приведены сокращённые версии реальных отзывов с Trustpilot о Hash Hedge.", /*#__PURE__*/React.createElement("br", { className: "hh-br-desktop" }), " ", /*#__PURE__*/React.createElement("a", {
     href: "https://www.trustpilot.com/review/hashhedge.com",
     target: "_blank",
     rel: "noopener",
@@ -11160,6 +11156,12 @@ function HashHedgeReactApp() {
     "data-anim": "max"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
+      position: "sticky",
+      top: 0,
+      zIndex: 100
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
       background: "#fcd535",
       color: "#000",
       textAlign: "center",
@@ -11172,11 +11174,12 @@ function HashHedgeReactApp() {
     href: "https://app.hashhedge.com/ru/login",
     style: {
       color: "#000",
-      textDecoration: "underline"
+      textDecoration: "underline",
+      fontWeight: 700
     }
   }, "личном кабинете")), /*#__PURE__*/React.createElement(Nav, {
     onMenuOpen: () => setMenuOpen(true)
-  }), /*#__PURE__*/React.createElement(MobileMenu, {
+  })), /*#__PURE__*/React.createElement(MobileMenu, {
     open: menuOpen,
     onClose: () => setMenuOpen(false)
   }), /*#__PURE__*/React.createElement(Hero, {
