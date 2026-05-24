@@ -1389,30 +1389,7 @@ function Hero({
       margin: "20px 0 24px",
       color: "var(--fg)"
     }
-  }, "Trade", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--accent)",
-      position: "relative",
-      display: "inline-block"
-    }
-  }, "crypto capital.", /*#__PURE__*/React.createElement("svg", {
-    style: {
-      position: "absolute",
-      bottom: -8,
-      left: 0,
-      width: "100%",
-      height: 12
-    },
-    viewBox: "0 0 200 12",
-    preserveAspectRatio: "none",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0,8 Q50,2 100,6 T200,8",
-    stroke: "var(--accent)",
-    strokeWidth: "3",
-    strokeLinecap: "round",
-    opacity: "0.6"
-  }))), " ", /*#__PURE__*/React.createElement("br", null), "Get paid", /*#__PURE__*/React.createElement("br", null), "like a pro.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Pass a trading challenge and trade without depositing your own money.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -1423,7 +1400,7 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "Pass a trading challenge and trade without depositing your own money.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "Pick your account size, up to $150,000. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Pick your account size, up to $150,000. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -5461,14 +5438,14 @@ function EventsTournaments() {
   const featured = {
     city: "São Paulo",
     flag: "🇧🇷",
-    event: "WSCT Qualifying Tour · Brazil",
+    event: "WSCT qualifier in Brazil",
     role: "Organizer · Winner Ceremony",
     date: "2025",
     stat: {
       v: "$10K+",
       l: "prize pool"
     },
-    blurb: "Hash Hedge crowning the WSCT Qualifying Tour Brazil winner – one of the four live qualifiers we ran across LATAM last year.",
+    blurb: "Traders battled for the title and a $10,000 prize pool.",
     img: (window.__HH_BASE__+"assets/team/event-headliner-yarik.webp")
   };
   const events = [{
@@ -8632,7 +8609,7 @@ function YouTubeSection() {
     style: {
       color: "var(--fg)"
     }
-  }, "2,500+ partners worldwide"), " \u2013 watch videos featuring HashHedge from independent crypto creators. Playthroughs, payout proofs, and platform deep-dives. No sponsorships hidden, no scripts.")))), /*#__PURE__*/React.createElement("div", {
+  }, "2,500+ crypto creators worldwide partner with Hash Hedge: challenge walkthroughs, payout proofs, and platform deep-dives.")))))  , /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.7fr 1fr",
