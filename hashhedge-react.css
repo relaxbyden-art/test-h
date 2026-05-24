@@ -8112,3 +8112,53 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
       inset 0 180px 132px -116px #101012 !important;
   }
 }
+
+/* ── Mobile pricing tooltips ── */
+#hashhedge-root .tilda-html-hashhedge .hh-tip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+#hashhedge-root .tilda-html-hashhedge .hh-tip-label {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: rgba(255,255,255,0.45);
+  text-underline-offset: 3px;
+  line-height: inherit;
+}
+#hashhedge-root .tilda-html-hashhedge .hh-tip-bubble {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  z-index: 200;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  padding: 8px 28px 8px 10px;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  pointer-events: auto;
+}
+#hashhedge-root .tilda-html-hashhedge .hh-tip-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}

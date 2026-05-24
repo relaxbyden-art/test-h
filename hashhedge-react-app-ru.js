@@ -3092,6 +3092,37 @@ const {
 //   3. Rules grid: 6 rule cards with icons, showing value per stage in mini-row.
 //   4. Big summary / checkout bar: account size → price → Start Challenge CTA.
 // ============================================================================
+const PRICING_TOOLTIPS = {
+  "Цель по прибыли": "Процент прибыли, необходимый для перехода на следующий этап",
+  "Макс. дневная просадка": "Максимальный убыток, допустимый в течение одного торгового дня",
+  "Макс. общая просадка": "Общий лимит убытка по счету за время прохождения фазы",
+  "Минимум торговых дней": "Минимальное количество торговых дней для прохождения этапа",
+  "Срок торговли": "Максимальное количество дней, отведённое на прохождение этапа",
+  "Максимальное плечо": "Максимальное кредитное плечо, доступное при прохождении этапа",
+  "Дележ прибыли": "Процент прибыли, который трейдер забирает себе",
+  "Выплаты": "Вывод прибыли на крипто-кошелёк в USDT"
+};
+function PricingTooltipLabel({label}) {
+  const [open, setOpen] = ___useS(false);
+  const tip = PRICING_TOOLTIPS[label];
+  if (!tip) return /*#__PURE__*/React.createElement("span", null, label);
+  return /*#__PURE__*/React.createElement("span", {
+    className: "hh-tip-wrap"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "hh-tip-label",
+    onClick: (e) => { e.stopPropagation(); setOpen(v => !v); },
+    "aria-expanded": open
+  }, label), open && /*#__PURE__*/React.createElement("span", {
+    className: "hh-tip-bubble",
+    role: "tooltip"
+  }, tip, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "hh-tip-close",
+    onClick: (e) => { e.stopPropagation(); setOpen(false); },
+    "aria-label": "Закрыть"
+  }, "×")));
+}
 function Pricing() {
   useRevealOnScroll();
   const [size, setSize] = ___useS(25000);
@@ -3517,7 +3548,7 @@ function Pricing() {
       className: "hh-mobile-plan-rules"
     }, mobileStageRules[mobileStage].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
       key: label
-    }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
+    }, /*#__PURE__*/React.createElement(PricingTooltipLabel, {label: label}), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
       href: "https://app.hashhedge.com/ru/login",
       target: "_blank",
       rel: "noopener",
