@@ -3089,6 +3089,37 @@ const {
 //   3. Rules grid: 6 rule cards with icons, showing value per stage in mini-row.
 //   4. Big summary / checkout bar: account size → price → Start Challenge CTA.
 // ============================================================================
+const PRICING_TOOLTIPS_EN = {
+  "Profit Target": "Percentage of profit required to move to the next stage",
+  "Max Daily Loss": "Maximum loss allowed within a single trading day",
+  "Max Drawdown": "Total account loss limit during the phase",
+  "Min Trading Days": "Minimum number of trading days required to pass the stage",
+  "Trading Period": "Maximum number of days allowed to complete the stage",
+  "Leverage": "Maximum leverage available during the stage",
+  "Profit Split": "Percentage of profit the trader keeps",
+  "Payouts": "Profit withdrawal to a crypto wallet in USDT"
+};
+function PricingTooltipLabel({label}) {
+  const [open, setOpen] = ___useS(false);
+  const tip = PRICING_TOOLTIPS_EN[label];
+  if (!tip) return /*#__PURE__*/React.createElement("span", null, label);
+  return /*#__PURE__*/React.createElement("span", {
+    className: "hh-tip-wrap"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "hh-tip-label",
+    onClick: (e) => { e.stopPropagation(); setOpen(v => !v); },
+    "aria-expanded": open
+  }, label), open && /*#__PURE__*/React.createElement("span", {
+    className: "hh-tip-bubble",
+    role: "tooltip"
+  }, tip, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "hh-tip-close",
+    onClick: (e) => { e.stopPropagation(); setOpen(false); },
+    "aria-label": "Close"
+  }, "×")));
+}
 function Pricing() {
   useRevealOnScroll();
   const [size, setSize] = ___useS(25000);
@@ -3514,7 +3545,7 @@ function Pricing() {
       className: "hh-mobile-plan-rules"
     }, mobileStageRules[mobileStage].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
       key: label
-    }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
+    }, /*#__PURE__*/React.createElement(PricingTooltipLabel, {label: label}), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
       href: "https://www.hashhedge.com/client/register",
       target: "_blank",
       rel: "noopener",
@@ -3928,52 +3959,52 @@ function WhyUs() {
   useRevealOnScroll();
   const cards = [{
     n: "01",
-    k: "tickers",
-    t: "160+ crypto pairs",
-    d: "BTC, ETH, SOL, XRP, DOGE and 160+ spot pairs on institutional liquidity. No synthetic quotes, no dealer intervention.",
-    art: /*#__PURE__*/React.createElement(ArtTickers, null)
+    k: "profitsplit",
+    t: "Profit Split up to 90/10",
+    d: "Trade a funded account and withdraw up to 90% of your profit straight to your wallet.",
+    art: /*#__PURE__*/React.createElement(ArtProfitSplit, null)
   }, {
     n: "02",
     k: "stages",
-    t: "Three-stage program",
-    d: "Stage 1 (+8%) → Stage 2 (+6%) → Stage 3 funded. Same rules end-to-end: 5% daily, 8–10% DD, 1:5 leverage.",
+    t: "Payout Guarantee",
+    d: "If your payout is delayed by more than 72 hours, we pay you triple.",
     art: /*#__PURE__*/React.createElement(ArtStages, null)
   }, {
     n: "03",
     k: "coins",
-    t: "Crypto-only payments",
-    d: "Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism. Withdrawals go out on the same rails – your wallet, your schedule.",
+    t: "160+ Trading Pairs",
+    d: "BTC, ETH, SOL, XRP, DOGE, and dozens of other liquid assets.",
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
     n: "04",
-    k: "infinity",
-    t: "Unlimited time",
-    d: "No 30-day clock, no hidden expiry. Take the time you need to pass Stage 1 and Stage 2. Stage 3 is unlimited by design.",
-    art: /*#__PURE__*/React.createElement(ArtInfinity, null)
+    k: "tickers",
+    t: "One Challenge, Every Market",
+    d: "Trade crypto, stocks, oil, and natural gas on a challenge of any size.",
+    art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
-    k: "scale",
-    t: "Scale your account",
-    d: "Prove consistency and grow. Funded traders add capital on performance – no arbitrary caps, no waiting lists.",
-    art: /*#__PURE__*/React.createElement(ArtScale, null)
-  }, {
-    n: "06",
     k: "orderbook",
-    t: "Institutional infra",
-    d: "Tier-1 execution venues, deep order books, minimal slippage. The same plumbing hedge funds use – exposed to retail.",
+    t: "Built-in Trading Terminal",
+    d: "Log in to your dashboard and start trading in under a minute.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
   }, {
+    n: "06",
+    k: "infinity",
+    t: "No Time Limit",
+    d: "The challenge lasts exactly as long as you need to hit your target.",
+    art: /*#__PURE__*/React.createElement(ArtInfinity, null)
+  }, {
     n: "07",
-    k: "support",
-    t: "Human support 24/7",
-    d: "Real traders on Telegram and chat, not bots. First response under 5 minutes across every major timezone.",
-    art: /*#__PURE__*/React.createElement(ArtClock, null)
+    k: "rules",
+    t: "Transparent Rules",
+    d: "Every challenge rule is published on our site and never changes after you pay.",
+    art: /*#__PURE__*/React.createElement(ArtRules, null)
   }, {
     n: "08",
-    k: "rules",
-    t: "Transparent rules",
-    d: "Every rule for every stage is published. No surprise consistency clauses, no silent parameter changes.",
-    art: /*#__PURE__*/React.createElement(ArtRules, null)
+    k: "support",
+    t: "24/7 Support",
+    d: "The Hash Hedge support team is available around the clock. Average response time: 2 minutes.",
+    art: /*#__PURE__*/React.createElement(ArtClock, null)
   }];
   return /*#__PURE__*/React.createElement("section", {
     id: "why"
@@ -4035,7 +4066,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "A crypto-native prop trading firm backing skilled traders with up to $150,000 in live capital. The Hash Hedge Challenge is how we find the next one."))), /*#__PURE__*/React.createElement("div", {
+  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $150,000. The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -4137,6 +4168,53 @@ function WhyUs() {
 }
 
 // ====== Why Us – themed visuals (pure CSS/SVG, no stock images) ============
+
+function ArtProfitSplit() {
+  const [filled, setFilled] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setFilled(true), 300); return () => clearTimeout(t); }, []);
+  const bar = (pct, color, height) => /*#__PURE__*/React.createElement("div", {
+    style: { height: height, borderRadius: height / 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: filled ? pct + "%" : "0%",
+      borderRadius: height / 2,
+      background: color,
+      transition: "width 1.1s cubic-bezier(0.22,1,0.36,1)"
+    }
+  }));
+  return /*#__PURE__*/React.createElement("div", {
+    style: { position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 220,
+      background: "rgba(14,14,18,0.96)",
+      border: "1px solid rgba(252,213,53,0.22)",
+      borderRadius: 18,
+      padding: "20px 22px 20px",
+      fontFamily: "Akrobat, Onest, sans-serif",
+      boxShadow: "0 8px 40px rgba(0,0,0,0.5)"
+    }
+  },
+    /*#__PURE__*/React.createElement("div", {
+      style: { fontSize: 11, fontWeight: 800, letterSpacing: "0.14em", color: "var(--accent)", textTransform: "uppercase", marginBottom: 20 }
+    }, "PROFIT SPLIT"),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: 16 } },
+      /*#__PURE__*/React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 } },
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 15, fontWeight: 700, color: "var(--fg)" } }, "Trader"),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 32, fontWeight: 900, color: "var(--accent)", letterSpacing: "-0.02em", lineHeight: 1 } }, "90%")
+      ),
+      bar(90, "linear-gradient(90deg, #c8a800 0%, var(--accent) 100%)", 9)
+    ),
+    /*#__PURE__*/React.createElement("div", null,
+      /*#__PURE__*/React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 7 } },
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 14, fontWeight: 600, color: "var(--fg-dim)" } }, "Hash Hedge"),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 18, fontWeight: 800, color: "var(--fg-dim)", letterSpacing: "-0.01em" } }, "10%")
+      ),
+      bar(10, "rgba(180,180,190,0.35)", 6)
+    )
+  ));
+}
 
 function ArtTickers() {
   // Live-price board: 6 visible tickers, prices tick randomly every 1-2s with flash highlight.
@@ -5148,13 +5226,14 @@ function PayoutShowcase() {
       right: -14,
       padding: "8px 14px",
       borderRadius: 999,
-      background: "#E07830",
-      color: "#fff",
+      background: "rgba(160,160,170,0.18)",
+      color: "rgba(255,255,255,0.75)",
       fontSize: 11,
       fontWeight: 800,
       letterSpacing: "0.12em",
       fontFamily: "Onest, sans-serif",
-      boxShadow: "0 10px 30px rgba(124,216,160,0.35)",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+      border: "1px solid rgba(255,255,255,0.12)",
       display: "flex",
       alignItems: "center",
       gap: 6
@@ -5164,9 +5243,9 @@ function PayoutShowcase() {
       width: 6,
       height: 6,
       borderRadius: "50%",
-      background: "#fff"
+      background: "rgba(255,255,255,0.6)"
     }
-  }), "REAL PAYOUT"), /*#__PURE__*/React.createElement("div", {
+  }), "PAYOUT CERTIFICATE"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-row",
     style: {
       marginTop: 20,
@@ -11111,9 +11190,32 @@ function HashHedgeReactApp() {
   return /*#__PURE__*/React.createElement("div", {
     className: "tilda-html-hashhedge",
     "data-anim": "max"
-  }, /*#__PURE__*/React.createElement(Nav, {
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "sticky",
+      top: 0,
+      zIndex: 100
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fcd535",
+      color: "#000",
+      textAlign: "center",
+      fontSize: 14,
+      fontWeight: 600,
+      padding: "10px 16px",
+      lineHeight: 1.4
+    }
+  }, "Already have an account? New challenges can only be purchased in the new ", /*#__PURE__*/React.createElement("a", {
+    href: "https://app.hashhedge.com/en/login",
+    className: "hh-banner-lk-link",
+    style: {
+      color: "#000",
+      fontWeight: 700
+    }
+  }, "dashboard")), /*#__PURE__*/React.createElement(Nav, {
     onMenuOpen: () => setMenuOpen(true)
-  }), /*#__PURE__*/React.createElement(MobileMenu, {
+  }))), /*#__PURE__*/React.createElement(MobileMenu, {
     open: menuOpen,
     onClose: () => setMenuOpen(false)
   }), /*#__PURE__*/React.createElement(Hero, {
@@ -11185,94 +11287,70 @@ function PopupChartBg() {
 }
 
 function PromoPopup() {
-  return null;
   const [open, setOpen] = __useS(true);
-  const [time, setTime] = __useS({
-    h: 47,
-    m: 59,
-    s: 59
-  });
-  __useE(() => {
-    const KEY = "hh_popup_end_v1";
-    let end = parseInt(localStorage.getItem(KEY) || "0");
-    if (!end || end < Date.now()) {
-      end = Date.now() + 48 * 3600 * 1000;
-      localStorage.setItem(KEY, String(end));
-    }
-    const tick = () => {
-      const diff = Math.max(0, end - Date.now());
-      setTime({
-        h: Math.floor(diff / 3600000),
-        m: Math.floor(diff % 3600000 / 60000),
-        s: Math.floor(diff % 60000 / 1000)
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
   if (!open) return null;
-  const pad = n => String(n).padStart(2, "0");
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-backdrop",
-    onClick: () => setOpen(false)
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup",
-    role: "dialog",
-    "aria-modal": "true",
-    "aria-label": "Special offer"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "hh-popup-close",
-    onClick: () => setOpen(false),
-    "aria-label": "Close"
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "18",
-    height: "18",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M18 6L6 18M6 6l12 12",
-    stroke: "currentColor",
-    strokeWidth: "2.2",
-    strokeLinecap: "round"
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-inner"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-copy"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-badge"
-  }, "48 hours"), /*#__PURE__*/React.createElement("h2", {
-    className: "hh-popup-title"
-  }, "Get 90%", /*#__PURE__*/React.createElement("br", null), "of the Profits"), /*#__PURE__*/React.createElement("p", {
-    className: "hh-popup-sub"
-  }, "Increased 90/10 profit split on all challenges"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-timer-label"
-  }, "The offer ends in"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-digits"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-unit"
-  }, /*#__PURE__*/React.createElement("span", null, pad(time.h)), /*#__PURE__*/React.createElement("em", null, "h")), /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-colon"
-  }, ":"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-unit"
-  }, /*#__PURE__*/React.createElement("span", null, pad(time.m)), /*#__PURE__*/React.createElement("em", null, "m")), /*#__PURE__*/React.createElement("span", {
-    className: "hh-popup-colon"
-  }, ":"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-timer-unit"
-  }, /*#__PURE__*/React.createElement("span", null, pad(time.s)), /*#__PURE__*/React.createElement("em", null, "s")))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
-    target: "_blank",
-    rel: "noopener",
-    className: "btn btn-primary hh-popup-cta",
-    onClick: () => setOpen(false)
-  }, "Start Challenge"), /*#__PURE__*/React.createElement("p", {
-    className: "hh-popup-disclaimer"
-  }, "A 90/10 profit split is locked in for you forever on every challenge payout")), /*#__PURE__*/React.createElement("div", {
-    className: "hh-popup-art",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement(PopupChartBg, null), /*#__PURE__*/React.createElement(PromoProfitSplitArt, null)))));
+  return /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-popup-backdrop",
+      onClick: () => setOpen(false)
+    }),
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-popup",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": "New Hash Hedge Dashboard"
+    },
+      /*#__PURE__*/React.createElement("button", {
+        className: "hh-popup-close",
+        onClick: () => setOpen(false),
+        "aria-label": "Close"
+      }, /*#__PURE__*/React.createElement("svg", {
+        width: "18",
+        height: "18",
+        viewBox: "0 0 24 24",
+        fill: "none"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M18 6L6 18M6 6l12 12",
+        stroke: "currentColor",
+        strokeWidth: "2.2",
+        strokeLinecap: "round"
+      }))),
+      /*#__PURE__*/React.createElement("div", {
+        className: "hh-popup-inner"
+      },
+        /*#__PURE__*/React.createElement("div", {
+          className: "hh-popup-copy"
+        },
+          /*#__PURE__*/React.createElement("span", {
+            className: "hh-popup-badge"
+          }, "Platform Update"),
+          /*#__PURE__*/React.createElement("h2", {
+            className: "hh-popup-title"
+          }, "New Hash Hedge Dashboard"),
+          /*#__PURE__*/React.createElement("p", {
+            className: "hh-popup-sub"
+          }, "Platform registration and challenge purchases are available only in the new dashboard."),
+          /*#__PURE__*/React.createElement("a", {
+            href: "https://app.hashhedge.com/en/login",
+            target: "_blank",
+            rel: "noopener",
+            className: "btn btn-primary hh-popup-cta",
+            onClick: () => setOpen(false)
+          }, "New Dashboard")
+        ),
+        /*#__PURE__*/React.createElement("div", {
+          className: "hh-popup-art",
+          "aria-hidden": "true"
+        }, /*#__PURE__*/React.createElement("img", {
+          className: "hh-popup-dashboard-img",
+          src: window.__HH_BASE__ + "img/1GadgeMockup3 21.png",
+          alt: "",
+          loading: "eager",
+          decoding: "async"
+        }))
+      )
+    )
+  );
 }
 
 ReactDOM.createRoot(document.getElementById("hashhedge-root")).render(/*#__PURE__*/React.createElement(HashHedgeReactApp, null));
