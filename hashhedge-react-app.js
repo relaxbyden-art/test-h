@@ -1412,7 +1412,7 @@ function Hero({
       justifyContent: variant === "cosmic" ? "center" : "flex-start"
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -2138,7 +2138,7 @@ function PromoBanner() {
     style: {
       color: "var(--accent)"
     }
-  }, "160+ crypto pairs"), " and 10+ TradFi assets."), /*#__PURE__*/React.createElement("p", {
+  }, "160+ crypto pairs"), /*#__PURE__*/React.createElement("br", null), "and 10+ TradFi assets."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -2147,7 +2147,7 @@ function PromoBanner() {
       maxWidth: 735
     }
   }, "Gold, silver, platinum, palladium, Brent and WTI crude, natural gas, and the S&P 500, all quoted in USDT. Same funded account, same 1:5 leverage, one unified PnL.")), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary",
@@ -2290,7 +2290,7 @@ function PromoBanner() {
       fontFamily: "Akrobat, Onest, sans-serif"
     }
   }, m.ch))))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary",
@@ -2631,7 +2631,7 @@ function PromoSliderBanner() {
     className: "hh-promo-slide-art",
     "aria-hidden": "true"
   }, slide.art === "x3" ? /*#__PURE__*/React.createElement(PromoX3Art, null) : slide.art === "split" ? /*#__PURE__*/React.createElement(PromoProfitSplitArt, null) : /*#__PURE__*/React.createElement(PromoMetalsArt, null)), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary hh-promo-slide-cta"
@@ -3519,7 +3519,7 @@ function Pricing() {
     }, mobileStageRules[mobileStage].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
       key: label
     }, /*#__PURE__*/React.createElement(PricingTooltipLabel, {label: label}), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
-      href: "https://www.hashhedge.com/client/register",
+      href: "https://app.hashhedge.com/en/login/",
       target: "_blank",
       rel: "noopener",
       className: "btn btn-primary btn-lg"
@@ -3554,7 +3554,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("span", null, "One-time fee"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Daily loss"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Max DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Min days"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Period"), /*#__PURE__*/React.createElement("b", null, "Unlimited"))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -3854,7 +3854,7 @@ function Pricing() {
       color: "var(--fg)"
     }
   }, "$", (price / size * 1000).toFixed(2)), " per $1,000 of capital"))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg",
@@ -5155,7 +5155,7 @@ function PayoutShowcase() {
       color: "var(--fg-dim)"
     }
   }, s.d))))), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -10719,7 +10719,7 @@ function BigCTA() {
       flexWrap: "wrap"
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -11019,7 +11019,7 @@ function Nav({
       padding: "10px 14px"
     }
   }, "Log in"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
@@ -11106,7 +11106,7 @@ function MobileMenu({
   }, "Blog"), /*#__PURE__*/React.createElement("div", {
     className: "menu-cta"
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg",
@@ -11130,7 +11130,7 @@ function MobileCTABar() {
     className: "mobile-cta-bar",
     style: { transform: vis ? "translateY(0)" : "translateY(120%)", transition: "transform 0.4s cubic-bezier(0.32,0.72,0,1)" }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/client/register",
+    href: "https://app.hashhedge.com/en/login/",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary"
