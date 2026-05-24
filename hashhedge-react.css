@@ -8162,3 +8162,26 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
   cursor: pointer;
   padding: 0;
 }
+
+/* ================================================================
+   SUPPORT SECTION – Mobile spacing + channels cleanup
+   ================================================================ */
+@media (max-width: 640px) {
+  /* More space between heading and intro paragraph */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-header h2,
+  #hashhedge-root .tilda-html-hashhedge .hh-support-header .h1 {
+    margin-bottom: 16px !important;
+  }
+
+  /* Hide the 20+ Languages ticker box — already mentioned in intro text */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .container > div:nth-child(3) [style*="rgba(252,213,53,0.05)"][style*="rgba(252,213,53,0.2)"] {
+    display: none !important;
+  }
+
+  /* Channels: 1-column full width, no horizontal overflow */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .container > div:nth-child(3) {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+}

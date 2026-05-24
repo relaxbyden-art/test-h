@@ -9121,8 +9121,7 @@ function MobileCertMarquee({ certs, CertCard }) {
       /*#__PURE__*/React.createElement(CertCard, { c: c })))));
 
   return /*#__PURE__*/React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8 } },
-    makeRow(r1, doubled1),
-    makeRow(r2, doubled2)
+    makeRow(r1, doubled1)
   );
 }
 
@@ -10738,10 +10737,10 @@ function Footer() {
       href: "https://www.hashhedge.com/"
     }, {
       label: "Affiliate Program",
-      href: "https://www.hashhedge.com/affiliateprogram"
+      href: "https://www.hashhedge.com/affiliateprogram?fpr=123456"
     }, {
       label: "Blog",
-      href: "https://www.hashhedge.com/blog"
+      href: "https://www.hashhedge.com/blog?fpr=123456&client_reference_id=2a2c2893-ab08-4508-ac36-de4b76752443"
     }, {
       label: "Open Guide",
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide"
@@ -10753,7 +10752,7 @@ function Footer() {
       href: "https://t.me/hashhedgesupportbot"
     }, {
       label: "FAQ",
-      href: "https://www.hashhedge.com/faq"
+      href: "https://www.hashhedge.com/faq?fpr=123456&client_reference_id=ee2bbcb7-717b-4ac8-b7dc-4d6dc0f00c61"
     }, {
       label: "Vacancies",
       href: "https://www.hashhedge.com/vacancies"
