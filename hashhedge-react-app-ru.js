@@ -11178,12 +11178,9 @@ function HashHedgeReactApp() {
     }
   }, "Для зарегистрированных пользователей: Покупка новых челленджей доступна только в новом ", /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/ru/login",
+    className: "hh-banner-lk-link",
     style: {
       color: "#000",
-      textDecorationLine: "underline",
-      textDecorationThickness: "2px",
-      textUnderlineOffset: "3px",
-      textDecorationColor: "rgba(0,0,0,0.72)",
       fontWeight: 700
     }
   }, "личном кабинете")), /*#__PURE__*/React.createElement(Nav, {

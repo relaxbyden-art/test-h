@@ -5490,6 +5490,8 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 #hashhedge-root .tilda-html-hashhedge a{color:inherit!important;text-decoration:none!important}
 /* Inline accent links (style="color: var(--accent)") must win over the global override */
 #hashhedge-root .tilda-html-hashhedge a[style*="--accent"]{color:var(--accent)!important}
+/* Yellow banner "личном кабинете" link underline */
+#hashhedge-root .tilda-html-hashhedge .hh-banner-lk-link{text-decoration:underline!important;text-decoration-thickness:2px!important;text-underline-offset:3px!important;text-decoration-color:rgba(0,0,0,0.72)!important}
 #hashhedge-root .tilda-html-hashhedge .nav a:not(.btn){color:var(--fg-muted)!important}
 #hashhedge-root .tilda-html-hashhedge .nav a:not(.btn):hover{color:var(--fg)!important}
 #hashhedge-root .tilda-html-hashhedge .btn-primary,
