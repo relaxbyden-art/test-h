@@ -1391,7 +1391,7 @@ function Hero({
       fontSize: "clamp(40px, 5.4vw, 76px)",
       lineHeight: 1.05
     }
-  }, "Пройди челлендж и торгуй криптой с капиталом ", /*#__PURE__*/React.createElement("span", {
+  }, "Пройди челлендж и торгуй на капитале ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
@@ -2171,7 +2171,7 @@ function PromoBanner() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "10+ TradFi-активов"), " в одном аккаунте."), /*#__PURE__*/React.createElement("p", {
+  }, "10+ TradFi-активов"), " на любом челлендже"), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -2179,7 +2179,7 @@ function PromoBanner() {
       margin: 0,
       maxWidth: 735
     }
-  }, "Золото, серебро, палладий, платина, Brent, WTI, природный газ и S&P 500 доступны в формате USDT-пар.")), /*#__PURE__*/React.createElement("a", {
+  }, "Торгуй золотом, серебром, платиной, палладием, нефтью Brent и WTI, газом и индексом S&P 500 - все инструменты в паре с USDT.")), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/client/register",
     target: "_blank",
     rel: "noopener",
@@ -2389,16 +2389,11 @@ function PromoBanner() {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "1:5")), /*#__PURE__*/React.createElement("span", null, "Котировка: ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "var(--fg)",
-      fontWeight: 700
-    }
-  }, "USDT"))), /*#__PURE__*/React.createElement("span", {
+  }, "1:5"))), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg-muted)"
     }
-  }, "160+ криптопар и TradFi-активов в одном funded-аккаунте."))))));
+  }, "Новые активы каждую неделю"))))));
 }
 function HowItWorks() {
   useRevealOnScroll();
@@ -2406,13 +2401,13 @@ function HowItWorks() {
     n: "01",
     k: "РЕГИСТРАЦИЯ",
     t: "Выбери счёт",
-    d: "Выбирай размер капитала, которым будешь управлять после прохождения, и покупай челлендж соответствующего номинала.",
+    d: "Выполни условия по прибыли и просадке в рамках челленджа и получи фондирование.",
     bullets: ["6 номиналов: от $5K до $150K", "Цена: от $79 до $1 093", "Оплата USDT: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism"]
   }, {
     n: "02",
     k: "ОЦЕНКА",
     t: "Пройди челлендж",
-    d: "Соблюдай условия по прибыли и просадке в рамках этапов челленджа, чтобы получить фондирование.",
+    d: "Получи капитал до $150К от Hash Hedge, торгуй свою стратегию и забирай до 90% прибыли.",
     bullets: ["Фаза 1: цель 8%, макс. общая просадка 10%", "Фаза 2: цель 6%, макс. общая просадка 8%", "Макс. дневная просадка 5%, минимум 5 дней"]
   }, {
     n: "03",
@@ -2459,7 +2454,7 @@ function HowItWorks() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Выбери размер аккаунта, пройди челлендж и торгуй с капиталом Hash Hedge без риска для собственных средств."))), /*#__PURE__*/React.createElement("div", {
+  }, "Выбери размер капитала до $150К и возьми челлендж соответствующего номинала."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -3185,7 +3180,7 @@ function Pricing() {
   }, {
     k: "dd",
     label: "Макс. общая просадка",
-    sub: "Общий лимит убытка по счёту за всё время прохождения челленджа.",
+    sub: "Общий лимит убытка по счету за время прохождения фазы",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3308,7 +3303,7 @@ function Pricing() {
       maxWidth: 640,
       margin: "0 auto"
     }
-  }, "Сдай челлендж и забирай до 90% прибыли"))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Пройди челлендж и выводи до 90% прибыли"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3930,7 +3925,7 @@ function WhyUs() {
     n: "01",
     k: "profitsplit",
     t: "Профит-сплит до 90/10",
-    d: "Ты забираешь себе 90% прибыли. Остальное удерживает Hash Hedge в качестве комиссии за предоставленный капитал.",
+    d: "Торгуй на фондированном аккаунте и выводи до 90% прибыли к себе на кошелек.",
     art: /*#__PURE__*/React.createElement(ArtProfitSplit, null)
   }, {
     n: "02",
@@ -7618,7 +7613,7 @@ function SupportSection() {
       letterSpacing: "-0.02em",
       lineHeight: 1
     }
-  }, "2 мин"), /*#__PURE__*/React.createElement("div", {
+  }, "1 мин 47 сек"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 10,
       color: "var(--fg-dim)",
@@ -7626,7 +7621,7 @@ function SupportSection() {
       textTransform: "uppercase",
       marginTop: 4
     }
-  }, "Время ответа")), /*#__PURE__*/React.createElement("div", {
+  }, "Среднее время ответа")), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
       left: 24,
@@ -8096,7 +8091,7 @@ function BlueprintSection() {
       marginBottom: 32,
       maxWidth: 460
     }
-  }, "Разберись, как работает платформа: от регистрации и покупки челленджа до первой выплаты."), /*#__PURE__*/React.createElement("div", {
+  }, "Пошаговый гайд как работает платформа от регистрации до вывода прибыли"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 32,
@@ -9567,7 +9562,7 @@ function TeamCerts() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Результаты трейдеров Hash Hedge измеряются реальными выплатами. Каждая выплата фиксируется payout-сертификатом. Ещё больше выплат в нашем ", /*#__PURE__*/React.createElement("a", {
+  }, "Результаты трейдеров Hash Hedge измеряются реальными выплатами. Каждая выплата фиксируется payout-сертификатом. Больше выплат в нашем ", /*#__PURE__*/React.createElement("a", {
     href: "https://t.me/+Ix0pA4YYv9A4NzYy",
     target: "_blank",
     rel: "noopener",
@@ -10076,7 +10071,7 @@ function Reviews() {
     style: {
       color: "var(--accent)"
     }
-  }, "Кликни, чтобы открыть оригинал на Trustpilot.")))));
+  }, "Кликни, чтобы читать оригинал на Trustpilot.")))));
 }
 function FAQ() {
   useRevealOnScroll();
@@ -10929,6 +10924,17 @@ function Nav({
   onMenuOpen
 }) {
   const [langOpen, setLangOpen] = React.useState(false);
+  const langRef = React.useRef(null);
+  React.useEffect(() => {
+    if (!langOpen) return;
+    function handleOutside(e) {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [langOpen]);
   const langs = [{
     flag: "🇬🇧",
     code: "EN",
@@ -11016,7 +11022,8 @@ function Nav({
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
   }, "Начать челлендж"), /*#__PURE__*/React.createElement("div", {
-    className: "hh-lang-switcher"
+    className: "hh-lang-switcher",
+    ref: langRef
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "hh-lang-trigger",
