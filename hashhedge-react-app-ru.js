@@ -11024,13 +11024,13 @@ function Nav({
   }, /*#__PURE__*/React.createElement("div", {
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "#challenge"
+    href: "#pricing"
   }, "Челленджи")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru/affiliateprogram"
+    href: "https://hashhedge.com/affiliateprogram/ru?fpr=123456&_gl=1*dubg9v*_gcl_au*MTc0MzM3NTM2MC4xNzczNDAwNDgxLjE4NDY2NDg5NDEuMTc3Nzk5MjA3Ni4xNzc3OTkyMDc1*_ga*NjAwMDAwMzM.*_ga_M8G7MF5E2R*czE3Nzk2NDMwNzIkbzIwNCRnMSR0MTc3OTY0NDI5NCRqNTkkbDAkaDA."
   }, "Партнёрская программа")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru/faq"
+    href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def"
   }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru/blog"
+    href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121"
   }, "Блог"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
@@ -11121,16 +11121,16 @@ function MobileMenu({
     strokeWidth: "2",
     strokeLinecap: "round"
   }))), /*#__PURE__*/React.createElement("a", {
-    href: "#challenge",
+    href: "#pricing",
     onClick: close
   }, "Челленджи"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru/affiliateprogram",
+    href: "https://hashhedge.com/affiliateprogram/ru?fpr=123456&_gl=1*dubg9v*_gcl_au*MTc0MzM3NTM2MC4xNzczNDAwNDgxLjE4NDY2NDg5NDEuMTc3Nzk5MjA3Ni4xNzc3OTkyMDc1*_ga*NjAwMDAwMzM.*_ga_M8G7MF5E2R*czE3Nzk2NDMwNzIkbzIwNCRnMSR0MTc3OTY0NDI5NCRqNTkkbDAkaDA.",
     onClick: close
   }, "Партнёрская программа"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru/faq",
+    href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def",
     onClick: close
   }, "FAQ"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/ru/blog",
+    href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121",
     onClick: close
   }, "Блог"), /*#__PURE__*/React.createElement("div", {
     className: "menu-cta"
