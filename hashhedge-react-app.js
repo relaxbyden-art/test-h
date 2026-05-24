@@ -8610,7 +8610,7 @@ function YouTubeSection() {
     style: {
       color: "var(--fg)"
     }
-  }, "2,500+ crypto creators worldwide partner with Hash Hedge: challenge walkthroughs, payout proofs, and platform deep-dives.")))))  , /*#__PURE__*/React.createElement("div", {
+  }, "2,500+ crypto creators worldwide partner"), " with Hash Hedge: challenge walkthroughs, payout proofs, and platform deep-dives."))))  , /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.7fr 1fr",
