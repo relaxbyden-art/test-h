@@ -1391,7 +1391,11 @@ function Hero({
       fontSize: "clamp(40px, 5.4vw, 76px)",
       lineHeight: 1.05
     }
-  }, "Пройди челлендж и торгуй", /*#__PURE__*/React.createElement("br", { className: "hh-br-desktop" }), "на капитале ", /*#__PURE__*/React.createElement("span", {
+  }, "Пройди челлендж и торгуй ", /*#__PURE__*/React.createElement("br", {
+    className: "hh-br-mobile-hero"
+  }), /*#__PURE__*/React.createElement("br", {
+    className: "hh-br-desktop"
+  }), "на капитале ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)",
       position: "relative",
