@@ -2231,10 +2231,10 @@ input, textarea, select {
     max(16px, env(safe-area-inset-right))
     calc(14px + env(safe-area-inset-bottom))
     max(16px, env(safe-area-inset-left));
-  background: var(--mat-thin, rgba(16,16,18,0.72));
-  backdrop-filter: blur(28px) saturate(1.6);
-  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  background: rgba(12,12,15,0.97);
   border-top: 1px solid var(--line);
+  will-change: transform;
+  transform: translateZ(0);
 }
 .mobile-cta-bar .btn {
   width: 100%;

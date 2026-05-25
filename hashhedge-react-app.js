@@ -10302,7 +10302,8 @@ function FAQ() {
     style: {
       maxHeight: open === i ? 600 : 0,
       overflow: "hidden",
-      transition: "max-height .4s var(--ease-out)"
+      transition: "max-height .25s ease",
+      willChange: "max-height"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
