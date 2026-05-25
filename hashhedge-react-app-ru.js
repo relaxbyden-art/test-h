@@ -10771,7 +10771,7 @@ function Footer() {
     t: "Продукт",
     l: [{
       label: "Челленджи",
-      href: "https://www.hashhedge.com/"
+      href: "#pricing"
     }, {
       label: "Партнёрская программа",
       href: "https://hashhedge.com/affiliateprogram/ru?fpr=123456&_gl=1*dubg9v*_gcl_au*MTc0MzM3NTM2MC4xNzczNDAwNDgxLjE4NDY2NDg5NDEuMTc3Nzk5MjA3Ni4xNzc3OTkyMDc1*_ga*NjAwMDAwMzM.*_ga_M8G7MF5E2R*czE3Nzk2NDMwNzIkbzIwNCRnMSR0MTc3OTY0NDI5NCRqNTkkbDAkaDA."

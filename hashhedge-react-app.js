@@ -10732,7 +10732,7 @@ function Footer() {
     t: "Product",
     l: [{
       label: "Challenges",
-      href: "https://www.hashhedge.com/"
+      href: "#pricing"
     }, {
       label: "Affiliate Program",
       href: "https://www.hashhedge.com/affiliateprogram?fpr=123456"
