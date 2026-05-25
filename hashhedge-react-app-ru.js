@@ -7921,9 +7921,8 @@ function SupportSection() {
     style: {
       fontSize: 12,
       color: "var(--fg-muted)",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis"
+      wordBreak: "break-word",
+      lineHeight: 1.35
     }
   }, c.sub)), /*#__PURE__*/React.createElement("svg", {
     width: "14",
