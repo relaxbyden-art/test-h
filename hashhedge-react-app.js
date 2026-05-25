@@ -7873,7 +7873,7 @@ function SupportSection() {
     }
   }, c.label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 12,
+      fontSize: window.innerWidth <= 640 ? 8 : 12,
       color: "var(--fg-muted)",
       wordBreak: "break-word",
       lineHeight: 1.35
