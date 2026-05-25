@@ -7851,16 +7851,7 @@ function SupportSection() {
       minWidth: 0,
       flex: 1
     }
-  }, window.innerWidth > 640 ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 9,
-      fontWeight: 800,
-      letterSpacing: "0.16em",
-      color: c.accentText,
-      textTransform: "uppercase",
-      marginBottom: 4
-    }
-  }, c.tag) : null, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 15,
       fontWeight: 700,
