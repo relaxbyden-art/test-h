@@ -11119,14 +11119,18 @@ function MobileMenu({
 }
 function MobileCTABar() {
   const [vis, setVis] = React.useState(false);
+  const [portal, setPortal] = React.useState(null);
   React.useEffect(() => {
     const fn = () => {
       setVis(window.scrollY > window.innerHeight * 1.2);
     };
     window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    var el = document.createElement("div");
+    document.body.appendChild(el);
+    setPortal(el);
+    return () => { window.removeEventListener("scroll", fn); document.body.removeChild(el); };
   }, []);
-  return /*#__PURE__*/React.createElement("div", {
+  var bar = /*#__PURE__*/React.createElement("div", {
     className: "mobile-cta-bar",
     style: { transform: vis ? "translateY(0)" : "translateY(120%)", transition: "transform 0.4s cubic-bezier(0.32,0.72,0,1)" }
   }, /*#__PURE__*/React.createElement("a", {
@@ -11146,6 +11150,8 @@ function MobileCTABar() {
     strokeLinecap: "round",
     strokeLinejoin: "round"
   }))));
+  if (!portal) return null;
+  return ReactDOM.createPortal(bar, portal);
 }
 function HashHedgeReactApp() {
   const [menuOpen, setMenuOpen] = React.useState(false);
