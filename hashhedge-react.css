@@ -8205,12 +8205,36 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
   #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:first-child {
     font-family: Onest, system-ui, sans-serif !important;
     font-size: 15px !important;
+    font-weight: 700 !important;
     line-height: 1.2 !important;
+    letter-spacing: -0.005em !important;
+    text-transform: none !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:last-child {
     font-family: Onest, system-ui, sans-serif !important;
     font-size: 12px !important;
     line-height: 1.35 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
   }
+}
+
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:first-child,
+body[data-fm="tablet"] #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:first-child {
+  font-family: Onest, system-ui, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.005em !important;
+  text-transform: none !important;
+}
+
+body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:last-child,
+body[data-fm="tablet"] #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:last-child {
+  font-family: Onest, system-ui, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
 }
