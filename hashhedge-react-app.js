@@ -583,9 +583,9 @@ function CosmicStatsPanel() {
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    big: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * _TICK_TRADERS).toLocaleString(),
+    big: "5,120",
     sub: "active accounts",
-    day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC))}`,
+    day: "+4",
     dayLbl: "joined today",
     color: "var(--fg)"
   }, {
@@ -737,7 +737,7 @@ function LivePayoutsTable() {
   const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
 
   // Traders: fixed to match the hero metric and avoid competing live totals.
-  const tradersTotal = Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400));
+  const tradersTotal = 5_120;
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
@@ -751,7 +751,7 @@ function LivePayoutsTable() {
     k: "Funded traders",
     v: fmtCount(tradersTotal),
     sub: "today",
-    subV: `+${Math.max(1, Math.round(secToday * 18 / 86400))}`,
+    subV: "+4",
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
@@ -975,9 +975,9 @@ function TradingTerminal() {
     color: "var(--green)"
   }, {
     k: "Funded traders",
-    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * 0.00026).toLocaleString(),
+    v: "5,120",
     sub: "joined today",
-    subV: `+${Math.max(1, Math.round(_secToday2 * _TR_S))}`,
+    subV: "+4",
     color: "var(--fg)"
   }, {
     k: "Payouts count",
@@ -1516,7 +1516,7 @@ function Hero({
     l: "Payouts completed",
     sub: "Fast, seamless, and always on time."
   }, {
-    v: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400)),
+    v: 5120,
     suf: "",
     l: "Funded traders",
     sub: "Growing every single day."
