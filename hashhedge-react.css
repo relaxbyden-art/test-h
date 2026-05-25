@@ -8201,8 +8201,16 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
     gap: 10px !important;
   }
 
-  /* Channel sub text — 8px on mobile */
-  .hh-support-channel > div:nth-child(2) > div:last-child {
-    font-size: 8px !important;
+  /* Channel typography matches desktop: label 15px, sub 12px */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:first-child {
+    font-family: Onest, system-ui, sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-support-section .hh-support-channel > div:nth-child(2) > div:last-child {
+    font-family: Onest, system-ui, sans-serif !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
   }
 }
