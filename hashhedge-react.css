@@ -8200,4 +8200,12 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
     flex-direction: column !important;
     gap: 10px !important;
   }
+
+  /* Channel label & sub text — smaller on narrow screens */
+  #hashhedge-root .tilda-html-hashhedge .hh-support-channel > div:nth-child(2) > div:first-child {
+    font-size: 13px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge .hh-support-channel > div:nth-child(2) > div:last-child {
+    font-size: 11px !important;
+  }
 }
