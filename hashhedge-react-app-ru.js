@@ -10774,7 +10774,7 @@ function Footer() {
       href: "#pricing"
     }, {
       label: "Партнёрская программа",
-      href: "https://partner.hashhedge.com/auth/login/"
+      href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5"
     }, {
       label: "Блог",
       href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121"
@@ -11033,7 +11033,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#pricing"
   }, "Челленджи")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://partner.hashhedge.com/auth/login/"
+    href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5"
   }, "Партнёрская программа")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def"
   }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
@@ -11131,7 +11131,7 @@ function MobileMenu({
     href: "#pricing",
     onClick: close
   }, "Челленджи"), /*#__PURE__*/React.createElement("a", {
-    href: "https://partner.hashhedge.com/auth/login/",
+    href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5",
     onClick: close
   }, "Партнёрская программа"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def",

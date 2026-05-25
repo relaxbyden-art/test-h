@@ -10735,7 +10735,7 @@ function Footer() {
       href: "#pricing"
     }, {
       label: "Affiliate Program",
-      href: "https://partner.hashhedge.com/auth/login/"
+      href: "https://www.hashhedge.com/affiliateprogram?fpr=123456&client_reference_id=c5646489-4e4e-450c-9246-b63d35ea4d36"
     }, {
       label: "Blog",
       href: "https://www.hashhedge.com/blog?fpr=123456&client_reference_id=2a2c2893-ab08-4508-ac36-de4b76752443"
@@ -10994,7 +10994,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#pricing"
   }, "Challenges")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://partner.hashhedge.com/auth/login/"
+    href: "https://www.hashhedge.com/affiliateprogram?fpr=123456&client_reference_id=c5646489-4e4e-450c-9246-b63d35ea4d36"
   }, "Affiliate Program")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq?fpr=123456&client_reference_id=ee2bbcb7-717b-4ac8-b7dc-4d6dc0f00c61"
   }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
@@ -11092,7 +11092,7 @@ function MobileMenu({
     href: "#pricing",
     onClick: close
   }, "Challenges"), /*#__PURE__*/React.createElement("a", {
-    href: "https://partner.hashhedge.com/auth/login/",
+    href: "https://www.hashhedge.com/affiliateprogram?fpr=123456&client_reference_id=c5646489-4e4e-450c-9246-b63d35ea4d36",
     onClick: close
   }, "Affiliate Program"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq?fpr=123456&client_reference_id=ee2bbcb7-717b-4ac8-b7dc-4d6dc0f00c61",
