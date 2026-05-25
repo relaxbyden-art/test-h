@@ -8201,11 +8201,17 @@ body[data-fm="phone"] #hashhedge-root .tilda-html-hashhedge #why .why-card > .hh
     gap: 10px !important;
   }
 
-  /* Channel label & sub text — smaller on narrow screens */
+  /* Channel label & sub text — smaller + allow wrapping on narrow screens */
   #hashhedge-root .tilda-html-hashhedge .hh-support-channel > div:nth-child(2) > div:first-child {
     font-size: 13px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
   }
   #hashhedge-root .tilda-html-hashhedge .hh-support-channel > div:nth-child(2) > div:last-child {
     font-size: 11px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
   }
 }
