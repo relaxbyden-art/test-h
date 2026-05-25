@@ -7919,7 +7919,7 @@ function SupportSection() {
     }
   }, c.label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 12,
+      fontSize: 10,
       color: "var(--fg-muted)",
       wordBreak: "break-word",
       lineHeight: 1.35
