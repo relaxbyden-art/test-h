@@ -7851,7 +7851,7 @@ function SupportSection() {
       minWidth: 0,
       flex: 1
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, window.innerWidth > 640 ? /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 9,
       fontWeight: 800,
@@ -7860,7 +7860,7 @@ function SupportSection() {
       textTransform: "uppercase",
       marginBottom: 4
     }
-  }, c.tag), /*#__PURE__*/React.createElement("div", {
+  }, c.tag) : null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 15,
       fontWeight: 700,
