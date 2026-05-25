@@ -7853,7 +7853,7 @@ function SupportSection() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 15,
+      fontSize: window.innerWidth <= 900 ? 13 : 15,
       fontWeight: 700,
       color: "var(--fg)",
       letterSpacing: "-0.005em",
@@ -7864,7 +7864,7 @@ function SupportSection() {
     }
   }, c.label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: window.innerWidth <= 640 ? 8 : 12,
+      fontSize: window.innerWidth <= 900 ? 10 : 12,
       color: "var(--fg-muted)",
       wordBreak: "break-word",
       lineHeight: 1.35
