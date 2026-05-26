@@ -1571,8 +1571,8 @@ html {
   top: calc(100% + 8px);
   right: 0;
   width: 190px;
-  max-height: min(50vh, 360px);
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
   padding: 8px;
   border-radius: 14px;
   background: rgba(14,14,18,0.99);
@@ -1618,7 +1618,7 @@ html {
 }
 
 .hh-lang-menu a + a {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .hh-lang-menu em {
@@ -1653,15 +1653,20 @@ html {
   #hashhedge-root .tilda-html-hashhedge .hh-lang-menu {
     right: 0;
     width: min(200px, calc(100vw - 48px));
-    max-height: min(45vh, 300px);
-    padding: 8px;
+    max-height: none;
+    overflow-y: visible;
+    padding: 6px;
     background: rgba(10,10,14,1);
   }
 
   #hashhedge-root .tilda-html-hashhedge .hh-lang-menu a {
     font-size: 13px;
-    min-height: 34px;
-    padding: 5px 8px;
+    min-height: 32px;
+    padding: 4px 8px;
+  }
+
+  #hashhedge-root .tilda-html-hashhedge .hh-lang-menu a + a {
+    margin-top: 4px;
   }
 
   /* 1. Pricing values stay inside the card and align right. */
