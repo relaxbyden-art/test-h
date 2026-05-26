@@ -4608,9 +4608,7 @@ function ArtInfinity() {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
+      inset: 0,
       display: "flex",
       alignItems: "center",
       justifyContent: "center"
@@ -4839,9 +4837,14 @@ function ArtClock() {
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -54%)",
+      inset: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative",
       width: 160,
       height: 160
     }
@@ -4949,7 +4952,7 @@ function ArtClock() {
       background: "var(--green)",
       boxShadow: "0 0 6px var(--green)"
     }
-  }), "24 / 7"));
+  }), "24 / 7")));
 }
 function ArtRules() {
   // Checklist of rules being ticked off one by one.
