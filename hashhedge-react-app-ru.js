@@ -11069,7 +11069,7 @@ function Nav({
     onClick: () => setLangOpen(v => !v),
     "aria-expanded": langOpen,
     "aria-label": "Выбрать язык"
-  }, /*#__PURE__*/React.createElement("span", null, "\uD83C\uDDEC\uD83C\uDDE7"), /*#__PURE__*/React.createElement("b", null, "EN"), /*#__PURE__*/React.createElement("svg", {
+  }, /*#__PURE__*/React.createElement("span", null, "\uD83C\uDDF7\uD83C\uDDFA"), /*#__PURE__*/React.createElement("b", null, "RU"), /*#__PURE__*/React.createElement("svg", {
     width: "12",
     height: "12",
     viewBox: "0 0 12 12",

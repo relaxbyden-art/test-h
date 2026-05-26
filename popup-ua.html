@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hash Hedge — Popup UA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0b0b0e;
+    font-family: 'Onest', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  /* ── OVERLAY ── */
+  .hh-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ── CARD ── */
+  .hh-popup {
+    background: #13131a;
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1);
+    overflow: hidden;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── IMAGE BLOCK ── */
+  .hh-popup-img {
+    width: 100%;
+    background: #0e0e14;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 28px 20px 0;
+    position: relative;
+    min-height: 200px;
+    overflow: hidden;
+  }
+
+  /* glow behind laptop */
+  .hh-popup-img::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 180px;
+    background: radial-gradient(ellipse, rgba(252,213,53,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* gradient fade into card body */
+  .hh-popup-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #13131a);
+    pointer-events: none;
+  }
+
+  .hh-popup-img img {
+    width: 92%;
+    max-width: 360px;
+    display: block;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+  }
+
+  /* ── CONTENT ── */
+  .hh-popup-content {
+    padding: 20px 24px 24px;
+    position: relative;
+  }
+
+  /* ── CLOSE ── */
+  .hh-popup-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(19,19,26,0.9);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(245,241,232,0.35);
+    transition: background 0.15s, color 0.15s;
+    z-index: 10;
+  }
+  .hh-popup-close:hover {
+    background: rgba(255,255,255,0.07);
+    color: rgba(245,241,232,0.75);
+  }
+
+  /* ── BRAND ── */
+  .hh-popup-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .hh-popup-brand svg { width: 28px; height: 28px; flex-shrink: 0; }
+  .hh-popup-brand span {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(245,241,232,0.4);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── BADGE ── */
+  .hh-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fcd535;
+    background: rgba(252,213,53,0.1);
+    border: 1px solid rgba(252,213,53,0.2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+  .hh-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fcd535;
+    animation: pulse 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.45); }
+    50%       { box-shadow: 0 0 0 5px rgba(252,213,53,0); }
+  }
+
+  /* ── TITLE ── */
+  .hh-popup-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #f5f1e8;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 10px;
+  }
+  .hh-popup-title .accent { color: #fcd535; }
+
+  /* ── BODY ── */
+  .hh-popup-body {
+    font-size: 14px;
+    color: rgba(245,241,232,0.5);
+    line-height: 1.55;
+    margin-bottom: 22px;
+  }
+
+  /* ── DIVIDER ── */
+  .hh-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 18px;
+  }
+
+  /* ── BUTTONS ── */
+  .hh-popup-actions { display: flex; flex-direction: column; gap: 9px; }
+
+  .btn-primary-popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fcd535;
+    color: #0b0b0e;
+    font-family: 'Onest', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .btn-primary-popup:hover { background: #ffe55c; transform: translateY(-1px); }
+  .btn-primary-popup svg { transition: transform 0.15s; }
+  .btn-primary-popup:hover svg { transform: translateX(2px); }
+
+  .btn-close-popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: rgba(245,241,232,0.38);
+    font-family: 'Onest', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-close-popup:hover { background: rgba(255,255,255,0.05); color: rgba(245,241,232,0.65); }
+</style>
+</head>
+<body>
+
+<div class="hh-overlay" id="hhPopup">
+  <div class="hh-popup">
+
+    <!-- Close -->
+    <button class="hh-popup-close" onclick="closePopup()" aria-label="Закрити">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Laptop image -->
+    <div class="hh-popup-img">
+      <img
+        src="https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@SHA/img/pop-uplaptop.png"
+        alt="Hash Hedge — новий кабінет"
+        loading="eager"
+      >
+    </div>
+
+    <!-- Content -->
+    <div class="hh-popup-content">
+
+      <!-- Brand -->
+      <div class="hh-popup-brand">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="8" fill="#fcd535"/>
+          <path d="M6 5h3v6h6V5h3v16h-3v-7H9v7H6V5z" fill="#0b0b0e"/>
+        </svg>
+        <span>Hash Hedge</span>
+      </div>
+
+      <!-- Badge -->
+      <div class="hh-badge">Оновлення платформи</div>
+
+      <!-- Title -->
+      <div class="hh-popup-title">
+        Новий<br><span class="accent">особистий кабінет</span>
+      </div>
+
+      <!-- Body -->
+      <div class="hh-popup-body">
+        Реєстрація на платформі та купівля челенджів доступні лише в новому особистому кабінеті.
+      </div>
+
+      <div class="hh-divider"></div>
+
+      <!-- Actions -->
+      <div class="hh-popup-actions">
+        <a href="https://app.hashhedge.com/uk/register" class="btn-primary-popup">
+          Перейти до нового кабінету
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="#0b0b0e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <button class="btn-close-popup" onclick="closePopup()">Закрити</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function closePopup() {
+    var el = document.getElementById('hhPopup');
+    if (!el) return;
+    el.style.transition = 'opacity 0.2s';
+    el.style.opacity = '0';
+    setTimeout(function() { el.style.display = 'none'; }, 220);
+  }
+  document.getElementById('hhPopup').addEventListener('click', function(e) {
+    if (e.target === this) closePopup();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePopup();
+  });
+</script>
+
+</body>
+</html>
