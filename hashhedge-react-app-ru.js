@@ -3145,7 +3145,7 @@ function Pricing() {
     50000: "https://app.hashhedge.com/ru/app/payment-form/9b66fb15-a4ff-4eb3-b61f-694b0828a70b",
     100000: "https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7",
     150000: "https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50",
-    200000: "https://app.hashhedge.com/ru/register"
+    200000: "https://app.hashhedge.com/ru/app/payment-form/982b97fd-4431-456e-99b0-7dfb1ec4d68b"
   };
   const price = pricing[size];
   const flashSizes = [100000, 150000, 200000];
@@ -11389,7 +11389,7 @@ function PromoPopup() {
   var cards = [
 {acc:"$100,000", orig:"$799", sale:"$599.25", href:"https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7"},
     {acc:"$150,000", orig:"$1,093", sale:"$819.75", href:"https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"},
-    {acc:"$200,000", orig:"$1,293", sale:"$969.75", href:"https://app.hashhedge.com/ru/register"}
+    {acc:"$200,000", orig:"$1,293", sale:"$969.75", href:"https://app.hashhedge.com/ru/app/payment-form/982b97fd-4431-456e-99b0-7dfb1ec4d68b"}
   ];
 
   if (!open) return null;
