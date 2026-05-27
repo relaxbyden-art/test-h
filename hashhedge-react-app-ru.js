@@ -11390,7 +11390,7 @@ function PromoPopup() {
         className: "hh-popup-inner",
         style: {display:"block"}
       },
-      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none"}},
+      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", textAlign:"center"}},
         /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
         /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
           "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " на челленджи Hash Hedge"
