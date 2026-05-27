@@ -49,7 +49,6 @@
   font-size: clamp(15px, 1.2vw, 17px) !important;
   line-height: 1.48 !important;
   text-align: center !important;
-  white-space: nowrap !important;
 }
 
 #hashhedge-root .tilda-html-hashhedge .hh-popup-cta {
@@ -5830,11 +5829,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   margin: 14px auto 0;
   font-size: 12px;
   color: var(--fg-low);
-  text-align: center !important;
-  white-space: nowrap;
   line-height: 1.5;
-  text-align: center;
-  max-width: 340px;
+  text-align: center !important;
+  max-width: 100%;
+  width: 100%;
 }
 
 /* — Art side — */

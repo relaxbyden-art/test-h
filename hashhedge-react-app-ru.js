@@ -11393,7 +11393,7 @@ function PromoPopup() {
       /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", textAlign:"center"}},
         /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
         /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
-          "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " на челленджи Hash Hedge"
+          "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), /*#__PURE__*/React.createElement("br", null), "на челленджи Hash Hedge"
         ),
         /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20, textAlign:"center"}},
           "Только 200 промокодов. Ограниченное по времени предложение."
@@ -11455,11 +11455,11 @@ function PromoPopup() {
               /*#__PURE__*/React.createElement("strong", {className:"hh-fs-card-acc"}, c.acc)
             ),
             /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-mid"},
-              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-sale"}, c.sale),
               /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-price-row"},
                 /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-orig"}, c.orig),
                 /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-disc"}, "-25%")
-              )
+              ),
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-sale"}, c.sale)
             ),
             /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-btn-text"}, "Купить")
           ))
