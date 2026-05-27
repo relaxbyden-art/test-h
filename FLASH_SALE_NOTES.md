@@ -1,159 +1,169 @@
-# Flash Sale — что изменено и как откатить
+# Flash Sale Playbook
 
-## Акция
-- **Скидка:** 25%
-- **Промокод:** `8472XPQ1`
-- **Таймер:** до 29 мая 2026, 23:59 Dubai (UTC+4)
-- **Планы в акции:** $100K, $150K, $200K
+This file is the handoff note for future agents working on HashHedge promos.
 
----
+## Current Promo Snapshot
 
-## Файлы затронуты
+- Promo type: Flash Sale
+- Discount: 25%
+- Promo code: `8472XPQ1`
+- Timer end: May 29, 2026, 23:59 Dubai time (UTC+4)
+- Promo account sizes: `$100,000`, `$150,000`, `$200,000`
+- Pre-promo rollback tag: `pre-flash-sale-2026-05-27`
+- Pre-promo commit: `0683683`
 
-| Файл | Что изменено |
-|------|-------------|
-| `hashhedge-react-app-ru.js` | Попап, тарифная таблица |
-| `hashhedge-react.css` | Фон попапа, CSS для карточек таймера |
+The rollback tag is pushed to GitHub. Use it as the clean reference for the site before this promo.
 
----
+## Active Files
 
-## Изменения в `hashhedge-react-app-ru.js`
+- `hashhedge-react-app.js` — English page app, pricing, popup.
+- `hashhedge-react-app-ru.js` — Russian page app, pricing, popup.
+- `hashhedge-react.css` — shared popup/timer/card styling.
 
-### 1. Тарифная таблица — добавлен $200K план
+Do not edit `old/`. Do not use archived previews as source.
 
-```js
-// sizes
-const sizes = [5000, 10000, 25000, 50000, 100000, 150000, 200000]; // добавлен 200000
+## What The Promo Changes
 
-// pricing
-200000: 1293
+Pricing:
 
-// paymentLinks
-200000: "https://app.hashhedge.com/ru/register"  // ← заменить на реальный payment-form URL
+- Adds `$200,000` account size.
+- Marks `$100,000`, `$150,000`, `$200,000` as `FLASH SALE`.
+- Shows original price with strikethrough.
+- Shows discounted price at 25% off.
+- Uses discounted price in the summary calculation per `$1,000` capital.
+- Removes the normal `POPULAR` / `ПОПУЛЯРНЫЙ` treatment from promo cards.
 
-// accountNotes
-200000: "Максимальный капитал для профессиональных трейдеров..."
+Popup:
+
+- Replaces the normal dashboard popup with a Flash Sale popup.
+- Shows badge `FLASH SALE`.
+- Shows promo title, timer, promo code, and three promo cards.
+- Uses shared CSS classes: `.hh-popup-*`, `.hh-fs-*`, `.hh-mobile-sale-price`.
+
+## Current English Popup Text
+
+Title:
+
+```text
+25% OFF Hash Hedge Challenges
 ```
 
-### 2. Тарифная таблица — FLASH SALE бейджи на $100K / $150K / $200K
+Subtitle:
 
-```js
-// Добавлены переменные в map-функции (desktop и mobile карточки):
-const isFlash = [100000, 150000, 200000].includes(s);
-const badge = isFlash ? "FLASH SALE" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
-const badgeBg = isFlash ? "#fcd535" : ...
+```text
+Only 200 vouchers. Limited offer.
 ```
 
-### 3. Тарифная таблица — зачёркнутая цена в блоке «СТОИМОСТЬ ЧЕЛЛЕНДЖА»
+Timer label:
 
-```js
-// Добавлено после const price = pricing[size]:
-const flashSizes = [100000, 150000, 200000];
-const isFlashPrice = flashSizes.includes(size);
-const salePrice = isFlashPrice ? Math.round(price * 75) / 100 : null;
+```text
+Sale ends in:
 ```
 
-Блок цены рендерит:
-- Если `isFlashPrice`: зачёркнутая оригинальная + жёлтая акционная
-- Иначе: обычная жёлтая цена
+Promo code label:
 
-Также `≈ $X за $1,000 капитала` считается от акционной цены если isFlashPrice.
-
-### 4. Попап — полностью заменена функция `PromoPopup()`
-
-Старый попап: "Обновление платформы / Новый личный кабинет"
-
-Новый попап Flash Sale содержит:
-- Бейдж "FLASH SALE"
-- Заголовок со скидкой 25%
-- Подзаголовок (кол-во промокодов)
-- Таймер обратного отсчёта
-- Промокод с кнопкой копирования
-- 3 карточки: $100K / $150K / $200K
-- Футер-дисклеймер
-
----
-
-## Изменения в `hashhedge-react.css`
-
-### 1. Фон попапа — тёмно-синий вместо чёрного
-
-```css
-/* было */
-linear-gradient(135deg, rgba(31,29,37,0.99) 0%, rgba(14,13,18,0.99) 100%)
-
-/* стало */
-linear-gradient(135deg, #0e1128 0%, #080c1e 100%)
+```text
+Promo code:
 ```
 
-### 2. Добавлен CSS для карточек попапа
+Bottom disclaimer:
 
-```css
-.hh-fs-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* mobile: 2 колонки */
-}
+```text
+The promotion ends when the timer runs out or when all vouchers are gone.
 ```
 
----
+## Current Russian Popup Text
 
-## Стилевые решения (важно для EN версии)
+Title:
 
-| Элемент | Значение |
-|---------|---------|
-| Акционная цена | Зелёный `#10B981` |
-| Бейдж скидки `-25%` | Зелёный фон `rgba(16,185,129,0.15)`, зелёный текст `#10B981` |
-| Фон попапа | Тёмно-синий `#0e1128 → #080c1e` |
-| Контент попапа | Центрирован (`alignItems: center`) |
-| Зелёный цвет | **Не используется** нигде в акции |
-| Убрана зелёная обводка 150K | `isBest` не применяется к `isFlash` размерам |
+```text
+Скидка 25% на челленджи Hash Hedge
+```
 
----
+Subtitle:
 
-## Как откатить (после окончания акции)
+```text
+Только 200 ваучеров. Предложение ограничено.
+```
 
-### В `hashhedge-react-app-ru.js`:
+Timer label:
 
-1. **Удалить $200K** из `sizes`, `pricing`, `paymentLinks`, `accountNotes`
-2. **Убрать `isFlash`** переменную из обоих map-функций (desktop + mobile карточки), вернуть старые бейджи:
-   ```js
-   const badge = isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
-   const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
-   ```
-3. **Убрать `flashSizes / isFlashPrice / salePrice`** и вернуть простой рендер цены:
-   ```js
-   React.createElement("div", { style: { fontSize:30, fontWeight:800, color:"var(--accent)", ... }}, "$", price)
-   ```
-4. **Вернуть старый `PromoPopup`** (или убрать компонент вообще из рендера)
-5. **Вернуть зелёную обводку 150K** (если нужно):
-   ```js
-   border: `1px solid ${active ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
-   ```
+```text
+До конца акции:
+```
 
-### В `hashhedge-react.css`:
+Promo code label:
 
-1. **Фон попапа** — вернуть:
-   ```css
-   linear-gradient(135deg, rgba(31,29,37,0.99) 0%, rgba(14,13,18,0.99) 100%)
-   ```
-2. **Удалить блок `.hh-fs-cards`** (помечен комментарием `/* ── Flash Sale popup cards ── */`)
+```text
+Промокод:
+```
 
----
+Bottom disclaimer:
 
-## Для EN версии (`hashhedge-react-app.js`)
+```text
+Акция останавливается, когда истекает таймер или заканчиваются все ваучеры.
+```
 
-Применить **те же изменения**, что и для RU, с заменой:
-- Текст бейджа: `"FLASH SALE"` (уже по-английски)
-- Текст заголовка: `"25% OFF Hash Hedge Challenges"`
-- Подзаголовок: `"Only 200 vouchers available. Limited-time offer."`
-- Промокод: тот же `8472XPQ1` (или другой если нужен отдельный для EN)
-- Кнопка попапа: `"Buy Now"`
-- Промокод label: `"Promo code:"`
-- Промокод copy: `"Copy"` / `"✓ Copied"`
-- Таймер labels: `"days"` / `"hours"` / `"mins"` / `"secs"`
-- Таймер label: `"Sale ends in:"`
-- Дисклеймер: `"The promotion ends when the timer runs out or all vouchers are gone."`
-- Ссылки оплаты: `/en/app/payment-form/...` вместо `/ru/...`
-- Payment links для EN нужно уточнить у Denis
+## How To Modify This Promo
 
-CSS (`hashhedge-react.css`) **общий** — менять не нужно, уже обновлён.
+1. Start from `origin/main`.
+2. Edit the active app file for the needed language:
+   - EN: `hashhedge-react-app.js`
+   - RU: `hashhedge-react-app-ru.js`
+3. Search for `function Pricing()` and `function PromoPopup()`.
+4. Update only the promo fields needed:
+   - `flashSizes`
+   - `pricing`
+   - `paymentLinks`
+   - popup `cards`
+   - popup title/subtitle/disclaimer
+   - timer `END`
+5. Run:
+
+```bash
+node --check hashhedge-react-app.js
+node --check hashhedge-react-app-ru.js
+git diff --check
+```
+
+Run only the relevant `node --check` if you changed one app file.
+
+## How To End The Promo
+
+Preferred approach:
+
+1. Use `pre-flash-sale-2026-05-27` as the exact pre-promo reference.
+2. Revert promo changes from active files by comparing current `main` with that tag.
+3. Preserve unrelated changes made after the promo started.
+
+Useful commands:
+
+```bash
+git diff pre-flash-sale-2026-05-27 -- hashhedge-react-app.js hashhedge-react-app-ru.js hashhedge-react.css
+```
+
+Then manually remove only promo-specific changes. Do not blindly reset the repo unless the user explicitly asks for a full rollback.
+
+Fast full rollback reference, only if explicitly requested:
+
+```bash
+git checkout pre-flash-sale-2026-05-27 -- hashhedge-react-app.js hashhedge-react-app-ru.js hashhedge-react.css
+```
+
+After rollback or promo edits, commit and push to `origin/main`.
+
+## How To Reuse Promo Changes Later
+
+If a future promo needs to start from the current flash-sale structure:
+
+1. Search for `FLASH SALE` in EN/RU app files.
+2. Copy the current `Pricing()` promo pieces and `PromoPopup()` structure.
+3. Change only copy, dates, discount, product links, and affected account sizes.
+4. Create a new pre-promo tag before the new campaign starts, for example:
+
+```bash
+git tag pre-summer-sale-2026 <current-clean-commit>
+git push origin pre-summer-sale-2026
+```
+
+That tag becomes the rollback point for that new campaign.

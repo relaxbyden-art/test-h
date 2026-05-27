@@ -11376,7 +11376,7 @@ function PromoPopup() {
       /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", textAlign:"center"}},
         /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
         /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
-          "25% ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "discount"), " ", /*#__PURE__*/React.createElement("br", null), "on Hash Hedge challenges"
+          "25% OFF Hash Hedge Challenges"
         ),
         /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20, textAlign:"center"}},
           "Only 200 vouchers. Limited offer."
@@ -11448,7 +11448,7 @@ function PromoPopup() {
           ))
         ),
         /*#__PURE__*/React.createElement("p", {className:"hh-popup-disclaimer"},
-          "The sale stops when the timer expires or all vouchers run out."
+          "The promotion ends when the timer runs out or when all vouchers are gone."
         )
       )
       )
