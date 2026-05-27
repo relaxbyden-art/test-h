@@ -8327,3 +8327,10 @@ body[data-fm="tablet"] #hashhedge-root .tilda-html-hashhedge .hh-support-section
   letter-spacing: 0 !important;
   text-transform: none !important;
 }
+
+/* 2026-05-27: Fix — markets grid horizontal scroll on mobile.
+   The "160+ криптопар / 160+ crypto pairs" card wrapper was changed from
+   overflow:"hidden" to overflow:"clip" directly in the JS bundles.
+   overflow:clip clips visually (border-radius, decorative elements) but does
+   NOT establish a scroll container, so the child [data-mobile-h-scroll]
+   overflow-x:auto scroll works correctly on mobile. No CSS override needed. */
