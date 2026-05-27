@@ -3128,14 +3128,15 @@ function Pricing() {
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
-  const sizes = [5000, 10000, 25000, 50000, 100000, 150000];
+  const sizes = [5000, 10000, 25000, 50000, 100000, 150000, 200000];
   const pricing = {
     5000: 79,
     10000: 99,
     25000: 299,
     50000: 499,
     100000: 799,
-    150000: 1093
+    150000: 1093,
+    200000: 1293
   };
   const paymentLinks = {
     5000: "https://app.hashhedge.com/ru/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
@@ -3143,7 +3144,8 @@ function Pricing() {
     25000: "https://app.hashhedge.com/ru/app/payment-form/ea03d4c8-df35-41ed-b36e-203a6b15bc11",
     50000: "https://app.hashhedge.com/ru/app/payment-form/9b66fb15-a4ff-4eb3-b61f-694b0828a70b",
     100000: "https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7",
-    150000: "https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"
+    150000: "https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50",
+    200000: "https://app.hashhedge.com/ru/register"
   };
   const price = pricing[size];
   const popular = 25000;
@@ -3153,7 +3155,8 @@ function Pricing() {
     25000: "Самый популярный баланс между ценой, капиталом и реальным запасом по просадке.",
     50000: "Серьёзный размер аккаунта для стабильных дневных крипто-стратегий.",
     100000: "Создан для опытных трейдеров, которые уже управляют большим риском.",
-    150000: "Максимальный лимит Hash Hedge и лучшее соотношение цены к капиталу."
+    150000: "Максимальный лимит Hash Hedge и лучшее соотношение цены к капиталу.",
+    200000: "Максимальный капитал для профессиональных трейдеров — лучшее соотношение цены к потенциальной прибыли."
   };
   const mobileStageTabs = [{
     id: "stage1",
@@ -3435,8 +3438,9 @@ function Pricing() {
     const active = size === s;
     const isPop = s === popular;
     const isBest = s === 150000;
-    const badge = isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
-    const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
+    const isFlash = [100000, 150000, 200000].includes(s);
+    const badge = isFlash ? "FLASH SALE" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
+    const badgeBg = isFlash ? "#fcd535" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
       onClick: () => {
@@ -3526,14 +3530,16 @@ function Pricing() {
     const active = size === s;
     const isPop = s === popular;
     const isBest = s === 150000;
+    const isFlash = [100000, 150000, 200000].includes(s);
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
       onClick: () => setSize(s),
       className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
-    }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
-      className: "hh-mobile-plan-badge"
-    }, isBest ? "Выгодный" : "Популярный"), /*#__PURE__*/React.createElement("div", {
+    }, (isPop || isFlash) && /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-badge",
+      style: isFlash ? {background: "#fcd535", color: "#0b0b0e"} : {}
+    }, isFlash ? "FLASH SALE" : "Популярный"), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Счёт"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
