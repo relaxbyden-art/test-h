@@ -11444,7 +11444,7 @@ function PromoPopup() {
         },
           /*#__PURE__*/React.createElement("span", {
             style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
-          }, "Ваучер:"),
+          }, "Промокод:"),
           /*#__PURE__*/React.createElement("div", {style:{position:"relative",display:"inline-flex"}},
             /*#__PURE__*/React.createElement("div", {
               onClick: copyPromo,
