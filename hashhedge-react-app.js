@@ -3098,14 +3098,15 @@ function Pricing() {
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
-  const sizes = [5000, 10000, 25000, 50000, 100000, 150000];
+  const sizes = [5000, 10000, 25000, 50000, 100000, 150000, 200000];
   const pricing = {
     5000: 79,
     10000: 99,
     25000: 299,
     50000: 499,
     100000: 799,
-    150000: 1093
+    150000: 1093,
+    200000: 1293
   };
   const paymentLinks = {
     5000: "https://app.hashhedge.com/en/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
@@ -3113,17 +3114,26 @@ function Pricing() {
     25000: "https://app.hashhedge.com/en/app/payment-form/ea03d4c8-df35-41ed-b36e-203a6b15bc11",
     50000: "https://app.hashhedge.com/en/app/payment-form/9b66fb15-a4ff-4eb3-b61f-694b0828a70b",
     100000: "https://app.hashhedge.com/en/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7",
-    150000: "https://app.hashhedge.com/en/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"
+    150000: "https://app.hashhedge.com/en/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50",
+    200000: "https://app.hashhedge.com/en/register"
   };
   const price = pricing[size];
-  const popular = 25000;
+  const flashSizes = [100000, 150000, 200000];
+  const isFlashPrice = flashSizes.includes(size);
+  const salePrice = isFlashPrice ? Math.round(price * 75) / 100 : null;
+  const salePriceFor = s => Math.round(pricing[s] * 75) / 100;
+  const formatUsd = value => "$" + value.toLocaleString("en-US", {
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    maximumFractionDigits: 2
+  });
   const accountNotes = {
     5000: "Starter account for testing the rules with the lowest entry fee.",
     10000: "Compact account for first-time funded traders who want more room.",
     25000: "Most popular balance of fee, capital and practical drawdown room.",
     50000: "A serious account size for consistent daily crypto strategies.",
     100000: "Built for experienced traders who already manage larger risk.",
-    150000: "Maximum Hash Hedge allocation and the best fee-to-capital ratio."
+    150000: "Maximum Hash Hedge allocation and the best fee-to-capital ratio.",
+    200000: "Maximum capital for professional traders with the strongest upside."
   };
   const mobileStageTabs = [{
     id: "stage1",
@@ -3316,7 +3326,7 @@ function Pricing() {
       maxWidth: 640,
       margin: "0 auto"
     }
-  }, "Two phases to qualify. Six account sizes. Same rules end-to-end: no consistency rule, no hidden resets."))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Two phases to qualify. Seven account sizes. Same rules end-to-end: no consistency rule, no hidden resets."))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3403,10 +3413,10 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
     const isBest = s === 150000;
-    const badge = isBest ? "BEST VALUE" : isPop ? "POPULAR" : null;
-    const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
+    const isFlash = [100000, 150000, 200000].includes(s);
+    const badge = isFlash ? "FLASH SALE" : isBest ? "BEST VALUE" : null;
+    const badgeBg = isFlash ? "#fcd535" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
       onClick: () => {
@@ -3423,13 +3433,13 @@ function Pricing() {
       style: {
         position: "relative",
         padding: "15px 10px 13px",
-        border: `1px solid ${active ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
-        background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
+        border: `1px solid ${active ? "var(--accent)" : "var(--line)"}`,
+        background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : "rgba(255,255,255,0.02)",
         borderRadius: 14,
         cursor: "pointer",
         transition: "all .2s",
         textAlign: "center",
-        boxShadow: active ? "0 16px 40px -14px rgba(252,213,53,0.45)" : isBest ? "0 14px 36px -16px rgba(123,199,90,0.4)" : "none",
+        boxShadow: active ? "0 16px 40px -14px rgba(252,213,53,0.45)" : "none",
         fontFamily: "Onest, sans-serif"
       }
     }, badge && /*#__PURE__*/React.createElement("div", {
@@ -3479,7 +3489,23 @@ function Pricing() {
         letterSpacing: "-0.01em",
         color: active ? "var(--accent)" : "var(--fg-muted)"
       }
-    }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
+    }, isFlash ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: "block",
+        fontSize: 11,
+        color: "var(--fg-low)",
+        textDecoration: "line-through",
+        lineHeight: 1.05
+      }
+    }, "$", pricing[s]), /*#__PURE__*/React.createElement("strong", {
+      style: {
+        display: "block",
+        marginTop: 3,
+        color: active ? "var(--accent)" : "#fcd535",
+        fontSize: 16,
+        lineHeight: 1
+      }
+    }, formatUsd(salePriceFor(s)))) : /*#__PURE__*/React.createElement(React.Fragment, null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
       "data-account-tab-note": true,
       style: {
         fontSize: 10,
@@ -3494,16 +3520,17 @@ function Pricing() {
     "aria-label": "Choose account size"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
     const isBest = s === 150000;
+    const isFlash = [100000, 150000, 200000].includes(s);
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
       onClick: () => setSize(s),
-      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
-    }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
-      className: "hh-mobile-plan-badge"
-    }, isBest ? "Best value" : "Popular"), /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest && !isFlash ? " is-best" : "")
+    }, isFlash && /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-badge",
+      style: isFlash ? {background: "#fcd535", color: "#0b0b0e"} : {}
+    }, "FLASH SALE"), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Account"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
@@ -3511,7 +3538,9 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "Selected" : "Select")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "One-time Challenge fee"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "One-time Challenge fee"), isFlash ? /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-sale-price"
+    }, /*#__PURE__*/React.createElement("em", null, "$", pricing[s]), /*#__PURE__*/React.createElement("b", null, formatUsd(salePriceFor(s)))) : /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("p", null, accountNotes[s]), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
       "aria-label": "Challenge stages"
@@ -3559,7 +3588,9 @@ function Pricing() {
     className: "hh-mobile-account-size"
   }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-fee"
-  }, /*#__PURE__*/React.createElement("span", null, "One-time fee"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "One-time fee"), isFlashPrice ? /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-sale-price"
+  }, /*#__PURE__*/React.createElement("em", null, "$", price), /*#__PURE__*/React.createElement("b", null, formatUsd(salePrice))) : /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Daily loss"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Max DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Min days"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Period"), /*#__PURE__*/React.createElement("b", null, "Unlimited"))), /*#__PURE__*/React.createElement("a", {
     href: paymentLinks[size],
@@ -3843,7 +3874,28 @@ function Pricing() {
       marginTop: 8,
       flexWrap: "wrap"
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, isFlashPrice ? /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 20,
+        fontWeight: 700,
+        color: "var(--fg-dim)",
+        textDecoration: "line-through",
+        letterSpacing: "-0.01em",
+        lineHeight: 1
+      }
+    }, "$", price),
+    /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 30,
+        fontWeight: 800,
+        color: "#10B981",
+        letterSpacing: "-0.02em",
+        fontFamily: "Akrobat, Onest, sans-serif",
+        lineHeight: 1
+      }
+    }, "$", salePrice)
+  ) : /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 30,
       fontWeight: 800,
@@ -3861,7 +3913,7 @@ function Pricing() {
     style: {
       color: "var(--fg)"
     }
-  }, "$", (price / size * 1000).toFixed(2)), " per $1,000 of capital"))), /*#__PURE__*/React.createElement("a", {
+  }, "$", ((isFlashPrice ? salePrice : price) / size * 1000).toFixed(2)), " per $1,000 of capital"))), /*#__PURE__*/React.createElement("a", {
     href: paymentLinks[size],
     target: "_blank",
     rel: "noopener",
@@ -11261,66 +11313,144 @@ function PopupChartBg() {
 
 function PromoPopup() {
   const [open, setOpen] = __useS(true);
+  const [timeLeft, setTimeLeft] = __useS({d:"00",h:"00",m:"00",s:"00"});
+  const [copied, setCopied] = __useS(false);
+
+  React.useEffect(() => {
+    var END = Date.UTC(2026, 4, 29, 19, 59, 59); // 29 May 23:59:59 Dubai (UTC+4)
+    function tick() {
+      var diff = END - Date.now();
+      if (diff <= 0) { setTimeLeft({d:"00",h:"00",m:"00",s:"00"}); return; }
+      function z(n) { return n < 10 ? "0"+n : ""+n; }
+      setTimeLeft({
+        d: z(Math.floor(diff/86400000)),
+        h: z(Math.floor(diff/3600000)),
+        m: z(Math.floor((diff%3600000)/60000)),
+        s: z(Math.floor((diff%60000)/1000))
+      });
+    }
+    tick();
+    var id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  function copyPromo() {
+    var code = "8472XPQ1";
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+    } else {
+      var t = document.createElement("textarea");
+      t.value = code; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); } catch(e) {}
+      document.body.removeChild(t);
+      setCopied(true); setTimeout(() => setCopied(false), 2000);
+    }
+  }
+
+  var cards = [
+    {acc:"$100,000", orig:"$799", sale:"$599.25", href:"https://app.hashhedge.com/en/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7"},
+    {acc:"$150,000", orig:"$1,093", sale:"$819.75", href:"https://app.hashhedge.com/en/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"},
+    {acc:"$200,000", orig:"$1,293", sale:"$969.75", href:"https://app.hashhedge.com/en/register"}
+  ];
+
   if (!open) return null;
   return /*#__PURE__*/React.createElement(React.Fragment, null,
-    /*#__PURE__*/React.createElement("div", {
-      className: "hh-popup-backdrop",
-      onClick: () => setOpen(false)
-    }),
+    /*#__PURE__*/React.createElement("div", {className:"hh-popup-backdrop", onClick: () => setOpen(false)}),
     /*#__PURE__*/React.createElement("div", {
       className: "hh-popup",
       role: "dialog",
       "aria-modal": "true",
-      "aria-label": "New Hash Hedge Dashboard"
+      "aria-label": "Flash Sale"
     },
       /*#__PURE__*/React.createElement("button", {
         className: "hh-popup-close",
         onClick: () => setOpen(false),
         "aria-label": "Close"
-      }, /*#__PURE__*/React.createElement("svg", {
-        width: "18",
-        height: "18",
-        viewBox: "0 0 24 24",
-        fill: "none"
-      }, /*#__PURE__*/React.createElement("path", {
-        d: "M18 6L6 18M6 6l12 12",
-        stroke: "currentColor",
-        strokeWidth: "2.2",
-        strokeLinecap: "round"
-      }))),
+      }, /*#__PURE__*/React.createElement("svg", {width:"18",height:"18",viewBox:"0 0 24 24",fill:"none"},
+        /*#__PURE__*/React.createElement("path", {d:"M18 6L6 18M6 6l12 12",stroke:"currentColor",strokeWidth:"2.2",strokeLinecap:"round"})
+      )),
       /*#__PURE__*/React.createElement("div", {
-        className: "hh-popup-inner"
+        className: "hh-popup-inner",
+        style: {display:"block"}
       },
-        /*#__PURE__*/React.createElement("div", {
-          className: "hh-popup-copy"
-        },
-          /*#__PURE__*/React.createElement("span", {
-            className: "hh-popup-badge"
-          }, "Platform Update"),
-          /*#__PURE__*/React.createElement("h2", {
-            className: "hh-popup-title"
-          }, "New Hash Hedge Dashboard"),
-          /*#__PURE__*/React.createElement("p", {
-            className: "hh-popup-sub"
-          }, "Platform registration and challenge purchases are available only in the new dashboard."),
-          /*#__PURE__*/React.createElement("a", {
-            href: "https://app.hashhedge.com/en/register",
-            target: "_blank",
-            rel: "noopener",
-            className: "btn btn-primary hh-popup-cta",
-            onClick: () => setOpen(false)
-          }, "New Dashboard")
+      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", textAlign:"center"}},
+        /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
+        /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
+          "25% ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "discount"), " ", /*#__PURE__*/React.createElement("br", null), "on Hash Hedge challenges"
+        ),
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20, textAlign:"center"}},
+          "Only 200 vouchers. Limited offer."
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer", style:{margin:"0 auto 28px"}},
+          /*#__PURE__*/React.createElement("span", {className:"hh-popup-timer-label"}, "Sale ends in:"),
+          /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-digits"},
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.h),
+              /*#__PURE__*/React.createElement("em", null, "hours")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.m),
+              /*#__PURE__*/React.createElement("em", null, "minutes")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.s),
+              /*#__PURE__*/React.createElement("em", null, "seconds")
+            )
+          )
         ),
         /*#__PURE__*/React.createElement("div", {
-          className: "hh-popup-art",
-          "aria-hidden": "true"
-        }, /*#__PURE__*/React.createElement("img", {
-          className: "hh-popup-dashboard-img",
-          src: window.__HH_BASE__ + "img/1GadgeMockup3 21.png",
-          alt: "",
-          loading: "eager",
-          decoding: "async"
-        }))
+          style:{display:"flex",alignItems:"center",gap:12,marginBottom:28,flexWrap:"wrap",justifyContent:"center"}
+        },
+          /*#__PURE__*/React.createElement("span", {
+            style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
+          }, "Promo code:"),
+          /*#__PURE__*/React.createElement("div", {style:{position:"relative",display:"inline-flex"}},
+            /*#__PURE__*/React.createElement("div", {
+              onClick: copyPromo,
+              style:{display:"flex",alignItems:"center",gap:10,background:"rgba(252,213,53,0.08)",border:"1px solid rgba(252,213,53,0.28)",borderRadius:10,padding:"8px 16px",cursor:"pointer",userSelect:"none"}
+            },
+              /*#__PURE__*/React.createElement("span", {
+                style:{fontSize:18,fontWeight:900,letterSpacing:"0.12em",color:"#fcd535"}
+              }, "8472XPQ1"),
+              /*#__PURE__*/React.createElement("svg", {width:"14",height:"14",viewBox:"0 0 24 24",fill:"none",style:{opacity:0.5,flexShrink:0}},
+                /*#__PURE__*/React.createElement("rect", {x:"9",y:"9",width:"13",height:"13",rx:"2",stroke:"currentColor",strokeWidth:"2"}),
+                /*#__PURE__*/React.createElement("path", {d:"M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1",stroke:"currentColor",strokeWidth:"2"})
+              )
+            ),
+            copied && /*#__PURE__*/React.createElement("div", {
+              style:{position:"absolute",bottom:"calc(100% + 8px)",left:"50%",transform:"translateX(-50%)",background:"#10B981",color:"#fff",fontSize:12,fontWeight:700,padding:"5px 12px",borderRadius:8,whiteSpace:"nowrap",pointerEvents:"none",zIndex:10,boxShadow:"0 4px 12px rgba(16,185,129,0.35)"}
+            }, "✓ Copied")
+          )
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-fs-cards"},
+          cards.map(c => /*#__PURE__*/React.createElement("a", {
+            key: c.acc,
+            href: c.href,
+            target: "_blank",
+            rel: "noopener",
+            onClick: () => setOpen(false),
+            className: "hh-fs-card"
+          },
+            /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-left"},
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-label"}, "Account"),
+              /*#__PURE__*/React.createElement("strong", {className:"hh-fs-card-acc"}, c.acc)
+            ),
+            /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-mid"},
+              /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-price-row"},
+                /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-orig"}, c.orig),
+                /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-disc"}, "-25%")
+              ),
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-sale"}, c.sale)
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-btn-text"}, "Buy")
+          ))
+        ),
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-disclaimer"},
+          "The sale stops when the timer expires or all vouchers run out."
+        )
+      )
       )
     )
   );
