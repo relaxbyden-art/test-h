@@ -11390,15 +11390,15 @@ function PromoPopup() {
         className: "hh-popup-inner",
         style: {display:"block"}
       },
-      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", display:"flex", flexDirection:"column", alignItems:"center"}},
-        /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge"}, "FLASH SALE"),
-        /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title"},
+      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none"}},
+        /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
+        /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
           "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " на челленджи Hash Hedge"
         ),
-        /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20}},
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20, textAlign:"center"}},
           "Только 200 промокодов. Ограниченное по времени предложение."
         ),
-        /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer"},
+        /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer", style:{margin:"0 auto 28px"}},
           /*#__PURE__*/React.createElement("span", {className:"hh-popup-timer-label"}, "До конца акции:"),
           /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-digits"},
             /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
@@ -11423,7 +11423,7 @@ function PromoPopup() {
           )
         ),
         /*#__PURE__*/React.createElement("div", {
-          style:{display:"flex",alignItems:"center",gap:12,marginBottom:28,flexWrap:"wrap"}
+          style:{display:"flex",alignItems:"center",gap:12,marginBottom:28,flexWrap:"wrap",justifyContent:"center"}
         },
           /*#__PURE__*/React.createElement("span", {
             style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
@@ -11439,9 +11439,6 @@ function PromoPopup() {
               /*#__PURE__*/React.createElement("rect", {x:"9",y:"9",width:"13",height:"13",rx:"2",stroke:"currentColor",strokeWidth:"2"}),
               /*#__PURE__*/React.createElement("path", {d:"M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1",stroke:"currentColor",strokeWidth:"2"})
             ),
-            /*#__PURE__*/React.createElement("span", {
-              style:{fontSize:11,fontWeight:700,color:copied?"#7BC75A":"var(--fg-dim)",letterSpacing:"0.06em",textTransform:"uppercase",minWidth:70}
-            }, copied ? "✓ Скопировано" : "Скопировать")
           )
         ),
         /*#__PURE__*/React.createElement("div", {className:"hh-fs-cards"},
@@ -11451,14 +11448,20 @@ function PromoPopup() {
             target: "_blank",
             rel: "noopener",
             onClick: () => setOpen(false),
-            style:{display:"flex",flexDirection:"column",alignItems:"center",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.09)",borderRadius:16,padding:"18px 12px 16px",textDecoration:"none",transition:"border-color .2s"}
+            className: "hh-fs-card"
           },
-            /*#__PURE__*/React.createElement("span", {style:{fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--fg-dim)",marginBottom:6}}, "Счёт"),
-            /*#__PURE__*/React.createElement("strong", {style:{fontSize:18,fontWeight:900,color:"var(--fg)",letterSpacing:"-0.02em",marginBottom:10,lineHeight:1}}, c.acc),
-            /*#__PURE__*/React.createElement("span", {style:{fontSize:13,fontWeight:700,color:"var(--fg-dim)",textDecoration:"line-through",marginBottom:3}}, c.orig),
-            /*#__PURE__*/React.createElement("span", {style:{fontSize:11,fontWeight:800,color:"#10B981",background:"rgba(16,185,129,0.15)",borderRadius:999,padding:"2px 8px",marginBottom:6}}, "-25%"),
-            /*#__PURE__*/React.createElement("span", {style:{fontSize:22,fontWeight:900,color:"#10B981",letterSpacing:"-0.02em",marginBottom:14,lineHeight:1}}, c.sale),
-            /*#__PURE__*/React.createElement("span", {style:{display:"flex",alignItems:"center",justifyContent:"center",width:"100%",background:"#fcd535",color:"#0b0b0e",fontFamily:"Onest,sans-serif",fontSize:12,fontWeight:800,borderRadius:10,padding:"9px 8px",letterSpacing:"-0.01em"}}, "Купить")
+            /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-left"},
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-label"}, "Счёт"),
+              /*#__PURE__*/React.createElement("strong", {className:"hh-fs-card-acc"}, c.acc)
+            ),
+            /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-mid"},
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-sale"}, c.sale),
+              /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-price-row"},
+                /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-orig"}, c.orig),
+                /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-disc"}, "-25%")
+              )
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-btn-text"}, "Купить")
           ))
         ),
         /*#__PURE__*/React.createElement("p", {className:"hh-popup-disclaimer"},
