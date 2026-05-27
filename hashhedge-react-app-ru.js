@@ -3445,7 +3445,7 @@ function Pricing() {
     const active = size === s;
     const isBest = s === 150000;
     const isFlash = [100000, 150000, 200000].includes(s);
-    const badge = isFlash ? `${formatUsd(salePriceFor(s))} со скидкой` : isBest ? "ВЫГОДНЫЙ" : null;
+    const badge = isFlash ? "FLASH SALE" : isBest ? "ВЫГОДНЫЙ" : null;
     const badgeBg = isFlash ? "#fcd535" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
@@ -3560,7 +3560,7 @@ function Pricing() {
     }, isFlash && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge",
       style: isFlash ? {background: "#fcd535", color: "#0b0b0e"} : {}
-    }, `${formatUsd(salePriceFor(s))} со скидкой`), /*#__PURE__*/React.createElement("div", {
+    }, "FLASH SALE"), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Счёт"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
