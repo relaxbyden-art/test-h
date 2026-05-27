@@ -3151,7 +3151,11 @@ function Pricing() {
   const flashSizes = [100000, 150000, 200000];
   const isFlashPrice = flashSizes.includes(size);
   const salePrice = isFlashPrice ? Math.round(price * 75) / 100 : null;
-  const popular = 25000;
+  const salePriceFor = s => Math.round(pricing[s] * 75) / 100;
+  const formatUsd = value => "$" + value.toLocaleString("en-US", {
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    maximumFractionDigits: 2
+  });
   const accountNotes = {
     5000: "Стартовый аккаунт для тестирования правил с минимальным входом.",
     10000: "Компактный аккаунт для первого финансируемого опыта \u2014 больше пространства для манёвра.",
@@ -3439,10 +3443,9 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
     const isBest = s === 150000;
     const isFlash = [100000, 150000, 200000].includes(s);
-    const badge = isFlash ? "FLASH SALE" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
+    const badge = isFlash ? `${formatUsd(salePriceFor(s))} со скидкой` : isBest ? "ВЫГОДНЫЙ" : null;
     const badgeBg = isFlash ? "#fcd535" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
@@ -3516,7 +3519,23 @@ function Pricing() {
         letterSpacing: "-0.01em",
         color: active ? "var(--accent)" : "var(--fg-muted)"
       }
-    }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
+    }, isFlash ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: "block",
+        fontSize: 11,
+        color: "var(--fg-low)",
+        textDecoration: "line-through",
+        lineHeight: 1.05
+      }
+    }, "$", pricing[s]), /*#__PURE__*/React.createElement("strong", {
+      style: {
+        display: "block",
+        marginTop: 3,
+        color: active ? "var(--accent)" : "#fcd535",
+        fontSize: 16,
+        lineHeight: 1
+      }
+    }, formatUsd(salePriceFor(s)))) : /*#__PURE__*/React.createElement(React.Fragment, null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
       "data-account-tab-note": true,
       style: {
         fontSize: 10,
@@ -3531,7 +3550,6 @@ function Pricing() {
     "aria-label": "Выбери размер аккаунта"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
     const isBest = s === 150000;
     const isFlash = [100000, 150000, 200000].includes(s);
     return /*#__PURE__*/React.createElement("article", {
@@ -3539,10 +3557,10 @@ function Pricing() {
       "data-mobile-plan-card": s,
       onClick: () => setSize(s),
       className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest && !isFlash ? " is-best" : "")
-    }, (isPop || isFlash) && /*#__PURE__*/React.createElement("div", {
+    }, isFlash && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge",
       style: isFlash ? {background: "#fcd535", color: "#0b0b0e"} : {}
-    }, isFlash ? "FLASH SALE" : "Популярный"), /*#__PURE__*/React.createElement("div", {
+    }, `${formatUsd(salePriceFor(s))} со скидкой`), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Счёт"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
@@ -3550,7 +3568,9 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "Выбрано" : "Выбрать")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), isFlash ? /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-sale-price"
+    }, /*#__PURE__*/React.createElement("em", null, "$", pricing[s]), /*#__PURE__*/React.createElement("b", null, formatUsd(salePriceFor(s)))) : /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
       "aria-label": "Этапы челленджа"
@@ -3598,7 +3618,9 @@ function Pricing() {
     className: "hh-mobile-account-size"
   }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-fee"
-  }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), isFlashPrice ? /*#__PURE__*/React.createElement("div", {
+    className: "hh-mobile-sale-price"
+  }, /*#__PURE__*/React.createElement("em", null, "$", price), /*#__PURE__*/React.createElement("b", null, formatUsd(salePrice))) : /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))), /*#__PURE__*/React.createElement("a", {
     href: paymentLinks[size],
@@ -11341,7 +11363,7 @@ function PromoPopup() {
       function z(n) { return n < 10 ? "0"+n : ""+n; }
       setTimeLeft({
         d: z(Math.floor(diff/86400000)),
-        h: z(Math.floor((diff%86400000)/3600000)),
+        h: z(Math.floor(diff/3600000)),
         m: z(Math.floor((diff%3600000)/60000)),
         s: z(Math.floor((diff%60000)/1000))
       });
@@ -11393,19 +11415,14 @@ function PromoPopup() {
       /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", textAlign:"center"}},
         /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
         /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
-          "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), /*#__PURE__*/React.createElement("br", null), "на челленджи Hash Hedge"
+          "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " ", /*#__PURE__*/React.createElement("br", null), "на челленджи Hash Hedge"
         ),
         /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20, textAlign:"center"}},
-          "Только 200 промокодов. Ограниченное по времени предложение."
+          "Только 200 ваучеров. Предложение ограничено."
         ),
         /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer", style:{margin:"0 auto 28px"}},
           /*#__PURE__*/React.createElement("span", {className:"hh-popup-timer-label"}, "До конца акции:"),
           /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-digits"},
-            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
-              /*#__PURE__*/React.createElement("span", null, timeLeft.d),
-              /*#__PURE__*/React.createElement("em", null, "дней")
-            ),
-            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
             /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
               /*#__PURE__*/React.createElement("span", null, timeLeft.h),
               /*#__PURE__*/React.createElement("em", null, "часов")
@@ -11427,7 +11444,7 @@ function PromoPopup() {
         },
           /*#__PURE__*/React.createElement("span", {
             style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
-          }, "Промокод:"),
+          }, "Ваучер:"),
           /*#__PURE__*/React.createElement("div", {style:{position:"relative",display:"inline-flex"}},
             /*#__PURE__*/React.createElement("div", {
               onClick: copyPromo,
@@ -11470,7 +11487,7 @@ function PromoPopup() {
           ))
         ),
         /*#__PURE__*/React.createElement("p", {className:"hh-popup-disclaimer"},
-          "Акция заканчивается, когда истекает таймер или заканчиваются все промокоды."
+          "Акция останавливается, когда истекает таймер или заканчиваются все ваучеры."
         )
       )
       )
