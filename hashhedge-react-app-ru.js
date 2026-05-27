@@ -3460,13 +3460,13 @@ function Pricing() {
       style: {
         position: "relative",
         padding: "15px 10px 13px",
-        border: `1px solid ${active ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
-        background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
+        border: `1px solid ${active ? "var(--accent)" : "var(--line)"}`,
+        background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : "rgba(255,255,255,0.02)",
         borderRadius: 14,
         cursor: "pointer",
         transition: "all .2s",
         textAlign: "center",
-        boxShadow: active ? "0 16px 40px -14px rgba(252,213,53,0.45)" : isBest ? "0 14px 36px -16px rgba(123,199,90,0.4)" : "none",
+        boxShadow: active ? "0 16px 40px -14px rgba(252,213,53,0.45)" : "none",
         fontFamily: "Onest, sans-serif"
       }
     }, badge && /*#__PURE__*/React.createElement("div", {
@@ -3538,7 +3538,7 @@ function Pricing() {
       key: s,
       "data-mobile-plan-card": s,
       onClick: () => setSize(s),
-      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
+      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest && !isFlash ? " is-best" : "")
     }, (isPop || isFlash) && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge",
       style: isFlash ? {background: "#fcd535", color: "#0b0b0e"} : {}
@@ -3893,7 +3893,7 @@ function Pricing() {
       style: {
         fontSize: 30,
         fontWeight: 800,
-        color: "#7BC75A",
+        color: "#10B981",
         letterSpacing: "-0.02em",
         fontFamily: "Akrobat, Onest, sans-serif",
         lineHeight: 1
@@ -11334,7 +11334,7 @@ function PromoPopup() {
   const [copied, setCopied] = __useS(false);
 
   React.useEffect(() => {
-    var END = Date.UTC(2025, 4, 29, 19, 59, 59); // 29 May 23:59:59 Dubai (UTC+4)
+    var END = Date.UTC(2026, 4, 29, 19, 59, 59); // 29 May 23:59:59 Dubai (UTC+4)
     function tick() {
       var diff = END - Date.now();
       if (diff <= 0) { setTimeLeft({d:"00",h:"00",m:"00",s:"00"}); return; }
@@ -11365,8 +11365,7 @@ function PromoPopup() {
   }
 
   var cards = [
-    {acc:"$50,000", orig:"$449", sale:"$336.75", href:"https://app.hashhedge.com/ru/app/payment-form/9b66fb15-a4ff-4eb3-b61f-694b0828a70b"},
-    {acc:"$100,000", orig:"$799", sale:"$599.25", href:"https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7"},
+{acc:"$100,000", orig:"$799", sale:"$599.25", href:"https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7"},
     {acc:"$150,000", orig:"$1,093", sale:"$819.75", href:"https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"},
     {acc:"$200,000", orig:"$1,293", sale:"$969.75", href:"https://app.hashhedge.com/ru/register"}
   ];
@@ -11391,7 +11390,7 @@ function PromoPopup() {
         className: "hh-popup-inner",
         style: {display:"block"}
       },
-      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none"}},
+      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", display:"flex", flexDirection:"column", alignItems:"center"}},
         /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge"}, "FLASH SALE"),
         /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title"},
           "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " на челленджи Hash Hedge"
@@ -11457,8 +11456,8 @@ function PromoPopup() {
             /*#__PURE__*/React.createElement("span", {style:{fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--fg-dim)",marginBottom:6}}, "Счёт"),
             /*#__PURE__*/React.createElement("strong", {style:{fontSize:18,fontWeight:900,color:"var(--fg)",letterSpacing:"-0.02em",marginBottom:10,lineHeight:1}}, c.acc),
             /*#__PURE__*/React.createElement("span", {style:{fontSize:13,fontWeight:700,color:"var(--fg-dim)",textDecoration:"line-through",marginBottom:3}}, c.orig),
-            /*#__PURE__*/React.createElement("span", {style:{fontSize:11,fontWeight:800,color:"#7BC75A",background:"rgba(123,199,90,0.12)",borderRadius:999,padding:"2px 8px",marginBottom:6}}, "-25%"),
-            /*#__PURE__*/React.createElement("span", {style:{fontSize:22,fontWeight:900,color:"#7BC75A",letterSpacing:"-0.02em",marginBottom:14,lineHeight:1}}, c.sale),
+            /*#__PURE__*/React.createElement("span", {style:{fontSize:11,fontWeight:800,color:"#10B981",background:"rgba(16,185,129,0.15)",borderRadius:999,padding:"2px 8px",marginBottom:6}}, "-25%"),
+            /*#__PURE__*/React.createElement("span", {style:{fontSize:22,fontWeight:900,color:"#10B981",letterSpacing:"-0.02em",marginBottom:14,lineHeight:1}}, c.sale),
             /*#__PURE__*/React.createElement("span", {style:{display:"flex",alignItems:"center",justifyContent:"center",width:"100%",background:"#fcd535",color:"#0b0b0e",fontFamily:"Onest,sans-serif",fontSize:12,fontWeight:800,borderRadius:10,padding:"9px 8px",letterSpacing:"-0.01em"}}, "Купить")
           ))
         ),

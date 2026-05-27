@@ -5690,8 +5690,8 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
   transform: translate(-50%, -50%);
   border-radius: 28px;
   background:
-    radial-gradient(circle at 82% 28%, rgba(252,213,53,0.16), transparent 30%),
-    linear-gradient(135deg, rgba(31,29,37,0.99) 0%, rgba(14,13,18,0.99) 100%);
+    radial-gradient(circle at 82% 28%, rgba(252,213,53,0.14), transparent 32%),
+    linear-gradient(135deg, #0e1128 0%, #080c1e 100%);
   border: 1px solid rgba(252,213,53,0.45);
   box-shadow: 0 48px 140px -32px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(255,255,255,0.04);
   animation: hh-popup-slide-in 0.3s var(--ease-out);
@@ -5902,7 +5902,7 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 /* ── Flash Sale popup cards ── */
 .hh-fs-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-bottom: 20px;
 }
