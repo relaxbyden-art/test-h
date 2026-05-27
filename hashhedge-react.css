@@ -38,7 +38,7 @@
 #hashhedge-root .tilda-html-hashhedge .hh-popup-title {
   max-width: 680px !important;
   margin: 0 auto 14px !important;
-  font-size: clamp(28px, 2.8vw, 38px) !important;
+  font-size: clamp(28px, 4vw, 50px) !important;
   line-height: 1.08 !important;
   text-align: center !important;
 }
@@ -5931,10 +5931,10 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 .hh-fs-card-left { display: flex; flex-direction: column; align-items: center; }
 .hh-fs-card-mid  { display: flex; flex-direction: column; align-items: center; }
 .hh-fs-card-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 4px; }
-.hh-fs-card-acc { font-size: 18px; font-weight: 900; color: var(--fg); letter-spacing: -.02em; margin-bottom: 10px; line-height: 1; }
+.hh-fs-card-acc { font-size: 22px; font-weight: 900; color: var(--fg); letter-spacing: -.02em; margin-bottom: 10px; line-height: 1; }
 .hh-fs-card-orig { font-size: 13px; font-weight: 700; color: var(--fg-dim); text-decoration: line-through; }
 .hh-fs-card-disc { font-size: 11px; font-weight: 800; color: #10B981; background: rgba(16,185,129,0.15); border-radius: 999px; padding: 2px 8px; margin-bottom: 4px; }
-.hh-fs-card-sale { font-size: 22px; font-weight: 900; color: #10B981; letter-spacing: -.02em; line-height: 1; margin-bottom: 14px; }
+.hh-fs-card-sale { font-size: 28px; font-weight: 900; color: #10B981; letter-spacing: -.02em; line-height: 1; margin-bottom: 14px; }
 .hh-fs-card-price-row { display: flex; align-items: center; gap: 6px; justify-content: center; margin-bottom: 6px; }
 .hh-fs-card-btn-text {
   display: flex; align-items: center; justify-content: center;

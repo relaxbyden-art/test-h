@@ -11428,17 +11428,22 @@ function PromoPopup() {
           /*#__PURE__*/React.createElement("span", {
             style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
           }, "Промокод:"),
-          /*#__PURE__*/React.createElement("div", {
-            onClick: copyPromo,
-            style:{display:"flex",alignItems:"center",gap:10,background:"rgba(252,213,53,0.08)",border:"1px solid rgba(252,213,53,0.28)",borderRadius:10,padding:"8px 16px",cursor:"pointer",userSelect:"none"}
-          },
-            /*#__PURE__*/React.createElement("span", {
-              style:{fontSize:18,fontWeight:900,letterSpacing:"0.12em",color:"#fcd535"}
-            }, "8472XPQ1"),
-            /*#__PURE__*/React.createElement("svg", {width:"14",height:"14",viewBox:"0 0 24 24",fill:"none",style:{opacity:0.5,flexShrink:0}},
-              /*#__PURE__*/React.createElement("rect", {x:"9",y:"9",width:"13",height:"13",rx:"2",stroke:"currentColor",strokeWidth:"2"}),
-              /*#__PURE__*/React.createElement("path", {d:"M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1",stroke:"currentColor",strokeWidth:"2"})
+          /*#__PURE__*/React.createElement("div", {style:{position:"relative",display:"inline-flex"}},
+            /*#__PURE__*/React.createElement("div", {
+              onClick: copyPromo,
+              style:{display:"flex",alignItems:"center",gap:10,background:"rgba(252,213,53,0.08)",border:"1px solid rgba(252,213,53,0.28)",borderRadius:10,padding:"8px 16px",cursor:"pointer",userSelect:"none"}
+            },
+              /*#__PURE__*/React.createElement("span", {
+                style:{fontSize:18,fontWeight:900,letterSpacing:"0.12em",color:"#fcd535"}
+              }, "8472XPQ1"),
+              /*#__PURE__*/React.createElement("svg", {width:"14",height:"14",viewBox:"0 0 24 24",fill:"none",style:{opacity:0.5,flexShrink:0}},
+                /*#__PURE__*/React.createElement("rect", {x:"9",y:"9",width:"13",height:"13",rx:"2",stroke:"currentColor",strokeWidth:"2"}),
+                /*#__PURE__*/React.createElement("path", {d:"M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1",stroke:"currentColor",strokeWidth:"2"})
+              )
             ),
+            copied && /*#__PURE__*/React.createElement("div", {
+              style:{position:"absolute",bottom:"calc(100% + 8px)",left:"50%",transform:"translateX(-50%)",background:"#10B981",color:"#fff",fontSize:12,fontWeight:700,padding:"5px 12px",borderRadius:8,whiteSpace:"nowrap",pointerEvents:"none",zIndex:10,boxShadow:"0 4px 12px rgba(16,185,129,0.35)"}
+            }, "✓ Скопировано")
           )
         ),
         /*#__PURE__*/React.createElement("div", {className:"hh-fs-cards"},
