@@ -1401,7 +1401,7 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "Pick your account size, up to $200,000. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Pick your account size, up to $150,000. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -2082,7 +2082,7 @@ function PromoBanner() {
     style: {
       position: "relative",
       borderRadius: 28,
-      overflow: "clip",
+      overflow: "hidden",
       padding: "40px 48px 44px",
       background: "linear-gradient(160deg, #15140f 0%, #0c0b09 70%)",
       border: "1px solid var(--line-strong)",
@@ -2373,8 +2373,8 @@ function HowItWorks() {
     n: "01",
     k: "SIGN UP",
     t: "Pick your account size",
-    d: "Six sizes, from $5,000 ($79) up to $200,000 ($1,293). One-time Hash Hedge Challenge fee. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism.",
-    bullets: ["6 account sizes · $5K to $200K", "Pay with crypto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "One-time fee – no subscriptions"]
+    d: "Six sizes, from $5,000 ($79) up to $150,000 ($1,093). One-time Hash Hedge Challenge fee. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism.",
+    bullets: ["6 account sizes · $5K to $150K", "Pay with crypto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "One-time fee – no subscriptions"]
   }, {
     n: "02",
     k: "PROVE YOUR EDGE",
@@ -2426,7 +2426,7 @@ function HowItWorks() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Skip years of grinding to build your own capital. Prove your trading edge in our Challenge and get funded with up to $200,000, in weeks, not years."))), /*#__PURE__*/React.createElement("div", {
+  }, "Skip years of grinding to build your own capital. Prove your trading edge in our Challenge and get funded with up to $150,000, in weeks, not years."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -4099,7 +4099,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $200,000.", /*#__PURE__*/React.createElement("br", null), "The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
+  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $150,000.", /*#__PURE__*/React.createElement("br", null), "The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -4724,7 +4724,7 @@ function ArtScale() {
     v: "100K"
   }, {
     h: 130,
-    v: "200K"
+    v: "150K"
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -8041,7 +8041,7 @@ function BlueprintSection() {
   }, {
     n: "02",
     t: "Choose a Challenge size",
-    d: "$5K to $200K. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism."
+    d: "$5K to $150K. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism."
   }, {
     n: "03",
     t: "Pass Stage 1 – 8% target",
