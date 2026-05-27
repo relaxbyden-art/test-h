@@ -4681,8 +4681,8 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
     display: none !important;
   }
 
-  /* Tab buttons: 4 per row → 2 rows for 7 plans */
-  #hashhedge-root .tilda-html-hashhedge [data-mobile-h-scroll] {
+  /* Pricing tab buttons: 4 per row → 2 rows for 7 plans (scoped to #pricing — must NOT touch markets/asset slider in PromoBanner) */
+  #hashhedge-root .tilda-html-hashhedge #pricing [data-mobile-h-scroll] {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 
