@@ -5899,6 +5899,18 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 }
 
 
+/* ── Flash Sale popup cards ── */
+.hh-fs-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 640px) {
+  .hh-popup-inner--flash { padding: 0 !important; }
+  .hh-fs-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
 /* =====================================================================
    MOBILE FIXES BATCH 2 — 2026-05-06
    1. Popup: title one line + show compact art

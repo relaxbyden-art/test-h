@@ -3148,6 +3148,9 @@ function Pricing() {
     200000: "https://app.hashhedge.com/ru/register"
   };
   const price = pricing[size];
+  const flashSizes = [100000, 150000, 200000];
+  const isFlashPrice = flashSizes.includes(size);
+  const salePrice = isFlashPrice ? Math.round(price * 75) / 100 : null;
   const popular = 25000;
   const accountNotes = {
     5000: "Стартовый аккаунт для тестирования правил с минимальным входом.",
@@ -3875,7 +3878,28 @@ function Pricing() {
       marginTop: 8,
       flexWrap: "wrap"
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, isFlashPrice ? /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 20,
+        fontWeight: 700,
+        color: "var(--fg-dim)",
+        textDecoration: "line-through",
+        letterSpacing: "-0.01em",
+        lineHeight: 1
+      }
+    }, "$", price),
+    /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 30,
+        fontWeight: 800,
+        color: "#7BC75A",
+        letterSpacing: "-0.02em",
+        fontFamily: "Akrobat, Onest, sans-serif",
+        lineHeight: 1
+      }
+    }, "$", salePrice)
+  ) : /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 30,
       fontWeight: 800,
@@ -3893,7 +3917,7 @@ function Pricing() {
     style: {
       color: "var(--fg)"
     }
-  }, "$", (price / size * 1000).toFixed(2)), " за $1,000 капитала"))), /*#__PURE__*/React.createElement("a", {
+  }, "$", ((isFlashPrice ? salePrice : price) / size * 1000).toFixed(2)), " за $1,000 капитала"))), /*#__PURE__*/React.createElement("a", {
     href: paymentLinks[size],
     target: "_blank",
     rel: "noopener",
@@ -11306,66 +11330,142 @@ function PopupChartBg() {
 
 function PromoPopup() {
   const [open, setOpen] = __useS(true);
+  const [timeLeft, setTimeLeft] = __useS({d:"00",h:"00",m:"00",s:"00"});
+  const [copied, setCopied] = __useS(false);
+
+  React.useEffect(() => {
+    var END = Date.UTC(2025, 4, 29, 19, 59, 59); // 29 May 23:59:59 Dubai (UTC+4)
+    function tick() {
+      var diff = END - Date.now();
+      if (diff <= 0) { setTimeLeft({d:"00",h:"00",m:"00",s:"00"}); return; }
+      function z(n) { return n < 10 ? "0"+n : ""+n; }
+      setTimeLeft({
+        d: z(Math.floor(diff/86400000)),
+        h: z(Math.floor((diff%86400000)/3600000)),
+        m: z(Math.floor((diff%3600000)/60000)),
+        s: z(Math.floor((diff%60000)/1000))
+      });
+    }
+    tick();
+    var id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  function copyPromo() {
+    var code = "8472XPQ1";
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+    } else {
+      var t = document.createElement("textarea");
+      t.value = code; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); } catch(e) {}
+      document.body.removeChild(t);
+      setCopied(true); setTimeout(() => setCopied(false), 2000);
+    }
+  }
+
+  var cards = [
+    {acc:"$50,000", orig:"$449", sale:"$336.75", href:"https://app.hashhedge.com/ru/app/payment-form/9b66fb15-a4ff-4eb3-b61f-694b0828a70b"},
+    {acc:"$100,000", orig:"$799", sale:"$599.25", href:"https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7"},
+    {acc:"$150,000", orig:"$1,093", sale:"$819.75", href:"https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"},
+    {acc:"$200,000", orig:"$1,293", sale:"$969.75", href:"https://app.hashhedge.com/ru/register"}
+  ];
+
   if (!open) return null;
   return /*#__PURE__*/React.createElement(React.Fragment, null,
-    /*#__PURE__*/React.createElement("div", {
-      className: "hh-popup-backdrop",
-      onClick: () => setOpen(false)
-    }),
+    /*#__PURE__*/React.createElement("div", {className:"hh-popup-backdrop", onClick: () => setOpen(false)}),
     /*#__PURE__*/React.createElement("div", {
       className: "hh-popup",
       role: "dialog",
       "aria-modal": "true",
-      "aria-label": "Новый личный кабинет"
+      "aria-label": "Flash Sale"
     },
       /*#__PURE__*/React.createElement("button", {
         className: "hh-popup-close",
         onClick: () => setOpen(false),
         "aria-label": "Закрыть"
-      }, /*#__PURE__*/React.createElement("svg", {
-        width: "18",
-        height: "18",
-        viewBox: "0 0 24 24",
-        fill: "none"
-      }, /*#__PURE__*/React.createElement("path", {
-        d: "M18 6L6 18M6 6l12 12",
-        stroke: "currentColor",
-        strokeWidth: "2.2",
-        strokeLinecap: "round"
-      }))),
+      }, /*#__PURE__*/React.createElement("svg", {width:"18",height:"18",viewBox:"0 0 24 24",fill:"none"},
+        /*#__PURE__*/React.createElement("path", {d:"M18 6L6 18M6 6l12 12",stroke:"currentColor",strokeWidth:"2.2",strokeLinecap:"round"})
+      )),
       /*#__PURE__*/React.createElement("div", {
-        className: "hh-popup-inner"
+        className: "hh-popup-inner",
+        style: {display:"block"}
       },
-        /*#__PURE__*/React.createElement("div", {
-          className: "hh-popup-copy"
-        },
-          /*#__PURE__*/React.createElement("span", {
-            className: "hh-popup-badge"
-          }, "Обновление платформы"),
-          /*#__PURE__*/React.createElement("h2", {
-            className: "hh-popup-title"
-          }, "Новый личный кабинет"),
-          /*#__PURE__*/React.createElement("p", {
-            className: "hh-popup-sub"
-          }, "Регистрация на платформе и покупка челленджей доступны только в новом личном кабинете."),
-          /*#__PURE__*/React.createElement("a", {
-            href: "https://app.hashhedge.com/ru/register",
-            target: "_blank",
-            rel: "noopener",
-            className: "btn btn-primary hh-popup-cta",
-            onClick: () => setOpen(false)
-          }, "Регистрация")
+      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none"}},
+        /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge"}, "FLASH SALE"),
+        /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title"},
+          "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " на челленджи Hash Hedge"
+        ),
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20}},
+          "Только 200 промокодов. Ограниченное по времени предложение."
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer"},
+          /*#__PURE__*/React.createElement("span", {className:"hh-popup-timer-label"}, "До конца акции:"),
+          /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-digits"},
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.d),
+              /*#__PURE__*/React.createElement("em", null, "дней")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.h),
+              /*#__PURE__*/React.createElement("em", null, "часов")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.m),
+              /*#__PURE__*/React.createElement("em", null, "минут")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.s),
+              /*#__PURE__*/React.createElement("em", null, "секунд")
+            )
+          )
         ),
         /*#__PURE__*/React.createElement("div", {
-          className: "hh-popup-art",
-          "aria-hidden": "true"
-        }, /*#__PURE__*/React.createElement("img", {
-          className: "hh-popup-dashboard-img",
-          src: window.__HH_BASE__ + "img/1GadgeMockup3 21.png",
-          alt: "",
-          loading: "eager",
-          decoding: "async"
-        }))
+          style:{display:"flex",alignItems:"center",gap:12,marginBottom:28,flexWrap:"wrap"}
+        },
+          /*#__PURE__*/React.createElement("span", {
+            style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
+          }, "Промокод:"),
+          /*#__PURE__*/React.createElement("div", {
+            onClick: copyPromo,
+            style:{display:"flex",alignItems:"center",gap:10,background:"rgba(252,213,53,0.08)",border:"1px solid rgba(252,213,53,0.28)",borderRadius:10,padding:"8px 16px",cursor:"pointer",userSelect:"none"}
+          },
+            /*#__PURE__*/React.createElement("span", {
+              style:{fontSize:18,fontWeight:900,letterSpacing:"0.12em",color:"#fcd535"}
+            }, "8472XPQ1"),
+            /*#__PURE__*/React.createElement("svg", {width:"14",height:"14",viewBox:"0 0 24 24",fill:"none",style:{opacity:0.5,flexShrink:0}},
+              /*#__PURE__*/React.createElement("rect", {x:"9",y:"9",width:"13",height:"13",rx:"2",stroke:"currentColor",strokeWidth:"2"}),
+              /*#__PURE__*/React.createElement("path", {d:"M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1",stroke:"currentColor",strokeWidth:"2"})
+            ),
+            /*#__PURE__*/React.createElement("span", {
+              style:{fontSize:11,fontWeight:700,color:copied?"#7BC75A":"var(--fg-dim)",letterSpacing:"0.06em",textTransform:"uppercase",minWidth:70}
+            }, copied ? "✓ Скопировано" : "Скопировать")
+          )
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-fs-cards"},
+          cards.map(c => /*#__PURE__*/React.createElement("a", {
+            key: c.acc,
+            href: c.href,
+            target: "_blank",
+            rel: "noopener",
+            onClick: () => setOpen(false),
+            style:{display:"flex",flexDirection:"column",alignItems:"center",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.09)",borderRadius:16,padding:"18px 12px 16px",textDecoration:"none",transition:"border-color .2s"}
+          },
+            /*#__PURE__*/React.createElement("span", {style:{fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--fg-dim)",marginBottom:6}}, "Счёт"),
+            /*#__PURE__*/React.createElement("strong", {style:{fontSize:18,fontWeight:900,color:"var(--fg)",letterSpacing:"-0.02em",marginBottom:10,lineHeight:1}}, c.acc),
+            /*#__PURE__*/React.createElement("span", {style:{fontSize:13,fontWeight:700,color:"var(--fg-dim)",textDecoration:"line-through",marginBottom:3}}, c.orig),
+            /*#__PURE__*/React.createElement("span", {style:{fontSize:11,fontWeight:800,color:"#7BC75A",background:"rgba(123,199,90,0.12)",borderRadius:999,padding:"2px 8px",marginBottom:6}}, "-25%"),
+            /*#__PURE__*/React.createElement("span", {style:{fontSize:22,fontWeight:900,color:"#7BC75A",letterSpacing:"-0.02em",marginBottom:14,lineHeight:1}}, c.sale),
+            /*#__PURE__*/React.createElement("span", {style:{display:"flex",alignItems:"center",justifyContent:"center",width:"100%",background:"#fcd535",color:"#0b0b0e",fontFamily:"Onest,sans-serif",fontSize:12,fontWeight:800,borderRadius:10,padding:"9px 8px",letterSpacing:"-0.01em"}}, "Купить")
+          ))
+        ),
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-disclaimer"},
+          "Акция заканчивается, когда истекает таймер или заканчиваются все промокоды."
+        )
+      )
       )
     )
   );
