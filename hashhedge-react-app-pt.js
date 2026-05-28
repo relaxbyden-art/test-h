@@ -11033,7 +11033,7 @@ function Nav({
     onClick: () => setLangOpen(v => !v),
     "aria-expanded": langOpen,
     "aria-label": "Escolher idioma"
-  }, /*#__PURE__*/React.createElement("span", null, "🇧🇷"), /*#__PURE__*/React.createElement("b", null, "PT"), /*#__PURE__*/React.createElement("svg", {
+  }, /*#__PURE__*/React.createElement("span", null, "🇵🇹"), /*#__PURE__*/React.createElement("b", null, "PT"), /*#__PURE__*/React.createElement("svg", {
     width: "12",
     height: "12",
     viewBox: "0 0 12 12",
