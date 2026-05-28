@@ -1,0 +1,158 @@
+<!-- HashHedge ES embed para Tilda. Copia ÍNTEGRO en el bloque HTML T123 de la página /hashhedge-es. -->
+<!-- После каждого git push на main — поменяй HH_COMMIT ниже на новый короткий SHA коммита. -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://rawcdn.githack.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.statically.io">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style"  href="https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@aca9092/hashhedge-react.css">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@aca9092/hashhedge-react-app-es.js" crossorigin>
+
+<style>
+  /* Пока не готовы CSS и React — контейнер невидим, но место занимает */
+  #hashhedge-root:not([data-hh-ready="1"]) {
+    min-height: 100vh;
+    background: #08080a;
+    position: relative;
+    overflow: hidden;
+  }
+  #hashhedge-root:not([data-hh-ready="1"]) > * { visibility: hidden; }
+  #hashhedge-root[data-hh-ready="1"] { animation: hh-fade-in .2s ease both; }
+  @keyframes hh-fade-in { from { opacity: 0 } to { opacity: 1 } }
+  #hashhedge-root:not([data-hh-ready="1"])::after {
+    content: "";
+    position: absolute; left: 50%; top: 50%;
+    width: 32px; height: 32px; margin: -16px 0 0 -16px;
+    border: 2px solid rgba(245,241,232,.15);
+    border-top-color: #f5f1e8;
+    border-radius: 50%;
+    animation: hh-spin .8s linear infinite;
+  }
+  @keyframes hh-spin { to { transform: rotate(360deg) } }
+</style>
+
+<div id="hashhedge-root"></div>
+<script>
+(function(){
+  var HH_COMMIT = "aca9092"; // pinned SHA — обновится после push ES-bundle
+  var PRIMARY   = "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@" + HH_COMMIT + "/";
+  var BACKUP    = "https://rawcdn.githack.com/relaxbyden-art/hash-hedge/" + HH_COMMIT + "/";
+  var BACKUP2   = "https://cdn.statically.io/gh/relaxbyden-art/hash-hedge/" + HH_COMMIT + "/";
+  window.__HH_BASE__ = PRIMARY;
+  var root = document.getElementById("hashhedge-root");
+  var TIMEOUT_MS = 10000;
+
+  // ── Image healer ──────────────────────────────────────────────────────────
+  function tuneImg(img){
+    if (img.dataset.hhTuned) return;
+    img.dataset.hhTuned = "1";
+    if (!img.hasAttribute("decoding")) img.decoding = "async";
+    if (!img.hasAttribute("loading"))  img.loading  = "lazy";
+  }
+  function healImg(img){
+    var src = img.currentSrc || img.src || "";
+    if (!src) return;
+    var stage = img.dataset.hhStage || "0";
+    if (stage === "0" && src.indexOf(PRIMARY) === 0) {
+      img.dataset.hhStage = "1";
+      img.src = BACKUP + src.slice(PRIMARY.length);
+    } else if (stage === "1" && src.indexOf(BACKUP) === 0) {
+      img.dataset.hhStage = "2";
+      img.src = BACKUP2 + src.slice(BACKUP.length);
+    }
+  }
+  document.addEventListener("error", function(e){
+    var t = e.target;
+    if (t && t.tagName === "IMG" && root.contains(t)) healImg(t);
+  }, true);
+
+  var mo = new MutationObserver(function(muts){
+    for (var i = 0; i < muts.length; i++) {
+      var added = muts[i].addedNodes;
+      for (var j = 0; j < added.length; j++) {
+        var n = added[j];
+        if (!n || n.nodeType !== 1) continue;
+        if (n.tagName === "IMG") tuneImg(n);
+        if (n.querySelectorAll) {
+          var imgs = n.querySelectorAll("img");
+          for (var k = 0; k < imgs.length; k++) tuneImg(imgs[k]);
+        }
+      }
+    }
+  });
+  mo.observe(root, { childList: true, subtree: true });
+
+  // ── Loader ────────────────────────────────────────────────────────────────
+  function loadCss(href){
+    return new Promise(function(resolve){
+      if (document.querySelector('link[rel="stylesheet"][href="' + href + '"]')) return resolve();
+      var l = document.createElement("link");
+      l.rel = "stylesheet"; l.href = href;
+      l.onload = resolve; l.onerror = resolve;
+      document.head.appendChild(l);
+    });
+  }
+
+  function loadScript(src){
+    return new Promise(function(resolve, reject){
+      var existing = document.querySelector('script[data-hh-src="' + src + '"]');
+      if (existing && existing.dataset.hhDone === "1") return resolve();
+      var s = document.createElement("script");
+      s.src = src; s.async = false;
+      s.crossOrigin = "anonymous";
+      s.dataset.hhSrc = src;
+      var done = false;
+      var timer = setTimeout(function(){
+        if (done) return;
+        done = true;
+        s.onload = s.onerror = null;
+        try { s.remove(); } catch(e){}
+        reject(new Error("Timeout: " + src));
+      }, TIMEOUT_MS);
+      s.onload  = function(){ if (done) return; done = true; clearTimeout(timer); s.dataset.hhDone = "1"; resolve(); };
+      s.onerror = function(){ if (done) return; done = true; clearTimeout(timer); try { s.remove(); } catch(e){} reject(new Error("Failed: " + src)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function loadFirst(urls){
+    return urls.reduce(function(chain, url){
+      return chain.catch(function(){ return loadScript(url); });
+    }, Promise.reject());
+  }
+
+  loadCss("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap");
+  var cssReady = loadCss(PRIMARY + "hashhedge-react.css");
+
+  var jsReady = loadFirst([
+    "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js",
+    "https://unpkg.com/react@18.3.1/umd/react.production.min.js"
+  ])
+  .then(function(){
+    return loadFirst([
+      "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js",
+      "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"
+    ]);
+  })
+  .then(function(){
+    return loadFirst([
+      PRIMARY + "hashhedge-react-app-es.js",
+      BACKUP  + "hashhedge-react-app-es.js"
+    ]);
+  });
+
+  Promise.all([cssReady, jsReady]).then(function(){
+    requestAnimationFrame(function(){
+      root.setAttribute("data-hh-ready", "1");
+    });
+  }).catch(function(err){
+    console.error("HashHedge ES loader failed", err);
+    if (root && !root.childNodes.length) {
+      root.innerHTML = '<div style="min-height:320px;display:flex;align-items:center;justify-content:center;background:#08080a;color:#f5f1e8;font:600 18px system-ui,sans-serif;text-align:center;padding:32px;">HashHedge no se pudo cargar. Actualiza la página.</div>';
+    }
+    root.setAttribute("data-hh-ready", "1");
+  });
+})();
+</script>
