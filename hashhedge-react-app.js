@@ -1401,7 +1401,7 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "Pick your account size, up to $200K. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Pick your account size, up to $150K. Pass the challenge, get funded to trade crypto, and keep up to 90% of the profit. Simple rules, fast payouts, no hidden fees.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -2426,7 +2426,7 @@ function HowItWorks() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Skip years of grinding to build your own capital. Prove your trading edge in our Challenge and get funded with up to $200K, in weeks, not years."))), /*#__PURE__*/React.createElement("div", {
+  }, "Skip years of grinding to build your own capital. Prove your trading edge in our Challenge and get funded with up to $150K, in weeks, not years."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -4047,7 +4047,7 @@ function WhyUs() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $200K.", /*#__PURE__*/React.createElement("br", null), "The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
+  }, "A crypto-native prop trading firm backing skilled traders with funded accounts up to $150K.", /*#__PURE__*/React.createElement("br", null), "The Hash Hedge Challenge is how you earn it."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
