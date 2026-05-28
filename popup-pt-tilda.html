@@ -1,0 +1,305 @@
+<!-- Hash Hedge — Popup PT (Tilda embed) -->
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800;900&display=swap');
+
+.hh-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-family: 'Onest', sans-serif;
+  box-sizing: border-box;
+}
+.hh-overlay.hh-visible {
+  display: flex;
+  animation: hhFadeIn 0.25s ease;
+}
+@keyframes hhFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── CARD ── */
+.hh-popup {
+  background: #13131a;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 720px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  animation: hhSlideUp 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+@keyframes hhSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CLOSE ── */
+.hh-popup-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(19,19,26,0.9);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,241,232,0.4);
+  transition: background 0.15s, color 0.15s;
+  z-index: 10;
+}
+.hh-popup-close:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(245,241,232,0.8);
+}
+
+/* ── LEFT: TEXT ── */
+.hh-popup-left {
+  flex: 1;
+  padding: 44px 40px 44px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fcd535;
+  background: rgba(252,213,53,0.08);
+  border: 1px solid rgba(252,213,53,0.22);
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+@keyframes hhPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(252,213,53,0); }
+}
+
+.hh-popup-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #f5f1e8;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+.hh-popup-title .accent { color: #fcd535; }
+
+.hh-popup-body {
+  font-size: 15px;
+  color: rgba(245,241,232,0.5);
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+
+.btn-primary-popup {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  background: #fcd535 !important;
+  color: #0b0b0e !important;
+  font-family: 'Onest', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 15px 28px !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  letter-spacing: -0.01em;
+  transition: background 0.15s, transform 0.15s;
+  width: fit-content;
+  box-shadow: none !important;
+}
+.btn-primary-popup:hover { background: #ffe55c !important; transform: translateY(-1px); }
+
+/* ── RIGHT: IMAGE ── */
+.hh-popup-right {
+  width: 300px;
+  flex-shrink: 0;
+  background: #0e0e14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hh-popup-right::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 280px; height: 200px;
+  background: radial-gradient(ellipse, rgba(252,213,53,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hh-popup-right::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 60px;
+  background: linear-gradient(to right, #13131a, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.hh-popup-right img {
+  width: 100%;
+  max-width: 280px;
+  display: block;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.6));
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .hh-overlay {
+    padding: 12px;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hh-popup {
+    flex-direction: column;
+    max-width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: auto;
+    flex-shrink: 0;
+  }
+  .hh-popup-close {
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    z-index: 20;
+  }
+  /* Картинка — сверху */
+  .hh-popup-right {
+    order: -1;
+    width: 100%;
+    padding: 36px 16px 0;
+    height: 200px;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+  }
+  .hh-popup-right::before {
+    width: 200px; height: 120px;
+  }
+  .hh-popup-right::after {
+    left: 0; right: 0; top: auto; bottom: 0;
+    width: 100%; height: 40px;
+    background: linear-gradient(to bottom, transparent, #13131a);
+  }
+  .hh-popup-right img {
+    max-width: 210px;
+    width: 72%;
+    align-self: flex-end;
+  }
+  /* Текст — снизу */
+  .hh-popup-left {
+    order: 1;
+    padding: 14px 20px 20px;
+  }
+  .hh-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+  }
+  .hh-popup-title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .hh-popup-body {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .btn-primary-popup {
+    width: calc(100vw - 64px) !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+    padding: 0 20px !important;
+    height: 52px !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+  }
+}
+</style>
+
+<div class="hh-overlay" id="hhPopupPT">
+  <div class="hh-popup">
+
+    <!-- Close -->
+    <button class="hh-popup-close" onclick="hhClosePopup()" aria-label="Fechar">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Text -->
+    <div class="hh-popup-left">
+      <div class="hh-badge">Atualização da plataforma</div>
+      <div class="hh-popup-title">Novo <span class="accent">Hash Hedge Dashboard</span></div>
+      <div class="hh-popup-body">O cadastro e a compra de desafios estão disponíveis apenas no novo dashboard.</div>
+      <a href="https://app.hashhedge.com/pt/register" class="btn-primary-popup">
+        Registrar
+      </a>
+    </div>
+
+    <!-- Image -->
+    <div class="hh-popup-right">
+      <img src="https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@0495e1a/img/pop-uplaptop.png"
+           alt="Novo dashboard Hash Hedge" loading="eager">
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  function hhShowPopup() {
+    var el = document.getElementById('hhPopupPT');
+    if (el) el.classList.add('hh-visible');
+  }
+  window.hhClosePopup = function() {
+    var el = document.getElementById('hhPopupPT');
+    if (!el) return;
+    el.style.transition = 'opacity 0.2s';
+    el.style.opacity = '0';
+    setTimeout(function() {
+      el.classList.remove('hh-visible');
+      el.style.opacity = '';
+      el.style.transition = '';
+    }, 220);
+  };
+  setTimeout(hhShowPopup, 1500);
+  document.getElementById('hhPopupPT').addEventListener('click', function(e) {
+    if (e.target === this) window.hhClosePopup();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') window.hhClosePopup();
+  });
+})();
+</script>
