@@ -2373,8 +2373,8 @@ function HowItWorks() {
     n: "01",
     k: "SIGN UP",
     t: "Pick your account size",
-    d: "Seven sizes, from $5,000 ($79) up to $200,000 ($1,293). One-time Hash Hedge Challenge fee. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism.",
-    bullets: ["7 account sizes · $5K to $200K", "Pay with crypto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "One-time fee – no subscriptions"]
+    d: "Six sizes, from $5,000 ($79) up to $150,000 ($1,093). One-time Hash Hedge Challenge fee. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism.",
+    bullets: ["6 account sizes · $5K to $150K", "Pay with crypto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "One-time fee – no subscriptions"]
   }, {
     n: "02",
     k: "PROVE YOUR EDGE",
@@ -7989,7 +7989,7 @@ function BlueprintSection() {
   }, {
     n: "02",
     t: "Choose a Challenge size",
-    d: "$5K to $200K. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism."
+    d: "$5K to $150K. Pay on TRC20, ERC20, BEP20, Solana, Arbitrum or Optimism."
   }, {
     n: "03",
     t: "Pass Stage 1 – 8% target",

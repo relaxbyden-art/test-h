@@ -1430,7 +1430,7 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "Получи фондирование до $200К и выводи до 90% прибыли в USDT прямо на свой кошелёк.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Получи фондирование до $150К и выводи до 90% прибыли в USDT прямо на свой кошелёк.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -2405,8 +2405,8 @@ function HowItWorks() {
     n: "01",
     k: "РЕГИСТРАЦИЯ",
     t: "Выбери счёт",
-    d: "Выбери размер капитала до $200К и возьми челлендж соответствующего номинала.",
-    bullets: ["7 номиналов: от $5K до $200K", "Цена: от $79 до $1 293", "Оплата USDT: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism"]
+    d: "Выбери размер капитала до $150К и возьми челлендж соответствующего номинала.",
+    bullets: ["6 номиналов: от $5K до $150K", "Цена: от $79 до $1 093", "Оплата USDT: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism"]
   }, {
     n: "02",
     k: "ОЦЕНКА",
@@ -2417,7 +2417,7 @@ function HowItWorks() {
     n: "03",
     k: "ФОНДИРОВАНИЕ",
     t: "Торгуй и выводи прибыль",
-    d: "Получи капитал до $200К от Hash Hedge, торгуй свою стратегию и забирай до 90% прибыли.",
+    d: "Получи капитал до $150К от Hash Hedge, торгуй свою стратегию и забирай до 90% прибыли.",
     bullets: ["Плечо 1:5 на всех этапах", "Профит-сплит до 90%", "160+ криптоактивов"]
   }];
   return /*#__PURE__*/React.createElement("section", {
@@ -2458,7 +2458,7 @@ function HowItWorks() {
       lineHeight: 1.5,
       color: "var(--fg-muted)"
     }
-  }, "Реализуй свою трейдинговую стратегию на капитале до $200К и выводи до 90% прибыли."))), /*#__PURE__*/React.createElement("div", {
+  }, "Реализуй свою трейдинговую стратегию на капитале до $150К и выводи до 90% прибыли."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -8041,7 +8041,7 @@ function BlueprintSection() {
   }, {
     n: "02",
     t: "Выбери размер челленджа",
-    d: "Номиналы от $5K до $200K. Оплата USDT в шести сетях: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism."
+    d: "Номиналы от $5K до $150K. Оплата USDT в шести сетях: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism."
   }, {
     n: "03",
     t: "Пройди первый этап",
@@ -10872,7 +10872,7 @@ function Footer() {
       lineHeight: 1.45,
       maxWidth: 260
     }
-  }, "Hash Hedge \u2014 платформа для проп-трейдинга: торгуйте криптовалютой и TradFi-активами. Управляйте капиталом до $200K.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge \u2014 платформа для проп-трейдинга: торгуйте криптовалютой и TradFi-активами. Управляйте капиталом до $150K.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
     key: col.t
   }, /*#__PURE__*/React.createElement("div", {
     style: {
