@@ -1595,7 +1595,7 @@ function Hero({
 Object.assign(window, {
   Hero,
   HeroCanvas,
-  LivePagamentosTable,
+  LivePayoutsTable,
   TradingTerminal
 });
 
