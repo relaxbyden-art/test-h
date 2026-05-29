@@ -584,9 +584,9 @@ function CosmicStatsPanel() {
   }, {
     k: "Қаржыландырылған трейдерлер",
     big: Math.round(4_750 + Math.max(0, (Date.now() - 1743465600000) / 1000) * (18/86400) + tick * _TICK_TRADERS).toLocaleString(),
-    sub: "active accounts",
+    sub: "белсенді аккаунттар",
     day: `+${Math.max(1, Math.round(_secToday * _TRADER_PER_SEC))}`,
-    dayLbl: "joined today",
+    dayLbl: "бүгін қосылды",
     color: "var(--fg)"
   }, {
     k: "Орындалған төлемдер",
@@ -1381,7 +1381,7 @@ function Hero({
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "#1 КРИПТО ПРОП-ТРЕЙДИНГОВАЯ ПЛАТФОРМА")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "#1 КРИПТО ПРОП-ТРЕЙДИНГ ПЛАТФОРМАСЫ")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h1", {
     className: "display",
@@ -2169,13 +2169,13 @@ function PromoBanner() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "160+ криптожұп"), /*#__PURE__*/React.createElement("br", { className: "hh-hero-sub-br" }), " и ", /*#__PURE__*/React.createElement("span", {
+  }, "160+ крипто-жұп"), /*#__PURE__*/React.createElement("br", { className: "hh-hero-sub-br" }), " және ", /*#__PURE__*/React.createElement("span", {
     className: "hh-hero-num",
     style: {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "10+ TradFi активтер"), " кез келген челленджде"), /*#__PURE__*/React.createElement("p", {
+  }, "10+ TradFi активтерімен"), " кез келген челленджде сауда жаса"), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -2397,7 +2397,7 @@ function PromoBanner() {
     style: {
       color: "var(--fg-muted)"
     }
-  }, "Новые активы каждую неделю"))))));
+  }, "Әр апта сайын жаңа активтер шығады"))))));
 }
 function HowItWorks() {
   useRevealOnScroll();
@@ -2608,7 +2608,7 @@ function PromoSliderBanner() {
     art: "x3"
   }, {
     key: "metals",
-    eyebrow: "ЭФИРДЕГІ ЖАҢА НАРЫҚТАР",
+    eyebrow: "ЖАҢА НАРЫҚТАР ЭФИРДЕ",
     title: "Алтын және күміспен сауда жаса",
     copy: "XAU/USDT және XAG/USDT енді Hash Hedge платформасында қолжетімді",
     cta: "Челленджді бастау",
@@ -3979,7 +3979,7 @@ function WhyUs() {
   }, {
     n: "03",
     k: "coins",
-    t: "160+ сауда жұбы",
+    t: "160+ сауда жұбы бар",
     d: "BTC, ETH, SOL, XRP, DOGE және спот-өтімділігі бар басқа да активтер.",
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
@@ -5147,11 +5147,11 @@ function PayoutShowcase() {
       margin: "20px 0 24px",
       letterSpacing: "-0.025em"
     }
-  }, "Пайданы шығар", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Пайданы", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "өз әмияныңа")), /*#__PURE__*/React.createElement("p", {
+  }, "өз әмияныңа шығар")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -9663,17 +9663,17 @@ function TeamCerts() {
       fontSize: 15,
       color: "var(--fg-muted)"
     }
-  }, "Выборка из ", /*#__PURE__*/React.createElement("span", {
+  }, "Таңдалған: ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " орындалған \xb7 ", /*#__PURE__*/React.createElement("span", {
+  }, "17,800+ төлем"), " \xb7 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "5,120 active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, "5,120 белсенді Funded-трейдер"))))), lightbox && /*#__PURE__*/React.createElement("div", {
     onClick: () => setLightbox(null),
     style: {
       position: "fixed",
@@ -10241,7 +10241,7 @@ function FAQ() {
       style: {
         color: "var(--accent)"
       }
-    }, "@hashhedgesupportbot"), ". Support is available 24/7.")
+    }, "@hashhedgesupportbot"), ". Қолдау 24/7 қолжетімді.")
   }].slice(0, 6);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
