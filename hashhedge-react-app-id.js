@@ -575,7 +575,7 @@ function CosmicStatsPanel() {
     dayLbl: "hari ini",
     color: "var(--accent)"
   }, {
-    k: "Paid to traders",
+    k: "Dibayarkan ke trader",
     big: `$${((12_410_000 + tick * _TICK_PAYOUT) / 1_000_000).toFixed(2)}M`,
     sub: "lifetime",
     day: (() => { const _di = Math.floor(Date.now()/86400000); const _db = _di - Math.floor(1743465600000/86400000); const _base = Math.min(20000, 18000 + _db * 10); const _var = ((_di*7+13)%1000) - 500; return `+$${(_base+_var).toLocaleString()}`; })(),
@@ -626,7 +626,7 @@ function CosmicStatsPanel() {
     style: {
       opacity: 0.4
     }
-  }, "\xB7"), /*#__PURE__*/React.createElement("span", null, "Institutional feed \xB7 on-chain verified")), /*#__PURE__*/React.createElement("div", {
+  }, "\xB7"), /*#__PURE__*/React.createElement("span", null, "Feed institusional \xB7 terverifikasi on-chain")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -1036,7 +1036,7 @@ function TradingTerminal() {
       textTransform: "uppercase",
       color: "var(--fg)"
     }
-  }, "HashHedge \xB7 live stats")), /*#__PURE__*/React.createElement("span", {
+  }, "HashHedge \xB7 statistik live")), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
       color: "var(--fg-dim)",
@@ -1256,7 +1256,7 @@ function TradingTerminal() {
       fontSize: 12,
       color: "var(--fg-muted)"
     }
-  }, "Institutional feed \xB7 on-chain verified"), /*#__PURE__*/React.createElement("span", {
+  }, "Feed institusional \xB7 terverifikasi on-chain"), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
       fontWeight: 700,
@@ -2578,7 +2578,7 @@ function PromoSliderBanner() {
     art: "x3"
   }, {
     key: "metals",
-    eyebrow: "NEW MARKETS LIVE",
+    eyebrow: "PASAR BARU LIVE",
     title: "Trading emas dan perak",
     copy: "XAU/USDT dan XAG/USDT kini tersedia di platform Hash Hedge",
     cta: "Mulai Challenge",
@@ -3171,7 +3171,7 @@ function Pricing() {
   }, {
     k: "daily",
     label: "Loss harian maks",
-    sub: "Equity drop within a single trading day. Breach = failed.",
+    sub: "Penurunan equity dalam satu hari trading. Pelanggaran = gagal.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3193,7 +3193,7 @@ function Pricing() {
   }, {
     k: "dd",
     label: "Drawdown total maks",
-    sub: "Peak-to-trough loss limit across the full challenge.",
+    sub: "Batas kerugian peak-to-trough untuk seluruh challenge.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3268,7 +3268,7 @@ function Pricing() {
   }, {
     k: "lev",
     label: "Leverage maks",
-    sub: "Capped at 1:5 across all stages and all assets.",
+    sub: "Dibatasi 1:5 di semua stage dan semua aset.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3355,7 +3355,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("button", {
     "data-mobile-scroll-hint": true,
     type: "button",
-    "aria-label": "Scroll to next size",
+    "aria-label": "Gulir ke ukuran berikutnya",
     onClick: e => {
       const picker = e.currentTarget.parentElement.querySelector('[data-mobile-h-scroll]');
       if (picker) picker.scrollBy({
@@ -3637,7 +3637,7 @@ function Pricing() {
   }, {
     n: 3,
     label: "FUNDED",
-    sub: "Live capital, real payouts",
+    sub: "Modal live, penarikan nyata",
     accent: true
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
@@ -4652,7 +4652,7 @@ function ArtInfinity() {
       textDecoration: "line-through",
       opacity: 0.6
     }
-  }, "30-DAY CLOCK")));
+  }, "JAM 30 HARI")));
 }
 function ArtScale() {
   const bars = [{
@@ -4957,11 +4957,11 @@ function ArtClock() {
 function ArtRules() {
   // Checklist of rules being ticked off one by one.
   const items = [{
-    k: "Stage 1 target",
+    k: "Target Stage 1",
     v: "+8%",
     done: true
   }, {
-    k: "Stage 2 target",
+    k: "Target Stage 2",
     v: "+6%",
     done: true
   }, {
@@ -5470,7 +5470,7 @@ function EventsTournaments() {
   }, {
     city: "Dubai",
     flag: "🇦🇪",
-    event: "Brand Ambassador on Main Stage",
+    event: "Duta merek di Main Stage",
     role: "Sponsor",
     date: "2025",
     img: (window.__HH_BASE__+"assets/team/event-wsct-booth.jpg")
@@ -5479,7 +5479,7 @@ function EventsTournaments() {
     flag: "🇦🇪",
     event: "WSCT Dubai · Live Trading Floor",
     role: "Host",
-    date: "Oct 2025",
+    date: "Okt 2025",
     img: (window.__HH_BASE__+"assets/team/event-afterparty.jpg")
   }, {
     city: "Moscow",
@@ -5553,7 +5553,7 @@ function EventsTournaments() {
       color: "var(--fg-muted)",
       margin: "0 0 8px"
     }
-  }, "Dubai. S\xE3o Paulo. Moscow. From main-stage keynotes to live-trading booths and top-affiliate awards \u2013 this is the Hash Hedge team on the ground."))), /*#__PURE__*/React.createElement("div", {
+  }, "Dubai. São Paulo. Moskow. Dari keynote di main stage hingga booth live trading dan penghargaan top affiliate \u2013 inilah tim Hash Hedge di lapangan."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.35fr 1fr",
@@ -6649,7 +6649,7 @@ function TelegramChannelList() {
     icBg: "transparent",
     title: "Announcements | EN",
     sender: "",
-    preview: "FLASH SALE: 62 out of 200 vouchers rema…",
+    preview: "FLASH SALE: 62 dari 200 voucher tersi…",
     time: "Wed",
     pinned: true,
     badge: true
@@ -7218,7 +7218,7 @@ function SupportLiveChat() {
     dur: 900
   }, {
     side: "agent",
-    text: "Yep – USDT TRC-20 or ERC-20, your call. 90% split, processed within 24h once you submit.",
+    text: "Yep – USDT TRC-20 atau ERC-20, kamu pilih. 90% split, diproses dalam 24 jam setelah submit.",
     time: "14:03"
   }, {
     side: "user",
@@ -8045,7 +8045,7 @@ function BlueprintSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "How to start")))), /*#__PURE__*/React.createElement("div", {
+  }, "Cara memulai")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1.1fr",
@@ -8066,7 +8066,7 @@ function BlueprintSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "How to start")), /*#__PURE__*/React.createElement("p", {
+  }, "Cara memulai")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -8226,7 +8226,7 @@ function BlueprintSection() {
       alignItems: "center",
       justifyContent: "space-between"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Table of contents"), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, "Daftar isi"), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -8256,7 +8256,7 @@ function BlueprintSection() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Last updated \xB7 2 days ago")))))));
+  }, /*#__PURE__*/React.createElement("span", null, "Terakhir diperbarui \xB7 2 hari lalu")))))));
 }
 
 // =====================================================================
@@ -8594,7 +8594,7 @@ function YouTubeSection() {
       margin: "20px 0 0",
       letterSpacing: "-0.025em"
     }
-  }, "Don't take our word.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Jangan percaya pada kami.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
@@ -8611,7 +8611,7 @@ function YouTubeSection() {
     style: {
       color: "var(--fg)"
     }
-  }, "2,500+ crypto creators worldwide partner"), " with Hash Hedge: challenge walkthroughs, payout proofs, and platform deep-dives."))))  , /*#__PURE__*/React.createElement("div", {
+  }, "2,500+ crypto creators worldwide partner"), " dengan Hash Hedge: panduan challenge, bukti pembayaran, dan analisis platform mendalam."))))  , /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.7fr 1fr",
@@ -8874,7 +8874,7 @@ function YouTubeFeatured({
       color: "rgba(255,255,255,0.7)",
       letterSpacing: "0.01em"
     }
-  }, "Opens on YouTube")));
+  }, "Buka di YouTube")));
 }
 function YouTubeThumb({
   video
@@ -9148,7 +9148,7 @@ function TeamCerts() {
     name: "Mikhail Anikeev",
     amount: "3,154.96",
     acc: "$100,000",
-    date: "07 Aug 2025",
+    date: "07 Agu 2025",
     src: (window.__HH_BASE__+"img/cert-anikeev.png")
   }, {
     name: "Aleksandr Popov",
@@ -9160,7 +9160,7 @@ function TeamCerts() {
     name: "Ryan Sullivan",
     amount: "2,707.16",
     acc: "$50,000",
-    date: "11 Aug 2025",
+    date: "11 Agu 2025",
     src: (window.__HH_BASE__+"img/cert-sullivan.png")
   }, {
     name: "Alex Okulov",
@@ -9190,7 +9190,7 @@ function TeamCerts() {
     name: "Leon Cherepanov",
     amount: "407.12",
     acc: "$5,000",
-    date: "07 Aug 2025",
+    date: "07 Agu 2025",
     src: (window.__HH_BASE__+"img/cert-cherepanov.png")
   },
   // New 10 (real certificates)
@@ -9418,7 +9418,7 @@ function TeamCerts() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "acc. ", c.acc), /*#__PURE__*/React.createElement("div", {
+  }, "akun ", c.acc), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 18,
       fontWeight: 800,
@@ -9608,17 +9608,17 @@ function TeamCerts() {
       fontSize: 15,
       color: "var(--fg-muted)"
     }
-  }, "Sample of ", /*#__PURE__*/React.createElement("span", {
+  }, "Sampel dari ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
+  }, "17.800+ penarikan"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "5,120 active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, "5.120 trader funded aktif"))))), lightbox && /*#__PURE__*/React.createElement("div", {
     onClick: () => setLightbox(null),
     style: {
       position: "fixed",
@@ -10025,7 +10025,7 @@ function Reviews() {
       marginBottom: 22,
       maxWidth: 280
     }
-  }, "Every review is checked by Trustpilot \u2013 payout proofs, terminal screenshots, real names."), /*#__PURE__*/React.createElement("span", {
+  }, "Setiap ulasan diperiksa oleh Trustpilot \u2013 bukti pembayaran, tangkapan layar terminal, nama asli."), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -10101,7 +10101,7 @@ function FAQ() {
     a: "Challenge dikunci permanen. Tidak peduli batas mana, harian atau total. Loss yang belum direalisasi juga dihitung."
   }, {
     q: "Bagaimana batas Loss Harian dihitung?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Current Equity \u2212 Balance at the beginning of the day. Open positions affect the calculation. The limit resets at 00:13 UTC+4. Unrealized profits/losses carry forward to the next day. Detailed breakdown with examples ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Equity Saat Ini \u2212 Saldo di awal hari. Posisi terbuka memengaruhi perhitungan. Limit reset pada 00:13 UTC+4. Profit/loss yang belum terealisasi terbawa ke hari berikutnya. Penjelasan rinci dengan contoh ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
       target: "_blank",
       rel: "noopener",
@@ -10113,11 +10113,11 @@ function FAQ() {
     q: "Apa itu hari trading?",
     a: "Hari saat minimal satu posisi dibuka. Jika kamu buka Senin dan tutup Rabu, hanya Senin yang dihitung."
   }, {
-    q: "What is Settlement Time and when does it occur?",
-    a: "Daily calculation of your account results. Happens at the end of the trading day in UTC+4. Balances are finalized and limits are updated."
+    q: "Apa itu Settlement Time dan kapan terjadi?",
+    a: "Perhitungan harian hasil akun kamu. Terjadi di akhir hari trading dalam UTC+4. Saldo difinalisasi dan limit diperbarui."
   }, {
     q: "Aset apa yang bisa saya trading?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "160+ crypto assets, metals (gold, silver, platinum, palladium), oil and natural gas. Full list with position limits ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "160+ aset crypto, logam (emas, perak, platinum, paladium), minyak dan gas alam. Daftar lengkap dengan batas posisi ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/coins-limit",
       target: "_blank",
       rel: "noopener",
@@ -10133,16 +10133,16 @@ function FAQ() {
     a: "Hingga 1:5."
   }, {
     q: "Can I trade using different margin modes simultaneously?",
-    a: "No. One mode at a time: Cross or Isolated. To switch, close all positions in the current mode first."
+    a: "Tidak. Satu mode dalam satu waktu: Cross atau Isolated. Untuk mengganti, tutup dulu semua posisi di mode saat ini."
   }, {
     q: "Can I hedge positions?",
-    a: "Yes. You can open positions in opposite directions on the same asset."
+    a: "Ya. Kamu bisa membuka posisi dalam arah berlawanan pada aset yang sama."
   }, {
     q: "Bisakah saya menahan posisi terbuka selama beberapa hari?",
-    a: "Yes. But watch your limits – open positions are factored into drawdown calculations."
+    a: "Ya. Tapi perhatikan batas kamu \u2013 posisi terbuka diperhitungkan dalam kalkulasi drawdown."
   }, {
-    q: "Do open positions affect loss limits?",
-    a: "Yes. Unrealized P&L directly affects Equity and drawdown calculations. You can breach a limit without closing a position."
+    q: "Apakah posisi terbuka memengaruhi batas kerugian?",
+    a: "Ya. P&L yang belum direalisasi langsung memengaruhi Equity dan kalkulasi drawdown. Kamu bisa melanggar batas tanpa menutup posisi."
   }, {
     q: "Is using a Stop Loss mandatory?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "No. But we recommend it to help you stay within drawdown limits. More on TP/SL setup ", /*#__PURE__*/React.createElement("a", {
@@ -10158,7 +10158,7 @@ function FAQ() {
     a: "Yes. No restrictions."
   }, {
     q: "Berapa biaya platform?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Details on fees and funding rates ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Detail tentang biaya dan funding rates ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/trading-module/fees-and-funding-rate",
       target: "_blank",
       rel: "noopener",
@@ -10167,17 +10167,17 @@ function FAQ() {
       }
     }, "di sini"), ".")
   }, {
-    q: "Can I participate in multiple challenges simultaneously?",
+    q: "Bisakah saya ikut beberapa challenge sekaligus?",
     a: "Ya, di Stage 1 dan Stage 2 kamu bisa jalankan beberapa challenge sekaligus. Di Stage 3 (funded) hanya satu challenge per ukuran akun."
   }, {
-    q: "I've completed the challenge. What's next?",
+    q: "Saya sudah lulus challenge. Selanjutnya apa?",
     a: "Kamu dapat akun funded (akun akumulatif). Trading dengan modal kami, simpan 90 % profit."
   }, {
     q: "Apakah kondisi akun funded berbeda dari evaluasi?",
-    a: "No. Drawdowns, leverage, execution, fees – everything is the same across all stages. What you see on evaluation is what you get on funded."
+    a: "Tidak. Drawdown, leverage, eksekusi, biaya \u2013 semua sama di semua stage. Apa yang kamu lihat saat evaluasi adalah yang kamu dapat saat funded."
   }, {
     q: "Apakah ada consistency rule atau batas profit harian?",
-    a: "No. No requirement to spread profit evenly across days. No cap on how much you can make in a single day. Hit the target within the minimum trading days and you move on."
+    a: "Tidak. Tidak perlu menyebar profit secara merata antar hari. Tidak ada batas berapa banyak yang bisa kamu hasilkan dalam satu hari. Capai target dalam jumlah hari trading minimum dan kamu lanjut."
   }, {
     q: "Apakah ada biaya tambahan untuk aktivasi akun funded?",
     a: "Tidak. Biaya challenge adalah satu-satunya pembayaran. Akun funded aktif tanpa biaya tambahan."
@@ -10836,7 +10836,7 @@ function Footer() {
       lineHeight: 1.45,
       maxWidth: 260
     }
-  }, "Hash Hedge \u2013 Crypto Prop Trading Platform: Trade, prove your skills, manage capital.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge \u2013 Platform Crypto Prop Trading: trading, buktikan keahlian, kelola modal.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
     key: col.t
   }, /*#__PURE__*/React.createElement("div", {
     style: {

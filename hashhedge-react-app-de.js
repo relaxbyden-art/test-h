@@ -575,7 +575,7 @@ function CosmicStatsPanel() {
     dayLbl: "heute",
     color: "var(--accent)"
   }, {
-    k: "Paid to traders",
+    k: "An Trader ausgezahlt",
     big: `$${((12_410_000 + tick * _TICK_PAYOUT) / 1_000_000).toFixed(2)}M`,
     sub: "lifetime",
     day: (() => { const _di = Math.floor(Date.now()/86400000); const _db = _di - Math.floor(1743465600000/86400000); const _base = Math.min(20000, 18000 + _db * 10); const _var = ((_di*7+13)%1000) - 500; return `+$${(_base+_var).toLocaleString()}`; })(),
@@ -626,7 +626,7 @@ function CosmicStatsPanel() {
     style: {
       opacity: 0.4
     }
-  }, "\xB7"), /*#__PURE__*/React.createElement("span", null, "Institutional feed \xB7 on-chain verified")), /*#__PURE__*/React.createElement("div", {
+  }, "\xB7"), /*#__PURE__*/React.createElement("span", null, "Institutioneller Feed \xB7 on-chain verifiziert")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
@@ -1036,7 +1036,7 @@ function TradingTerminal() {
       textTransform: "uppercase",
       color: "var(--fg)"
     }
-  }, "HashHedge \xB7 live stats")), /*#__PURE__*/React.createElement("span", {
+  }, "HashHedge \xB7 Live-Statistik")), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
       color: "var(--fg-dim)",
@@ -1256,7 +1256,7 @@ function TradingTerminal() {
       fontSize: 12,
       color: "var(--fg-muted)"
     }
-  }, "Institutional feed \xB7 on-chain verified"), /*#__PURE__*/React.createElement("span", {
+  }, "Institutioneller Feed \xB7 on-chain verifiziert"), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 11,
       fontWeight: 700,
@@ -2386,7 +2386,7 @@ function HowItWorks() {
     k: "WERDE FUNDED",
     t: "Handle den Funded-Stage-3-Account",
     d: "Bestehe beide Stages und du erreichst Stage 3 – funded. Kein Gewinnziel, unbegrenzte Handelsperiode, gleiche Risikoregeln (5 % täglich, 8 % max. DD). Hebel 1:5 in jeder Stage.",
-    bullets: ["Stage 3 – funded, kein Ziel", "Unbegrenzte Handelsperiode", "Hebel 1:5 · 5 % täglich / 8 % DD"]
+    bullets: ["Stage 3 \u2013 funded, kein Ziel", "Unbegrenzte Handelsperiode", "Hebel 1:5 · 5 % täglich / 8 % DD"]
   }];
   return /*#__PURE__*/React.createElement("section", {
     id: "how",
@@ -2578,7 +2578,7 @@ function PromoSliderBanner() {
     art: "x3"
   }, {
     key: "metals",
-    eyebrow: "NEW MARKETS LIVE",
+    eyebrow: "NEUE MÄRKTE LIVE",
     title: "Handle Gold und Silber",
     copy: "XAU/USDT und XAG/USDT sind jetzt auf der Hash Hedge-Plattform verfügbar",
     cta: "Challenge starten",
@@ -3171,7 +3171,7 @@ function Pricing() {
   }, {
     k: "daily",
     label: "Max. Tagesverlust",
-    sub: "Equity drop within a single trading day. Breach = failed.",
+    sub: "Equity-Verlust an einem einzelnen Handelstag. Überschreitung = gescheitert.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3193,7 +3193,7 @@ function Pricing() {
   }, {
     k: "dd",
     label: "Max. Gesamtverlust",
-    sub: "Peak-to-trough loss limit across the full challenge.",
+    sub: "Höchst-zu-Tiefststand-Verlustgrenze über die gesamte Challenge.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3268,7 +3268,7 @@ function Pricing() {
   }, {
     k: "lev",
     label: "Max. Hebel",
-    sub: "Capped at 1:5 across all stages and all assets.",
+    sub: "Auf 1:5 in allen Stages und allen Assets begrenzt.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3355,7 +3355,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("button", {
     "data-mobile-scroll-hint": true,
     type: "button",
-    "aria-label": "Scroll to next size",
+    "aria-label": "Zur nächsten Größe scrollen",
     onClick: e => {
       const picker = e.currentTarget.parentElement.querySelector('[data-mobile-h-scroll]');
       if (picker) picker.scrollBy({
@@ -3637,7 +3637,7 @@ function Pricing() {
   }, {
     n: 3,
     label: "FUNDED",
-    sub: "Live capital, real payouts",
+    sub: "Echtes Kapital, echte Auszahlungen",
     accent: true
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
@@ -4652,7 +4652,7 @@ function ArtInfinity() {
       textDecoration: "line-through",
       opacity: 0.6
     }
-  }, "30-DAY CLOCK")));
+  }, "30-TAGE-UHR")));
 }
 function ArtScale() {
   const bars = [{
@@ -5470,7 +5470,7 @@ function EventsTournaments() {
   }, {
     city: "Dubai",
     flag: "🇦🇪",
-    event: "Brand Ambassador on Main Stage",
+    event: "Markenbotschafter auf der Hauptbühne",
     role: "Sponsor",
     date: "2025",
     img: (window.__HH_BASE__+"assets/team/event-wsct-booth.jpg")
@@ -5479,7 +5479,7 @@ function EventsTournaments() {
     flag: "🇦🇪",
     event: "WSCT Dubai · Live Trading Floor",
     role: "Host",
-    date: "Oct 2025",
+    date: "Okt 2025",
     img: (window.__HH_BASE__+"assets/team/event-afterparty.jpg")
   }, {
     city: "Moscow",
@@ -5553,7 +5553,7 @@ function EventsTournaments() {
       color: "var(--fg-muted)",
       margin: "0 0 8px"
     }
-  }, "Dubai. S\xE3o Paulo. Moscow. From main-stage keynotes to live-trading booths and top-affiliate awards \u2013 this is the Hash Hedge team on the ground."))), /*#__PURE__*/React.createElement("div", {
+  }, "Dubai. São Paulo. Moskau. Von Hauptbühnen-Keynotes bis zu Live-Trading-Ständen und Top-Affiliate-Awards \u2013 das ist das Hash Hedge Team vor Ort."))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.35fr 1fr",
@@ -6649,7 +6649,7 @@ function TelegramChannelList() {
     icBg: "transparent",
     title: "Announcements | EN",
     sender: "",
-    preview: "FLASH SALE: 62 out of 200 vouchers rema…",
+    preview: "FLASH SALE: 62 von 200 Vouchern verfügb…",
     time: "Wed",
     pinned: true,
     badge: true
@@ -7218,7 +7218,7 @@ function SupportLiveChat() {
     dur: 900
   }, {
     side: "agent",
-    text: "Yep – USDT TRC-20 or ERC-20, your call. 90% split, processed within 24h once you submit.",
+    text: "Genau – USDT TRC-20 oder ERC-20, ganz wie du willst. 90 % Split, innerhalb von 24 h nach Antrag bearbeitet.",
     time: "14:03"
   }, {
     side: "user",
@@ -8045,7 +8045,7 @@ function BlueprintSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "How to start")))), /*#__PURE__*/React.createElement("div", {
+  }, "So fängst du an")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1.1fr",
@@ -8066,7 +8066,7 @@ function BlueprintSection() {
     style: {
       color: "var(--accent)"
     }
-  }, "How to start")), /*#__PURE__*/React.createElement("p", {
+  }, "So fängst du an")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -8226,7 +8226,7 @@ function BlueprintSection() {
       alignItems: "center",
       justifyContent: "space-between"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Table of contents"), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, "Inhaltsverzeichnis"), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -8256,7 +8256,7 @@ function BlueprintSection() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Last updated \xB7 2 days ago")))))));
+  }, /*#__PURE__*/React.createElement("span", null, "Zuletzt aktualisiert \xB7 vor 2 Tagen")))))));
 }
 
 // =====================================================================
@@ -8594,7 +8594,7 @@ function YouTubeSection() {
       margin: "20px 0 0",
       letterSpacing: "-0.025em"
     }
-  }, "Don't take our word.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Glaub uns nicht.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
@@ -8611,7 +8611,7 @@ function YouTubeSection() {
     style: {
       color: "var(--fg)"
     }
-  }, "2,500+ crypto creators worldwide partner"), " with Hash Hedge: challenge walkthroughs, payout proofs, and platform deep-dives."))))  , /*#__PURE__*/React.createElement("div", {
+  }, "2,500+ crypto creators worldwide partner"), " mit Hash Hedge: Challenge-Walkthroughs, Auszahlungsbeweise und Plattform-Deep-Dives."))))  , /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.7fr 1fr",
@@ -8874,7 +8874,7 @@ function YouTubeFeatured({
       color: "rgba(255,255,255,0.7)",
       letterSpacing: "0.01em"
     }
-  }, "Opens on YouTube")));
+  }, "Auf YouTube öffnen")));
 }
 function YouTubeThumb({
   video
@@ -9154,7 +9154,7 @@ function TeamCerts() {
     name: "Aleksandr Popov",
     amount: "7,538.92",
     acc: "$100,000",
-    date: "04 Mar 2026",
+    date: "04 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-popov.jpg")
   }, {
     name: "Ryan Sullivan",
@@ -9228,31 +9228,31 @@ function TeamCerts() {
     name: "Rashad Aliyev",
     amount: "9,224.71",
     acc: "$100,000",
-    date: "04 Mar 2026",
+    date: "04 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-aliyev.jpeg")
   }, {
     name: "Aleksandr Popov",
     amount: "7,538.92",
     acc: "$100,000",
-    date: "04 Mar 2026",
+    date: "04 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-popov2.jpeg")
   }, {
     name: "Aleks Grachev",
     amount: "7,318.92",
     acc: "$100,000",
-    date: "10 Mar 2026",
+    date: "10 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-grachev.jpeg")
   }, {
     name: "Pavel Shubin",
     amount: "5,290.17",
     acc: "$100,000",
-    date: "09 Mar 2026",
+    date: "09 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-shubin.jpeg")
   }, {
     name: "Ilkin Jafarov",
     amount: "4,157.22",
     acc: "$50,000",
-    date: "14 Mar 2026",
+    date: "14 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-jafarov.jpeg")
   },
   // Batch 3 – 14 more real certificates
@@ -9260,67 +9260,67 @@ function TeamCerts() {
     name: "Timur Kulikov",
     amount: "1,902.43",
     acc: "$25,000",
-    date: "14 Mar 2026",
+    date: "14 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-kulikov.jpeg")
   }, {
     name: "Aleksandr Kaplin",
     amount: "10,000.00",
     acc: "$100,000",
-    date: "18 Mar 2026",
+    date: "18 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-kaplin.jpeg")
   }, {
     name: "Denis Huhlaev",
     amount: "9,820.52",
     acc: "$100,000",
-    date: "16 Mar 2026",
+    date: "16 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-huhlaev.jpeg")
   }, {
     name: "Aband Eddy",
     amount: "6,475.88",
     acc: "$100,000",
-    date: "16 Mar 2026",
+    date: "16 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-eddy1.jpeg")
   }, {
     name: "Olga Kovlenko",
     amount: "5,096.17",
     acc: "$100,000",
-    date: "16 Mar 2026",
+    date: "16 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-kovlenko.jpeg")
   }, {
     name: "Jukeen Bande",
     amount: "8,622.65",
     acc: "$100,000",
-    date: "20 Mar 2026",
+    date: "20 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-bande.jpeg")
   }, {
     name: "Vadym Vads",
     amount: "4,644.40",
     acc: "$50,000",
-    date: "16 Mar 2026",
+    date: "16 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-vads.jpeg")
   }, {
     name: "Sergi Tolmachev",
     amount: "7,102.34",
     acc: "$100,000",
-    date: "27 Mar 2026",
+    date: "27 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-tolmachev.jpeg")
   }, {
     name: "Aleksei Razenkov",
     amount: "6,422.47",
     acc: "$100,000",
-    date: "25 Mar 2026",
+    date: "25 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-razenkov.jpeg")
   }, {
     name: "Irina Stuchevskaya",
     amount: "2,517.62",
     acc: "$50,000",
-    date: "25 Mar 2026",
+    date: "25 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-stuchevskaya.jpeg")
   }, {
     name: "Olga Kuznetsova",
     amount: "2,404.64",
     acc: "$50,000",
-    date: "28 Mar 2026",
+    date: "28 Mär 2026",
     src: (window.__HH_BASE__+"img/cert-kuznetsova.jpeg")
   }, {
     name: "Nik Pechersky",
@@ -9418,7 +9418,7 @@ function TeamCerts() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "acc. ", c.acc), /*#__PURE__*/React.createElement("div", {
+  }, "Konto ", c.acc), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 18,
       fontWeight: 800,
@@ -9608,17 +9608,17 @@ function TeamCerts() {
       fontSize: 15,
       color: "var(--fg-muted)"
     }
-  }, "Sample of ", /*#__PURE__*/React.createElement("span", {
+  }, "Auswahl aus ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
+  }, "17.800+ Auszahlungen"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "5,120 active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, "5.120 aktive Funded Trader"))))), lightbox && /*#__PURE__*/React.createElement("div", {
     onClick: () => setLightbox(null),
     style: {
       position: "fixed",
@@ -9755,21 +9755,21 @@ function Reviews() {
     country: "United States",
     size: "$50,000",
     quote: "Switched to Hash Hedge mainly because of their crypto trading conditions. The payout process is straightforward — no jumping through hoops as long as you follow the drawdown rules. If you are a manual trader looking for consistency, this works well.",
-    days: "Mar 2026",
+    days: "Mär 2026",
     stars: 5
   }, {
     name: "Marissa Tundale",
     country: "United States",
     size: "$25,000",
     quote: "Das Terminal arbeitet schnell und es gibt keine versteckten Regeln, die einen verwirren könnten. Insgesamt eine gute Firma im Wertpapier-Bereich \u2013 genau das, wonach ich gesucht habe.",
-    days: "Mar 2026",
+    days: "Mär 2026",
     stars: 5
   }, {
     name: "Dolores F. Castro",
     country: "United States",
     size: "$100,000",
     quote: "Surprisingly stable execution on BTC/USD pairs. I was worried about the slippage after reading some old reviews, but my limit orders hit exactly where they should. The dashboard lag seems to be fixed now. Good job on the tech update.",
-    days: "Mar 2026",
+    days: "Mär 2026",
     stars: 5
   }, {
     name: "Andrey Varlamov",
@@ -10025,7 +10025,7 @@ function Reviews() {
       marginBottom: 22,
       maxWidth: 280
     }
-  }, "Every review is checked by Trustpilot \u2013 payout proofs, terminal screenshots, real names."), /*#__PURE__*/React.createElement("span", {
+  }, "Jede Bewertung wird von Trustpilot geprüft \u2013 Auszahlungsbeweise, Terminal-Screenshots, echte Namen."), /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -10101,7 +10101,7 @@ function FAQ() {
     a: "Die Challenge wird dauerhaft gesperrt. Egal welches Limit, täglich oder gesamt. Unrealisierte Verluste zählen ebenfalls."
   }, {
     q: "Wie wird das Tagesverlust-Limit berechnet?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Current Equity \u2212 Balance at the beginning of the day. Open positions affect the calculation. The limit resets at 00:13 UTC+4. Unrealized profits/losses carry forward to the next day. Detailed breakdown with examples ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Aktuelles Eigenkapital \u2212 Saldo zu Tagesbeginn. Offene Positionen wirken sich auf die Berechnung aus. Das Limit wird um 00:13 UTC+4 zurückgesetzt. Unrealisierte Gewinne/Verluste werden auf den nächsten Tag übertragen. Detaillierte Aufschlüsselung mit Beispielen ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
       target: "_blank",
       rel: "noopener",
@@ -10113,11 +10113,11 @@ function FAQ() {
     q: "Was ist ein Handelstag?",
     a: "Ein Tag, an dem mindestens eine Position eröffnet wurde. Öffnest du am Montag und schließt am Mittwoch, zählt nur der Montag."
   }, {
-    q: "What is Settlement Time and when does it occur?",
-    a: "Daily calculation of your account results. Happens at the end of the trading day in UTC+4. Balances are finalized and limits are updated."
+    q: "Was ist Settlement Time und wann passiert sie?",
+    a: "Tägliche Berechnung deiner Kontoergebnisse. Findet am Ende des Handelstages in UTC+4 statt. Salden werden festgelegt und Limits aktualisiert."
   }, {
     q: "Welche Assets kann ich handeln?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "160+ crypto assets, metals (gold, silver, platinum, palladium), oil and natural gas. Full list with position limits ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "160+ Crypto-Assets, Metalle (Gold, Silber, Platin, Palladium), Öl und Erdgas. Vollständige Liste mit Positionsgrenzen ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/coins-limit",
       target: "_blank",
       rel: "noopener",
@@ -10133,16 +10133,16 @@ function FAQ() {
     a: "Bis zu 1:5."
   }, {
     q: "Can I trade using different margin modes simultaneously?",
-    a: "No. One mode at a time: Cross or Isolated. To switch, close all positions in the current mode first."
+    a: "Nein. Nur ein Modus gleichzeitig: Cross oder Isolated. Zum Wechseln schließe zuerst alle Positionen im aktuellen Modus."
   }, {
     q: "Can I hedge positions?",
-    a: "Yes. You can open positions in opposite directions on the same asset."
+    a: "Ja. Du kannst Positionen in entgegengesetzte Richtungen für denselben Asset eröffnen."
   }, {
     q: "Kann ich Positionen mehrere Tage offen halten?",
-    a: "Yes. But watch your limits – open positions are factored into drawdown calculations."
+    a: "Ja. Achte aber auf deine Limits \u2013 offene Positionen fließen in die Drawdown-Berechnung ein."
   }, {
-    q: "Do open positions affect loss limits?",
-    a: "Yes. Unrealized P&L directly affects Equity and drawdown calculations. You can breach a limit without closing a position."
+    q: "Beeinflussen offene Positionen die Verlustgrenzen?",
+    a: "Ja. Unrealisierte P&L wirken sich direkt auf Equity und Drawdown-Berechnung aus. Du kannst ein Limit verletzen, ohne eine Position zu schließen."
   }, {
     q: "Is using a Stop Loss mandatory?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "No. But we recommend it to help you stay within drawdown limits. More on TP/SL setup ", /*#__PURE__*/React.createElement("a", {
@@ -10158,7 +10158,7 @@ function FAQ() {
     a: "Yes. No restrictions."
   }, {
     q: "Welche Plattform-Gebühren gibt es?",
-    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Details on fees and funding rates ", /*#__PURE__*/React.createElement("a", {
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Details zu Gebühren und Funding Rates ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/trading-module/fees-and-funding-rate",
       target: "_blank",
       rel: "noopener",
@@ -10167,17 +10167,17 @@ function FAQ() {
       }
     }, "hier"), ".")
   }, {
-    q: "Can I participate in multiple challenges simultaneously?",
+    q: "Kann ich an mehreren Challenges gleichzeitig teilnehmen?",
     a: "Ja, in Stage 1 und Stage 2 kannst du mehrere Challenges parallel laufen lassen. In Stage 3 (funded) kannst du pro Kontogröße nur eine Challenge handeln."
   }, {
-    q: "I've completed the challenge. What's next?",
+    q: "Ich habe die Challenge bestanden. Was kommt jetzt?",
     a: "Du bekommst einen Funded Account (akkumulatives Konto). Handle mit unserem Kapital und behalte 90 % des Gewinns."
   }, {
     q: "Unterscheiden sich Funded-Account-Bedingungen von der Evaluation?",
-    a: "No. Drawdowns, leverage, execution, fees – everything is the same across all stages. What you see on evaluation is what you get on funded."
+    a: "Nein. Drawdowns, Hebel, Ausführung, Gebühren \u2013 alles ist über alle Stages hinweg gleich. Was du in der Evaluation siehst, bekommst du auch im Funded Account."
   }, {
     q: "Gibt es eine Konsistenzregel oder ein Tages-Gewinnlimit?",
-    a: "No. No requirement to spread profit evenly across days. No cap on how much you can make in a single day. Hit the target within the minimum trading days and you move on."
+    a: "Nein. Keine Pflicht, den Gewinn gleichmäßig über die Tage zu verteilen. Keine Obergrenze, wieviel du an einem Tag verdienen kannst. Erreiche das Ziel innerhalb der Mindesthandelstage und du gehst weiter."
   }, {
     q: "Gibt es eine zusätzliche Gebühr, um den Funded Account zu aktivieren?",
     a: "Nein. Die Challenge-Gebühr ist die einzige Zahlung. Der Funded Account wird ohne zusätzliche Kosten freigeschaltet."
@@ -10836,7 +10836,7 @@ function Footer() {
       lineHeight: 1.45,
       maxWidth: 260
     }
-  }, "Hash Hedge \u2013 Crypto Prop Trading Platform: Trade, prove your skills, manage capital.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
+  }, "Hash Hedge \u2013 Crypto-Prop-Trading-Plattform: Handle, beweise dein Können, verwalte Kapital.")), columns.map(col => /*#__PURE__*/React.createElement("div", {
     key: col.t
   }, /*#__PURE__*/React.createElement("div", {
     style: {
