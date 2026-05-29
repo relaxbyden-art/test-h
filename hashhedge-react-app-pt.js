@@ -2371,20 +2371,20 @@ function HowItWorks() {
   useRevealOnScroll();
   const steps = [{
     n: "01",
-    k: "CADASTRO",
+    k: "CADASTRE-SE",
     t: "Escolha o tamanho da sua conta",
     d: "Seis tamanhos de conta, de $5.000 até $150.000. Taxa única do Hash Hedge Challenge. Pagamento via TRC20, ERC20, BEP20, Solana, Arbitrum ou Optimism.",
     bullets: ["6 account sizes · $5K to $150K", "Pague com cripto (TRC20/ERC20/BEP20/Solana/Arbitrum/Optimism)", "Taxa única, sem assinaturas"]
   }, {
     n: "02",
-    k: "PROVE SUA CONSISTÊNCIA",
-    t: "Passe no Stage 1 e Stage 2",
+    k: "PROVE SUA VANTAGEM",
+    t: "Passe na Fase 1 e Fase 2",
     d: "Stage 1: meta de +8%. Stage 2: meta de +6%. Máximo de 5% de perda diária e 10% de drawdown máximo no Stage 1 (8% no Stage 2). Mínimo de 5 dias operando por etapa. Sem limite de tempo.",
     bullets: ["Stage 1 target: +8% · DD 10%", "Stage 2 target: +6% · DD 8%", "Max 5% daily loss · min 5 dias"]
   }, {
     n: "03",
-    k: "RECEBA CAPITAL FINANCIADO",
-    t: "Opere a conta financiada Stage 3",
+    k: "SEJA FINANCIADO",
+    t: "Negocie na conta financiada da Fase 3",
     d: "Pass both stages and you move to Stage 3 – funded. No profit target, unlimited trading period, same risk rules (5% daily, 8% max DD). Alavancagem 1:5 on every stage.",
     bullets: ["Stage 3 financiado, sem meta", "Período de trading ilimitado", "Alavancagem 1:5 · 5% daily / 8% DD"]
   }];
@@ -3066,8 +3066,8 @@ const PRICING_TOOLTIPS_EN = {
   "Meta de Lucro": "Percentage of profit required to move to the next stage",
   "Perda Diária Máxima": "Maximum loss allowed within a single trading day",
   "Drawdown Máximo": "Total account loss limit during the phase",
-  "Dias Mínimos de Trading": "Minimum number of trading days required to pass the stage",
-  "Período de Trading": "Maximum number of days allowed to complete the stage",
+  "Dias Mínimos de Negociação": "Minimum number of trading days required to pass the stage",
+  "Período de Negociação": "Maximum number of days allowed to complete the stage",
   "Leverage": "Maximum leverage available during the stage",
   "Profit Split": "Percentage of profit the trader keeps",
   "Pagamentos": "Profit withdrawal to a crypto wallet in USDT"
@@ -3139,9 +3139,9 @@ function Pricing() {
     sub: "Conta real"
   }];
   const mobileStageRules = {
-    stage1: [["Meta de Lucro", "8%"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "10%"], ["Dias Mínimos de Trading", "5 dias"], ["Período de Trading", "Ilimitado"], ["Leverage", "1:5"]],
-    stage2: [["Meta de Lucro", "6%"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "8%"], ["Dias Mínimos de Trading", "5 dias"], ["Período de Trading", "Ilimitado"], ["Leverage", "1:5"]],
-    funded: [["Meta de Lucro", "Sem meta"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "8%"], ["Dias Mínimos de Trading", "-"], ["Período de Trading", "Ilimitado"], ["Leverage", "1:5"], ["Profit Split", "90%"], ["Pagamentos", "USDT para a carteira"]]
+    stage1: [["Meta de Lucro", "8%"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "10%"], ["Dias Mínimos de Negociação", "5 dias"], ["Período de Negociação", "Ilimitado"], ["Leverage", "1:5"]],
+    stage2: [["Meta de Lucro", "6%"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "8%"], ["Dias Mínimos de Negociação", "5 dias"], ["Período de Negociação", "Ilimitado"], ["Leverage", "1:5"]],
+    funded: [["Meta de Lucro", "Sem meta"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "8%"], ["Dias Mínimos de Negociação", "-"], ["Período de Negociação", "Ilimitado"], ["Leverage", "1:5"], ["Profit Split", "90%"], ["Pagamentos", "USDT para a carteira"]]
   };
 
   // Per-stage rule values – single source of truth.
@@ -3192,7 +3192,7 @@ function Pricing() {
     stages: ["5%", "5%", "5%"]
   }, {
     k: "dd",
-    label: "Drawdown Total Máximo",
+    label: "Drawdown Máximo Total",
     sub: "Peak-to-trough loss limit across the full challenge.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
@@ -3215,7 +3215,7 @@ function Pricing() {
     stages: ["10%", "8%", "8%"]
   }, {
     k: "days",
-    label: "Dias Mínimos de Trading",
+    label: "Dias Mínimos de Negociação",
     sub: "Days you must trade before the stage can be passed.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
@@ -3239,7 +3239,7 @@ function Pricing() {
     stages: ["5", "5", "–"]
   }, {
     k: "period",
-    label: "Período de Trading",
+    label: "Período de Negociação",
     sub: "Total time you have to complete the stage. Ilimitado.",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
@@ -3941,7 +3941,7 @@ function WhyUs() {
   const cards = [{
     n: "01",
     k: "profitsplit",
-    t: "Profit Split de até 90/10",
+    t: "Divisão de Lucros de até 90/10",
     d: "Trade a conta financiada and withdraw up to 90% of your profit straight to your wallet.",
     art: /*#__PURE__*/React.createElement(ArtProfitSplit, null)
   }, {
@@ -3953,19 +3953,19 @@ function WhyUs() {
   }, {
     n: "03",
     k: "coins",
-    t: "160+ Pares de Trading",
+    t: "Mais de 160 Pares de Negociação",
     d: "BTC, ETH, SOL, XRP, DOGE e dezenas de outros ativos líquidos.",
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
     n: "04",
     k: "tickers",
-    t: "Um Challenge, todos os mercados",
+    t: "Um Desafio, Todos os Mercados",
     d: "Opere cripto, ações, petróleo e gás natural em um Challenge de qualquer tamanho.",
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
     k: "orderbook",
-    t: "Terminal de Trading Integrado",
+    t: "Terminal de Negociação Integrado",
     d: "Entrar to your dashboard and start trading in under a minute.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
   }, {
@@ -5122,11 +5122,11 @@ function PayoutShowcase() {
     }
   }, [{
     t: "01",
-    k: "Request submitted",
+    k: "Solicitação enviada",
     d: "O trader clica em Sacar no dashboard. O suporte revisa, geralmente em poucas horas."
   }, {
     t: "02",
-    k: "Treasury signs",
+    k: "Tesouraria assina",
     d: "Aprovação multi-sig na carteira de tesouraria da Hash Hedge, com assinantes em 3 jurisdições."
   }, {
     t: "03",
@@ -10753,7 +10753,7 @@ function Footer() {
       label: "Support",
       href: "https://t.me/hashhedgesupportbot"
     }, {
-      label: "FAQ",
+      label: "Perguntas Frequentes",
       href: "https://www.hashhedge.com/faq?fpr=123456&client_reference_id=ee2bbcb7-717b-4ac8-b7dc-4d6dc0f00c61"
     }, {
       label: "Vacancies",
@@ -11001,7 +11001,7 @@ function Nav({
     href: "https://www.hashhedge.com/affiliateprogram?fpr=123456&client_reference_id=c5646489-4e4e-450c-9246-b63d35ea4d36"
   }, "Programa de Afiliados")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq?fpr=123456&client_reference_id=ee2bbcb7-717b-4ac8-b7dc-4d6dc0f00c61"
-  }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Perguntas Frequentes")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/blog?fpr=123456&client_reference_id=2a2c2893-ab08-4508-ac36-de4b76752443"
   }, "Blog"))), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -11101,7 +11101,7 @@ function MobileMenu({
   }, "Programa de Afiliados"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq?fpr=123456&client_reference_id=ee2bbcb7-717b-4ac8-b7dc-4d6dc0f00c61",
     onClick: close
-  }, "FAQ"), /*#__PURE__*/React.createElement("a", {
+  }, "Perguntas Frequentes"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/blog?fpr=123456&client_reference_id=2a2c2893-ab08-4508-ac36-de4b76752443",
     onClick: close
   }, "Blog"), /*#__PURE__*/React.createElement("div", {
