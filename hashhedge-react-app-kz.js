@@ -748,7 +748,7 @@ function LivePayoutsTable() {
     color: "var(--accent)",
     chart: [0.52, 0.57, 0.62, 0.66, 0.70, 0.73, 0.76, 0.80, 0.84, 0.88, 0.92, 0.95]
   }, {
-    k: "Барлығы Funded трейдер",
+    k: "Барлық Funded-трейдерлер",
     v: fmtCount(tradersTotal),
     sub: "Бүгін",
     subV: "+4",
@@ -817,7 +817,7 @@ function LivePayoutsTable() {
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "Онлайн жаңарады")), /*#__PURE__*/React.createElement("div", {
+  }, "Онлайн режимде жаңартылады")), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "4px 0"
     }
@@ -1430,7 +1430,7 @@ function Hero({
       margin: variant === "cosmic" ? "0 auto 40px" : "0 0 40px",
       fontWeight: 400
     }
-  }, "$150К-ге дейін қаржыландыру алыңыз және пайданың 90%-ға дейінін USDT-да тікелей кошелекке шығарып алыңыз.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "$150К-ға дейін қаржыландыру алып, пайданың 90%-на дейін USDT түрінде тікелей өз әмияныңа шығарып ал.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-hero-actions",
@@ -1445,7 +1445,7 @@ function Hero({
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Challenge бастау \xb7 $79-дан", /*#__PURE__*/React.createElement("svg", {
+  }, "Челленджді бастау \xb7 $79-дан бастап", /*#__PURE__*/React.createElement("svg", {
     width: "18",
     height: "18",
     viewBox: "0 0 24 24",
@@ -1499,7 +1499,7 @@ function Hero({
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "5120+ трейдер қаржыландыру алды"))), /*#__PURE__*/React.createElement("div", {
+  }, "5120+ трейдер қорландыру алды"))), /*#__PURE__*/React.createElement("div", {
     style: {
       height: 32,
       width: 1,
@@ -1543,23 +1543,23 @@ function Hero({
     v: 17800,
     suf: "+",
     l: "орындалған төлемдер",
-    sub: "Жылдам әрі кідіріссіз."
+    sub: "Тез және кідіріссіз."
   }, {
     v: 5120,
     suf: "",
     l: "Funded трейдерлер",
-    sub: "Күн сайын олар көбейіп келеді."
+    sub: "Күн сайын олардың саны артып келеді."
   }, {
     v: 160,
     suf: "+",
     l: "крипто-жұбы",
-    sub: "BTC, ETH және TradFi-дың үздік активтері."
+    sub: "BTC, ETH және TradFi активтері бар."
   }, {
     v: 4.4,
     suf: "/5",
     dec: 1,
     l: "Trustpilot рейтингі",
-    sub: "Трейдерлердің нақты пікірлеріне негізделген."
+    sub: "Трейдерлердің шынайы пікірлері негізінде."
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: i
   }, /*#__PURE__*/React.createElement("div", {
@@ -2154,7 +2154,7 @@ function PromoBanner() {
       background: "var(--accent)",
       boxShadow: "0 0 10px var(--accent)"
     }
-  }), "ТЕК КРИПТОВАЛЮТА ҒАНА ЕМЕС"), /*#__PURE__*/React.createElement("h3", {
+  }), "КРИПТОВАЛЮТА ҒАНА ЕМЕС"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontSize: 38,
       fontWeight: 800,
@@ -2163,7 +2163,7 @@ function PromoBanner() {
       margin: "14px 0 10px",
       color: "var(--fg)"
     }
-  }, "Сауда жасаңыз ", /*#__PURE__*/React.createElement("span", {
+  }, "Сауда жаса ", /*#__PURE__*/React.createElement("span", {
     className: "hh-hero-num",
     style: {
       color: "var(--accent)",
@@ -2183,7 +2183,7 @@ function PromoBanner() {
       margin: 0,
       maxWidth: 735
     }
-  }, "Алтын, күміс, платина, палладий, Brent және WTI мұнайы, газ және S&P 500 индексімен сауда жасаңыз — барлық құралдар USDT жұбында.")), /*#__PURE__*/React.createElement("a", {
+  }, "Алтын, күміс, платина, палладий, Brent және WTI мұнайы, газ және S&P 500 индексімен сауда жаса. Барлық құралдар USDT-н жұптас.")), /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/ru/register",
     target: "_blank",
     rel: "noopener",
@@ -2388,7 +2388,7 @@ function PromoBanner() {
       background: "var(--green)",
       boxShadow: "0 0 8px var(--green)"
     }
-  }), "Live 24/7 (демалыс күндерін қоса)"), /*#__PURE__*/React.createElement("span", null, "Левередж ", /*#__PURE__*/React.createElement("span", {
+  }), "Live 24/7 (демалыс күндерін қоса алғанда)"), /*#__PURE__*/React.createElement("span", null, "Иіндік (Плечо) ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
@@ -2404,21 +2404,21 @@ function HowItWorks() {
   const steps = [{
     n: "01",
     k: "ТІРКЕЛУ",
-    t: "Шотты таңдаңыз",
+    t: "Шотты таңда",
     d: "$150К-ге дейінгі капитал өлшемін таңдап, сәйкес номиналдағы Challenge-ті алыңыз.",
-    bullets: ["6 номинал: $5K-дан $150K-ға дейін", "Бағасы: $79-дан $1 093-ке дейін", "USDT-мен төлем: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism"]
+    bullets: ["6 номинал: $5K-дан $150K-ға дейін", "Бағасы $79-дан $1 093-қа дейін", "USDT арқылы төле: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism"]
   }, {
     n: "02",
     k: "БАҒАЛАУ",
-    t: "Challenge-тен өтіңіз",
-    d: "Challenge аясында пайда және drawdown шарттарын орындап, қаржыландыру алыңыз.",
-    bullets: ["Phase 1: мақсат 8%, max жалпы drawdown 10%", "Phase 2: мақсат 6%, max жалпы drawdown 8%", "Max күндік drawdown 5%, минимум 5 күн"]
+    t: "Челленджден өт",
+    d: "Челлендж аясында пайда және шығын шарттарын орындап, қорландыруға ие бол.",
+    bullets: ["1-фаза: мақсаты 8%, макс. жалпы шығыны 10%", "2-фаза: мақсаты 6%, макс. жалпы шығыны 8%", "Макс. күндік шығыны 5%, минимум 5 күн"]
   }, {
     n: "03",
-    k: "ҚАРЖЫЛАНДЫРУ",
-    t: "Сауда жасап пайданы шығарыңыз",
+    k: "ҚОРЛАНДЫРУ",
+    t: "Сауда жасап, пайданы шығар",
     d: "Hash Hedge-тен $150К-ге дейінгі капиталды алыңыз, өз стратегияңызбен сауда жасап, пайданың 90%-ға дейінін алыңыз.",
-    bullets: ["Плечо 1:5 на всех этапах", "Profit Split 90%-ға дейін", "160+ криптоактивтер"]
+    bullets: ["Барлық кезеңдерде иіндік (плечо) 1:5", "Профит-сплит 90%-ға дейін", "160+ криптоактив"]
   }];
   return /*#__PURE__*/React.createElement("section", {
     id: "how",
@@ -2601,17 +2601,17 @@ function PromoSliderBanner() {
   useRevealOnScroll();
   const slides = [{
     key: "x3",
-    eyebrow: "72H PAYOUT GUARANTEE",
+    eyebrow: "72H PAYOUT GUARANTEE (ТӨЛЕМ КЕПІЛДІГІ)",
     title: "X3 қайтару кепілдігі",
-    copy: "Егер төлем 72 сағат ішінде келмесе \u2014 3X қайтарамыз. Бұл біздің уәдеміз. Тәуекелсіз. Күтусіз. Тек сауда.",
+    copy: "Егер төлем 72 сағат ішінде келмесе, 3Х көлемінде қайтарамыз. Бұл біздің уәдеміз. Тәуекелсіз. Артық күтусіз. Таза сауда.",
     cta: "Пайданы алу",
     art: "x3"
   }, {
     key: "metals",
     eyebrow: "ЭФИРДЕГІ ЖАҢА НАРЫҚТАР",
-    title: "Алтын мен күміспен сауда жасаңыз",
+    title: "Алтын және күміспен сауда жаса",
     copy: "XAU/USDT және XAG/USDT енді Hash Hedge платформасында қолжетімді",
-    cta: "Challenge бастау",
+    cta: "Челленджді бастау",
     art: "metals"
   }];
   const [active, setActive] = __useS(0);
@@ -3093,14 +3093,14 @@ const {
 //   4. Big summary / checkout bar: account size → price → Start Challenge CTA.
 // ============================================================================
 const PRICING_TOOLTIPS = {
-  "Пайда мақсаты": "Келесі Stage-ке өту үшін қажетті пайда пайызы",
+  "Пайда бойынша мақсат": "Келесі кезеңге өту үшін қажетті пайда пайызы",
   "Max күндік drawdown": "Бір сауда күні ішінде рұқсат етілген максималды шығын",
-  "Max жалпы drawdown": "Phase барысында шот бойынша жалпы шығын лимиті",
-  "Минимум сауда күндер": "Stage-тен өту үшін минималды сауда күндерінің саны",
-  "Сауда мерзімі": "Stage-тен өтуге берілген максималды күндер саны",
-  "Максималды левередж": "Stage өткен кезде қолжетімді максималды левередж",
+  "Макс. жалпы шығын": "Фазадан өту кезіндегі шот бойынша жалпы шығын лимиті",
+  "Минимум сауда күндері": "Кезеңнен өту үшін қажетті сауда күндерінің минималды саны",
+  "Сауда мерзімі": "Кезеңнен өтуге берілген максималды күндер саны",
+  "Максималды иіндік (плечо)": "Кезеңнен өту кезінде қолжетімді максималды несиелік иіндік (плечо)",
   "Трейдердің пайдасы": "Трейдер өзіне алатын пайда пайызы",
-  "Төлемдер": "USDT-да крипто-кошелекке пайданы шығару"
+  "Төлемдер": "USDT-да крипто-әмиянға пайданы шығару"
 };
 function PricingTooltipLabel({label}) {
   const [open, setOpen] = ___useS(false);
@@ -3157,28 +3157,28 @@ function Pricing() {
   };
   const mobileStageTabs = [{
     id: "stage1",
-    label: "Stage 1",
+    label: "1-кезең",
     sub: "Бағалау"
   }, {
     id: "stage2",
-    label: "Stage 2",
+    label: "2-кезең",
     sub: "Верификация"
   }, {
     id: "funded",
-    label: "Қаржыландырылған",
-    sub: "Funded аккаунт"
+    label: "Қаржыландырылатын",
+    sub: "Қаржыландырылатын аккаунт"
   }];
   const mobileStageRules = {
-    stage1: [["Пайда мақсаты", "8%"], ["Max күндік drawdown", "5%"], ["Max жалпы drawdown", "10%"], ["Минимум сауда күндер", "5 күн"], ["Сауда мерзімі", "Лимитсіз"], ["Максималды левередж", "1:5"]],
-    stage2: [["Пайда мақсаты", "6%"], ["Max күндік drawdown", "5%"], ["Max жалпы drawdown", "8%"], ["Минимум сауда күндер", "5 күн"], ["Сауда мерзімі", "Лимитсіз"], ["Максималды левередж", "1:5"]],
-    funded: [["Пайда мақсаты", "Мақсатсыз"], ["Max күндік drawdown", "5%"], ["Max жалпы drawdown", "8%"], ["Минимум сауда күндер", "-"], ["Сауда мерзімі", "Лимитсіз"], ["Максималды левередж", "1:5"], ["Дележ прибыли", "90%"], ["Төлемдер", "USDT кошелекке"]]
+    stage1: [["Пайда бойынша мақсат", "8%"], ["Max күндік drawdown", "5%"], ["Макс. жалпы шығын", "10%"], ["Минимум сауда күндері", "5 күн"], ["Сауда мерзімі", "Шектеусіз"], ["Максималды иіндік (плечо)", "1:5"]],
+    stage2: [["Пайда бойынша мақсат", "6%"], ["Max күндік drawdown", "5%"], ["Макс. жалпы шығын", "8%"], ["Минимум сауда күндері", "5 күн"], ["Сауда мерзімі", "Шектеусіз"], ["Максималды иіндік (плечо)", "1:5"]],
+    funded: [["Пайда бойынша мақсат", "Мақсатсыз"], ["Max күндік drawdown", "5%"], ["Макс. жалпы шығын", "8%"], ["Минимум сауда күндері", "-"], ["Сауда мерзімі", "Шектеусіз"], ["Максималды иіндік (плечо)", "1:5"], ["Дележ прибыли", "90%"], ["Төлемдер", "USDT кошелекке"]]
   };
 
   // Per-stage rule values – single source of truth.
   const rules = [{
     k: "target",
-    label: "Пайда мақсаты",
-    sub: "Келесі Stage-ке өту үшін қажетті пайда пайызы",
+    label: "Пайда бойынша мақсат",
+    sub: "Келесі кезеңге өту үшін қажетті пайда пайызы",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3222,8 +3222,8 @@ function Pricing() {
     stages: ["5%", "5%", "5%"]
   }, {
     k: "dd",
-    label: "Max жалпы drawdown",
-    sub: "Phase барысында шот бойынша жалпы шығын лимиті",
+    label: "Макс. жалпы шығын",
+    sub: "Фазадан өту кезіндегі шот бойынша жалпы шығын лимиті",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3245,8 +3245,8 @@ function Pricing() {
     stages: ["10%", "8%", "8%"]
   }, {
     k: "days",
-    label: "Min сауда күндер",
-    sub: "Stage-тен өту үшін минималды сауда күндерінің саны",
+    label: "Мин. сауда күндері",
+    sub: "Кезеңнен өту үшін қажетті сауда күндерінің минималды саны",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3270,7 +3270,7 @@ function Pricing() {
   }, {
     k: "period",
     label: "Сауда мерзімі",
-    sub: "Stage-тен өтуге берілген максималды күндер саны",
+    sub: "Кезеңнен өтуге берілген максималды күндер саны",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3297,8 +3297,8 @@ function Pricing() {
     })]
   }, {
     k: "lev",
-    label: "Максималды левередж",
-    sub: "Stage өткен кезде қолжетімді максималды левередж",
+    label: "Максималды иіндік (плечо)",
+    sub: "Кезеңнен өту кезінде қолжетімді максималды несиелік иіндік (плечо)",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3326,7 +3326,7 @@ function Pricing() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "HASH HEDGE CHALLENGE-ТЕРІ")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "HASH HEDGE ЧЕЛЛЕНДЖДЕРІ")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
@@ -3374,7 +3374,7 @@ function Pricing() {
       letterSpacing: "0.02em",
       fontFamily: "Onest, sans-serif"
     }
-  }, "2-фазалы Challenge")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "2 фазалы челлендж")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3516,12 +3516,12 @@ function Pricing() {
         color: "var(--fg-low)",
         marginTop: 1
       }
-    }, "Бағасы"));
+    }, "Құны"));
   })))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-plan-rail",
-    "aria-label": "Аккаунт өлшемін таңдаңыз"
+    "aria-label": "Капитал көлемін таңда"
   }, sizes.map(s => {
     const active = size === s;
     const isPop = s === popular;
@@ -3541,10 +3541,10 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "Таңдалды" : "Выбрать")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "Бағасы"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, "Құны"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
-      "aria-label": "Challenge кезеңдері"
+      "aria-label": "Челлендж кезеңдері"
     }, mobileStageTabs.map(stage => /*#__PURE__*/React.createElement("button", {
       key: stage.id,
       type: "button",
@@ -3561,7 +3561,7 @@ function Pricing() {
       target: "_blank",
       rel: "noopener",
       className: "btn btn-primary btn-lg"
-    }, "Challenge бастау", /*#__PURE__*/React.createElement("svg", {
+    }, "Челленджді бастау", /*#__PURE__*/React.createElement("svg", {
       width: "16",
       height: "16",
       viewBox: "0 0 24 24",
@@ -3589,14 +3589,14 @@ function Pricing() {
     className: "hh-mobile-account-size"
   }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-fee"
-  }, /*#__PURE__*/React.createElement("span", null, "Бағасы"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "Құны"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Лимитсіз"))), /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "1-кезең"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "2-кезең"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Күндік шығын"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. күн"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мерзімі"), /*#__PURE__*/React.createElement("b", null, "Шектеусіз"))), /*#__PURE__*/React.createElement("a", {
     href: paymentLinks[size],
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Challenge бастау", /*#__PURE__*/React.createElement("svg", {
+  }, "Челленджді бастау", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -3652,17 +3652,17 @@ function Pricing() {
     }
   }, "Challenge ережелері"))), [{
     n: 1,
-    label: "PHASE 1",
+    label: "1-ФАЗА",
     sub: "Бағалау кезеңі",
     accent: false
   }, {
     n: 2,
-    label: "PHASE 2",
+    label: "2-ФАЗА",
     sub: "Верификация кезеңі",
     accent: false
   }, {
     n: 3,
-    label: "FUNDED АККАУНТ",
+    label: "FUNDED-АККАУНТ",
     sub: "Нақты капитал, нақты төлемдер",
     accent: true
   }].map((col, i) => /*#__PURE__*/React.createElement("div", {
@@ -3823,7 +3823,7 @@ function Pricing() {
       letterSpacing: "0.16em",
       color: "var(--accent)"
     }
-  }, "ШОТ ӨЛШЕМІ"), /*#__PURE__*/React.createElement("div", {
+  }, "ШОТ КӨЛЕМІ"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "baseline",
@@ -3861,7 +3861,7 @@ function Pricing() {
       letterSpacing: "0.16em",
       color: "var(--fg-low)"
     }
-  }, "CHALLENGE БАҒАСЫ"), /*#__PURE__*/React.createElement("div", {
+  }, "ЧЕЛЛЕНДЖ БАҒАСЫ"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "baseline",
@@ -3895,7 +3895,7 @@ function Pricing() {
     style: {
       whiteSpace: "nowrap"
     }
-  }, "Challenge бастау", /*#__PURE__*/React.createElement("svg", {
+  }, "Челленджді бастау", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -3924,7 +3924,7 @@ function Pricing() {
       flexWrap: "wrap",
       fontFamily: "Onest, sans-serif"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Төлем әдісі"), ["TRC20", "ERC20", "BEP20", "Solana", "Arbitrum", "Optimism"].map(c => /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, "Төлем тәсілі"), ["TRC20", "ERC20", "BEP20", "Solana", "Arbitrum", "Optimism"].map(c => /*#__PURE__*/React.createElement("span", {
     key: c,
     style: {
       padding: "5px 11px",
@@ -3967,50 +3967,50 @@ function WhyUs() {
   const cards = [{
     n: "01",
     k: "profitsplit",
-    t: "Profit Split 90/10-ға дейін",
-    d: "Funded аккаунтта сауда жасап, пайданың 90%-ға дейінін өз кошелегіңізге шығарыңыз.",
+    t: "Профит-сплит 90/10-ға дейін",
+    d: "Қорландырылған аккаунтта сауда жаса және пайданың 90%-на дейін өз әмияныңа шығарып ал.",
     art: /*#__PURE__*/React.createElement(ArtProfitSplit, null)
   }, {
     n: "02",
     k: "stages",
     t: "Төлем кепілдігі",
-    d: "Төлем 72 сағаттан көп кешіктірілсе, біз соманы үш есе мөлшерде төлейміз.",
+    d: "Егер төлем 72 сағаттан астам уақытқа кешіктірілсе, біз соманы үш есе көлемде төлейміз.",
     art: /*#__PURE__*/React.createElement(ArtStages, null)
   }, {
     n: "03",
     k: "coins",
     t: "160+ сауда жұбы",
-    d: "BTC, ETH, SOL, XRP, DOGE және басқа да спот-өтімділігі бар активтер.",
+    d: "BTC, ETH, SOL, XRP, DOGE және спот-өтімділігі бар басқа да активтер.",
     art: /*#__PURE__*/React.createElement(ArtCoins, null)
   }, {
     n: "04",
     k: "tickers",
-    t: "Барлық нарықтар үшін бір Challenge",
-    d: "Кез келген номиналдағы Challenge-те крипто, акция, мұнай және табиғи газбен сауда жасаңыз.",
+    t: "Барлық нарықтар үшін бір челлендж",
+    d: "Кез келген номиналдағы челленджде крипто, акциялар, мұнай және табиғи газбен сауда жаса.",
     art: /*#__PURE__*/React.createElement(ArtTickers, null)
   }, {
     n: "05",
     k: "orderbook",
-    t: "Кіріктірілген сауда терминалы",
-    d: "Жеке кабинетке кіріп, бір минуттан соң сауданы бастаңыз.",
+    t: "Кірістірілген сауда терминал",
+    d: "Жеке кабинетіңе кіріп, бір минуттан кейін сауданы баста.",
     art: /*#__PURE__*/React.createElement(ArtOrderBook, null)
   }, {
     n: "06",
     k: "infinity",
     t: "Уақыт шектеуінсіз",
-    d: "Challenge мақсатқа жетуге қанша уақыт қажет болса, дәл сонша уақыт жалғасады.",
+    d: "Челлендж мақсатқа жету үшін саған қанша уақыт қажет болса, дәл сонша уақытқа созылады.",
     art: /*#__PURE__*/React.createElement(ArtInfinity, null)
   }, {
     n: "07",
     k: "rules",
     t: "Ашық ережелер",
-    d: "Challenge-тің барлық ережелері сайтта жарияланған және төлемнен кейін өзгермейді.",
+    d: "Челлендждің барлық ережелері сайтта жарияланған және төлем жасалғаннан кейін өзгермейді.",
     art: /*#__PURE__*/React.createElement(ArtRules, null)
   }, {
     n: "08",
     k: "support",
-    t: "Қолдау 24/7",
-    d: "Hash Hedge қолдау тобы тәулік бойы жұмыс істейді. Орташа жауап беру уақыты \u2014 2 минут.",
+    t: "24/7 қолдау қызметі бар",
+    d: "Hash Hedge қолдау тобы тәулік бойы жұмыс істейді. Жауап берудің орташа уақыты \u2014 2 минут.",
     art: /*#__PURE__*/React.createElement(ArtClock, null)
   }];
   return /*#__PURE__*/React.createElement("section", {
@@ -4054,14 +4054,14 @@ function WhyUs() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "НЕЛІКТЕН HASH HEDGE")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "НЕГЕ HASH HEDGE")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 0"
     }
-  }, "Трейдерлер жасаған", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Трейдерлердің трейдерлер үшін жасағаны", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
@@ -4444,17 +4444,17 @@ function ArtStages() {
     }
   }, [{
     pct: 100,
-    label: "STAGE 1",
+    label: "1-КЕЗЕҢ",
     val: "+8%",
     done: true
   }, {
     pct: 72,
-    label: "STAGE 2",
+    label: "2-КЕЗЕҢ",
     val: "+6%",
     done: false
   }, {
     pct: 18,
-    label: "ҚАРЖЫЛАНДЫРЫЛҒАН",
+    label: "ҚАРЖЫЛАНДЫРЫЛАТЫН",
     val: "∞",
     done: false,
     accent: true
@@ -4995,19 +4995,19 @@ function ArtClock() {
 function ArtRules() {
   // Checklist of rules being ticked off one by one.
   const items = [{
-    k: "Stage 1 мақсаты",
+    k: "1-кезең мақсаты",
     v: "+8%",
     done: true
   }, {
-    k: "Stage 2 мақсаты",
+    k: "2-кезең мақсаты",
     v: "+6%",
     done: true
   }, {
-    k: "Max күндік шығын",
+    k: "Макс. күндік шығын",
     v: "5%",
     done: true
   }, {
-    k: "Max drawdown",
+    k: "Макс. шығын",
     v: "8–10%",
     done: true
   }, {
@@ -5141,17 +5141,17 @@ function PayoutShowcase() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "ТӨЛЕМДЕР ON-CHAIN"), /*#__PURE__*/React.createElement("h2", {
+  }), "ON-CHAIN ТӨЛЕМДЕРІ"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "20px 0 24px",
       letterSpacing: "-0.025em"
     }
-  }, "Пайданы шығарыңыз", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "Пайданы шығар", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "өз кошелегіңізге")), /*#__PURE__*/React.createElement("p", {
+  }, "өз әмияныңа")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 18,
       lineHeight: 1.55,
@@ -5159,7 +5159,7 @@ function PayoutShowcase() {
       margin: "0 0 36px",
       maxWidth: 520
     }
-  }, "Төлем 72 сағаттан көп кешіктірілсе, біз соманы үш есе мөлшерде төлейміз."), /*#__PURE__*/React.createElement("div", {
+  }, "Егер төлем 72 сағаттан астам уақытқа кешіктірілсе, біз соманы үш есе көлемде төлейміз."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr",
@@ -5169,15 +5169,15 @@ function PayoutShowcase() {
   }, [{
     t: "01",
     k: "Шығаруға өтінім",
-    d: "Жеке кабинетте \xabВывод\xbb-ты басып, желіні таңдаңыз және кошелек мекенжайын көрсетіңіз."
+    d: "Жеке кабинетте \xabШығару\xbb түймесін басып, желіні таңдап, әмиян мекенжайын көрсет."
   }, {
     t: "02",
     k: "Тексеру және жіберу",
-    d: "Команда сіздің өтінімді тексереді және Hash Hedge ресми кошелегінен аударымды жібереді."
+    d: "Команда өтініміңді тексеріп, Hash Hedge ресми әмиянынан аударымды жібереді."
   }, {
     t: "03",
     k: "Төлемді растау",
-    d: "Қаражат сіздің кошелекке түседі. TX-hash пен payout-сертификат email-ге келеді."
+    d: "Қаражат әмияныңа түседі. TX-hash және payout-сертификат электронды поштаңа (email) жіберіледі."
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: s.t,
     className: "hh-payout-step",
@@ -5216,7 +5216,7 @@ function PayoutShowcase() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Challenge бастау \xb7 $79-дан"))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Челленджді бастау \xb7 $79-дан бастап"))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -5237,7 +5237,7 @@ function PayoutShowcase() {
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: (window.__HH_BASE__+"assets/payout-certificate.png"),
-    alt: "Нағыз HashHedge төлем сертификаты",
+    alt: "HashHedge төлемінің нағыз сертификаты",
     style: {
       display: "block",
       width: "100%",
@@ -5290,7 +5290,7 @@ function PayoutShowcase() {
       letterSpacing: "0.1em",
       textTransform: "uppercase"
     }
-  }, "төлем географиясы"), /*#__PURE__*/React.createElement("div", {
+  }, "төлемдер географиясы"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-flags",
     style: {
       display: "grid",
@@ -5608,7 +5608,7 @@ function EventsTournaments() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "Telegram-канал"), " және танысуға келіңіз. Сізбен жеке кездесуге қуаныштымыз!"))), /*#__PURE__*/React.createElement("div", {
+  }, "Telegram-каналымыз"), " және танысуға келіңіз. Сізбен жеке кездесуге қуаныштымыз!"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1.35fr 1fr",
@@ -8041,23 +8041,23 @@ function BlueprintSection() {
   }, {
     n: "02",
     t: "Challenge өлшемін таңдаңыз",
-    d: "$5K-дан $150K-ға дейінгі номиналдар. USDT-мен алты желіде: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism."
+    d: "$5K-дан $150K-ға дейін 6 номинал бар. USDT арқылы төле: TRC20, ERC20, BEP20, Solana, Arbitrum, Optimism."
   }, {
     n: "03",
-    t: "Бірінші Stage-тен өтіңіз",
+    t: "Бірінші кезеңнен өт",
     d: "Мақсат: +8% пайда. Күндік drawdown 5%, жалпы \u2014 10%. Уақыт лимитсіз."
   }, {
     n: "04",
-    t: "Екінші Stage-тен өтіңіз",
+    t: "Екінші кезеңнен өт",
     d: "Мақсат: +6% пайда. Күндік drawdown 5%, жалпы \u2014 8%."
   }, {
     n: "05",
-    t: "Funded аккаунтты белсендіріңіз",
-    d: "Challenge-тің екі фазасынан өткеннен кейін нақты капиталы бар аккаунт ашылады."
+    t: "Сауда жасап, пайданы шығар",
+    d: "Екі фазадан өткеннен кейін нақты капиталы бар аккаунт ашылады."
   }, {
     n: "06",
     t: "Бірінші төлемді алыңыз",
-    d: "Сауда жасап, пайданың 90%-ға дейінін шығарыңыз. Ақша USDT-да сіздің кошелекке келеді."
+    d: "Сауда жаса және пайданың 90%-на дейін шығарып ал. Ақша USDT арқылы әмияныңа келеді."
   }];
   return /*#__PURE__*/React.createElement("section", {
     id: "blueprint",
@@ -8130,7 +8130,7 @@ function BlueprintSection() {
       marginBottom: 32,
       maxWidth: 460
     }
-  }, "Платформаның қалай жұмыс істейтіні туралы қадамдық нұсқаулық ", /*#__PURE__*/React.createElement("br", { className: "hh-br-desktop" }), "тіркелуден пайданы шығарып алуға дейін"), /*#__PURE__*/React.createElement("div", {
+  }, "Платформаның қалай жұмыс істейтіні туралы қадамдық нұсқаулық ", /*#__PURE__*/React.createElement("br", { className: "hh-br-desktop" }), "тіркелуден төлемге дейінгі үш қадам"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 32,
@@ -9610,7 +9610,7 @@ function TeamCerts() {
       color: "var(--accent)",
       whiteSpace: "nowrap"
     }
-  }, "Telegram-каналда."), "")))), /*#__PURE__*/React.createElement(React.Fragment, null,
+  }, "Telegram-каналымызда."), "")))), /*#__PURE__*/React.createElement(React.Fragment, null,
     /*#__PURE__*/React.createElement("div", {
       className: "hh-cert-desktop",
       style: { display: "flex", flexDirection: "column", gap: 20 }
@@ -9882,7 +9882,7 @@ function Reviews() {
       margin: "20px 0 0",
       maxWidth: 860
     }
-  }, "5120+ трейдер қаржыландыру алды", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, "5120+ трейдер қорландыру алды", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
@@ -10760,7 +10760,7 @@ function BigCTA() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
-  }, "Challenge бастау \xb7 $79"), /*#__PURE__*/React.createElement("a", {
+  }, "Челленджді бастау \xb7 $79"), /*#__PURE__*/React.createElement("a", {
     href: "https://hashhedge.gitbook.io/hashhedge-user-guide?fpr=123456",
     target: "_blank",
     rel: "noopener",
@@ -10771,10 +10771,10 @@ function Footer() {
   const columns = [{
     t: "Өнім",
     l: [{
-      label: "Challenge-тер",
+      label: "Челлендждер",
       href: "#pricing"
     }, {
-      label: "Серіктестік бағдарламасы",
+      label: "Серіктестік бағдарлама",
       href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5"
     }, {
       label: "Блог",
@@ -10943,7 +10943,7 @@ function Footer() {
       color: "rgba(238,238,243,0.86)",
       marginBottom: 34
     }
-  }, "\xA9 2026 HashHedge. All Right Reserved."), /*#__PURE__*/React.createElement("p", {
+  }, "\xA9 2026 HashHedge. Барлық құқықтар қорғалған."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 12,
       lineHeight: 1.35,
@@ -11033,9 +11033,9 @@ function Nav({
     className: "container nav-inner"
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#pricing"
-  }, "Challenge-тер")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Челлендждер")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5"
-  }, "Серіктестік бағдарламасы")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Серіктестік бағдарлама")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def"
   }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121"
@@ -11060,7 +11060,7 @@ function Nav({
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary nav-cta-desktop"
-  }, "Challenge бастау"), /*#__PURE__*/React.createElement("div", {
+  }, "Челленджді бастау"), /*#__PURE__*/React.createElement("div", {
     className: "hh-lang-switcher",
     ref: langRef
   }, /*#__PURE__*/React.createElement("button", {
@@ -11131,10 +11131,10 @@ function MobileMenu({
   }))), /*#__PURE__*/React.createElement("a", {
     href: "#pricing",
     onClick: close
-  }, "Challenge-тер"), /*#__PURE__*/React.createElement("a", {
+  }, "Челлендждер"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5",
     onClick: close
-  }, "Серіктестік бағдарламасы"), /*#__PURE__*/React.createElement("a", {
+  }, "Серіктестік бағдарлама"), /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def",
     onClick: close
   }, "FAQ"), /*#__PURE__*/React.createElement("a", {
@@ -11148,7 +11148,7 @@ function MobileMenu({
     rel: "noopener",
     className: "btn btn-primary btn-lg",
     onClick: close
-  }, "Challenge бастау \xb7 $79-дан"), /*#__PURE__*/React.createElement("a", {
+  }, "Челленджді бастау \xb7 $79-дан бастап"), /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/ru/login",
     target: "_blank",
     rel: "noopener",
@@ -11177,7 +11177,7 @@ function MobileCTABar() {
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary"
-  }, "Challenge бастау \xb7 $79-дан", /*#__PURE__*/React.createElement("svg", {
+  }, "Челленджді бастау \xb7 $79-дан бастап", /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
     viewBox: "0 0 24 24",
@@ -11218,7 +11218,7 @@ function HashHedgeReactApp() {
       padding: "10px 16px",
       lineHeight: 1.4
     }
-  }, "Тіркелген пайдаланушылар үшін: Жаңа Challenge-терді сатып алу тек жаңа ", /*#__PURE__*/React.createElement("a", {
+  }, "Тіркелген пайдаланушылар үшін: Жаңа челлендждерді сатып алу тек жаңа ", /*#__PURE__*/React.createElement("a", {
     href: "https://app.hashhedge.com/ru/login",
     className: "hh-banner-lk-link",
     style: {
