@@ -3826,7 +3826,7 @@ function Pricing() {
       letterSpacing: "0.16em",
       color: "var(--accent)"
     }
-  }, "YOUR ACCOUNT"), /*#__PURE__*/React.createElement("div", {
+  }, "SUA CONTA"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "baseline",
@@ -3848,7 +3848,7 @@ function Pricing() {
       fontSize: 13,
       color: "var(--fg-dim)"
     }
-  }, "Profit split ", /*#__PURE__*/React.createElement("b", {
+  }, "Divisão de Lucro ", /*#__PURE__*/React.createElement("b", {
     style: {
       color: "var(--fg)"
     }
@@ -3864,7 +3864,7 @@ function Pricing() {
       letterSpacing: "0.16em",
       color: "var(--fg-low)"
     }
-  }, "CHALLENGE FEE"), /*#__PURE__*/React.createElement("div", {
+  }, "TAXA DO DESAFIO"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "baseline",
@@ -3927,7 +3927,7 @@ function Pricing() {
       flexWrap: "wrap",
       fontFamily: "Onest, sans-serif"
     }
-  }, /*#__PURE__*/React.createElement("span", null, "Pay with"), ["TRC20", "ERC20", "BEP20", "Solana", "Arbitrum", "Optimism"].map(c => /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, "Pague com"), ["TRC20", "ERC20", "BEP20", "Solana", "Arbitrum", "Optimism"].map(c => /*#__PURE__*/React.createElement("span", {
     key: c,
     style: {
       padding: "5px 11px",
@@ -4057,7 +4057,7 @@ function WhyUs() {
     className: "eyebrow"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
-  }), "WHY HASH HEDGE")), /*#__PURE__*/React.createElement(Reveal, {
+  }), "POR QUE A HASH HEDGE")), /*#__PURE__*/React.createElement(Reveal, {
     delay: "1"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h1",
@@ -5273,7 +5273,7 @@ function PayoutShowcase() {
       letterSpacing: "0.1em",
       textTransform: "uppercase"
     }
-  }, "Paid in"), /*#__PURE__*/React.createElement("div", {
+  }, "Pagamentos em"), /*#__PURE__*/React.createElement("div", {
     className: "hh-paid-in-flags",
     style: {
       display: "grid",
@@ -5293,7 +5293,7 @@ function PayoutShowcase() {
       fontSize: 11,
       color: "var(--fg-dim)"
     }
-  }, "+ 60 more")))))));
+  }, "+ 60")))))));
 }
 Object.assign(window, {
   Pricing,
@@ -6557,16 +6557,16 @@ function TelegramCommunity() {
     }
   }, [{
     n: "926",
-    l: "members"
+    l: "Membros"
   }, {
     n: "40–60",
-    l: "messages / day"
+    l: "Mensagens / dia"
   }, {
     n: "< 2 min",
-    l: "avg. admin reply"
+    l: "Tempo médio de resposta"
   }, {
     n: "24/7",
-    l: "coverage"
+    l: "Cobertura"
   }].map(s => /*#__PURE__*/React.createElement("div", {
     key: s.l,
     style: {
@@ -6645,7 +6645,7 @@ function TelegramCommunity() {
     style: {
       color: "var(--fg-dim)"
     }
-  }, "\xB7 free to join, verified traders only")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "\xB7 Grupo gratuito, somente traders verificados.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-telegram-desktop-visual"
@@ -8128,7 +8128,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "chapters")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "capítulos")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 32,
       fontWeight: 800,
@@ -8145,7 +8145,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "read time")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "tempo de leitura")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 32,
       fontWeight: 800,
@@ -8154,7 +8154,7 @@ function BlueprintSection() {
       letterSpacing: "-0.02em",
       lineHeight: 1
     }
-  }, "Free"), /*#__PURE__*/React.createElement("div", {
+  }, "Grátis"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-muted)",
@@ -8162,7 +8162,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "always"))), /*#__PURE__*/React.createElement("a", {
+  }, "sempre"))), /*#__PURE__*/React.createElement("a", {
     href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
     target: "_blank",
     rel: "noopener noreferrer",
@@ -9762,28 +9762,28 @@ function Reviews() {
     name: "Clarence",
     country: "Canada",
     size: "$25,000",
-    quote: "Wasn't sure about these guys at first because they are relatively new. But honestly, the trading conditions are exactly as advertised. I usually trade around big news events and haven't had any issues with breached rules or crazy slippage aqui. The built-in platform is actually super smooth now and limit orders trigger perfectly. Good to finally see a prop firm that lets you just trade without stressing over hidden restrictions.",
+    quote: "No começo eu não tinha certeza sobre esses caras porque eles são relativamente novos. Mas, honestamente, as condições de trade são exatamente como anunciadas. Normalmente opero eventos de notícias grandes e não tive problemas com violação de regras ou slippage absurdo aqui. A plataforma integrada é realmente muito fluida e as ordens limitadas executam perfeitamente. É bom finalmente ver uma prop firm que simplesmente deixa você operar sem estresse por restrições escondidas.",
     days: "Apr 2026",
     stars: 5
   }, {
     name: "Sultan Al-Haili",
     country: "UAE",
     size: "$25,000",
-    quote: "Passed the 25k exam yesterday. Terminal is finally not lagging, charts load super fast now. No weird hidden drawdown rules like other props, everything is straight forward. Support replied in 5 mins when I asked about KYC. So far so good.",
+    quote: "Passei na avaliação de 25k ontem. Finalmente o terminal não está travando, os gráficos carregam super rápido agora. Não existem regras escondidas de drawdown como em outras props, tudo é transparente. O suporte me respondeu em 5 minutos quando perguntei sobre KYC. Até agora, tudo muito bom.",
     days: "Apr 2026",
     stars: 5
   }, {
     name: "James Coonce-Lounsbury",
     country: "United Kingdom",
     size: "$50,000",
-    quote: "I have been trading with Hash Hedge for about two months now, and I recently passed the $50,000 challenge. What I appreciate most is the transparency. A lot of prop firms have hidden drawdown rules that catch you by surprise, but aqui everything is straightforward and published clearly. The built-in terminal is also very responsive, even during high volatility news events.",
+    quote: "Estou operando com a Hash Hedge há cerca de dois meses e recentemente passei no desafio de $50.000. O que mais valorizo é a transparência. Muitas prop firms possuem regras escondidas de drawdown que pegam você de surpresa, mas aqui tudo é direto e publicado claramente. O terminal integrado também responde muito bem, até durante eventos de alta volatilidade.",
     days: "Apr 2026",
     stars: 5
   }, {
     name: "Donna Jackson",
     country: "United States",
     size: "$50,000",
-    quote: "Switched to Hash Hedge mainly because of their crypto trading conditions. The payout process is straightforward — no jumping through hoops as long as you follow the drawdown rules. If you are a manual trader looking for consistency, this works well.",
+    quote: "Mudei para a Hash Hedge principalmente pelas condições de trade em cripto. O processo de saque é simples — sem burocracia desnecessária, desde que você siga as regras de drawdown. Se você é um trader manual procurando consistência, isso funciona muito bem.",
     days: "Mar 2026",
     stars: 5
   }, {
@@ -9811,7 +9811,7 @@ function Reviews() {
     name: "Дмитрий",
     country: "Russia",
     size: "$50,000",
-    quote: "HashHedge has truly set a new standard for what a crypto prop company should be. Their transparency is refreshing – no hidden terms or surprises. The promotional offers are generous and easy to participate in. Customer support is fast, knowledgeable and helpful. A well-deserved 5 stars!",
+    quote: "A Hash Hedge realmente estabeleceu um novo padrão para o que uma prop firm de cripto deveria ser. A transparência deles é revigorante — sem termos escondidos ou surpresas. As promoções são generosas e fáceis de participar. O suporte ao cliente é rápido, experiente e prestativo. Cinco estrelas merecidas!",
     days: "Nov 2025",
     stars: 5
   }];
