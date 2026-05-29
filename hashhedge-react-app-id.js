@@ -5518,7 +5518,7 @@ function EventsTournaments() {
       left: 0,
       right: 0,
       height: 320,
-      background: "linear-gradient(180deg, rgba(252,213,53,0.025) 0%, transparent 80%)",
+      background: "linear-gradient(180deg, rgba(16,16,18,0.82) 0%, rgba(16,16,18,0) 76%)",
       pointerEvents: "none",
       zIndex: 0
     }
