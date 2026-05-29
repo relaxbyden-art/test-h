@@ -841,7 +841,7 @@ function LivePayoutsTable() {
       textTransform: "uppercase",
       color: "var(--fg)"
     }
-  }, "Platform stats")), /*#__PURE__*/React.createElement("span", {
+  }, "Estatísticas da plataforma")), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 12,
       color: "var(--fg-dim)"
@@ -6725,7 +6725,7 @@ function TelegramChannelList() {
   }, {
     ic: "📈",
     icBg: "transparent",
-    title: "Trading | EN",
+    title: "Trading | PT",
     sender: "Denis S.",
     preview: "Bitcoin's already at $78,140 we hitting $80K or wh…",
     time: "Wed"
@@ -7368,7 +7368,7 @@ function SupportSection() {
   const channels = [{
     label: "Chat ao vivo",
     sub: "Resposta média em menos de 2 min",
-    tag: "LIVE CHAT",
+    tag: "CHAT AO VIVO",
     href: "#",
     accent: "rgba(124, 216, 160, 0.15)",
     accentText: "var(--green)",
@@ -9642,12 +9642,12 @@ function TeamCerts() {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "17,800+ payouts"), " completed \xB7 ", /*#__PURE__*/React.createElement("span", {
+  }, "17.800+ pagamentos"), " concluídos \xB7 ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "5,120 active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, "5.120 traders financiados ativos"))))), lightbox && /*#__PURE__*/React.createElement("div", {
     onClick: () => setLightbox(null),
     style: {
       position: "fixed",
@@ -9860,7 +9860,7 @@ function Reviews() {
     style: {
       color: "var(--accent)"
     }
-  }, "Reviewed on Trustpilot.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Avaliado no Trustpilot.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "2"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hh-review-rating-summary",
@@ -10718,18 +10718,18 @@ function BigCTA() {
       background: "var(--accent)",
       boxShadow: "0 0 10px var(--accent)"
     }
-  }), "READY?"), /*#__PURE__*/React.createElement("h2", {
+  }), "PRONTO?"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "24px auto 24px",
       maxWidth: 900,
       fontSize: "clamp(44px, 5.5vw, 76px)"
     }
-  }, "Your first ", /*#__PURE__*/React.createElement("span", {
+  }, "Seu primeiro ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "$5,000 challenge"), " is just ", /*#__PURE__*/React.createElement("span", {
+  }, "desafio de $5.000"), " por apenas ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
