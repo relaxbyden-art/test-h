@@ -716,28 +716,57 @@ function LivePayoutsTable() {
 
   // Values only ever go UP. Growth seeded from a fixed base date.
   // Payouts: max $2,000/day. Traders: max 10/day.
-  const BASE_MS = 1704067200000; // 2024-01-01 00:00:00 UTC
+  // === Daily deltas per spec (deterministic per-day pseudo-random) ===
+  // Volume:  weekdays 80M-150M, weekends 70M-80M
+  // Traders: weekdays 3-8,      weekends 2-4
+  // Payouts: weekdays 10K-25K (mostly 10K-17K), weekends same
+  function _hhHash(d, s) {
+    let h = ((d|0) ^ ((s*2654435761)|0)) >>> 0;
+    h = ((h + 0x7ed55d16) + (h << 12)) >>> 0;
+    h = ((h ^ 0xc761c23c) ^ (h >>> 19)) >>> 0;
+    h = ((h + 0x165667b1) + (h << 5)) >>> 0;
+    h = ((h + 0xd3a2646c) ^ (h << 9)) >>> 0;
+    h = ((h + 0xfd7046c5) + (h << 3)) >>> 0;
+    h = ((h ^ 0xb55a4f09) ^ (h >>> 16)) >>> 0;
+    return h / 4294967295;
+  }
+  function _hhDayDelta(dIdx) {
+    const dow = new Date(dIdx * 86400000).getUTCDay();
+    const we = (dow === 0 || dow === 6);
+    const rV = _hhHash(dIdx, 1);
+    const rT = _hhHash(dIdx, 2);
+    const rP = _hhHash(dIdx, 3);
+    const v = we ? 70_000_000 + rV * 10_000_000 : 80_000_000 + rV * 70_000_000;
+    const t = we ? 2 + Math.floor(rT * 3)        : 3 + Math.floor(rT * 6);
+    const p = rP < 0.8 ? 10_000 + (rP / 0.8) * 7_000 : 18_000 + ((rP - 0.8) / 0.2) * 7_000;
+    return { v: v, t: t, p: p };
+  }
+  // Base totals locked to 2026-05-28 baseline values (visible on launch)
+  const BASE_DAY = Math.floor(Date.UTC(2026, 4, 28) / 86400000);
+  const BASE_VOLUME = 291_500_000_000;
+  const BASE_TRADERS = 5_120;
+  const BASE_PAYOUTS = 12_510_000;
   const now = Date.now();
-  const secElapsed = (now - BASE_MS) / 1000;
-  const dayStartMs = Math.floor(now / 86400000) * 86400000;
+  const currDay = Math.floor(now / 86400000);
+  const daysSince = Math.max(0, currDay - BASE_DAY);
+  let cumV = 0, cumT = 0, cumP = 0;
+  for (let i = 0; i < daysSince; i++) {
+    const d = _hhDayDelta(BASE_DAY + i);
+    cumV += d.v; cumT += d.t; cumP += d.p;
+  }
+  const dayStartMs = currDay * 86400000;
   const secToday = (now - dayStartMs) / 1000;
-
-  // Payouts: $2,000/day cap. Live micro-increment per tick for visual heartbeat.
-  const PAYOUT_PER_SEC = 2000 / 86400;
-  const payoutsTotal = 10_750_000 + secElapsed * PAYOUT_PER_SEC + tick * 0.4;
-  const _pdi = Math.floor(Date.now()/86400000);
-  const _pdb = _pdi - Math.floor(1743465600000/86400000);
-  const _payDayBase = Math.min(20000, 18000 + _pdb * 10);
-  const _payDayVar = ((_pdi*7+13)%1000) - 500;
-  const payoutsToday = _payDayBase + _payDayVar;
-
-  // Volume: grows freely (no user restriction), sinusoidal variation ok
-  const VOL_PER_SEC = 195_000_000 / 86400;
-  const volumeTotal = 120_000_000_000 + secElapsed * VOL_PER_SEC;
-  const volumeToday = secToday * VOL_PER_SEC * (1 + Math.sin(tick * 0.15) * 0.04);
-
-  // Traders: fixed to match the hero metric and avoid competing live totals.
-  const tradersTotal = 5_120;
+  const fracToday = Math.min(1, secToday / 86400);
+  const todayD = _hhDayDelta(currDay);
+  // Tiny per-tick increment for visual heartbeat
+  const liveV = tick * 6000;
+  const liveP = tick * 0.015;
+  const volumeTotal = BASE_VOLUME + cumV + todayD.v * fracToday + liveV;
+  const tradersTotal = BASE_TRADERS + cumT + Math.floor(todayD.t * fracToday);
+  const payoutsTotal = BASE_PAYOUTS + cumP + todayD.p * fracToday + liveP;
+  const volumeToday = todayD.v * fracToday + liveV;
+  const tradersToday = Math.floor(todayD.t * fracToday);
+  const payoutsToday = todayD.p * fracToday + liveP;
   const fmtMoney = n => n >= 1_000_000_000 ? `$${(n / 1_000_000_000).toFixed(2)}B` : n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 1_000 ? `$${(n / 1_000).toFixed(1)}K` : `$${Math.round(n).toLocaleString()}`;
   const fmtCount = n => n.toLocaleString("en-US");
   const stats = [{
@@ -751,7 +780,7 @@ function LivePayoutsTable() {
     k: "Trader funded",
     v: fmtCount(tradersTotal),
     sub: "hari ini",
-    subV: "+4",
+    subV: `+${tradersToday}`,
     color: "var(--fg)",
     chart: [0.42, 0.48, 0.53, 0.57, 0.62, 0.66, 0.70, 0.74, 0.78, 0.81, 0.84, 0.86]
   }, {
@@ -977,7 +1006,7 @@ function TradingTerminal() {
     k: "Trader funded",
     v: "5,120",
     sub: "bergabung hari ini",
-    subV: "+4",
+    subV: `+${tradersToday}`,
     color: "var(--fg)"
   }, {
     k: "Total penarikan",
