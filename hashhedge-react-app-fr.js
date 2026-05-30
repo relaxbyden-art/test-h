@@ -10718,18 +10718,18 @@ function BigCTA() {
       background: "var(--accent)",
       boxShadow: "0 0 10px var(--accent)"
     }
-  }), "READY?"), /*#__PURE__*/React.createElement("h2", {
+  }), "PRÊT ?"), /*#__PURE__*/React.createElement("h2", {
     className: "h1",
     style: {
       margin: "24px auto 24px",
       maxWidth: 900,
       fontSize: "clamp(44px, 5.5vw, 76px)"
     }
-  }, "Your first ", /*#__PURE__*/React.createElement("span", {
+  }, "Votre premier ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
-  }, "$5,000 challenge"), " is just ", /*#__PURE__*/React.createElement("span", {
+  }, "challenge à $5,000"), " pour seulement ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
