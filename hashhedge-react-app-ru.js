@@ -6635,7 +6635,7 @@ function TelegramCommunity() {
       marginBottom: 36
     }
   }, [{
-    n: "1000+",
+    n: "1200+",
     l: "участников"
   }, {
     n: "40–60",
@@ -7033,7 +7033,7 @@ function TelegramChannelList() {
       color: textMuted,
       marginTop: 2
     }
-  }, "1000+ members, 218 online")), /*#__PURE__*/React.createElement("button", {
+  }, "1200+ members, 218 online")), /*#__PURE__*/React.createElement("button", {
     style: {
       width: 36,
       height: 36,
