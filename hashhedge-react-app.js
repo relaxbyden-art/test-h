@@ -705,6 +705,33 @@ function CosmicStatsPanel() {
   }, "\u25B2 ", s.day))))));
 }
 
+// ==== Shared Funded traders counter (matches LivePayoutsTable) ====
+function _hhTraders() {
+  function h(d, s) {
+    let x = ((d|0) ^ ((s*2654435761)|0)) >>> 0;
+    x = ((x + 0x7ed55d16) + (x << 12)) >>> 0;
+    x = ((x ^ 0xc761c23c) ^ (x >>> 19)) >>> 0;
+    x = ((x + 0x165667b1) + (x << 5)) >>> 0;
+    x = ((x + 0xd3a2646c) ^ (x << 9)) >>> 0;
+    x = ((x + 0xfd7046c5) + (x << 3)) >>> 0;
+    x = ((x ^ 0xb55a4f09) ^ (x >>> 16)) >>> 0;
+    return x / 4294967295;
+  }
+  function dt(i) {
+    const w = new Date(i * 86400000).getUTCDay();
+    const we = (w === 0 || w === 6);
+    const r = h(i, 2);
+    return we ? 2 + Math.floor(r * 3) : 3 + Math.floor(r * 6);
+  }
+  const BD = Math.floor(Date.UTC(2026, 4, 28) / 86400000);
+  const now = Date.now();
+  const cd = Math.floor(now / 86400000);
+  let c = 0;
+  for (let i = 0; i < Math.max(0, cd - BD); i++) c += dt(BD + i);
+  const f = Math.min(1, (now - cd * 86400000) / 86400000);
+  return 5120 + c + Math.floor(dt(cd) * f);
+}
+
 // ==== Platform KPIs panel (classic hero variant) ====
 // Three big stats – all-time total + today's delta – live-ticking.
 function LivePayoutsTable() {
@@ -1499,7 +1526,7 @@ function Hero({
       fontSize: 12,
       color: "var(--fg-dim)"
     }
-  }, "5,120 funded traders"))), /*#__PURE__*/React.createElement("div", {
+  }, `${_hhTraders().toLocaleString()} funded traders`))), /*#__PURE__*/React.createElement("div", {
     style: {
       height: 32,
       width: 1,
@@ -1545,7 +1572,7 @@ function Hero({
     l: "Payouts completed",
     sub: "Fast, seamless, and always on time."
   }, {
-    v: 5120,
+    v: _hhTraders(),
     suf: "",
     l: "Funded traders",
     sub: "Growing every single day."
@@ -6557,7 +6584,7 @@ function TelegramCommunity() {
       marginBottom: 36
     }
   }, [{
-    n: "926",
+    n: "1000+",
     l: "members"
   }, {
     n: "40–60",
@@ -6955,7 +6982,7 @@ function TelegramChannelList() {
       color: textMuted,
       marginTop: 2
     }
-  }, "926 members, 218 online")), /*#__PURE__*/React.createElement("button", {
+  }, "1000+ members, 218 online")), /*#__PURE__*/React.createElement("button", {
     style: {
       width: 36,
       height: 36,
@@ -9649,7 +9676,7 @@ function TeamCerts() {
       color: "var(--fg)",
       fontWeight: 700
     }
-  }, "5,120 active funded traders"))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, `${_hhTraders().toLocaleString()} active funded traders`))))), lightbox && /*#__PURE__*/React.createElement("div", {
     onClick: () => setLightbox(null),
     style: {
       position: "fixed",
@@ -9858,7 +9885,7 @@ function Reviews() {
       margin: "20px 0 0",
       maxWidth: 860
     }
-  }, "5,120 funded traders.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, `${_hhTraders().toLocaleString()} funded traders.`, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--accent)"
     }
