@@ -3852,7 +3852,7 @@ function Pricing() {
     style: {
       color: "var(--fg)"
     }
-  }, "80 / 20")))), /*#__PURE__*/React.createElement("div", {
+  }, "90 / 10")))), /*#__PURE__*/React.createElement("div", {
     style: {
       borderLeft: "1px solid var(--line)",
       paddingLeft: 28
