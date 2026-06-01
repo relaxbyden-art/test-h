@@ -583,7 +583,7 @@ function CosmicStatsPanel() {
     color: "var(--green)"
   }, {
     k: "Traders financiados",
-    big: "5,120",
+    big: _hhTraders().toLocaleString("en-US"),
     sub: "active accounts",
     day: "+4",
     dayLbl: "joined hoje",
@@ -1031,7 +1031,7 @@ function TradingTerminal() {
     color: "var(--green)"
   }, {
     k: "Traders financiados",
-    v: "5,120",
+    v: _hhTraders().toLocaleString("en-US"),
     sub: "joined hoje",
     subV: `+${tradersToday}`,
     color: "var(--fg)"

@@ -583,7 +583,7 @@ function CosmicStatsPanel() {
     color: "var(--green)"
   }, {
     k: "Funded ट्रेडर",
-    big: "5,120",
+    big: _hhTraders().toLocaleString("en-US"),
     sub: "active accounts",
     day: "+4",
     dayLbl: "आज जुड़े",
@@ -1031,7 +1031,7 @@ function TradingTerminal() {
     color: "var(--green)"
   }, {
     k: "Funded ट्रेडर",
-    v: "5,120",
+    v: _hhTraders().toLocaleString("en-US"),
     sub: "आज जुड़े",
     subV: `+${tradersToday}`,
     color: "var(--fg)"
