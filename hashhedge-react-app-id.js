@@ -763,14 +763,14 @@ function LivePayoutsTable() {
     const rV = _hhHash(dIdx, 1);
     const rT = _hhHash(dIdx, 2);
     const rP = _hhHash(dIdx, 3);
-    const v = we ? 70_000_000 + rV * 10_000_000 : 80_000_000 + rV * 70_000_000;
+    const v = we ? 120_000 + rV * 80_000     : 120_000 + rV * 180_000;
     const t = we ? 2 + Math.floor(rT * 3)        : 3 + Math.floor(rT * 6);
     const p = rP < 0.8 ? 10_000 + (rP / 0.8) * 7_000 : 18_000 + ((rP - 0.8) / 0.2) * 7_000;
     return { v: v, t: t, p: p };
   }
   // Base totals locked to 2026-05-28 baseline values (visible on launch)
   const BASE_DAY = Math.floor(Date.UTC(2026, 4, 28) / 86400000);
-  const BASE_VOLUME = 291_500_000_000;
+  const BASE_VOLUME = 292_000_000_000;
   const BASE_TRADERS = 5_120;
   const BASE_PAYOUTS = 12_510_000;
   const now = Date.now();
@@ -786,7 +786,7 @@ function LivePayoutsTable() {
   const fracToday = Math.min(1, secToday / 86400);
   const todayD = _hhDayDelta(currDay);
   // Tiny per-tick increment for visual heartbeat
-  const liveV = tick * 6000;
+  const liveV = tick * 50;
   const liveP = tick * 0.015;
   const volumeTotal = BASE_VOLUME + cumV + todayD.v * fracToday + liveV;
   const tradersTotal = BASE_TRADERS + cumT + Math.floor(todayD.t * fracToday);
