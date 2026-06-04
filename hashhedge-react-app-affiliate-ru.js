@@ -59,6 +59,18 @@
     );
   }
 
+  // Single checkmark helper — точная копия с главной RU (HowItWorks bullets).
+  // Жёлтый круг 15% opacity + жёлтая обводка galki. Inline-стиль чтобы Tilda не красила.
+  function HHCheck({ size = 16 }) {
+    return _e("svg", {
+      width: size, height: size, viewBox: "0 0 24 24", fill: "none",
+      style: { flexShrink: 0, marginTop: 2, display: "inline-block" }
+    },
+      _e("circle", { cx: "12", cy: "12", r: "10", style: { fill: "#fcd535", fillOpacity: 0.15 } }),
+      _e("path", { d: "M8 12l3 3 5-6", style: { stroke: "#fcd535", strokeWidth: 2.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" } })
+    );
+  }
+
   function Counter({ to, duration = 1800, suffix = "", prefix = "", decimals = 0 }) {
     const [val, setVal] = useState(0);
     const ref = useRef(null);
@@ -521,8 +533,10 @@
               }
             },
               _e(Icon, { d: c.icon }),
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase", color: "#9ef0c0", marginBottom: 12 } },
-                _e("svg", { width: 12, height: 12, viewBox: "0 0 12 12", fill: "#9ef0c0" }, _e("path", { d: "M4.5 9L1.5 6l1-1 2 2 4.5-4.5 1 1z" })),
+              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12 } },
+                _e("svg", { width: 12, height: 12, viewBox: "0 0 12 12", style: { fill: "#fcd535" } },
+                  _e("path", { d: "M4.5 9L1.5 6l1-1 2 2 4.5-4.5 1 1z", style: { fill: "#fcd535" } })
+                ),
                 c.chip
               ),
               _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.2, marginBottom: 12, letterSpacing: "-0.01em" } }, c.title),
@@ -821,9 +835,9 @@
               _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.2, marginBottom: 12 } }, s.title),
               _e("p", { style: { fontSize: 14, color: "var(--fg-dim)", lineHeight: 1.55, marginBottom: 18 } }, s.body),
               _e("div", { style: { display: "flex", flexDirection: "column", gap: 8 } },
-                s.bullets.map((b, j) => _e("div", { key: j, style: { display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "var(--fg)" } },
-                  _e("span", { style: { width: 18, height: 18, borderRadius: "50%", background: "rgba(74,222,128,0.16)", color: "var(--green)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800 } }, "✓"),
-                  b
+                s.bullets.map((b, j) => _e("div", { key: j, style: { display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: "var(--fg)", lineHeight: 1.55 } },
+                  _e(HHCheck, { size: 16 }),
+                  _e("span", null, b)
                 ))
               )
             )
@@ -1612,11 +1626,12 @@
             _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary", style: { padding: "18px 32px", fontSize: 16, fontWeight: 800, borderRadius: 14 } }, "Зарегистрироваться"),
             _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-ghost", style: { padding: "18px 28px", fontSize: 16, fontWeight: 700, borderRadius: 14 } }, "Войти в кабинет")
           ),
-          _e("div", { style: { fontSize: 13, color: "var(--fg-dim)", display: "inline-flex", flexWrap: "wrap", gap: 18, justifyContent: "center" } },
-            _e("span", null, "✓ Одобрение за 24 часа"),
-            _e("span", null, "✓ USDT по запросу"),
-            _e("span", null, "✓ 154 страны"),
-            _e("span", null, "✓ Без скрытых условий")
+          _e("div", { style: { fontSize: 13, color: "var(--fg-muted)", display: "inline-flex", flexWrap: "wrap", gap: 18, justifyContent: "center", alignItems: "center" } },
+            ["Одобрение за 24 часа", "USDT по запросу", "154 страны", "Без скрытых условий"].map((t, i) =>
+              _e("span", { key: i, style: { display: "inline-flex", alignItems: "center", gap: 8 } },
+                _e(HHCheck, { size: 16 }), t
+              )
+            )
           )
         )
       )
