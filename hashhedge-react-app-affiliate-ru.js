@@ -119,11 +119,11 @@
           }, n.l))
         ),
         _e("div", { style: { display: "flex", alignItems: "center", gap: 10 } },
-          _e("a", { href: "https://partner.hashhedge.com",
-            style: { padding: "9px 18px", borderRadius: 100, fontSize: 14, fontWeight: 600, color: "var(--fg)", textDecoration: "none", border: "1px solid var(--line)" }
+          _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-outline",
+            style: { padding: "9px 18px", borderRadius: 100, fontSize: 14, fontWeight: 600, textDecoration: "none" }
           }, "Войти"),
-          _e("a", { href: "https://partner.hashhedge.com",
-            style: { padding: "9px 18px", borderRadius: 100, fontSize: 14, fontWeight: 700, color: "#13111c", textDecoration: "none", background: "var(--accent)" }
+          _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+            style: { padding: "9px 18px", borderRadius: 100, fontSize: 14, fontWeight: 700, textDecoration: "none" }
           }, "Стать партнёром"),
           _e("button", { className: "hh-mob-toggle", "aria-label": "Меню",
             onClick: () => setMenuOpen(v => !v),
@@ -161,11 +161,14 @@
       const all = out.flatMap(c => [c.h, c.l]);
       const min = Math.min(...all), max = Math.max(...all);
       const r = max - min || 1;
+      // Зажимаем свечи по высоте — занимают только средние 50% высоты hero
+      // (от 25% до 75%), чтобы не были слишком крупными как раньше
+      const YMIN = 30, YMAX = 70; // svg viewBox 0-100
       const norm = out.map(c => ({
-        o: 100 - ((c.o - min) / r) * 100,
-        h: 100 - ((c.h - min) / r) * 100,
-        l: 100 - ((c.l - min) / r) * 100,
-        c: 100 - ((c.c - min) / r) * 100,
+        o: YMAX - ((c.o - min) / r) * (YMAX - YMIN),
+        h: YMAX - ((c.h - min) / r) * (YMAX - YMIN),
+        l: YMAX - ((c.l - min) / r) * (YMAX - YMIN),
+        c: YMAX - ((c.c - min) / r) * (YMAX - YMIN),
         up: c.up
       }));
       // simple MA(12)
@@ -178,7 +181,7 @@
     const STEP = 100 / candles.norm.length;
     const W = STEP * 0.55;
     const maPath = candles.ma.map((y, i) => `${i === 0 ? "M" : "L"} ${i * STEP + STEP * 0.5} ${y}`).join(" ");
-    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, opacity: 0.55, pointerEvents: "none", zIndex: 0 } },
+    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, opacity: 0.22, pointerEvents: "none", zIndex: 0 } },
       // grid
       _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
         [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.04)", strokeWidth: 0.1 } })),
@@ -335,29 +338,23 @@
               ),
 
               _e("div", { style: { display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 32 } },
-                _e("a", { href: "https://partner.hashhedge.com",
-                  style: { padding: "16px 26px", borderRadius: 100, fontSize: 15, fontWeight: 700, color: "#13111c", textDecoration: "none", background: "#fcd535", display: "inline-flex", alignItems: "center", gap: 8, boxShadow: "0 12px 32px -8px rgba(252,213,53,0.45)" }
+                _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+                  style: { padding: "16px 26px", borderRadius: 100, fontSize: 15, fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, boxShadow: "0 12px 32px -8px rgba(252,213,53,0.45)" }
                 }, "Стать партнёром →"),
-                _e("a", { href: "#calc",
-                  style: { padding: "16px 26px", borderRadius: 100, fontSize: 15, fontWeight: 600, color: "#f5f1e8", textDecoration: "none", border: "1px solid rgba(255,255,255,0.18)", background: "rgba(255,255,255,0.02)" }
+                _e("a", { href: "#calc", className: "hh-btn-outline",
+                  style: { padding: "16px 26px", borderRadius: 100, fontSize: 15, fontWeight: 600, textDecoration: "none" }
                 }, "Рассчитать доход")
               ),
 
-              // Trustpilot card
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 18 } },
-                _e("div", { style: { fontSize: 13, color: "#a1a0a4", lineHeight: 1.35, maxWidth: 180 } }, "Сотрудничай с платформой, которой доверяют"),
-                _e("div", { style: { padding: 14, background: "rgba(11,11,14,0.6)", border: "1px solid var(--line)", borderRadius: 12 } },
-                  _e("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 6 } },
-                    _e("svg", { width: 14, height: 14, viewBox: "0 0 24 24", style: { fill: "#18A965" } }, _e("polygon", { points: "12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26", style: { fill: "#18A965" } })),
-                    _e("span", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, "Trustpilot")
-                  ),
-                  _e("div", { style: { display: "flex", gap: 2, marginBottom: 6 } },
-                    [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 18 })),
-                    _e(TPStar, { size: 18, half: true })
-                  ),
-                  _e("div", { style: { fontSize: 11, color: "#a1a0a4" } },
-                    _e("b", { style: { color: "#f5f1e8" } }, "4.4"), " · TrustScore"
-                  )
+              // Trustpilot — как в прошлой версии: 5 звёзд в строку + 2 строки текста
+              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 14 } },
+                _e("div", { style: { display: "flex", gap: 2 } },
+                  [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 22 })),
+                  _e(TPStar, { size: 22, half: true })
+                ),
+                _e("div", { style: { fontSize: 14, lineHeight: 1.35 } },
+                  _e("div", { style: { fontWeight: 700, color: "#f5f1e8" } }, "4.4 · Trustpilot"),
+                  _e("div", { style: { color: "#a1a0a4", fontSize: 13 } }, "Доверяют 5 139 funded трейдеров")
                 )
               )
             )
@@ -727,8 +724,8 @@
                 "Старт сразу ", _e("br", null), "с ", _e("span", { style: { color: "#fcd535" } }, "50%")
               ),
               _e("p", { style: { fontSize: 13, color: "#a1a0a4", margin: "4px 0 12px", lineHeight: 1.4 } }, "Уровень растёт автоматически по числу активных трейдеров."),
-              _e("a", { href: "https://partner.hashhedge.com",
-                style: { padding: "12px 22px", borderRadius: 100, fontSize: 13, fontWeight: 700, color: "#13111c", textDecoration: "none", background: "#fcd535", display: "inline-flex", alignItems: "center", gap: 6 }
+              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+                style: { padding: "12px 22px", borderRadius: 100, fontSize: 13, fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }
               }, "Стать партнёром →")
             )
           )
@@ -846,8 +843,8 @@
                 `$${monthly.toLocaleString("ru-RU").replace(/,/g, " ")}`
               ),
               _e("div", { style: { fontSize: 14, color: "#a1a0a4", marginBottom: 30 } }, "в месяц при таком потоке рефералов"),
-              _e("a", { href: "https://partner.hashhedge.com",
-                style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, color: "#13111c", textDecoration: "none", background: "#fcd535", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
+              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+                style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
               }, "Стать партнёром →"),
               _e("p", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 18, marginBottom: 0, lineHeight: 1.5 } },
                 "Расчёт приблизительный. Доход = рефералы × стоимость 1-фазного челленджа × % комиссии твоего уровня."
@@ -1501,10 +1498,8 @@
               _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8" } }, "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")),
               _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 4 } }, "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе.")
             ),
-            _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 22px", borderRadius: 100, fontSize: 14, fontWeight: 700, color: "#fff", textDecoration: "none", background: TG_BLUE, boxShadow: `0 6px 20px -6px ${TG_BLUE_DARK}` },
-              onMouseEnter: e => e.currentTarget.style.background = TG_BLUE_DARK,
-              onMouseLeave: e => e.currentTarget.style.background = TG_BLUE
+            _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer", className: "hh-btn-tg",
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 22px", borderRadius: 100, fontSize: 14, fontWeight: 700, textDecoration: "none", boxShadow: `0 6px 20px -6px ${TG_BLUE_DARK}` }
             },
               _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "#fff" } },
                 _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
@@ -1540,11 +1535,11 @@
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4", maxWidth: 620, margin: "0 auto 32px" } }, "Присоединяйся к тысячам партнёров, которые продвигают Hash Hedge, и получай до 80% от нашей прибыли."),
             _e("div", { style: { display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 } },
-              _e("a", { href: "https://partner.hashhedge.com",
-                style: { padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700, color: "#13111c", textDecoration: "none", background: "#fcd535", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
+              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+                style: { padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
               }, "Зарегистрироваться"),
-              _e("a", { href: "https://partner.hashhedge.com",
-                style: { padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 600, color: "#f5f1e8", textDecoration: "none", border: "1px solid rgba(255,255,255,0.18)", background: "rgba(255,255,255,0.02)" }
+              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-outline",
+                style: { padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 600, textDecoration: "none" }
               }, "Войти в кабинет")
             ),
             _e("div", { style: { fontSize: 13, color: "#a1a0a4", display: "inline-flex", justifyContent: "center", gap: 16, flexWrap: "wrap" } },
@@ -1600,8 +1595,8 @@
     return _e("div", { className: "hh-mobile-cta",
       style: { position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 90, padding: "12px 16px", display: "none", background: "rgba(8,8,10,0.94)", backdropFilter: "blur(14px)", borderTop: "1px solid var(--line)" }
     },
-      _e("a", { href: "https://partner.hashhedge.com",
-        style: { display: "block", textAlign: "center", padding: "14px 18px", borderRadius: 100, fontSize: 14, fontWeight: 800, color: "#13111c", textDecoration: "none", background: "#fcd535" }
+      _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+        style: { display: "block", textAlign: "center", padding: "14px 18px", borderRadius: 100, fontSize: 14, fontWeight: 800, textDecoration: "none" }
       }, "Стать партнёром · бесплатно")
     );
   }
@@ -1671,6 +1666,43 @@
         width: 22px; height: 22px; border-radius: 50%;
         background: #fcd535; border: 3px solid #1f1d25;
         cursor: pointer; box-shadow: 0 4px 12px rgba(252,213,53,0.4);
+      }
+
+      /* Кнопки: блокируем цвет текста, чтобы Tilda не подмешивала свой */
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-yellow,
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-yellow *,
+      #hashhedge-root .tilda-html-hashhedge button.hh-btn-yellow,
+      #hashhedge-root .tilda-html-hashhedge button.hh-btn-yellow * {
+        color: #13111c !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-yellow,
+      #hashhedge-root .tilda-html-hashhedge button.hh-btn-yellow {
+        background: #fcd535 !important;
+        text-decoration: none !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-outline,
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-outline *,
+      #hashhedge-root .tilda-html-hashhedge button.hh-btn-outline,
+      #hashhedge-root .tilda-html-hashhedge button.hh-btn-outline * {
+        color: #f5f1e8 !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-outline,
+      #hashhedge-root .tilda-html-hashhedge button.hh-btn-outline {
+        background: rgba(255,255,255,0.02) !important;
+        border: 1px solid rgba(255,255,255,0.18) !important;
+        text-decoration: none !important;
+      }
+      /* TG-кнопка синяя */
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg,
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg * {
+        color: #fff !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg {
+        background: #229ED9 !important;
+        text-decoration: none !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg:hover {
+        background: #1E8BBE !important;
       }
     `;
     document.head.appendChild(st);
