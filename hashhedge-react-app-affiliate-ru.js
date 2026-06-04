@@ -370,19 +370,24 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function WhyPartner() {
-    // Solid yellow lucide-style icons in soft yellow disc — matches WhyUs on main RU.
+    // Yellow lucide icons sitting in a NEUTRAL dark-grey rounded square —
+    // matches the icon-plate look on main RU (dark plate, yellow content).
+    // Никакой жёлтой подложки/рамки — Tilda тоже не сможет ничего перекрасить.
     const Icon = ({ d }) => _e("div", {
       style: {
         width: 56, height: 56, borderRadius: 16,
-        background: "linear-gradient(180deg, rgba(252,213,53,0.18), rgba(252,213,53,0.06))",
-        border: "1px solid rgba(252,213,53,0.35)",
+        background: "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+        border: "1px solid var(--line)",
         display: "inline-flex", alignItems: "center", justifyContent: "center",
         marginBottom: 22,
-        boxShadow: "inset 0 0 24px rgba(252,213,53,0.08)"
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px -12px rgba(0,0,0,0.6)"
       }
     },
-      _e("svg", { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "#fcd535", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" },
-        d.map((p, i) => _e("path", { key: i, d: p }))
+      _e("svg", {
+        width: 24, height: 24, viewBox: "0 0 24 24",
+        style: { fill: "none", stroke: "#fcd535", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }
+      },
+        d.map((p, i) => _e("path", { key: i, d: p, style: { fill: "none", stroke: "#fcd535" } }))
       )
     );
 
