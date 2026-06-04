@@ -838,10 +838,22 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function CabinetPreview() {
-    // 1:1 копия реального дашборда (partner.hashhedge.com), цифры подставлены с vercel.
-    // Sidebar: 4 группы (Analytics / Management / Transactions / Other) с lucide-иконками.
-    // Top header: HASH HEDGE | AFFILIATE CENTER, greeting Hello Denis, manager pill, $X Bronze, theme/bell/profile/logout.
-    // Main: Partner Links bar (collapsed) → Dashboard H1 → 4 KPI cards stacked vertically left + big chart right.
+    // 1:1 копия реального дашборда partner.hashhedge.com. Цифры подставлены с vercel.
+    // Sidebar: 4 группы (Analytics / Management / Transactions / Other) с line-иконками.
+    // Top header: HASH HEDGE | AFFILIATE CENTER (жёлтый), Hello Denis + Welcome back greeting,
+    //   @hashhedge_affiliate manager-pill, $X Bronze, theme/bell/profile/logout.
+    // Main: Partner Links collapsible bar → Dashboard H1 → 4 KPI cards stacked LEFT + big chart RIGHT.
+
+    // Inline-style helper for SVG icons — inline style выигрывает у Tilda CSS.
+    const SidebarIcon = ({ d, active }) => _e("svg", {
+      width: 16, height: 16, viewBox: "0 0 24 24",
+      style: { fill: "none", stroke: active ? "#fcd535" : "#a1a0a4", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", flexShrink: 0 }
+    }, d.map((p, i) => _e("path", { key: i, d: p, style: { fill: "none", stroke: active ? "#fcd535" : "#a1a0a4" } })));
+
+    const TopIcon = ({ d, size = 18 }) => _e("svg", {
+      width: size, height: size, viewBox: "0 0 24 24",
+      style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" }
+    }, d.map((p, i) => _e("path", { key: i, d: p, style: { fill: "none", stroke: "#a1a0a4" } })));
     const sidebarGroups = [
       { title: "Analytics", items: [
         { l: "Dashboard", active: true, icon: ["M3 3v18h18", "M7 12l3-3 4 4 7-7"] },
@@ -888,127 +900,222 @@
           )
         ),
 
-        // === Big dashboard mockup (full-width) ===
+        // === Dashboard mockup — 1:1 копия реального продукта ===
         _e(Reveal, { delay: "2" },
           _e("div", {
             className: "hh-cab-mockup",
             style: {
-              background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 22, overflow: "hidden",
+              background: "#0b0b0e", border: "1px solid var(--line)", borderRadius: 22, overflow: "hidden",
               boxShadow: "0 60px 120px -30px rgba(0,0,0,0.7)",
               marginBottom: 56
             }
           },
-            // Top bar (logo + greeting + user pill)
-            _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 24px", borderBottom: "1px solid var(--line)", background: "rgba(8,8,10,0.4)", flexWrap: "wrap", gap: 12 } },
-              _e("div", { style: { display: "flex", alignItems: "center", gap: 12 } },
-                _e("div", { style: { width: 32, height: 32, borderRadius: 8, background: "var(--accent)", display: "inline-flex", alignItems: "center", justifyContent: "center" } },
-                  _e("svg", { width: 16, height: 16, viewBox: "0 0 24 22.4", fill: "#13111c" }, _e("path", { d: "M 11.983 18.574 L 3.766 10.512 L 8.027 6.386 L 8.027 12.281 L 10.604 14.639 L 10.604 0 L 0 10.512 L 12.009 22.4 L 24 10.512 L 13.396 0 L 13.396 14.639 L 15.973 12.281 L 15.973 6.386 L 20.234 10.512 L 11.983 18.574 Z", fillRule: "evenodd" }))
+            // === Top header bar ===
+            _e("div", { className: "hh-cab-top", style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", borderBottom: "1px solid var(--line)", background: "rgba(8,8,10,0.6)", gap: 12 } },
+              // Left: HASH HEDGE | AFFILIATE CENTER + greeting
+              _e("div", { style: { display: "flex", alignItems: "center", gap: 18 } },
+                _e("div", { style: { display: "flex", alignItems: "center", gap: 10 } },
+                  _e("div", { style: { width: 26, height: 26, borderRadius: 6, background: "#fcd535", display: "inline-flex", alignItems: "center", justifyContent: "center" } },
+                    _e("svg", { width: 14, height: 14, viewBox: "0 0 24 22.4", style: { fill: "#13111c" } }, _e("path", { d: "M 11.983 18.574 L 3.766 10.512 L 8.027 6.386 L 8.027 12.281 L 10.604 14.639 L 10.604 0 L 0 10.512 L 12.009 22.4 L 24 10.512 L 13.396 0 L 13.396 14.639 L 15.973 12.281 L 15.973 6.386 L 20.234 10.512 L 11.983 18.574 Z", fillRule: "evenodd", style: { fill: "#13111c" } }))
+                  ),
+                  _e("div", { style: { display: "flex", alignItems: "center", gap: 6 } },
+                    _e("span", { style: { fontSize: 13, fontWeight: 800, letterSpacing: "0.02em", color: "#f5f1e8" } }, "HASH HEDGE"),
+                    _e("span", { style: { width: 1, height: 14, background: "var(--line)" } }),
+                    _e("span", { style: { fontSize: 10, fontWeight: 900, letterSpacing: "0.1em", color: "#fcd535", lineHeight: 1, textAlign: "left", display: "block" } }, "AFFILIATE", _e("br", null), "CENTER")
+                  )
                 ),
-                _e("div", null,
-                  _e("div", { style: { fontSize: 13, fontWeight: 800, letterSpacing: "0.04em" } }, "HASH HEDGE"),
-                  _e("div", { style: { fontSize: 10, color: "var(--fg-muted)", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" } }, "Партнёрский центр")
+                _e("div", { className: "hh-cab-toggle", style: { width: 28, height: 28, borderRadius: 6, background: "rgba(255,255,255,0.04)", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginLeft: 8 } },
+                  _e("svg", { width: 14, height: 14, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 2 } },
+                    _e("rect", { x: 3, y: 4, width: 18, height: 16, rx: 2, style: { fill: "none", stroke: "#a1a0a4" } }),
+                    _e("line", { x1: 9, y1: 4, x2: 9, y2: 20, style: { stroke: "#a1a0a4" } })
+                  )
+                ),
+                _e("div", { className: "hh-cab-greet", style: { lineHeight: 1.3 } },
+                  _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#f5f1e8" } }, "Hello, Denis!"),
+                  _e("div", { style: { fontSize: 12, color: "#a1a0a4" } }, "Welcome back, great to see you again!")
                 )
               ),
-              _e("div", { style: { display: "flex", alignItems: "center", gap: 14 } },
-                _e("div", { style: { fontSize: 13, color: "var(--fg-muted)", display: "none" }, className: "hh-cab-hello" }, "Здравствуйте, Партнёр!"),
-                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 100 } },
-                  _e("div", { style: { width: 22, height: 22, borderRadius: "50%", background: "linear-gradient(135deg, var(--accent), #f0b800)", color: "#13111c", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 900 } }, "P"),
-                  _e("span", { style: { fontSize: 12, fontWeight: 600 } }, "@hashhedge_affiliate")
+              // Right: manager pill + Bronze pill + icons
+              _e("div", { className: "hh-cab-top-right", style: { display: "flex", alignItems: "center", gap: 10 } },
+                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 10, padding: "6px 12px", border: "1px solid rgba(74,222,128,0.4)", borderRadius: 10, background: "rgba(8,8,10,0.5)" } },
+                  _e("div", { style: { width: 26, height: 26, borderRadius: "50%", background: "rgba(74,222,128,0.14)", display: "inline-flex", alignItems: "center", justifyContent: "center" } },
+                    _e("svg", { width: 14, height: 14, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#9ef0c0", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } },
+                      _e("path", { d: "M3 18v-6a9 9 0 0 1 18 0v6", style: { stroke: "#9ef0c0", fill: "none" } }),
+                      _e("path", { d: "M21 19a2 2 0 0 1-2 2h-1v-7h3v5zM3 19a2 2 0 0 0 2 2h1v-7H3v5z", style: { stroke: "#9ef0c0", fill: "none" } })
+                    )
+                  ),
+                  _e("div", { style: { lineHeight: 1.25 } },
+                    _e("div", { style: { fontSize: 12, fontWeight: 700, color: "#f5f1e8" } }, "@hashhedge_affiliate"),
+                    _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, "Your personal manager")
+                  )
                 ),
-                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 100 } },
-                  _e("span", { style: { fontSize: 12, fontWeight: 800, color: "var(--accent)" } }, "$34 244"),
-                  _e("span", { style: { fontSize: 11, color: "#cd7f32", fontWeight: 800 } }, "Bronze")
+                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 12px", borderRadius: 10 } },
+                  _e("span", { style: { fontSize: 14, fontWeight: 800, color: "#f5f1e8" } }, "$34 244"),
+                  _e("span", { style: { fontSize: 11, fontWeight: 800, color: "#cd7f32", letterSpacing: "0.02em" } }, "Bronze")
+                ),
+                _e("div", { className: "hh-cab-icons", style: { display: "flex", alignItems: "center", gap: 4 } },
+                  // theme toggle (moon)
+                  _e("div", { style: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center" } },
+                    _e(TopIcon, { d: ["M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"] })
+                  ),
+                  // bell
+                  _e("div", { style: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center" } },
+                    _e(TopIcon, { d: ["M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9", "M13.73 21a2 2 0 0 1-3.46 0"] })
+                  ),
+                  // profile
+                  _e("div", { style: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center" } },
+                    _e(TopIcon, { d: ["M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"] })
+                  ),
+                  // logout
+                  _e("div", { style: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center" } },
+                    _e(TopIcon, { d: ["M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", "M16 17l5-5-5-5", "M21 12H9"] })
+                  )
                 )
               )
             ),
 
-            // 2-column body: sidebar + main
-            _e("div", { className: "hh-cab-body", style: { display: "grid", gridTemplateColumns: "220px 1fr" } },
+            // === 2-column body: sidebar + main ===
+            _e("div", { className: "hh-cab-body", style: { display: "grid", gridTemplateColumns: "240px 1fr", minHeight: 560 } },
 
               // Sidebar
-              _e("div", { style: { borderRight: "1px solid var(--line)", padding: "20px 14px", background: "rgba(8,8,10,0.25)" } },
-                sidebarGroups.map((g, gi) => _e("div", { key: gi, style: { marginBottom: 20 } },
-                  _e("div", { style: { fontSize: 10, color: "var(--fg-muted)", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", padding: "0 10px", marginBottom: 8 } }, g.title),
-                  _e("div", { style: { display: "flex", flexDirection: "column", gap: 2 } },
-                    g.items.map((it, ii) => _e("div", {
-                      key: ii,
-                      style: {
-                        padding: "8px 10px", fontSize: 13, fontWeight: 600, borderRadius: 8,
-                        color: gi === 0 && ii === g.active ? "var(--accent)" : "var(--fg)",
-                        background: gi === 0 && ii === g.active ? "rgba(252,213,53,0.10)" : "transparent",
-                        cursor: "default"
-                      }
-                    }, it))
-                  )
-                ))
+              _e("div", { className: "hh-cab-side", style: { borderRight: "1px solid var(--line)", padding: "16px 12px", background: "rgba(8,8,10,0.4)", display: "flex", flexDirection: "column" } },
+                _e("div", { style: { flex: 1 } },
+                  sidebarGroups.map((g, gi) => _e("div", { key: gi, style: { marginBottom: 18 } },
+                    _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 11, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.08em", padding: "0 10px", marginBottom: 8 } },
+                      _e("span", null, g.title),
+                      _e("svg", { width: 12, height: 12, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 2 } },
+                        _e("path", { d: "M6 9l6 6 6-6", style: { fill: "none", stroke: "#a1a0a4" } })
+                      )
+                    ),
+                    _e("div", { style: { display: "flex", flexDirection: "column", gap: 2 } },
+                      g.items.map((it, ii) => {
+                        const active = !!it.active;
+                        return _e("div", {
+                          key: ii,
+                          style: {
+                            display: "flex", alignItems: "center", gap: 10,
+                            padding: "9px 10px", fontSize: 13, fontWeight: 600, borderRadius: 8,
+                            color: active ? "#fcd535" : "#f5f1e8",
+                            background: active ? "rgba(252,213,53,0.10)" : "transparent"
+                          }
+                        },
+                          _e(SidebarIcon, { d: it.icon, active }),
+                          _e("span", null, it.l)
+                        );
+                      })
+                    )
+                  ))
+                ),
+                // Bottom: Language + Affiliate Agreement
+                _e("div", { style: { paddingTop: 14, borderTop: "1px solid var(--line)" } },
+                  [
+                    { l: "Language", icon: ["M5 8l6 6", "M4 14l6-6 2-3", "M2 5h12", "M7 2h1", "M22 22l-5-10-5 10", "M14 18h6"] },
+                    { l: "Affiliate Agreement", icon: ["M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z", "M14 2v6h6"] }
+                  ].map((it, ii) => _e("div", {
+                    key: ii,
+                    style: { display: "flex", alignItems: "center", gap: 10, padding: "9px 10px", fontSize: 13, fontWeight: 600, color: "#f5f1e8" }
+                  },
+                    _e(SidebarIcon, { d: it.icon }), _e("span", null, it.l)
+                  ))
+                )
               ),
 
               // Main area
-              _e("div", { style: { padding: 24 } },
-                _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 } },
-                  _e("div", null,
-                    _e("div", { style: { fontSize: 11, color: "var(--fg-muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 } }, "Дашборд"),
-                    _e("div", { style: { fontSize: 12, color: "var(--fg-muted)" } }, "May 04, 2026 — Jun 02, 2026")
-                  ),
-                  _e("div", { style: { fontSize: 11, color: "var(--green)", display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 100 } },
-                    _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "var(--green)", boxShadow: "0 0 0 3px rgba(74,222,128,0.18)" } }), "live"
+              _e("div", { className: "hh-cab-main", style: { padding: 24 } },
+                // Partner Links collapsible bar
+                _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 28 } },
+                  _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, "Partner Links"),
+                  _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 2 } },
+                    _e("path", { d: "M6 9l6 6 6-6", style: { fill: "none", stroke: "#a1a0a4" } })
                   )
                 ),
 
-                // KPI row
-                _e("div", { className: "hh-cab-kpi", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 18 } },
-                  kpis.map((s, i) => _e("div", { key: i, style: { padding: 14, background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 12 } },
-                    _e("div", { style: { fontSize: 10, color: "var(--fg-muted)", marginBottom: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" } }, s.k),
-                    _e("div", { style: { fontSize: 18, fontWeight: 800, marginBottom: 4, letterSpacing: "-0.01em" } }, s.v),
-                    _e("div", { style: { fontSize: 11, color: "var(--green)", fontWeight: 700 } }, "↑ " + s.d)
-                  ))
-                ),
+                // Dashboard title
+                _e("h3", { style: { fontSize: 32, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", margin: "0 0 22px" } }, "Dashboard"),
 
-                // Chart with axis
-                _e("div", { style: { padding: 16, background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 12, marginBottom: 14 } },
-                  _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 } },
-                    _e("div", null,
-                      _e("div", { style: { fontSize: 11, color: "var(--fg-muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 } }, "Динамика дохода"),
-                      _e("div", { style: { fontSize: 18, fontWeight: 800 } }, "$34 244,80 ", _e("span", { style: { fontSize: 11, color: "var(--green)", fontWeight: 700, marginLeft: 6 } }, "↑ +21,7%"))
-                    ),
-                    _e("div", { style: { display: "flex", gap: 14, fontSize: 11, color: "var(--fg-muted)" } },
-                      _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 4 } }, _e("span", { style: { width: 8, height: 8, borderRadius: 2, background: "var(--accent)" } }), "Комиссия"),
-                      _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 4 } }, _e("span", { style: { width: 8, height: 8, borderRadius: 2, background: "var(--green)" } }), "Регистрации"),
-                      _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 4 } }, _e("span", { style: { width: 8, height: 8, borderRadius: 2, background: "#7d7d80" } }), "Покупки")
-                    )
-                  ),
-                  _e("svg", { width: "100%", height: 140, viewBox: "0 0 600 140", preserveAspectRatio: "none" },
-                    // grid
-                    [0, 35, 70, 105].map((y, i) => _e("line", { key: "g" + i, x1: 0, x2: 600, y1: y, y2: y, stroke: "rgba(255,255,255,0.04)", strokeWidth: 1 })),
-                    // commission area + line
-                    _e("path", { d: "M0 110 L 50 100 L 100 96 L 150 84 L 200 76 L 250 70 L 300 60 L 350 52 L 400 42 L 450 36 L 500 26 L 550 18 L 600 12 L 600 140 L 0 140 Z", fill: "url(#gradComm)", opacity: 0.22 }),
-                    _e("path", { d: "M0 110 L 50 100 L 100 96 L 150 84 L 200 76 L 250 70 L 300 60 L 350 52 L 400 42 L 450 36 L 500 26 L 550 18 L 600 12", stroke: "var(--accent)", strokeWidth: 2.5, fill: "none", strokeLinecap: "round" }),
-                    // regs line
-                    _e("path", { d: "M0 124 L 50 120 L 100 116 L 150 110 L 200 102 L 250 96 L 300 88 L 350 80 L 400 72 L 450 64 L 500 56 L 550 48 L 600 40", stroke: "var(--green)", strokeWidth: 2, fill: "none", strokeLinecap: "round", opacity: 0.7 }),
-                    // purchases line
-                    _e("path", { d: "M0 130 L 50 128 L 100 124 L 150 118 L 200 112 L 250 104 L 300 96 L 350 88 L 400 80 L 450 72 L 500 64 L 550 56 L 600 48", stroke: "#7d7d80", strokeWidth: 2, fill: "none", strokeLinecap: "round", opacity: 0.55 }),
-                    _e("defs", null, _e("linearGradient", { id: "gradComm", x1: "0", y1: "0", x2: "0", y2: "1" },
-                      _e("stop", { offset: "0%", stopColor: "var(--accent)" }),
-                      _e("stop", { offset: "100%", stopColor: "var(--accent)", stopOpacity: 0 })
+                // KPIs left column + Chart right
+                _e("div", { className: "hh-cab-stage", style: { display: "grid", gridTemplateColumns: "280px 1fr", gap: 16 } },
+
+                  // === Left: 4 KPI cards stacked vertically ===
+                  _e("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+                    [
+                      { k: "Total Purchases", v: "$48 920", d: "+18,4%", icon: ["M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z", "M3 6h18", "M16 10a4 4 0 0 1-8 0"] },
+                      { k: "Purchases Count", v: "312", d: "+24", icon: ["M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"] },
+                      { k: "Registrations", v: "1 284", d: "+61", icon: ["M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2", "M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M20 8v6", "M23 11h-6"] },
+                      { k: "Partner commission", v: "$34 244", d: "+21,7%", icon: ["M12 1v22", "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"] }
+                    ].map((s, i) => _e("div", { key: i, style: { padding: 18, background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 14 } },
+                      _e("div", { style: { display: "flex", alignItems: "center", gap: 10, marginBottom: 12 } },
+                        _e("svg", { width: 18, height: 18, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } },
+                          s.icon.map((p, j) => _e("path", { key: j, d: p, style: { fill: "none", stroke: "#a1a0a4" } }))
+                        ),
+                        _e("div", { style: { fontSize: 13, color: "#a1a0a4", fontWeight: 600 } }, s.k)
+                      ),
+                      _e("div", { style: { display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10 } },
+                        _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.015em" } }, s.v),
+                        _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px", borderRadius: 100, background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", fontSize: 11, fontWeight: 700, color: "#9ef0c0" } },
+                          _e("span", null, "↑"), s.d
+                        )
+                      )
                     ))
                   ),
-                  _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 10, color: "var(--fg-muted)", marginTop: 8 } },
-                    ["May 4", "May 8", "May 12", "May 16", "May 20", "May 24", "May 28", "Jun 1"].map(d => _e("span", { key: d }, d))
-                  )
-                ),
 
-                // Balance bar
-                _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 12, gap: 12 } },
-                  _e("div", null,
-                    _e("div", { style: { fontSize: 11, color: "var(--fg-muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" } }, "Баланс к выводу"),
-                    _e("div", { style: { fontSize: 20, fontWeight: 800, color: "var(--green)", letterSpacing: "-0.01em" } }, "$34 244,80 USDT")
-                  ),
-                  _e("button", { style: { padding: "12px 20px", background: "var(--green)", color: "#08080a", border: "none", borderRadius: 10, fontSize: 13, fontWeight: 800, cursor: "pointer" } }, "Вывести")
+                  // === Right: Big chart ===
+                  _e("div", { style: { padding: 22, background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 14, display: "flex", flexDirection: "column" } },
+                    _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 18 } },
+                      _e("div", null,
+                        _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1 } }, "$34 244,80"),
+                        _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 6 } }, "Balance")
+                      ),
+                      _e("div", { style: { padding: "8px 14px", background: "rgba(8,8,10,0.7)", border: "1px solid var(--line)", borderRadius: 100, fontSize: 12, fontWeight: 600, color: "#f5f1e8" } }, "May 06, 2026 — Jun 04, 2026")
+                    ),
+
+                    _e("div", { style: { display: "grid", gridTemplateColumns: "32px 1fr", gap: 8, flex: 1, minHeight: 240 } },
+                      // Y-axis labels (right side of chart in real but here we put on left)
+                      _e("div", { style: { display: "flex", flexDirection: "column", justifyContent: "space-between", fontSize: 10, color: "#a1a0a4", textAlign: "right" } },
+                        _e("span", null, "$80K"),
+                        _e("span", null, "$60K"),
+                        _e("span", null, "$40K"),
+                        _e("span", null, "$20K"),
+                        _e("span", null, "$0")
+                      ),
+                      _e("div", { style: { position: "relative" } },
+                        _e("svg", { width: "100%", height: 240, viewBox: "0 0 600 240", preserveAspectRatio: "none", style: { display: "block" } },
+                          // grid lines
+                          [0, 60, 120, 180, 239].map((y, i) => _e("line", { key: "g" + i, x1: 0, x2: 600, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.05)", strokeWidth: 1 } })),
+                          // commission area fill
+                          _e("defs", null,
+                            _e("linearGradient", { id: "gradCommBal", x1: "0", y1: "0", x2: "0", y2: "1" },
+                              _e("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: 0.32 }),
+                              _e("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: 0 })
+                            )
+                          ),
+                          _e("path", { d: "M0 200 L 35 195 L 70 185 L 105 175 L 140 160 L 175 145 L 210 130 L 245 118 L 280 100 L 315 88 L 350 75 L 385 60 L 420 48 L 455 38 L 490 28 L 525 22 L 560 18 L 600 14 L 600 240 L 0 240 Z", style: { fill: "url(#gradCommBal)" } }),
+                          _e("path", { d: "M0 200 L 35 195 L 70 185 L 105 175 L 140 160 L 175 145 L 210 130 L 245 118 L 280 100 L 315 88 L 350 75 L 385 60 L 420 48 L 455 38 L 490 28 L 525 22 L 560 18 L 600 14", style: { stroke: "#fcd535", strokeWidth: 2.5, fill: "none", strokeLinecap: "round" } }),
+                          // registrations (orange)
+                          _e("path", { d: "M0 220 L 35 218 L 70 215 L 105 210 L 140 203 L 175 195 L 210 188 L 245 180 L 280 170 L 315 160 L 350 148 L 385 135 L 420 122 L 455 108 L 490 92 L 525 78 L 560 64 L 600 50", style: { stroke: "#f59e0b", strokeWidth: 2, fill: "none", strokeLinecap: "round", opacity: 0.85 } }),
+                          // purchases (green)
+                          _e("path", { d: "M0 228 L 35 226 L 70 223 L 105 218 L 140 213 L 175 207 L 210 200 L 245 192 L 280 184 L 315 174 L 350 162 L 385 148 L 420 134 L 455 118 L 490 102 L 525 86 L 560 70 L 600 56", style: { stroke: "#9ef0c0", strokeWidth: 2, fill: "none", strokeLinecap: "round", opacity: 0.85 } })
+                        )
+                      )
+                    ),
+
+                    // X-axis dates
+                    _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 10, color: "#a1a0a4", marginTop: 10, paddingLeft: 40 } },
+                      ["May 6", "May 10", "May 14", "May 18", "May 22", "May 26", "May 30", "Jun 4"].map(d => _e("span", { key: d }, d))
+                    ),
+
+                    // Legend
+                    _e("div", { style: { display: "flex", justifyContent: "center", gap: 24, marginTop: 16, fontSize: 12, color: "#f5f1e8", fontWeight: 600 } },
+                      _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6 } }, _e("span", { style: { width: 10, height: 10, borderRadius: "50%", background: "#f59e0b" } }), "Registrations"),
+                      _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6 } }, _e("span", { style: { width: 10, height: 10, borderRadius: "50%", background: "#9ef0c0" } }), "Purchases"),
+                      _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6 } }, _e("span", { style: { width: 10, height: 10, borderRadius: "50%", background: "#fcd535" } }), "Commission")
+                    )
+                  )
                 )
               )
             ),
 
-            _e("div", { style: { padding: "12px 24px", borderTop: "1px solid var(--line)", fontSize: 10, color: "var(--fg-muted)", textAlign: "center", letterSpacing: "0.06em", textTransform: "uppercase" } }, "Demo data · реальный кабинет — в личном кабинете партнёра")
+            _e("div", { style: { padding: "10px 24px", borderTop: "1px solid var(--line)", fontSize: 10, color: "#a1a0a4", textAlign: "center", letterSpacing: "0.06em", textTransform: "uppercase" } }, "Demo data · реальный кабинет — partner.hashhedge.com")
           )
         ),
 
@@ -1031,64 +1138,109 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function Leaderboard() {
-    const rows = [
-      { n: 1, init: "QE", email: "qeq*****@gmail.ru",   lvl: 7, traders: 742, income: 59200 },
-      { n: 2, init: "TR", email: "tra*****@mail.ru",    lvl: 6, traders: 611, income: 45870 },
-      { n: 3, init: "CR", email: "cry*****@gmail.com",  lvl: 6, traders: 478, income: 33460 },
-      { n: 4, init: "MV", email: "mvp*****@gmail.ru",   lvl: 5, traders: 352, income: 23050 },
-      { n: 5, init: "AC", email: "ace*****@yandex.ru",  lvl: 5, traders: 238, income: 16740 },
-      { n: 6, init: "LE", email: "lev*****@gmail.ru",   lvl: 4, traders: 121, income: 7865 },
-      { n: 7, init: "NF", email: "nft*****@mail.ru",    lvl: 3, traders: 96,  income: 5760 }
+    // Точная копия реального лидерборда partner.hashhedge.com:
+    // - 3 таба (Продажи / Доход / Трейдеры)
+    // - Карточка с заголовком "Топ партнёры"
+    // - Таблица: Ранг / Партнёр / Первые покупки / Повторные покупки / Всего продаж
+    // - 10 строк (имена скрыты как Anonymous, иногда видимые ники)
+    const [tab, setTab] = useState("sales");
+    const tabs = [
+      { id: "sales", label: "Продажи" },
+      { id: "income", label: "Доход" },
+      { id: "traders", label: "Трейдеры" }
     ];
-    const medal = n => n === 1 ? "var(--accent)" : n === 2 ? "#c0c0c0" : n === 3 ? "#cd7f32" : "var(--fg-dim)";
+    // Данные с реального скрина для таба «Продажи»
+    const salesRows = [
+      { rank: 1,  name: "Anonymous",       first: 1992, repeat: 3218, total: 5210 },
+      { rank: 2,  name: "Boss",            first: 816,  repeat: 1875, total: 2691 },
+      { rank: 3,  name: "Anonymous",       first: 1163, repeat: 1058, total: 2221 },
+      { rank: 4,  name: "Anonymous",       first: 773,  repeat: 1234, total: 2007 },
+      { rank: 5,  name: "Anonymous",       first: 856,  repeat: 1079, total: 1935 },
+      { rank: 6,  name: "To The Moon 🚀",  first: 689,  repeat: 690,  total: 1379 },
+      { rank: 7,  name: "Anonymous",       first: 485,  repeat: 423,  total: 908  },
+      { rank: 8,  name: "Anonymous",       first: 387,  repeat: 451,  total: 838  },
+      { rank: 9,  name: "Anonymous",       first: 469,  repeat: 363,  total: 832  },
+      { rank: 10, name: "igoraa500",       first: 359,  repeat: 354,  total: 713  }
+    ];
+    // На остальных табах структура та же, цифры подгоняем под смысл
+    const incomeRows = salesRows.map(r => ({ rank: r.rank, name: r.name, first: r.first * 99, repeat: r.repeat * 99, total: r.total * 99 }));
+    const tradersRows = salesRows.map(r => ({ rank: r.rank, name: r.name, first: Math.round(r.first * 0.4), repeat: Math.round(r.repeat * 0.4), total: Math.round(r.total * 0.4) }));
+    const rows = tab === "sales" ? salesRows : tab === "income" ? incomeRows : tradersRows;
+    const colHeaders = tab === "sales"
+      ? ["Ранг", "Партнёр", "Первые покупки", "Повторные покупки", "Всего продаж"]
+      : tab === "income"
+      ? ["Ранг", "Партнёр", "Первый доход", "Повторный доход", "Всего дохода"]
+      : ["Ранг", "Партнёр", "Активные", "Funded", "Всего трейдеров"];
+    const fmt = n => tab === "income" ? `$${n.toLocaleString("ru-RU").replace(/,/g, " ")}` : n.toLocaleString("ru-RU").replace(/,/g, " ");
     return _e("section", { id: "leaderboard", style: { padding: "120px 0", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
-          _e("div", { style: { display: "flex", alignItems: "center", gap: 10, marginBottom: 18, color: "var(--green)", fontSize: 12, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "Akrobat, Onest, sans-serif" } },
-            _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "var(--green)", boxShadow: "0 0 0 4px rgba(74,222,128,0.18)" } }),
-            "Обновляется в реальном времени"
-          ),
-          _e("h2", { className: "h1", style: { marginBottom: 16, maxWidth: 820 } },
+          _e("span", { className: "eyebrow", style: { marginBottom: 24 } }, _e("span", { className: "dot" }), "Обновляется в реальном времени"),
+          _e("h2", { className: "h1", style: { marginTop: 24, marginBottom: 16, maxWidth: 820 } },
             "Лидерборд ", _e("span", { style: { color: "var(--accent)" } }, "партнёров")
           ),
-          _e("p", { style: { color: "var(--fg-dim)", fontSize: 17, maxWidth: 640, marginBottom: 40 } },
-            "Топ партнёров Hash Hedge по доходу за текущий месяц. Место в рейтинге можешь занять ты."
+          _e("p", { style: { color: "var(--fg-muted)", fontSize: 17, maxWidth: 640, marginBottom: 32 } },
+            "Топ партнёров Hash Hedge за текущий месяц. Место в рейтинге можешь занять ты."
           )
         ),
+
+        // === Tabs ===
         _e(Reveal, { delay: "1" },
+          _e("div", { className: "hh-lb-tabs", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 16 } },
+            tabs.map(t => _e("button", {
+              key: t.id,
+              onClick: () => setTab(t.id),
+              style: {
+                padding: "14px 18px",
+                background: tab === t.id ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.025)",
+                border: tab === t.id ? "1px solid rgba(255,255,255,0.18)" : "1px solid var(--line)",
+                borderRadius: 12, color: tab === t.id ? "#f5f1e8" : "#a1a0a4",
+                fontSize: 14, fontWeight: 700, cursor: "pointer",
+                transition: "all .2s"
+              }
+            }, t.label))
+          )
+        ),
+
+        // === Leaderboard card ===
+        _e(Reveal, { delay: "2" },
           _e("div", {
+            className: "hh-lb-card",
             style: {
-              background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace"
+              background: "rgba(255,255,255,0.02)", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden"
             }
           },
-            _e("div", { style: { display: "grid", gridTemplateColumns: "60px 1fr 140px 140px 140px", gap: 16, padding: "16px 24px", borderBottom: "1px solid var(--line)", fontSize: 11, color: "var(--fg-dim)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" } },
-              _e("div", null, "#"), _e("div", null, "Партнёр"), _e("div", null, "Уровень"), _e("div", null, "Трейдеров"), _e("div", { style: { textAlign: "right" } }, "Доход за месяц")
+            // Card header
+            _e("div", { style: { padding: "22px 28px", borderBottom: "1px solid var(--line)" } },
+              _e("div", { style: { fontSize: 18, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em" } }, "Топ партнёры")
             ),
-            rows.map(r => _e("div", {
-              key: r.n,
+
+            // Table headers
+            _e("div", { className: "hh-lb-row hh-lb-head", style: { display: "grid", gridTemplateColumns: "100px 1.4fr 1fr 1fr 1fr", gap: 16, padding: "18px 28px", borderBottom: "1px solid var(--line)", background: "rgba(255,255,255,0.02)" } },
+              colHeaders.map((h, i) => _e("div", { key: i, style: { fontSize: 12, color: "#a1a0a4", fontWeight: 600 } }, h))
+            ),
+
+            // Table rows (zebra)
+            rows.map((r, i) => _e("div", {
+              key: r.rank,
+              className: "hh-lb-row",
               style: {
-                display: "grid", gridTemplateColumns: "60px 1fr 140px 140px 140px", gap: 16,
-                padding: "18px 24px", borderBottom: "1px solid var(--line)", alignItems: "center", fontSize: 14,
-                transition: "background .2s"
-              },
-              onMouseEnter: e => e.currentTarget.style.background = "rgba(252,213,53,0.04)",
-              onMouseLeave: e => e.currentTarget.style.background = "transparent"
+                display: "grid", gridTemplateColumns: "100px 1.4fr 1fr 1fr 1fr", gap: 16,
+                padding: "18px 28px", alignItems: "center", fontSize: 16,
+                background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent",
+                color: "#f5f1e8", fontWeight: 700
+              }
             },
-              _e("div", { style: { color: medal(r.n), fontWeight: 800, fontSize: 16 } },
-                r.n <= 3 ? `★ ${r.n}` : r.n
+              _e("div", null, r.rank),
+              _e("div", { style: { display: "flex", alignItems: "center", gap: 8 } },
+                _e("span", { style: { color: r.name === "Anonymous" ? "#a1a0a4" : "#f5f1e8" } }, r.name)
               ),
-              _e("div", { style: { display: "flex", alignItems: "center", gap: 10 } },
-                _e("div", { style: { width: 30, height: 30, borderRadius: 8, background: "var(--line)", color: "var(--fg)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800 } }, r.init),
-                _e("span", { style: { fontWeight: 600, fontFamily: "Onest, sans-serif" } }, r.email)
-              ),
-              _e("div", null,
-                _e("span", { style: { padding: "4px 10px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "var(--accent)", fontSize: 11, fontWeight: 700, fontFamily: "Onest, sans-serif" } }, `Ур ${r.lvl} · ${[50,55,60,65,70,75,80][r.lvl-1]}%`)
-              ),
-              _e("div", { style: { fontWeight: 700 } }, r.traders),
-              _e("div", { style: { textAlign: "right", color: "var(--green)", fontWeight: 800 } }, `$${r.income.toLocaleString("ru-RU").replace(/,/g, " ")}`)
+              _e("div", null, fmt(r.first)),
+              _e("div", null, fmt(r.repeat)),
+              _e("div", null, fmt(r.total))
             )),
-            _e("div", { style: { padding: "14px 24px", fontSize: 11, color: "var(--fg-dim)", fontFamily: "Onest, sans-serif", display: "flex", justifyContent: "space-between" } },
+
+            _e("div", { style: { padding: "14px 28px", fontSize: 12, color: "#a1a0a4", display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--line)" } },
               _e("span", null, "Обновлено только что"),
               _e("span", null, "Топ-5 закрепляются по итогам месяца · почты скрыты")
             )
@@ -1575,9 +1727,13 @@
         .hh-calc-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
         .hh-steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-cab-body { grid-template-columns: 1fr !important; }
-        .hh-cab-body > div:first-child { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
-        .hh-cab-kpi { grid-template-columns: repeat(2, 1fr) !important; }
+        .hh-cab-side { display: none !important; }
+        .hh-cab-stage { grid-template-columns: 1fr !important; gap: 12px !important; }
+        .hh-cab-top { flex-wrap: wrap !important; }
+        .hh-cab-greet { display: none !important; }
+        .hh-cab-icons { display: none !important; }
         .hh-cab-explainers { grid-template-columns: repeat(2, 1fr) !important; }
+        .hh-lb-row { grid-template-columns: 60px 1.4fr 1fr 1fr 1fr !important; padding: 14px 18px !important; font-size: 14px !important; }
         .hh-tg-grid, .hh-support-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
         .hh-events-grid { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
@@ -1590,7 +1746,9 @@
         .hh-hero-metrics { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-why-grid, .hh-steps-grid, .hh-events-grid, .hh-cab-explainers { grid-template-columns: 1fr !important; }
         .hh-tiers-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        .hh-cab-kpi { grid-template-columns: repeat(2, 1fr) !important; }
+        .hh-cab-top-right > div:nth-child(2) { display: none !important; }
+        .hh-lb-row { grid-template-columns: 40px 1fr 60px 60px 60px !important; padding: 12px 14px !important; font-size: 12px !important; gap: 8px !important; }
+        .hh-lb-tabs { grid-template-columns: 1fr !important; }
         .hh-footer-grid { grid-template-columns: 1fr !important; }
       }
       /* Slider thumb */
