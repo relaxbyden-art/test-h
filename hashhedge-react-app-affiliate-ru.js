@@ -726,13 +726,15 @@
         shape === "circle" && _e("circle", { cx: 12, cy: 12, r: 9, style: { stroke: color, fill: "none" } })
       )
     );
+    // Все шейпы жёлтые #fcd535 (как на главной HowItWorks). Уровни различаются формой,
+    // не цветом. Tier 7 выделен жёлтой подложкой и glow — он featured.
     const tiers = [
       { lvl: 7, pct: 80, range: "700+",   label: "максимум", shape: "diamond",  color: "#fcd535", featured: true },
-      { lvl: 6, pct: 75, range: "400–699", label: null,      shape: "hexagon",  color: "#ff7b7b" },
-      { lvl: 5, pct: 70, range: "200–399", label: null,      shape: "pentagon", color: "#a98cff" },
-      { lvl: 4, pct: 65, range: "100–199", label: null,      shape: "shield",   color: "#7d9eff" },
-      { lvl: 3, pct: 60, range: "50–99",   label: null,      shape: "square",   color: "#a1a0a4" },
-      { lvl: 2, pct: 55, range: "15–49",   label: null,      shape: "rhombus",  color: "#9ef0c0" },
+      { lvl: 6, pct: 75, range: "400–699", label: null,      shape: "hexagon",  color: "#fcd535" },
+      { lvl: 5, pct: 70, range: "200–399", label: null,      shape: "pentagon", color: "#fcd535" },
+      { lvl: 4, pct: 65, range: "100–199", label: null,      shape: "shield",   color: "#fcd535" },
+      { lvl: 3, pct: 60, range: "50–99",   label: null,      shape: "square",   color: "#fcd535" },
+      { lvl: 2, pct: 55, range: "15–49",   label: null,      shape: "rhombus",  color: "#fcd535" },
       { lvl: 1, pct: 50, range: "0–14",    label: "старт",   shape: "circle",   color: "#fcd535" }
     ];
     return _e("section", { id: "levels", style: { padding: "100px 0 120px", background: "var(--bg)" } },
