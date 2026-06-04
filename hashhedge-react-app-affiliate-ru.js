@@ -863,7 +863,7 @@
                     onChange: e => setChIdx(Number(e.target.value)),
                     style: {
                       width: "100%", padding: "16px 18px", fontSize: 16, fontWeight: 700,
-                      background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 12,
+                      background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 12,
                       color: "#f5f1e8", appearance: "none", WebkitAppearance: "none",
                       cursor: "pointer"
                     }
@@ -887,7 +887,7 @@
                 ),
                 _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 12, lineHeight: 1.5 } }, "Больше активных трейдеров в месяц — выше твой уровень и комиссия.")
               ),
-              _e("div", { style: { padding: "18px 22px", background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 } },
+              _e("div", { style: { padding: "18px 22px", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 } },
                 _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
                   _e("div", null,
                     _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4, fontFamily: "Akrobat, Onest, sans-serif" } }, "Твой уровень · авто"),
@@ -1195,7 +1195,7 @@
               { ic: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2", t: "Статистика по суб-партнёрам", b: "Контролируй начисления со всех уровней: твоих прямых партнёров и их рефералов." },
               { ic: "M21 12H7 M14 5l7 7-7 7", t: "Вывод в любой момент", b: "Запрашивай выплаты в USDT без фиксированных дат." },
               { ic: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71", t: "Гибкие инструменты", b: "Генерируй ссылки, промокоды и подключай постбэки за пару секунд." }
-            ].map((ex, i) => _e("div", { key: i, style: { padding: 18, background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14 } },
+            ].map((ex, i) => _e("div", { key: i, style: { padding: 18, background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14 } },
               _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", marginBottom: 12 } },
                 _e("path", { d: ex.ic, style: { fill: "none", stroke: "#fcd535" } })
               ),
@@ -1325,7 +1325,7 @@
           },
             videos.map((v, i) => _e("a", {
               key: i, href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
-              style: { background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)", scrollSnapAlign: "start" }
+              style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)", scrollSnapAlign: "start" }
             },
               _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${v.id}/hqdefault.jpg) center / cover, #111` } },
                 _e("div", { style: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 48, height: 48, borderRadius: "50%", background: "#ff0000", display: "inline-flex", alignItems: "center", justifyContent: "center" } },
@@ -1356,7 +1356,7 @@
       { dot: "#fcd535", flag: "",   city: "Награждение", title: "Топ-партнёр Hash Hedge 2026",     img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
     ];
     const Card = ({ ev, big }) => _e("div", null,
-      _e("div", { style: { position: "relative", aspectRatio: big ? "3 / 1.4" : "1.4 / 1", borderRadius: 18, overflow: "hidden", background: "var(--bg-card)", border: "1px solid var(--line)", marginBottom: 16 } },
+      _e("div", { style: { position: "relative", aspectRatio: big ? "3 / 1.4" : "1.4 / 1", borderRadius: 18, overflow: "hidden", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", marginBottom: 16 } },
         _e("div", { style: { position: "absolute", inset: 0, backgroundImage: `url(${ev.img})`, backgroundSize: "cover", backgroundPosition: "center" } }),
         _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)", pointerEvents: "none" } }),
         _e("div", { style: { position: "absolute", bottom: 16, left: 16, display: "inline-flex", alignItems: "center", gap: 8, padding: "7px 14px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.04em", textTransform: "uppercase" } },
@@ -1445,7 +1445,7 @@
 
           // Chat mockup
           _e(Reveal, { delay: "2" },
-            _e("div", { style: { background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 18, padding: 22, display: "flex", flexDirection: "column", aspectRatio: "1.4 / 1.2" } },
+            _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 18, padding: 22, display: "flex", flexDirection: "column", aspectRatio: "1.4 / 1.2" } },
               // header
               _e("div", { style: { display: "flex", alignItems: "center", gap: 12, paddingBottom: 16, borderBottom: "1px solid var(--line)", marginBottom: 14 } },
                 _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80" } }),
@@ -1487,7 +1487,7 @@
         _e(Reveal, { delay: "3" },
           _e("div", { className: "hh-sup-ctas", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 18 } },
             _e("a", { href: "#cta",
-              style: { display: "flex", alignItems: "center", gap: 14, padding: 22, background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none" }
+              style: { display: "flex", alignItems: "center", gap: 14, padding: 22, background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none" }
             },
               _e("div", { style: { width: 42, height: 42, borderRadius: 12, background: "rgba(255,255,255,0.04)", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#a1a0a4", fontSize: 18 } }, "👤"),
               _e("div", { style: { flex: 1 } },
@@ -1497,7 +1497,7 @@
               _e("span", { style: { color: "#a1a0a4", fontSize: 18 } }, "→")
             ),
             _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-              style: { display: "flex", alignItems: "center", gap: 14, padding: 22, background: "var(--bg-card)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 14, textDecoration: "none" }
+              style: { display: "flex", alignItems: "center", gap: 14, padding: 22, background: "rgba(11,11,14,0.85)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 14, textDecoration: "none" }
             },
               _e("div", { style: { width: 42, height: 42, borderRadius: 12, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", display: "inline-flex", alignItems: "center", justifyContent: "center" } },
                 _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fcd535" } },
@@ -1550,7 +1550,7 @@
           _e("div", { style: { maxWidth: 820, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 } },
             items.map((it, i) => _e("div", {
               key: i,
-              style: { background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }
+              style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }
             },
               _e("button", { onClick: () => setOpen(open === i ? -1 : i),
                 style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", color: "#f5f1e8", fontSize: 16, fontWeight: 700, textAlign: "left" }
@@ -1563,7 +1563,7 @@
           )
         ),
         _e(Reveal, { delay: "2" },
-          _e("div", { style: { maxWidth: 820, margin: "40px auto 0", padding: 24, background: "var(--bg-card)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 14, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 } },
+          _e("div", { style: { maxWidth: 820, margin: "40px auto 0", padding: 24, background: "rgba(11,11,14,0.85)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 14, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 } },
             _e("div", null,
               _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8" } }, "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")),
               _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 4 } }, "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе.")
@@ -1591,7 +1591,7 @@
         _e(Reveal, null,
           _e("div", { style: {
             maxWidth: 880, margin: "0 auto", padding: "72px 32px",
-            background: "radial-gradient(ellipse at top, rgba(252,213,53,0.10), transparent 60%), var(--bg-card)",
+            background: "radial-gradient(ellipse at top, rgba(252,213,53,0.10), transparent 60%), rgba(11,11,14,0.85)" ,
             border: "1px solid var(--line)", borderRadius: 24
           } },
             _e("span", {
