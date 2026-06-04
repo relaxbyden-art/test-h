@@ -7839,6 +7839,12 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 
   #hashhedge-root .tilda-html-hashhedge #why {
     background: var(--bg) !important;
+    /* 2026-06-04: cut huge empty band under "Built by traders / Run like a hedge fund" */
+    padding-top: 96px !important;
+    padding-bottom: 40px !important;
+  }
+  #hashhedge-root .tilda-html-hashhedge #payouts {
+    padding-top: 64px !important;
   }
 
   #hashhedge-root .tilda-html-hashhedge #payouts {
