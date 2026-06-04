@@ -520,7 +520,7 @@
             _e("div", {
               className: "hh-card",
               style: {
-                background: "var(--bg-elev)",
+                background: "var(--bg-card)",
                 border: "1px solid var(--line)",
                 borderRadius: 18, padding: 28,
                 transition: "transform .3s var(--ease-out), border-color .3s, box-shadow .3s",
@@ -593,7 +593,7 @@
           sources.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("div", {
               style: {
-                background: "var(--bg-elev)", border: "1px solid var(--line)",
+                background: "var(--bg-card)", border: "1px solid var(--line)",
                 borderRadius: 18, padding: 32, position: "relative", overflow: "hidden", height: "100%"
               }
             },
@@ -640,7 +640,7 @@
           tiers.map((t, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
             _e("div", {
               style: {
-                background: t.lvl === 7 ? "linear-gradient(180deg, rgba(252,213,53,0.14), rgba(252,213,53,0.04))" : "var(--bg-elev)",
+                background: t.lvl === 7 ? "linear-gradient(180deg, rgba(252,213,53,0.14), rgba(252,213,53,0.04))" : "var(--bg-card)",
                 border: t.lvl === 7 ? "2px solid var(--accent)" : "1px solid var(--line)",
                 borderRadius: 16, padding: "22px 16px", textAlign: "center",
                 position: "relative", height: "100%",
@@ -659,7 +659,7 @@
         ),
 
         _e(Reveal, { delay: "3" },
-          _e("div", { style: { display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "28px 32px", background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 16 } },
+          _e("div", { style: { display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "28px 32px", background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 16 } },
             _e("div", null,
               _e("div", { style: { fontSize: 18, fontWeight: 800, marginBottom: 4 } },
                 "Старт сразу с ", _e("span", { style: { color: "var(--accent)" } }, "50% RevShare")
@@ -833,7 +833,7 @@
         _e("div", { className: "hh-steps-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 } },
           steps.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("div", {
-              style: { background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 18, padding: 28, position: "relative", height: "100%" }
+              style: { background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 18, padding: 28, position: "relative", height: "100%" }
             },
               _e("div", { style: { fontSize: 64, fontWeight: 900, color: "var(--accent)", opacity: 0.14, lineHeight: 1, position: "absolute", top: 16, right: 20, fontFamily: "Akrobat, Onest, sans-serif" } }, s.n),
               _e("div", { style: { fontSize: 11, fontWeight: 800, color: "var(--accent)", letterSpacing: "0.1em", marginBottom: 18 } }, s.chip),
@@ -1141,7 +1141,7 @@
         // === 4 explainer cards ===
         _e(Reveal, { delay: "3" },
           _e("div", { className: "hh-cab-explainers", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 } },
-            explainers.map((ex, i) => _e("div", { key: i, style: { padding: 22, background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 14 } },
+            explainers.map((ex, i) => _e("div", { key: i, style: { padding: 22, background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14 } },
               _e("div", { style: { width: 32, height: 32, borderRadius: 10, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "var(--accent)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13, marginBottom: 14 } }, i + 1),
               _e("div", { style: { fontWeight: 700, fontSize: 14, marginBottom: 6, letterSpacing: "-0.005em" } }, ex.t),
               _e("div", { style: { fontSize: 13, color: "var(--fg-muted)", lineHeight: 1.5 } }, ex.b)
@@ -1309,7 +1309,7 @@
               href: `https://www.youtube.com/watch?v=${v.id}`,
               target: "_blank", rel: "noopener noreferrer",
               style: {
-                background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden",
+                background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden",
                 textDecoration: "none", color: "var(--fg)", scrollSnapAlign: "start",
                 transition: "transform .25s, border-color .25s, box-shadow .25s"
               },
@@ -1422,7 +1422,7 @@
                   ["146", "Сейчас онлайн"],
                   ["<2 мин", "Ответ менеджера"],
                   ["24/7", "Чат открыт всегда"]
-                ].map(([v, l], i) => _e("div", { key: i, style: { padding: 18, background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 12 } },
+                ].map(([v, l], i) => _e("div", { key: i, style: { padding: 18, background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 12 } },
                   _e("div", { style: { fontSize: 26, fontWeight: 900, color: "var(--accent)", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6 } }, v),
                   _e("div", { style: { fontSize: 12, color: "var(--fg-dim)", fontWeight: 600 } }, l)
                 ))
@@ -1490,15 +1490,15 @@
                 "Поддержка работает круглосуточно на 20+ языках. У каждого партнёра — личный менеджер, который помогает расти и зарабатывать больше."
               ),
               _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 28 } },
-                ["RU", "EN", "ES", "TR", "PT", "DE", "FR", "AR"].map(l => _e("span", { key: l, style: { padding: "6px 12px", borderRadius: 8, background: "var(--bg-elev)", border: "1px solid var(--line)", fontSize: 12, fontWeight: 700 } }, l)),
+                ["RU", "EN", "ES", "TR", "PT", "DE", "FR", "AR"].map(l => _e("span", { key: l, style: { padding: "6px 12px", borderRadius: 8, background: "var(--bg-card)", border: "1px solid var(--line)", fontSize: 12, fontWeight: 700 } }, l)),
                 _e("span", { style: { padding: "6px 12px", borderRadius: 8, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "var(--accent)", fontSize: 12, fontWeight: 700 } }, "+12 ещё")
               ),
               _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 } },
-                _e("a", { href: "#cta", style: { display: "block", padding: 18, background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", color: "var(--fg)", transition: "border-color .2s" }, onMouseEnter: e => e.currentTarget.style.borderColor = "var(--accent)", onMouseLeave: e => e.currentTarget.style.borderColor = "var(--line)" },
+                _e("a", { href: "#cta", style: { display: "block", padding: 18, background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", color: "var(--fg)", transition: "border-color .2s" }, onMouseEnter: e => e.currentTarget.style.borderColor = "var(--accent)", onMouseLeave: e => e.currentTarget.style.borderColor = "var(--line)" },
                   _e("div", { style: { fontSize: 14, fontWeight: 800, marginBottom: 4 } }, "Личный менеджер"),
                   _e("div", { style: { fontSize: 12, color: "var(--fg-dim)" } }, "Закрепляется после регистрации →")
                 ),
-                _e("a", { href: "https://t.me/hashhedge_affiliate", style: { display: "block", padding: 18, background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", color: "var(--fg)", transition: "border-color .2s" }, onMouseEnter: e => e.currentTarget.style.borderColor = "var(--accent)", onMouseLeave: e => e.currentTarget.style.borderColor = "var(--line)" },
+                _e("a", { href: "https://t.me/hashhedge_affiliate", style: { display: "block", padding: 18, background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", color: "var(--fg)", transition: "border-color .2s" }, onMouseEnter: e => e.currentTarget.style.borderColor = "var(--accent)", onMouseLeave: e => e.currentTarget.style.borderColor = "var(--line)" },
                   _e("div", { style: { fontSize: 14, fontWeight: 800, marginBottom: 4 } }, "Telegram-поддержка"),
                   _e("div", { style: { fontSize: 12, color: "var(--fg-dim)" } }, "Задай любой вопрос →")
                 )
@@ -1508,7 +1508,7 @@
           _e(Reveal, { delay: "2" },
             _e("div", {
               style: {
-                background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 18, padding: 24,
+                background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 18, padding: 24,
                 boxShadow: "0 40px 80px -20px rgba(0,0,0,0.4)"
               }
             },
@@ -1600,7 +1600,7 @@
           )
         ),
         _e(Reveal, { delay: "2" },
-          _e("div", { style: { marginTop: 48, padding: "24px 28px", background: "var(--bg-elev)", border: "1px solid var(--line)", borderRadius: 14, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, maxWidth: 820 } },
+          _e("div", { style: { marginTop: 48, padding: "24px 28px", background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, maxWidth: 820 } },
             _e("div", null,
               _e("div", { style: { fontSize: 15, fontWeight: 700, marginBottom: 4 } }, "Остались вопросы?"),
               _e("div", { style: { fontSize: 13, color: "var(--fg-dim)" } }, "Напиши в Telegram — ответим на всё по программе.")
