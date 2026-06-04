@@ -1350,14 +1350,55 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function Events() {
-    // 1:1 как на vercel — те же фото, теже подписи, без "Hash Hedge"-суффиксов
-    // и без эмодзи-флага для Награждения (его на vercel нет).
-    const events = [
-      { chip: "🇦🇪 Дубай · Blockchain Life", title: "Встреча партнёров Hash Hedge в Дубае", img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
-      { chip: "🇧🇷 Сан-Паулу",              title: "Закрытая afterparty в Сан-Паулу", img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
-      { chip: "🇷🇺 Москва",                 title: "Партнёрский вечер", img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
-      { chip: "Награждение",                title: "Топ-партнёр Hash Hedge 2026", img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
+    // 1:1 как на vercel: 1 hero card сверху на всю ширину + 3 поменьше снизу.
+    // Заголовок ПОД картинкой (не overlay), chip-пилл с status-dot bottom-left на фото.
+    const hero = { dot: "#ff3b3b", flag: "🇦🇪", city: "Дубай · Blockchain Life", title: "Встреча партнёров Hash Hedge в Дубае", img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" };
+    const rest = [
+      { dot: "#4ade80", flag: "🇧🇷", city: "Сан-Паулу",  title: "Закрытая afterparty в Сан-Паулу", img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
+      { dot: "#fcd535", flag: "🇷🇺", city: "Москва",     title: "Партнёрский вечер",              img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
+      { dot: "#fcd535", flag: "",   city: "Награждение", title: "Топ-партнёр Hash Hedge 2026",     img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
     ];
+
+    const Chip = ({ dot, flag, city }) => _e("div", {
+      style: {
+        position: "absolute", bottom: 16, left: 16,
+        display: "inline-flex", alignItems: "center", gap: 8,
+        padding: "7px 14px",
+        background: "rgba(8,8,10,0.78)",
+        backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
+        border: "1px solid rgba(255,255,255,0.10)",
+        borderRadius: 100,
+        fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.04em", textTransform: "uppercase"
+      }
+    },
+      _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: dot, display: "inline-block" } }),
+      flag && _e("span", { style: { fontSize: 13, textTransform: "none", letterSpacing: 0 } }, flag),
+      _e("span", null, city)
+    );
+
+    const Card = ({ ev, big }) => _e("div", null,
+      // Image with chip
+      _e("div", {
+        style: {
+          position: "relative", aspectRatio: big ? "3 / 1.4" : "1.4 / 1",
+          borderRadius: 18, overflow: "hidden",
+          background: "var(--bg-card)",
+          border: "1px solid var(--line)",
+          marginBottom: 16
+        }
+      },
+        _e("div", { style: {
+          position: "absolute", inset: 0,
+          backgroundImage: `url(${ev.img})`,
+          backgroundSize: "cover", backgroundPosition: "center"
+        }}),
+        _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)", pointerEvents: "none" } }),
+        _e(Chip, { dot: ev.dot, flag: ev.flag, city: ev.city })
+      ),
+      // Title below the image
+      _e("div", { style: { fontSize: big ? 22 : 17, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em", color: "var(--fg)", padding: "0 4px" } }, ev.title)
+    );
+
     return _e("section", { id: "events", className: "hh-events-section", style: { padding: "120px 0", position: "relative", overflow: "hidden", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
@@ -1369,45 +1410,18 @@
             "От Blockchain Life в Дубае до партнёрских вечеров в Москве — Hash Hedge собирает партнёров на конференциях, закрытых встречах и награждениях по всему миру."
           )
         ),
-        // 2×2 grid с крупными карточками 4:3 — больше воздуха и фото подаются лучше
-        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 } },
-          events.map((ev, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
-            _e("div", {
-              style: {
-                position: "relative", aspectRatio: "4 / 3", borderRadius: 18, overflow: "hidden",
-                background: "var(--bg-card)",
-                border: "1px solid var(--line)", cursor: "pointer",
-                transition: "transform .35s var(--ease-out), box-shadow .35s var(--ease-out), border-color .25s"
-              },
-              onMouseEnter: e => {
-                e.currentTarget.style.transform = "translateY(-4px) scale(1.012)";
-                e.currentTarget.style.boxShadow = "0 40px 80px -24px rgba(0,0,0,0.65)";
-                e.currentTarget.style.borderColor = "rgba(252,213,53,0.35)";
-              },
-              onMouseLeave: e => {
-                e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = "var(--line)";
-              }
-            },
-              // Background image (отдельным слоем — лучше масштабируется при hover)
-              _e("div", { style: {
-                position: "absolute", inset: 0,
-                backgroundImage: `url(${ev.img})`,
-                backgroundSize: "cover", backgroundPosition: "center",
-                transition: "transform .6s var(--ease-out)"
-              }}),
-              // Bottom gradient overlay
-              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
-              // Top chip (flag + city)
-              _e("div", { style: { position: "absolute", top: 18, left: 18, padding: "7px 14px", background: "rgba(8,8,10,0.65)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 12, fontWeight: 700, color: "#fff" } },
-                ev.chip
-              ),
-              // Title at bottom
-              _e("div", { style: { position: "absolute", bottom: 22, left: 22, right: 22, color: "#fff" } },
-                _e("div", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.015em" } }, ev.title)
-              )
-            )
+
+        // Hero card (1 big на всю ширину)
+        _e(Reveal, { delay: "1" },
+          _e("div", { style: { marginBottom: 24 } },
+            _e(Card, { ev: hero, big: true })
+          )
+        ),
+
+        // 3 smaller cards в ряд
+        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 } },
+          rest.map((ev, i) => _e(Reveal, { key: i, delay: String((i % 3) + 2) },
+            _e(Card, { ev, big: false })
           ))
         )
       )
@@ -1770,7 +1784,7 @@
         .hh-cab-explainers { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-lb-row { grid-template-columns: 60px 1.4fr 1fr 1fr 1fr !important; padding: 14px 18px !important; font-size: 14px !important; }
         .hh-tg-grid, .hh-support-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-        .hh-events-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+        .hh-events-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 18px !important; }
         .hh-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
         .hh-nav-desktop { display: none !important; }
         .hh-mob-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
@@ -1779,7 +1793,8 @@
       }
       @media (max-width: 640px) {
         .hh-hero-metrics { grid-template-columns: repeat(2, 1fr) !important; }
-        .hh-why-grid, .hh-steps-grid, .hh-events-grid, .hh-cab-explainers { grid-template-columns: 1fr !important; }
+        .hh-why-grid, .hh-steps-grid, .hh-cab-explainers { grid-template-columns: 1fr !important; }
+        .hh-events-grid { grid-template-columns: 1fr !important; }
         .hh-tiers-grid { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-cab-top-right > div:nth-child(2) { display: none !important; }
         .hh-lb-row { grid-template-columns: 40px 1fr 60px 60px 60px !important; padding: 12px 14px !important; font-size: 12px !important; gap: 8px !important; }
