@@ -1350,47 +1350,62 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function Events() {
+    // 1:1 как на vercel — те же фото, теже подписи, без "Hash Hedge"-суффиксов
+    // и без эмодзи-флага для Награждения (его на vercel нет).
     const events = [
-      { city: "Дубай · Blockchain Life", flag: "🇦🇪", title: "Встреча партнёров Hash Hedge в Дубае", img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
-      { city: "Сан-Паулу", flag: "🇧🇷", title: "Закрытая afterparty в Сан-Паулу", img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
-      { city: "Москва", flag: "🇷🇺", title: "Партнёрский вечер Hash Hedge", img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
-      { city: "Награждение", flag: "🏆", title: "Топ-партнёр Hash Hedge 2026", img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
+      { chip: "🇦🇪 Дубай · Blockchain Life", title: "Встреча партнёров Hash Hedge в Дубае", img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
+      { chip: "🇧🇷 Сан-Паулу",              title: "Закрытая afterparty в Сан-Паулу", img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
+      { chip: "🇷🇺 Москва",                 title: "Партнёрский вечер", img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
+      { chip: "Награждение",                title: "Топ-партнёр Hash Hedge 2026", img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
     ];
     return _e("section", { id: "events", className: "hh-events-section", style: { padding: "120px 0", position: "relative", overflow: "hidden", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("span", { className: "eyebrow", style: { marginBottom: 24 } }, _e("span", { className: "dot" }), "Партнёрские события"),
-          _e("h2", { className: "h1", style: { marginTop: 18, marginBottom: 16, maxWidth: 820 } },
+          _e("h2", { className: "h1", style: { marginTop: 24, marginBottom: 16, maxWidth: 820 } },
             "Встречаемся ", _e("span", { style: { color: "var(--accent)" } }, "вживую")
           ),
-          _e("p", { style: { color: "var(--fg-dim)", fontSize: 17, maxWidth: 640, marginBottom: 56 } },
-            "От Blockchain Life в Дубае до партнёрских вечеров в Москве — Hash Hedge собирает партнёров на конференциях и закрытых встречах по всему миру."
+          _e("p", { style: { color: "var(--fg-muted)", fontSize: 17, maxWidth: 720, marginBottom: 56 } },
+            "От Blockchain Life в Дубае до партнёрских вечеров в Москве — Hash Hedge собирает партнёров на конференциях, закрытых встречах и награждениях по всему миру."
           )
         ),
-        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
+        // 2×2 grid с крупными карточками 4:3 — больше воздуха и фото подаются лучше
+        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 } },
           events.map((ev, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
             _e("div", {
               style: {
-                position: "relative", aspectRatio: "4 / 5", borderRadius: 16, overflow: "hidden",
-                background: `url(${ev.img}) center / cover, #1a1a1f`,
+                position: "relative", aspectRatio: "4 / 3", borderRadius: 18, overflow: "hidden",
+                background: "var(--bg-card)",
                 border: "1px solid var(--line)", cursor: "pointer",
-                transition: "transform .3s, box-shadow .3s"
+                transition: "transform .35s var(--ease-out), box-shadow .35s var(--ease-out), border-color .25s"
               },
               onMouseEnter: e => {
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow = "0 30px 60px -20px rgba(0,0,0,0.5)";
+                e.currentTarget.style.transform = "translateY(-4px) scale(1.012)";
+                e.currentTarget.style.boxShadow = "0 40px 80px -24px rgba(0,0,0,0.65)";
+                e.currentTarget.style.borderColor = "rgba(252,213,53,0.35)";
               },
               onMouseLeave: e => {
                 e.currentTarget.style.transform = "none";
                 e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.borderColor = "var(--line)";
               }
             },
-              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.85) 100%)" } }),
-              _e("div", { style: { position: "absolute", top: 16, left: 16, padding: "5px 10px", background: "rgba(0,0,0,0.6)", backdropFilter: "blur(8px)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#fff", display: "inline-flex", alignItems: "center", gap: 6 } },
-                _e("span", null, ev.flag), ev.city
+              // Background image (отдельным слоем — лучше масштабируется при hover)
+              _e("div", { style: {
+                position: "absolute", inset: 0,
+                backgroundImage: `url(${ev.img})`,
+                backgroundSize: "cover", backgroundPosition: "center",
+                transition: "transform .6s var(--ease-out)"
+              }}),
+              // Bottom gradient overlay
+              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
+              // Top chip (flag + city)
+              _e("div", { style: { position: "absolute", top: 18, left: 18, padding: "7px 14px", background: "rgba(8,8,10,0.65)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 12, fontWeight: 700, color: "#fff" } },
+                ev.chip
               ),
-              _e("div", { style: { position: "absolute", bottom: 18, left: 18, right: 18, color: "#fff" } },
-                _e("div", { style: { fontSize: 17, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em" } }, ev.title)
+              // Title at bottom
+              _e("div", { style: { position: "absolute", bottom: 22, left: 22, right: 22, color: "#fff" } },
+                _e("div", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.015em" } }, ev.title)
               )
             )
           ))
@@ -1755,7 +1770,7 @@
         .hh-cab-explainers { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-lb-row { grid-template-columns: 60px 1.4fr 1fr 1fr 1fr !important; padding: 14px 18px !important; font-size: 14px !important; }
         .hh-tg-grid, .hh-support-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-        .hh-events-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        .hh-events-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
         .hh-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
         .hh-nav-desktop { display: none !important; }
         .hh-mob-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
