@@ -406,7 +406,7 @@
     // Each card has its own custom visual rendered at top
     const Card = ({ children, chip, title, titleAccent, body }) => _e("div", {
       style: {
-        background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 18,
+        background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 18,
         padding: 0, overflow: "hidden", display: "flex", flexDirection: "column", height: "100%"
       }
     },
@@ -687,7 +687,7 @@
         ),
         _e("div", { className: "hh-income-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 } },
           sources.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
-            _e("div", { style: { background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" } },
+            _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" } },
               _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 20 } },
                 _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", fontFamily: "ui-monospace,Menlo,monospace" } }, s.n),
                 _e(Icon, { d: s.icon })
@@ -710,7 +710,7 @@
     const TierIcon = ({ shape, color }) => _e("div", {
       style: {
         width: 56, height: 56, borderRadius: 14,
-        background: shape === "diamond" ? "linear-gradient(135deg, rgba(252,213,53,0.22), rgba(252,213,53,0.04))" : "rgba(255,255,255,0.04)",
+        background: shape === "diamond" ? "linear-gradient(135deg, rgba(252,213,53,0.22), rgba(252,213,53,0.04))" : "rgba(8,8,10,0.6)",
         border: shape === "diamond" ? "1px solid rgba(252,213,53,0.4)" : "1px solid var(--line)",
         display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 16,
         boxShadow: shape === "diamond" ? "0 0 24px rgba(252,213,53,0.18)" : "none"
@@ -758,7 +758,7 @@
           tiers.map((t, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
             _e("div", {
               style: {
-                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.10), rgba(252,213,53,0.02))" : "var(--bg-card)",
+                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.10), rgba(252,213,53,0.02))" : "rgba(11,11,14,0.85)",
                 border: t.featured ? "1px solid rgba(252,213,53,0.4)" : "1px solid var(--line)",
                 borderRadius: 18, padding: "26px 18px",
                 textAlign: "center", height: "100%",
@@ -971,7 +971,7 @@
         // 4 description cards
         _e("div", { className: "hh-steps-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
           steps.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
-            _e("div", { style: { background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" } },
+            _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" } },
               _e("div", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12, fontFamily: "Akrobat, Onest, sans-serif" } }, s.chip),
               _e("h3", { style: { fontSize: 19, fontWeight: 700, lineHeight: 1.25, marginBottom: 12, color: "#f5f1e8" } }, s.title),
               _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, s.body)
