@@ -266,6 +266,33 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function Hero() {
+    // Trading-candles background — лёгкий SVG-паттерн «свечи»,
+    // создаётся deterministic seedrandom — выглядит как BTCUSDT chart фон.
+    const candles = useMemo(() => {
+      const out = [];
+      let seed = 67500, prev = seed;
+      for (let i = 0; i < 80; i++) {
+        const move = (Math.sin(i * 0.43) * 60 + Math.cos(i * 1.17) * 40);
+        const o = prev;
+        const c = o + move;
+        const h = Math.max(o, c) + Math.abs(Math.sin(i * 2.1) * 30) + 6;
+        const l = Math.min(o, c) - Math.abs(Math.cos(i * 1.6) * 30) - 6;
+        out.push({ o, h, l, c, up: c >= o });
+        prev = c;
+      }
+      const allH = out.flatMap(c => [c.h, c.l]);
+      const min = Math.min(...allH), max = Math.max(...allH);
+      const range = max - min || 1;
+      return out.map(c => ({
+        o: 100 - ((c.o - min) / range) * 100,
+        h: 100 - ((c.h - min) / range) * 100,
+        l: 100 - ((c.l - min) / range) * 100,
+        c: 100 - ((c.c - min) / range) * 100,
+        up: c.up
+      }));
+    }, []);
+    const STEP = 100 / candles.length;
+    const W = STEP * 0.55;
     return _e("section", {
       className: "hh-partner-hero",
       style: {
@@ -273,7 +300,35 @@
         background: "radial-gradient(80% 60% at 30% 0%, rgba(252,213,53,0.08), transparent 70%), var(--bg)"
       }
     },
-      _e("div", { className: "container" },
+      // Candles background — absolute layer behind content
+      _e("div", {
+        "aria-hidden": true,
+        style: {
+          position: "absolute", inset: 0, opacity: 0.22, pointerEvents: "none", zIndex: 0
+        }
+      },
+        // grid lines
+        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+          [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.06)", strokeWidth: 0.1 } }))
+        ),
+        // candles
+        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+          candles.map((c, i) => {
+            const x = i * STEP + STEP * 0.225;
+            const cx = x + W / 2;
+            const color = c.up ? "#4ade80" : "#ff4b5c";
+            const top = Math.min(c.o, c.c);
+            const bot = Math.max(c.o, c.c);
+            return _e("g", { key: i, style: { fill: color, stroke: color } },
+              _e("line", { x1: cx, x2: cx, y1: c.h, y2: c.l, style: { stroke: color, strokeWidth: 0.15, opacity: 0.7 } }),
+              _e("rect", { x, y: top, width: W, height: Math.max(0.4, bot - top), style: { fill: color, opacity: 0.5 } })
+            );
+          })
+        ),
+        // overlay gradients to fade edges
+        _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--bg) 0%, rgba(8,8,10,0) 18%, rgba(8,8,10,0) 70%, var(--bg) 100%), linear-gradient(90deg, var(--bg) 0%, rgba(8,8,10,0) 12%, rgba(8,8,10,0) 88%, var(--bg) 100%)" } })
+      ),
+      _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.45fr minmax(360px, 440px)", gap: 64, alignItems: "center", marginBottom: 96 } },
           _e(Reveal, null,
             _e("div", null,
@@ -1591,19 +1646,25 @@
       { q: "Какие лимиты на вывод средств?", a: "Минимальная сумма к выводу — $100. Первая выплата становится доступна после того, как 5 твоих рефералов совершили хотя бы одну покупку — это защита от самореферальства. Дальше — без ограничений по частоте." }
     ];
     const [open, setOpen] = useState(0);
+    // Telegram brand color — старая телега-кнопка с лендинга
+    const TG_BLUE = "#229ED9";
+    const TG_BLUE_DARK = "#1E8BBE";
     return _e("section", { id: "faq", style: { padding: "120px 0", background: "var(--bg)" } },
       _e("div", { className: "container" },
+        // Centered header
         _e(Reveal, null,
-          _e("span", { className: "eyebrow", style: { marginBottom: 24 } }, _e("span", { className: "dot" }), "FAQ"),
-          _e("h2", { className: "h1", style: { marginTop: 18, marginBottom: 16, maxWidth: 820 } },
-            "Часто задаваемые ", _e("span", { style: { color: "var(--accent)" } }, "вопросы")
-          ),
-          _e("p", { style: { color: "var(--fg-dim)", fontSize: 17, maxWidth: 640, marginBottom: 56 } },
-            "Всё, что нужно знать о партнёрской программе. Не нашёл ответ — напиши в Telegram-поддержку."
+          _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 56px" } },
+            _e("span", { className: "eyebrow", style: { marginBottom: 24 } }, _e("span", { className: "dot" }), "FAQ"),
+            _e("h2", { className: "h1", style: { marginTop: 24, marginBottom: 16 } },
+              "Часто задаваемые ", _e("span", { style: { color: "var(--accent)" } }, "вопросы")
+            ),
+            _e("p", { style: { color: "var(--fg-muted)", fontSize: 17 } },
+              "Всё, что нужно знать о партнёрской программе. Не нашёл ответ — напиши в Telegram-поддержку."
+            )
           )
         ),
         _e(Reveal, { delay: "1" },
-          _e("div", { style: { maxWidth: 820 } },
+          _e("div", { style: { maxWidth: 820, margin: "0 auto" } },
             items.map((it, i) => _e("div", {
               key: i,
               style: {
@@ -1623,18 +1684,35 @@
                 _e("span", { style: { fontSize: 24, color: "var(--accent)", fontWeight: 300, transform: open === i ? "rotate(45deg)" : "none", transition: "transform .25s var(--ease-out)" } }, "+")
               ),
               open === i && _e("div", {
-                style: { padding: "0 0 22px", fontSize: 15, color: "var(--fg-dim)", lineHeight: 1.6, maxWidth: 720 }
+                style: { padding: "0 0 22px", fontSize: 15, color: "var(--fg-muted)", lineHeight: 1.6, maxWidth: 720 }
               }, it.a)
             ))
           )
         ),
+        // Centered "Остались вопросы?" + blue Telegram CTA
         _e(Reveal, { delay: "2" },
-          _e("div", { style: { marginTop: 48, padding: "24px 28px", background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, maxWidth: 820 } },
-            _e("div", null,
-              _e("div", { style: { fontSize: 15, fontWeight: 700, marginBottom: 4 } }, "Остались вопросы?"),
-              _e("div", { style: { fontSize: 13, color: "var(--fg-dim)" } }, "Напиши в Telegram — ответим на всё по программе.")
-            ),
-            _e("a", { href: "https://t.me/hashhedge_affiliate", className: "btn btn-ghost", style: { padding: "12px 20px", fontSize: 13, fontWeight: 700, borderRadius: 12 } }, "Поддержка в Telegram")
+          _e("div", { style: { marginTop: 56, maxWidth: 820, margin: "56px auto 0", textAlign: "center" } },
+            _e("div", { style: { fontSize: 22, fontWeight: 800, marginBottom: 8, letterSpacing: "-0.01em" } }, "Остались вопросы?"),
+            _e("div", { style: { fontSize: 15, color: "var(--fg-muted)", marginBottom: 24 } }, "Напиши в Telegram — ответим на всё по программе."),
+            _e("a", {
+              href: "https://t.me/hashhedge_affiliate",
+              style: {
+                display: "inline-flex", alignItems: "center", gap: 10,
+                padding: "16px 28px",
+                background: TG_BLUE, color: "#fff",
+                border: "none", borderRadius: 14,
+                fontSize: 15, fontWeight: 700, textDecoration: "none",
+                boxShadow: `0 8px 24px -8px ${TG_BLUE_DARK}, 0 0 0 1px rgba(255,255,255,0.08) inset`,
+                transition: "transform .2s, box-shadow .2s, background .2s"
+              },
+              onMouseEnter: e => { e.currentTarget.style.background = TG_BLUE_DARK; e.currentTarget.style.transform = "translateY(-2px)"; },
+              onMouseLeave: e => { e.currentTarget.style.background = TG_BLUE; e.currentTarget.style.transform = "none"; }
+            },
+              _e("svg", { width: 18, height: 18, viewBox: "0 0 24 24", style: { fill: "#fff" } },
+                _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
+              ),
+              "Поддержка в Telegram"
+            )
           )
         )
       )
