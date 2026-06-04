@@ -43,6 +43,22 @@
     return _e("div", { ref, className: "reveal", "data-delay": delay }, children);
   }
 
+  // Trustpilot star — точная копия с главной RU (5 отдельных зелёных квадратов, последний half=true).
+  // Не использовать единый зелёный фон с 5 белыми звёздами — это визуально 5/5, что неправда.
+  function TPStar({ size = 16, half = false }) {
+    if (half) {
+      return _e("svg", { width: size, height: size, viewBox: "0 0 16 16" },
+        _e("rect", { width: "11", height: "16", fill: "#18A965" }),
+        _e("rect", { x: "11", width: "5", height: "16", fill: "#2a2a2a" }),
+        _e("path", { d: "M 8 3 L 9.5 6.5 L 13 6.5 L 10.2 9 L 11.3 12.5 L 8 10.5 L 4.7 12.5 L 5.8 9 L 3 6.5 L 6.5 6.5 Z", fill: "#fff" })
+      );
+    }
+    return _e("svg", { width: size, height: size, viewBox: "0 0 16 16" },
+      _e("rect", { width: "16", height: "16", fill: "#18A965" }),
+      _e("path", { d: "M 8 3 L 9.5 6.5 L 13 6.5 L 10.2 9 L 11.3 12.5 L 8 10.5 L 4.7 12.5 L 5.8 9 L 3 6.5 L 6.5 6.5 Z", fill: "#fff" })
+    );
+  }
+
   function Counter({ to, duration = 1800, suffix = "", prefix = "", decimals = 0 }) {
     const [val, setVal] = useState(0);
     const ref = useRef(null);
@@ -268,15 +284,14 @@
                 _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary" }, "Стать партнёром · бесплатно"),
                 _e("a", { href: "#calc", className: "btn btn-ghost" }, "Рассчитать доход")
               ),
-              _e("div", { style: { display: "flex", alignItems: "center", gap: 16, marginTop: 32 } },
-                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, background: "#00B67A", borderRadius: 6, padding: "5px 10px" } },
-                  Array.from({ length: 5 }).map((_, i) => _e("svg", { key: i, width: 14, height: 14, viewBox: "0 0 24 24", fill: "#fff" },
-                    _e("path", { d: "M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.347l-7.416 4.066 1.48-8.279L0 9.306l8.332-1.151z" })
-                  ))
+              _e("div", { style: { display: "flex", alignItems: "center", gap: 12, marginTop: 32 } },
+                _e("div", { style: { display: "flex", gap: 2 } },
+                  [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 22 })),
+                  _e(TPStar, { size: 22, half: true })
                 ),
-                _e("div", { style: { fontSize: 13, lineHeight: 1.4 } },
-                  _e("div", { style: { fontWeight: 700 } }, "4.4 · Trustpilot"),
-                  _e("div", { style: { color: "var(--fg-muted)" } }, "Доверяют 5 139 funded трейдеров")
+                _e("div", { style: { fontSize: 14, lineHeight: 1.35 } },
+                  _e("div", { style: { fontWeight: 700, color: "var(--fg)" } }, "4.4 · Trustpilot"),
+                  _e("div", { style: { color: "var(--fg-muted)", fontSize: 13 } }, "Доверяют 5 139 funded трейдеров")
                 )
               )
             )
@@ -823,12 +838,28 @@
   // ────────────────────────────────────────────────────────────────────────────
 
   function CabinetPreview() {
-    // Vercel-style layout: title at top, then BIG dashboard mockup full-width
-    // (with sidebar nav + main content), then 4 explainer cards in a row.
+    // 1:1 копия реального дашборда (partner.hashhedge.com), цифры подставлены с vercel.
+    // Sidebar: 4 группы (Analytics / Management / Transactions / Other) с lucide-иконками.
+    // Top header: HASH HEDGE | AFFILIATE CENTER, greeting Hello Denis, manager pill, $X Bronze, theme/bell/profile/logout.
+    // Main: Partner Links bar (collapsed) → Dashboard H1 → 4 KPI cards stacked vertically left + big chart right.
     const sidebarGroups = [
-      { title: "Аналитика", items: ["Дашборд", "Общая статистика", "Подробные отчёты", "Суб-партнёры", "Лидерборд"], active: 0 },
-      { title: "Управление", items: ["Партнёрские ссылки", "Постбэки", "Транзакции", "Вывод средств"] },
-      { title: "Другое", items: ["Мой профиль", "Язык", "Партнёрское соглашение"] }
+      { title: "Analytics", items: [
+        { l: "Dashboard", active: true, icon: ["M3 3v18h18", "M7 12l3-3 4 4 7-7"] },
+        { l: "Global Statistics", icon: ["M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z", "M2 12h20", "M12 2c2.5 3 4 6.5 4 10s-1.5 7-4 10c-2.5-3-4-6.5-4-10s1.5-7 4-10z"] },
+        { l: "Detailed Reports", icon: ["M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z", "M14 2v6h6", "M9 13h6", "M9 17h6"] },
+        { l: "Sub-Affiliates", icon: ["M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2", "M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M23 21v-2a4 4 0 0 0-3-3.87", "M16 3.13a4 4 0 0 1 0 7.75"] },
+        { l: "Leaderboard", icon: ["M8 21h8", "M12 17v4", "M7 4h10v5a5 5 0 1 1-10 0V4z", "M7 4H4v2a3 3 0 0 0 3 3", "M17 4h3v2a3 3 0 0 1-3 3"] }
+      ]},
+      { title: "Management", items: [
+        { l: "Partner Links", icon: ["M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71", "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"] },
+        { l: "Postbacks", icon: ["M3 12h18", "M12 3l9 9-9 9"] }
+      ]},
+      { title: "Transactions", items: [
+        { l: "Withdrawals", icon: ["M21 12H7", "M14 5l7 7-7 7", "M3 5v14"] }
+      ]},
+      { title: "Other", items: [
+        { l: "My Profile", icon: ["M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"] }
+      ]}
     ];
     const kpis = [
       { k: "Всего покупок", v: "$48 920", d: "+18,4%" },
