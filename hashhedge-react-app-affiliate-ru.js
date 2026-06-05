@@ -1144,8 +1144,10 @@
                   _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#fcd535" } }, `${tier.pct}%`)
                 )
               ),
-              // Единый стиль с «Больше активных трейдеров…» — fontSize 11, lineHeight 1.5
-              _e("p", { style: { fontSize: 11, color: "#a1a0a4", lineHeight: 1.5, margin: 0 } }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
+              // div (а не p) — Tilda CSS-override игнорируется. Единый стиль с «Больше активных трейдеров…»
+              _e("div", { className: "hh-calc-info",
+                style: { fontSize: 11, color: "#a1a0a4", lineHeight: 1.5, marginTop: 12 }
+              }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
             ),
 
             // RIGHT result card — компактный, высота auto (не тянется по левой колонке).
@@ -1176,9 +1178,9 @@
                 _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
                   style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
                 }, "Стать партнёром →"),
-                _e("p", { className: "hh-calc-disclaimer",
-                  // marginTop 20 (раньше 14) — оторван от кнопки. Стиль такой же как у «Больше активных…»
-                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 20, marginBottom: 0, lineHeight: 1.5 }
+                // div (не p) — Tilda CSS-override игнорируется
+                _e("div", { className: "hh-calc-disclaimer",
+                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 20, lineHeight: 1.5 }
                 },
                   "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
                 )
@@ -2618,14 +2620,23 @@
         .hh-calc-h2 br { display: none !important; }
         .hh-calc-h2 { font-size: 28px !important; line-height: 1.15 !important; }
         .hh-calc-grid > div:first-child { padding: 0 !important; }
-        /* «Уровень и ставка комиссии растут…» — fontSize 11 как у «Больше активных трейдеров…» */
-        .hh-calc-grid > div:first-child > p { font-size: 11px !important; line-height: 1.5 !important; }
+        /* Три текста Calc единого стиля fontSize 11 / lineHeight 1.5 — Tilda CSS не должен перебивать */
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-info,
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-disclaimer,
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-grid > div:first-child > p,
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-grid > div:first-child > div:last-of-type {
+          font-size: 11px !important;
+          line-height: 1.5 !important;
+          font-weight: 400 !important;
+          color: #a1a0a4 !important;
+          font-family: Onest, sans-serif !important;
+        }
         /* Компактный блок «Твой уровень · авто» */
         .hh-calc-tier-card { padding: 12px 16px !important; margin-bottom: 10px !important; }
         .hh-calc-tier-card > div > div:first-child > div:nth-child(2) { font-size: 16px !important; }
         .hh-calc-tier-card > div > div:last-child { font-size: 22px !important; }
-        /* «Расчёт примерный…» отделить от кнопки + такой же мелкий шрифт + увеличить gap до кнопки */
-        .hh-calc-disclaimer { font-size: 11px !important; line-height: 1.5 !important; margin-top: 16px !important; }
+        /* «Расчёт примерный…» отделить от кнопки */
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-disclaimer { margin-top: 20px !important; }
 
         /* === (v3.7 #6) Steps: гарантированно 1 колонка, круг слева, текст справа === */
         .hh-steps-timeline { display: none !important; }
