@@ -10158,6 +10158,9 @@ function FAQ() {
     q: "Was passiert, wenn ich das Verlustlimit überschreite?",
     a: "Die Challenge wird dauerhaft gesperrt. Egal welches Limit, täglich oder gesamt. Unrealisierte Verluste zählen ebenfalls."
   }, {
+    q: "Kann ich Positionen hedgen?",
+    a: "Ja, Sie können innerhalb einer einzigen Challenge Positionen in entgegengesetzte Richtungen eröffnen (z. B. Long und Short auf denselben Vermögenswert)."
+  }, {
     q: "Wie wird das Tagesverlust-Limit berechnet?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Aktuelles Eigenkapital \u2212 Saldo zu Tagesbeginn. Offene Positionen wirken sich auf die Berechnung aus. Das Limit wird um 00:13 UTC+4 zurückgesetzt. Unrealisierte Gewinne/Verluste werden auf den nächsten Tag übertragen. Detaillierte Aufschlüsselung mit Beispielen ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
@@ -10254,7 +10257,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". Support ist 24/7 verfügbar.")
-  }].slice(0, 6);
+  }].slice(0, 7);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {

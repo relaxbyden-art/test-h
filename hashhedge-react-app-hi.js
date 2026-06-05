@@ -10158,6 +10158,9 @@ function FAQ() {
     q: "अगर loss limit पार हो जाए तो क्या होगा?",
     a: "Challenge हमेशा के लिए बंद हो जाता है. Limit dailyहो या total \u2014 कोई फ़र्क नहीं. Unrealized losses भी गिने जाते हैं."
   }, {
+    q: "क्या मैं अपनी पोज़िशन हेज कर सकता हूँ?",
+    a: "हाँ, आप एक ही चैलेंज में विपरीत दिशाओं में पोज़िशन खोल सकते हैं (उदाहरण के लिए, एक ही एसेट पर long और short)."
+  }, {
     q: "Daily Loss limit कैसे calculate होती है?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = वर्तमान Equity \u2212 दिन की शुरुआत का Balance. खुली positions गणना को प्रभावित करती हैं. Limit 00:13 UTC+4 पर रीसेट होती है. unrealized profits/losses अगले दिन में आगे जाते हैं. उदाहरण के साथ विस्तृत विवरण ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
@@ -10254,7 +10257,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". Support 24/7 उपलब्ध है.")
-  }].slice(0, 6);
+  }].slice(0, 7);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {

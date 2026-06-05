@@ -10158,6 +10158,9 @@ function FAQ() {
     q: "Apa yang terjadi jika saya melebihi batas loss?",
     a: "Challenge dikunci permanen. Tidak peduli batas mana, harian atau total. Loss yang belum direalisasi juga dihitung."
   }, {
+    q: "Bisakah saya melakukan hedging posisi?",
+    a: "Ya, Anda bisa membuka posisi dengan arah berlawanan dalam satu challenge (misalnya long dan short pada aset yang sama)."
+  }, {
     q: "Bagaimana batas Loss Harian dihitung?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Equity Saat Ini \u2212 Saldo di awal hari. Posisi terbuka memengaruhi perhitungan. Limit reset pada 00:13 UTC+4. Profit/loss yang belum terealisasi terbawa ke hari berikutnya. Penjelasan rinci dengan contoh ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
@@ -10254,7 +10257,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". Dukungan tersedia 24/7.")
-  }].slice(0, 6);
+  }].slice(0, 7);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {

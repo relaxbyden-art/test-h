@@ -10158,6 +10158,9 @@ function FAQ() {
     q: "O que acontece se eu ultrapassar o limite de perda?",
     a: "O Challenge é bloqueado permanentemente. Isso vale para qualquer limite, diário ou total. Perdas não realizadas também contam."
   }, {
+    q: "Posso fazer hedge das posições?",
+    a: "Sim, você pode abrir posições em direções opostas dentro de um mesmo Challenge (por exemplo, long e short no mesmo ativo)."
+  }, {
     q: "Como o limite de Perda Diária é calculado?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Perda Diária = Equity Atual \u2212 Saldo no início do dia. Posições abertas afetam o cálculo. O limite reinicia às 00:13 UTC+4. Lucros/perdas não realizados são transferidos para o próximo dia. Detalhes com exemplos ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
@@ -10254,7 +10257,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". O suporte está disponível 24/7.")
-  }].slice(0, 6);
+  }].slice(0, 7);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {

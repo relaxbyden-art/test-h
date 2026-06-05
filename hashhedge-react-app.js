@@ -10158,6 +10158,9 @@ function FAQ() {
     q: "What happens if I exceed the loss limit?",
     a: "The challenge is permanently locked. Doesn't matter which limit, daily or overall. Unrealized losses count too."
   }, {
+    q: "Can I hedge my positions?",
+    a: "Yes, you can open positions in opposite directions within a single challenge (for example, long and short on the same asset)."
+  }, {
     q: "How is the Daily Loss limit calculated?",
     a: /*#__PURE__*/React.createElement(React.Fragment, null, "Daily Loss = Current Equity \u2212 Balance at the beginning of the day. Open positions affect the calculation. The limit resets at 00:13 UTC+4. Unrealized profits/losses carry forward to the next day. Detailed breakdown with examples ", /*#__PURE__*/React.createElement("a", {
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide/daily-loss-calculation",
@@ -10192,9 +10195,6 @@ function FAQ() {
   }, {
     q: "Can I trade using different margin modes simultaneously?",
     a: "No. One mode at a time: Cross or Isolated. To switch, close all positions in the current mode first."
-  }, {
-    q: "Can I hedge positions?",
-    a: "Yes. You can open positions in opposite directions on the same asset."
   }, {
     q: "Can I hold open positions for several days?",
     a: "Yes. But watch your limits – open positions are factored into drawdown calculations."
@@ -10254,7 +10254,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "@hashhedgesupportbot"), ". Support is available 24/7.")
-  }].slice(0, 6);
+  }].slice(0, 7);
   return /*#__PURE__*/React.createElement("section", {
     id: "faq",
     style: {
