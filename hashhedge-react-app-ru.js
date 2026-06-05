@@ -11242,7 +11242,7 @@ function MobileCTABar() {
   if (!portal) return null;
   return ReactDOM.createPortal(bar, portal);
 }
-// === Flash Sale Popup: 10K по цене 5K ===
+// === Flash Sale Popup: 10K по цене 5K (без className чтобы старый .hh-popup CSS не ломал layout) ===
 function FlashSalePopup() {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
@@ -11252,7 +11252,7 @@ function FlashSalePopup() {
       var seen = localStorage.getItem(SEEN_KEY);
       if (seen && Date.now() - Number(seen) < TTL_HOURS * 3600 * 1000) return;
     } catch (e) {}
-    var t = setTimeout(function () { setOpen(true); }, 6000);
+    var t = setTimeout(function () { setOpen(true); }, 1200);
     return function () { clearTimeout(t); };
   }, []);
   function close() {
@@ -11262,29 +11262,30 @@ function FlashSalePopup() {
   if (!open) return null;
   var BUY_URL = "https://app.hashhedge.com/ru/app/payment-form/e1e37983-305a-4781-b104-945c92da525c";
   return React.createElement("div", {
-    className: "hh-popup-overlay",
     onClick: close,
     style: {
-      position: "fixed", inset: 0, zIndex: 9999,
-      background: "rgba(8,8,10,0.78)",
+      position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
+      background: "rgba(8,8,10,0.82)",
       backdropFilter: "blur(8px)",
+      WebkitBackdropFilter: "blur(8px)",
       display: "flex", alignItems: "center", justifyContent: "center",
       padding: 16
     }
   },
     React.createElement("div", {
-      className: "hh-popup",
       onClick: function (e) { e.stopPropagation(); },
       style: {
         position: "relative",
-        width: "min(560px, calc(100vw - 32px))",
+        width: "100%",
+        maxWidth: 520,
         borderRadius: 24,
-        background: "radial-gradient(circle at 78% 18%, rgba(252,213,53,0.18), transparent 38%), linear-gradient(135deg, #1f1d25 0%, #111016 100%)",
+        background: "radial-gradient(circle at 78% 18%, rgba(252,213,53,0.18), transparent 42%), linear-gradient(135deg, #1f1d25 0%, #111016 100%)",
         border: "1px solid rgba(252,213,53,0.30)",
         boxShadow: "0 40px 100px -20px rgba(0,0,0,0.75), 0 0 0 1px rgba(252,213,53,0.10)",
-        padding: "36px 32px 30px",
+        padding: "36px 28px 28px",
         textAlign: "center",
-        color: "#f5f1e8"
+        color: "#f5f1e8",
+        boxSizing: "border-box"
       }
     },
       React.createElement("button", {
@@ -11298,7 +11299,7 @@ function FlashSalePopup() {
           color: "#f5f1e8",
           cursor: "pointer",
           display: "inline-flex", alignItems: "center", justifyContent: "center",
-          fontSize: 16
+          fontSize: 16, padding: 0, lineHeight: 1
         }
       }, "✕"),
       React.createElement("div", {
@@ -11316,7 +11317,7 @@ function FlashSalePopup() {
         "Акция"
       ),
       React.createElement("h3", {
-        style: { fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px", color: "#f5f1e8" }
+        style: { fontSize: "clamp(26px, 4vw, 36px)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px", color: "#f5f1e8" }
       },
         "Челлендж ",
         React.createElement("span", { style: { color: "#fcd535" } }, "$10 000"),
@@ -11325,10 +11326,11 @@ function FlashSalePopup() {
         React.createElement("span", { style: { color: "#fcd535" } }, "$5 000")
       ),
       React.createElement("p", {
-        style: { fontSize: 15, color: "rgba(245,241,232,0.72)", lineHeight: 1.5, margin: "0 auto 22px", maxWidth: 420 }
+        style: { fontSize: 14, color: "rgba(245,241,232,0.72)", lineHeight: 1.5, margin: "0 auto 22px", maxWidth: 380 }
       }, "Только сейчас стартуй с капиталом $10 000 за цену челленджа $5 000. Ограниченное предложение."),
+      // Цена — отдельный блок, по центру
       React.createElement("div", {
-        style: { display: "inline-flex", alignItems: "baseline", gap: 12, marginBottom: 22, fontFamily: "Onest, sans-serif" }
+        style: { display: "flex", alignItems: "baseline", justifyContent: "center", gap: 12, marginBottom: 24, fontFamily: "Onest, sans-serif" }
       },
         React.createElement("span", {
           style: { fontSize: 22, fontWeight: 600, color: "rgba(245,241,232,0.45)", textDecoration: "line-through" }
@@ -11337,15 +11339,16 @@ function FlashSalePopup() {
           style: { fontSize: 48, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.03em", lineHeight: 1 }
         }, "$79")
       ),
+      // Кнопка — ПОД ценой, на всю ширину центрированного блока
       React.createElement("a", {
         href: BUY_URL,
         target: "_blank",
         rel: "noopener",
         onClick: close,
-        className: "btn btn-primary",
         style: {
-          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          display: "flex", alignItems: "center", justifyContent: "center",
           width: "100%", maxWidth: 320, height: 56,
+          margin: "0 auto",
           borderRadius: 14,
           background: "#fcd535",
           color: "#13111c",
