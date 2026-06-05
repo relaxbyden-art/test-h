@@ -467,7 +467,7 @@
                 ),
                 _e("div", { style: { fontSize: 14, lineHeight: 1.35 } },
                   _e("div", { style: { fontWeight: 700, color: "#f5f1e8" } }, "4.4 · Trustpilot"),
-                  _e("div", { style: { color: "#a1a0a4", fontSize: 13 } }, "Надёжный партнёр на рынке")
+                  _e("div", { style: { color: "#a1a0a4", fontSize: 13 } }, "Сотрудничай с платформой, которой доверяют")
                 )
               )
             )
@@ -825,14 +825,14 @@
       { viz: _e(V4, null), chip: "Вывод в течение 72 часов", title: "Быстрые выплаты", titleAccent: "before",
         body: "Запрашивай вывод в USDT в любой момент. Деньги придут на твой кошелёк в течение 72 часов." },
       { viz: _e(V5, null), chip: "Растёшь автоматически", title: "7 уровней партнёрства", titleAccent: "before",
-        body: "Начни с 50% и расти вместе с Hash Hedge. Уровень повышается автоматически по числу активных трейдеров." },
+        body: "Чем больше рефералов ты привлечёшь, тем выше твоя комиссия." },
       { viz: _e(V6, null), chip: "Глобальный охват · 154 страны", title: "Трафик из 154 стран", titleAccent: "before",
         body: "Работай с трейдерами из любых гео без ограничений. Hash Hedge принимает пользователей из 154 стран." },
       // === 3 новые карточки ===
       { viz: _e(V7, null), chip: "Скидки для аудитории", title: "Промокоды для аудитории", titleAccent: "before",
         body: "Получай персональные скидки для своих подписчиков, чтобы повысить конверсию и стимулировать покупки по твоей ссылке." },
       { viz: _e(V8, null), chip: "Аналитика трафика", title: "Гибкий трекинг",
-        body: "Создавай кастомные ссылки для разделения трафика и детально отслеживай конверсии и доход в личном кабинете." },
+        body: "Создавай кастомные ссылки для разделения трафика и отслеживай конверсии в партнёрском личном кабинете." },
       { viz: _e(V9, null), chip: "Многоуровневая сеть", title: "Суб-партнёрство",
         body: "Привлекай других аффилиатов по своей ссылке и зарабатывай на многоуровневой партнёрской сети." }
     ];
@@ -848,12 +848,13 @@
               "Почему Hash Hedge"
             ),
             _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
-              "Почему партнёры", _e("br", null), "выбирают ", _e("span", { style: { color: "#fcd535" } }, "Hash Hedge")
+              "Почему тебе стоит стать", _e("br", null), "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром")
             ),
-            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Предлагаем лучшие условия и предоставляем гибкие инструменты.")
+            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Мы даём партнёрам всё, чтобы они росли вместе с нами.")
           )
         ),
-        _e("div", { className: "hh-why-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 } },
+        // 4 в ряд на desktop (раньше 3)
+        _e("div", { className: "hh-why-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
           cards.map((c, i) => _e(Reveal, { key: i, delay: String((i % 3) + 1) },
             _e(Card, { chip: c.chip, title: c.title, titleAccent: c.titleAccent, body: c.body }, c.viz)
           ))
@@ -879,17 +880,17 @@
       )
     );
     const sources = [
-      { n: "01", title: "Комиссия с покупок челленджей",
-        body: _e(F, null, "Получай ", _e("b", { style: { color: "#fcd535" } }, "до 80%"), " от прибыли Hash Hedge с каждой покупки челленджа. Трейдер закрепляется за тобой ", _e("b", { style: { color: "#f5f1e8" } }, "пожизненно"), "."),
-        pill: "∞ Постоянный доход",
+      { n: "01", title: "Комиссия с продаж",
+        body: _e(F, null, "Забирай ", _e("b", { style: { color: "#fcd535" } }, "до 80%"), " от прибыли Hash Hedge с каждой покупки. Реферал закрепляется за тобой пожизненно: привёл один раз, получаешь комиссию со всех следующих покупок."),
+        pill: "Постоянный доход",
         icon: ["M23 6l-9.5 9.5-5-5L1 18", "M17 6h6v6"] },
       { n: "02", title: "Доход с успешных трейдеров",
-        body: _e(F, null, "Получай ", _e("b", { style: { color: "#f5f1e8" } }, "процент от комиссии"), " Hash Hedge, когда трейдер выходит на Funded. Зарабатывай на его прибыли весь период активности."),
-        pill: "Пассивный доход вдолгую",
+        body: _e(F, null, "Получай процент от комиссии Hash Hedge каждый раз, когда привлечённый тобой трейдер выходит на Funded и выводит прибыль."),
+        pill: "Пассивный доход",
         icon: ["M12 6v6l4 2", "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"] },
-      { n: "03", title: "Доход с суб-партнёров",
-        body: _e(F, null, "Строй многоуровневую сеть. Ты зарабатываешь ", _e("b", { style: { color: "#fcd535" } }, "5%"), " от дохода прямых партнёров и ", _e("b", { style: { color: "#fcd535" } }, "3%"), " от привлечённых ими суб-партнёров."),
-        pill: "5% + 3% с партнёрской сети",
+      { n: "03", title: "Суб-партнёрская программа",
+        body: _e(F, null, "Приглашай других партнёров и получай процент от их прибыли. Ты получаешь ", _e("b", { style: { color: "#fcd535" } }, "5%"), " от дохода партнёров, которых ты привлёк напрямую, и ", _e("b", { style: { color: "#fcd535" } }, "3%"), " от привлечённых ими суб-партнёров."),
+        pill: "Партнёрская сеть",
         icon: ["M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M19 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M12 8v3", "M6.5 16l4.5-3 4.5 3", "M9 21h6"] }
     ];
     return _e("section", { id: "income", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
@@ -1015,7 +1016,7 @@
             _e("h2", { style: { fontSize: "clamp(34px, 4.5vw, 52px)", lineHeight: 1.08, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
               "Чем больше трейдеров —", _e("br", null), "тем выше твоя комиссия"
             ),
-            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Развивай сеть трейдеров, повышай уровень и забирай до 80% прибыли Hash Hedge.")
+            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Привлекай трейдеров и забирай до 80% от прибыли Hash Hedge.")
           )
         ),
 
@@ -1108,14 +1109,14 @@
               style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-              "Твой доход"
+              "Калькулятор прибыли"
             ),
             _e("h2", { className: "hh-calc-h2",
               style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 }
             },
-              "Рассчитай, сколько ты", _e("br", null), "можешь зарабатывать"
+              "Сколько ты можешь", _e("br", null), "зарабатывать"
             ),
-            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Укажи количество трейдеров в месяц. Твой уровень и ставка комиссии до 80% повышаются автоматически с ростом числа привлечённых пользователей.")
+            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Узнай как твоя комиссия зависит от количества привлечённых трейдеров и среднего чека челленджей.")
           )
         ),
         _e(Reveal, { delay: "1" },
@@ -1155,23 +1156,25 @@
                   _e("span", null, "1 трейдер / мес"),
                   _e("span", null, "700+ / мес")
                 ),
-                _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 12, lineHeight: 1.5 } }, "Больше активных трейдеров в месяц — выше твой уровень и комиссия.")
+                // Текст «Больше активных трейдеров…» убран по правкам
               ),
               _e("div", { className: "hh-calc-tier-card",
                 style: { padding: "18px 22px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 }
               },
                 _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
                   _e("div", null,
-                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Твой уровень · авто"),
+                    // «Твой уровень · авто» → «Твой уровень»
+                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Твой уровень"),
                     _e("div", { style: { fontSize: 19, fontWeight: 700, color: "#f5f1e8" } }, `Уровень ${tier.lvl}`)
                   ),
-                  _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#fcd535" } }, `${tier.pct}%`)
+                  // Над процентом — подпись «Комиссия»
+                  _e("div", { style: { textAlign: "right" } },
+                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Комиссия"),
+                    _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#fcd535", lineHeight: 1 } }, `${tier.pct}%`)
+                  )
                 )
-              ),
-              // div (а не p) — Tilda CSS-override игнорируется. Единый стиль с «Больше активных трейдеров…»
-              _e("div", { className: "hh-calc-info",
-                style: { fontSize: 11, color: "#a1a0a4", lineHeight: 1.5, marginTop: 12 }
-              }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
+              )
+              // Текст «Уровень и ставка комиссии растут…» убран по правкам
             ),
 
             // RIGHT result card — компактный, тексты прижаты ближе
@@ -1187,7 +1190,7 @@
               _e("div", null,
                 _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } },
                   _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }),
-                  "Твой доход в месяц"
+                  "Ты получишь"
                 ),
                 _e("div", { style: {
                   fontSize: "clamp(40px, 4.4vw, 64px)",
@@ -1239,7 +1242,7 @@
             _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
               "Четыре шага до ", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "первой прибыли")
             ),
-            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Поделись ссылкой с теми, кому интересен трейдинг — система сделает всё остальное.")
+            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Присоединяйся к 2500+ партнёрам, которые уже зарабатывают вместе с Hash Hedge.")
           )
         ),
         // Timeline circles
@@ -1319,11 +1322,11 @@
                 "Личный кабинет"
               ),
               _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
-                "Вся аналитика ", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "сети"), " в одном месте"
+                "Вся ", _e("span", { style: { color: "#fcd535" } }, "аналитика"), _e("br", null), "в одном месте"
               )
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Вся аналитика в одном месте: регистрации, покупки, комиссии, суб-партнёры и выплаты."
+              "Следи за доходом, показателями и активностью суб-партнёров в реальном времени."
             )
           )
         ),
@@ -1652,7 +1655,7 @@
             ),
             _e("div", null,
               _e("p", { style: { fontSize: 15, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 14 } },
-                "Изучай кейсы нашего огромного комьюнити. Вдохновляйся форматами других партнёров, смотри, как 2500+ блогеров создают контент и привлекают клиентов. Используй рабочие механики."
+                "Посмотри, как 2500+ партнёров создают контент и привлекают клиентов. Вдохновляйся и применяй лучшие механики у себя в контенте."
               ),
               // Стрелки в стиле «Независимые обзоры» главной RU: круг 36×36, прозрачный фон, тонкая обводка
               _e("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" } },
@@ -1690,8 +1693,7 @@
                 )
               ),
               _e("div", { style: { padding: 16 } },
-                _e("div", { style: { fontSize: 14, fontWeight: 700, lineHeight: 1.3, color: "#f5f1e8", marginBottom: 8, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, v.title),
-                _e("div", { style: { fontSize: 10, color: "#a1a0a4", letterSpacing: "0.08em", textTransform: "uppercase" } }, "YouTube · Hash Hedge")
+                _e("div", { style: { fontSize: 14, fontWeight: 700, lineHeight: 1.3, color: "#f5f1e8", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, v.title)
               )
             ))
           )
@@ -1750,7 +1752,7 @@
           ),
           _e(Reveal, { delay: "2" },
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Стань частью партнёрского сообщества Hash Hedge. Мы регулярно проводим оффлайн-ивенты, где можно отлично отдохнуть и познакомиться с другими топ-партнёрами."
+              "Стань частью партнёрского сообщества Hash Hedge. Мы регулярно проводим оффлайн-ивенты, где можно познакомиться с другими топ-партнёрами, обменяться опытом и просто отлично отдохнуть."
             )
           )
         ),
@@ -2009,9 +2011,9 @@
           ),
           _e(Reveal, { delay: "2" },
             _e("p", { style: { fontSize: 18, lineHeight: 1.55, color: "#a1a0a4", margin: 0 } },
-              "Поддержка работает круглосуточно на ",
-              _e("strong", { style: { color: "#f5f1e8" } }, "20+ языках"),
-              ". Быстрый ответ на любой ваш вопрос."
+              "Пообщайся с одним из наших менеджеров партнёрской программы. ",
+              _e("strong", { style: { color: "#f5f1e8" } }, "Персональный менеджер"),
+              " будет сопровождать тебя на каждом этапе, ответит на все вопросы и поможет оптимизировать твою стратегию."
             )
           )
         ),
@@ -2025,7 +2027,7 @@
               border: "1px solid var(--line)",
               background: "var(--card, #151517)"
             } },
-              _e("img", { src: "https://hash-hedge-partner.vercel.app/assets/manager.jpeg", alt: "Личный менеджер партнёров",
+              _e("img", { src: "https://hash-hedge-partner.vercel.app/assets/manager.jpeg", alt: "Team Lead партнёрской программы",
                 style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }
               }),
               _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
@@ -2041,8 +2043,8 @@
               ),
               // bottom info — флаги к языкам
               _e("div", { style: { position: "absolute", left: 24, right: 24, bottom: 24 } },
-                _e("div", { style: { fontSize: 11, color: "#fcd535", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Личный менеджер партнёров"),
-                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Команда Hash Hedge"),
+                _e("div", { style: { fontSize: 11, color: "#fcd535", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Team Lead партнёрской программы"),
+                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Anna M."),
                 _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } },
                   [
                     { code: "RU", flag: "🇷🇺" },
@@ -2067,7 +2069,7 @@
               // header — одна точка внутри "Онлайн сейчас" (верхняя дубль-dot удалена)
               _e("div", { style: { display: "flex", alignItems: "center", gap: 12, paddingBottom: 16, borderBottom: "1px solid var(--line)", marginBottom: 14 } },
                 _e("div", null,
-                  _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#f5f1e8" } }, "Hash Hedge Support"),
+                  _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#f5f1e8" } }, "Персональный менеджер"),
                   _e("div", { style: { fontSize: 11, color: "#4ade80", display: "inline-flex", alignItems: "center", gap: 6 } },
                     _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }), "Онлайн сейчас"
                   )
@@ -2106,34 +2108,22 @@
           )
         ),
 
-        // 2 CTA-карточки (структура v2.7: Личный менеджер + Telegram), типографика главной RU
+        // 2 CTA-карточки (порядок поменян): сначала Telegram (clickable, подсвечен), потом Персональный менеджер (не clickable)
         _e(Reveal, { delay: "3" },
           _e("div", { className: "hh-sup-ctas", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 16 } },
-            _e("a", { href: "#cta",
-              style: { display: "flex", alignItems: "center", gap: 14, padding: "16px 18px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", transition: "border-color .25s, transform .25s, background .25s", position: "relative", overflow: "hidden" },
-              onMouseEnter: e => { e.currentTarget.style.borderColor = "#7cd8a0"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; },
-              onMouseLeave: e => { e.currentTarget.style.borderColor = "var(--line)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.background = "#151517"; }
-            },
-              _e("div", { style: { width: 44, height: 44, borderRadius: 10, flexShrink: 0, background: "rgba(124, 216, 160, 0.15)", color: "#7cd8a0", display: "flex", alignItems: "center", justifyContent: "center" } },
-                _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none" },
-                  _e("path", { d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" }),
-                  _e("circle", { cx: 12, cy: 7, r: 4, stroke: "currentColor", strokeWidth: 1.8 })
-                )
-              ),
-              _e("div", { style: { flex: 1, minWidth: 0 } },
-                _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 4 } }, "Команда Hash Hedge"),
-                _e("div", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.35 } }, "Закрепляется за партнёром после регистрации")
-              ),
-              _e("svg", { width: 14, height: 14, viewBox: "0 0 14 14", fill: "none", style: { color: "#7cd8a0", flexShrink: 0 } },
-                _e("path", { d: "M3 7h8m0 0L7 3m4 4l-4 4", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" })
-              )
-            ),
+            // Telegram — кликабельный, с явным синим выделением border + glow
             _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-              style: { display: "flex", alignItems: "center", gap: 14, padding: "16px 18px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", transition: "border-color .25s, transform .25s, background .25s" },
-              onMouseEnter: e => { e.currentTarget.style.borderColor = "#5BB5E8"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; },
-              onMouseLeave: e => { e.currentTarget.style.borderColor = "var(--line)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.background = "#151517"; }
+              style: {
+                display: "flex", alignItems: "center", gap: 14, padding: "16px 18px",
+                background: "linear-gradient(135deg, rgba(43,156,222,0.10), rgba(43,156,222,0.03))",
+                border: "1px solid rgba(91,181,232,0.55)", borderRadius: 14, textDecoration: "none",
+                boxShadow: "0 0 0 1px rgba(91,181,232,0.20), 0 10px 26px -10px rgba(43,156,222,0.45)",
+                transition: "border-color .25s, transform .25s, background .25s, box-shadow .25s"
+              },
+              onMouseEnter: e => { e.currentTarget.style.borderColor = "#5BB5E8"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(91,181,232,0.35), 0 14px 32px -10px rgba(43,156,222,0.6)"; },
+              onMouseLeave: e => { e.currentTarget.style.borderColor = "rgba(91,181,232,0.55)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 0 0 1px rgba(91,181,232,0.20), 0 10px 26px -10px rgba(43,156,222,0.45)"; }
             },
-              _e("div", { style: { width: 44, height: 44, borderRadius: 10, flexShrink: 0, background: "rgba(43, 156, 222, 0.15)", color: "#5BB5E8", display: "flex", alignItems: "center", justifyContent: "center" } },
+              _e("div", { style: { width: 44, height: 44, borderRadius: 10, flexShrink: 0, background: "rgba(43, 156, 222, 0.18)", color: "#5BB5E8", display: "flex", alignItems: "center", justifyContent: "center" } },
                 _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", fill: "currentColor" },
                   _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z" })
                 )
@@ -2145,6 +2135,22 @@
               _e("svg", { width: 14, height: 14, viewBox: "0 0 14 14", fill: "none", style: { color: "#5BB5E8", flexShrink: 0 } },
                 _e("path", { d: "M3 7h8m0 0L7 3m4 4l-4 4", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" })
               )
+            ),
+            // Персональный менеджер — НЕ кликабельный (div вместо a), без href, без hover
+            _e("div", {
+              style: { display: "flex", alignItems: "center", gap: 14, padding: "16px 18px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, cursor: "default" }
+            },
+              _e("div", { style: { width: 44, height: 44, borderRadius: 10, flexShrink: 0, background: "rgba(124, 216, 160, 0.15)", color: "#7cd8a0", display: "flex", alignItems: "center", justifyContent: "center" } },
+                _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none" },
+                  _e("path", { d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" }),
+                  _e("circle", { cx: 12, cy: 7, r: 4, stroke: "currentColor", strokeWidth: 1.8 })
+                )
+              ),
+              _e("div", { style: { flex: 1, minWidth: 0 } },
+                _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 4 } }, "Персональный менеджер"),
+                _e("div", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.35 } }, "Закрепляется за партнёром после регистрации")
+              )
+              // Стрелка → удалена т.к. не кликабельно
             )
           )
         )
