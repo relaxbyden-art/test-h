@@ -1127,7 +1127,8 @@
                   _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#fcd535" } }, `${tier.pct}%`)
                 )
               ),
-              _e("p", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
+              // Единый стиль с «Больше активных трейдеров…» — fontSize 11, lineHeight 1.5
+              _e("p", { style: { fontSize: 11, color: "#a1a0a4", lineHeight: 1.5, margin: 0 } }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
             ),
 
             // RIGHT result card — компактный, высота auto (не тянется по левой колонке).
@@ -1159,7 +1160,8 @@
                   style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
                 }, "Стать партнёром →"),
                 _e("p", { className: "hh-calc-disclaimer",
-                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 14, marginBottom: 0, lineHeight: 1.5 }
+                  // marginTop 20 (раньше 14) — оторван от кнопки. Стиль такой же как у «Больше активных…»
+                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 20, marginBottom: 0, lineHeight: 1.5 }
                 },
                   "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
                 )
@@ -1214,7 +1216,8 @@
           )
         ),
         // 4 description cards
-        _e("div", { className: "hh-steps-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
+        // gridTemplateColumns управляется CSS (4 col на desktop через media min-width:981, 1 col на mobile)
+        _e("div", { className: "hh-steps-grid", style: { display: "grid", gap: 18 } },
           steps.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("div", { className: "hh-steps-card",
               style: { background: "#151517", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" }
@@ -2480,6 +2483,11 @@
         .hh-mob-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
         .hh-mobile-cta { display: block !important; }
         .hh-lb-row { grid-template-columns: 50px minmax(0, 1fr) auto !important; padding: 12px 16px !important; }
+      }
+
+      /* === Desktop default — Steps в 4 колонки === */
+      @media (min-width: 981px) {
+        .hh-steps-grid { grid-template-columns: repeat(4, 1fr); }
       }
 
       /* === TG-сетка на планшете/мобиле: 1 колонка чтобы и левая часть, и телефон были видны === */
