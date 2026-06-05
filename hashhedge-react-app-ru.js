@@ -3188,12 +3188,13 @@ function Pricing() {
   const pricing = {
     5000: 79,
     10000: 79,
-    25000: 299,
+    25000: 240,
     50000: 499,
     100000: 799,
     150000: 1093
   };
-  const flashSaleSize = 10000;
+  // Тарифы в акции (зелёная подсветка + бейдж АКЦИЯ)
+  const flashSaleSizes = [10000, 25000];
   const paymentLinks = {
     5000: "https://app.hashhedge.com/ru/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
     10000: "https://app.hashhedge.com/ru/app/payment-form/e1e37983-305a-4781-b104-945c92da525c",
@@ -3492,7 +3493,7 @@ function Pricing() {
     const active = size === s;
     const isPop = false;
     const isBest = false;
-    const isFlash = s === flashSaleSize;
+    const isFlash = flashSaleSizes.indexOf(s) >= 0;
     const badge = isFlash ? "АКЦИЯ" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
     const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
@@ -11242,126 +11243,6 @@ function MobileCTABar() {
   if (!portal) return null;
   return ReactDOM.createPortal(bar, portal);
 }
-// === Flash Sale Popup: 10K по цене 5K (без className чтобы старый .hh-popup CSS не ломал layout) ===
-function FlashSalePopup() {
-  const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
-    // Без localStorage: попап показывается при каждой загрузке страницы.
-    // Закрывается только на текущую сессию (state в памяти).
-    var t = setTimeout(function () { setOpen(true); }, 1200);
-    return function () { clearTimeout(t); };
-  }, []);
-  function close() { setOpen(false); }
-  if (!open) return null;
-  var BUY_URL = "https://app.hashhedge.com/ru/app/payment-form/e1e37983-305a-4781-b104-945c92da525c";
-  return React.createElement("div", {
-    onClick: close,
-    style: {
-      position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
-      background: "rgba(8,8,10,0.82)",
-      backdropFilter: "blur(8px)",
-      WebkitBackdropFilter: "blur(8px)",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      padding: 16
-    }
-  },
-    React.createElement("div", {
-      onClick: function (e) { e.stopPropagation(); },
-      style: {
-        position: "relative",
-        width: "100%",
-        maxWidth: 520,
-        borderRadius: 24,
-        background: "radial-gradient(circle at 78% 18%, rgba(252,213,53,0.18), transparent 42%), linear-gradient(135deg, #1f1d25 0%, #111016 100%)",
-        border: "1px solid rgba(252,213,53,0.30)",
-        boxShadow: "0 40px 100px -20px rgba(0,0,0,0.75), 0 0 0 1px rgba(252,213,53,0.10)",
-        padding: "36px 28px 28px",
-        textAlign: "center",
-        color: "#f5f1e8",
-        boxSizing: "border-box"
-      }
-    },
-      React.createElement("button", {
-        onClick: close,
-        "aria-label": "Закрыть",
-        style: {
-          position: "absolute", top: 14, right: 14,
-          width: 36, height: 36, borderRadius: "50%",
-          background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.10)",
-          color: "#f5f1e8",
-          cursor: "pointer",
-          display: "inline-flex", alignItems: "center", justifyContent: "center",
-          fontSize: 16, padding: 0, lineHeight: 1
-        }
-      }, "✕"),
-      React.createElement("div", {
-        style: {
-          display: "inline-flex", alignItems: "center", gap: 8,
-          padding: "6px 14px", borderRadius: 100,
-          background: "rgba(252,213,53,0.14)",
-          border: "1px solid rgba(252,213,53,0.38)",
-          color: "#fcd535",
-          fontSize: 11, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase",
-          marginBottom: 18
-        }
-      },
-        React.createElement("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#fcd535" } }),
-        "Акция"
-      ),
-      React.createElement("h3", {
-        style: { fontSize: "clamp(26px, 4vw, 36px)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px", color: "#f5f1e8" }
-      },
-        "Челлендж ",
-        React.createElement("span", { style: { color: "#fcd535" } }, "$10 000"),
-        React.createElement("br", null),
-        "по цене ",
-        React.createElement("span", { style: { color: "#fcd535" } }, "$5 000")
-      ),
-      React.createElement("p", {
-        style: { fontSize: 14, color: "rgba(245,241,232,0.72)", lineHeight: 1.5, margin: "0 auto 22px", maxWidth: 380 }
-      }, "Стоимость такая же, а капитал в два раза больше."),
-      // Цена — отдельный блок, по центру
-      React.createElement("div", {
-        style: { display: "flex", alignItems: "baseline", justifyContent: "center", gap: 12, marginBottom: 24, fontFamily: "Onest, sans-serif" }
-      },
-        React.createElement("span", {
-          style: { fontSize: 22, fontWeight: 600, color: "rgba(245,241,232,0.45)", textDecoration: "line-through" }
-        }, "$99"),
-        React.createElement("span", {
-          style: { fontSize: 48, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.03em", lineHeight: 1 }
-        }, "$79")
-      ),
-      // Кнопка — ПОД ценой. className "btn btn-primary" нужен чтобы Tilda CSS-override
-      // (#hashhedge-root .tilda-html-hashhedge a.btn-primary { color: #13111c !important })
-      // дал тёмному тексту приоритет над прозрачным color: inherit.
-      React.createElement("a", {
-        href: BUY_URL,
-        target: "_blank",
-        rel: "noopener",
-        onClick: close,
-        className: "btn btn-primary",
-        style: {
-          display: "flex", alignItems: "center", justifyContent: "center",
-          width: "100%", maxWidth: 320, height: 56,
-          margin: "0 auto",
-          borderRadius: 14,
-          background: "#fcd535",
-          textDecoration: "none",
-          fontSize: 16, fontWeight: 800, letterSpacing: 0,
-          boxShadow: "0 14px 40px -8px rgba(252,213,53,0.55)"
-        }
-      },
-        // span с color чтобы дополнительно перебить любые наследуемые цвета
-        React.createElement("span", { style: { color: "#13111c" } }, "Купить челлендж")
-      ),
-      React.createElement("div", {
-        style: { fontSize: 12, color: "rgba(245,241,232,0.55)", marginTop: 14, fontWeight: 600, letterSpacing: "0.02em" }
-      }, "Ограниченное предложение")
-    )
-  );
-}
-
 function HashHedgeReactApp() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   React.useEffect(() => {
@@ -11403,7 +11284,7 @@ function HashHedgeReactApp() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: "classic",
     anim: "max"
-  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(FlashSalePopup, null));
+  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null));
 }
 function PopupChartBg() {
   return /*#__PURE__*/React.createElement("svg", {
