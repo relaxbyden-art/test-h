@@ -227,7 +227,9 @@
     const STEP = 100 / candles.norm.length;
     const W = STEP * 0.55;
     const maPath = candles.ma.map((y, i) => `${i === 0 ? "M" : "L"} ${i * STEP + STEP * 0.5} ${y}`).join(" ");
-    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 } },
+    return _e("div", { "aria-hidden": true, className: "hh-hero-candles",
+      style: { position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }
+    },
       // Background grid — крупные ровные квадраты 64×64 на «жёстком» SVG-паттерне (без дробных пикселей).
       // Используем inline SVG как фон — гарантирует ровные линии независимо от ширины экрана.
       _e("div", { style: { position: "absolute", inset: 0, opacity: 0.55,
@@ -507,15 +509,18 @@
   function WhyPartner() {
     // Each card has its own custom visual rendered at top
     const Card = ({ children, chip, title, titleAccent, body }) => _e("div", {
+      className: "hh-why-card",
       style: {
         background: "#151517", border: "1px solid var(--line)", borderRadius: 18,
         padding: 0, overflow: "hidden", display: "flex", flexDirection: "column", height: "100%"
       }
     },
-      _e("div", { style: { padding: 22, paddingBottom: 18, minHeight: 220, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--line)", background: "#0B0B0C" } },
+      _e("div", { className: "hh-why-card-vis",
+        style: { padding: 22, paddingBottom: 18, minHeight: 220, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--line)", background: "#0B0B0C" }
+      },
         children
       ),
-      _e("div", { style: { padding: "20px 22px 22px" } },
+      _e("div", { className: "hh-why-card-body", style: { padding: "20px 22px 22px" } },
         _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", fontSize: 10, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 14 } },
           _e("svg", { width: 11, height: 11, viewBox: "0 0 12 12", style: { fill: "#9ef0c0" } }, _e("path", { d: "M4.5 9L1.5 6l1-1 2 2 4.5-4.5 1 1z", style: { fill: "#9ef0c0" } })),
           chip
@@ -839,14 +844,20 @@
         ),
         _e("div", { className: "hh-income-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 } },
           sources.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
-            _e("div", { style: { background: "#151517", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" } },
-              _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 20 } },
+            _e("div", { className: "hh-income-card",
+              style: { background: "#151517", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" }
+            },
+              _e("div", { className: "hh-income-head",
+                style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 20 }
+              },
                 _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", fontFamily: "ui-monospace,Menlo,monospace" } }, s.n),
                 _e(Icon, { d: s.icon })
               ),
-              _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em", marginBottom: 12, color: "#f5f1e8" } }, s.title),
-              _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 20, flex: 1 } }, s.body),
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "#fcd535", fontSize: 12, fontWeight: 700, alignSelf: "flex-start" } }, s.pill)
+              _e("div", { className: "hh-income-body" },
+                _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em", marginBottom: 12, color: "#f5f1e8" } }, s.title),
+                _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 20, flex: 1 } }, s.body),
+                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "#fcd535", fontSize: 12, fontWeight: 700, alignSelf: "flex-start" } }, s.pill)
+              )
             )
           ))
         )
@@ -1033,7 +1044,9 @@
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Твой доход"
             ),
-            _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
+            _e("h2", { className: "hh-calc-h2",
+              style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 }
+            },
               "Рассчитай, сколько ты", _e("br", null), "можешь зарабатывать"
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Укажи количество трейдеров в месяц. Твой уровень и ставка комиссии до 80% повышаются автоматически с ростом числа привлечённых пользователей.")
@@ -1174,10 +1187,24 @@
         // 4 description cards
         _e("div", { className: "hh-steps-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
           steps.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
-            _e("div", { style: { background: "#151517", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" } },
-              _e("div", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12 } }, s.chip),
-              _e("h3", { style: { fontSize: 19, fontWeight: 700, lineHeight: 1.25, marginBottom: 12, color: "#f5f1e8" } }, s.title),
-              _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, s.body)
+            _e("div", { className: "hh-steps-card",
+              style: { background: "#151517", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" }
+            },
+              // На мобильной номер шага виден слева в кругу (CSS делает display: flex)
+              _e("div", { className: "hh-steps-num-mobile",
+                style: { display: "none",
+                  width: 52, height: 52, flexShrink: 0, borderRadius: "50%",
+                  background: "rgba(11,11,14,0.9)", border: "1px solid var(--line)",
+                  color: "#fcd535", fontSize: 14, fontWeight: 800,
+                  fontFamily: "ui-monospace,Menlo,monospace",
+                  alignItems: "center", justifyContent: "center"
+                }
+              }, s.n),
+              _e("div", { className: "hh-steps-card-body" },
+                _e("div", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12 } }, s.chip),
+                _e("h3", { style: { fontSize: 19, fontWeight: 700, lineHeight: 1.25, marginBottom: 12, color: "#f5f1e8" } }, s.title),
+                _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, s.body)
+              )
             )
           ))
         )
@@ -1609,6 +1636,7 @@
       { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор", title: "Награждение Топ-партнёров",      img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
     ];
     const Card = ({ ev, big }) => _e("div", {
+      className: "hh-event-card" + (big ? " hh-event-card-big" : ""),
       style: { position: "relative", aspectRatio: big ? "2.4 / 1" : "1 / 1.05", borderRadius: 18, overflow: "hidden", border: "1px solid var(--line)", background: "#151517" }
     },
       _e("div", { style: { position: "absolute", inset: 0, backgroundImage: `url(${ev.img})`, backgroundSize: "cover", backgroundPosition: "center" } }),
@@ -1618,9 +1646,13 @@
         _e("span", null, ev.city)
       ),
       _e("div", { style: { position: "absolute", top: 14, right: 14, padding: "6px 12px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.06em", textTransform: "uppercase" } }, ev.year),
-      _e("div", { style: { position: "absolute", bottom: big ? 26 : 18, left: big ? 26 : 18, right: big ? 26 : 18, color: "#fff" } },
+      _e("div", { className: "hh-event-card-bottom",
+        style: { position: "absolute", bottom: big ? 26 : 18, left: big ? 26 : 18, right: big ? 26 : 18, color: "#fff" }
+      },
         ev.role && _e("div", { style: { display: "inline-block", fontSize: 10, fontWeight: 800, color: "#fcd535", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 10 } }, ev.role),
-        _e("div", { style: { fontSize: big ? 28 : 18, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", maxWidth: big ? 600 : "100%" } }, ev.title)
+        _e("div", { className: "hh-event-card-title",
+          style: { fontSize: big ? 28 : 18, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", maxWidth: big ? 600 : "100%" }
+        }, ev.title)
       )
     );
     return _e("section", { id: "events", style: { padding: "100px 0 120px", background: "var(--bg)" } },
@@ -2000,7 +2032,7 @@
 
         // 2 CTA-карточки (структура v2.7: Личный менеджер + Telegram), типографика главной RU
         _e(Reveal, { delay: "3" },
-          _e("div", { className: "hh-sup-ctas", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20 } },
+          _e("div", { className: "hh-sup-ctas", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 16 } },
             _e("a", { href: "#cta",
               style: { display: "flex", alignItems: "center", gap: 14, padding: "16px 18px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, textDecoration: "none", transition: "border-color .25s, transform .25s, background .25s", position: "relative", overflow: "hidden" },
               onMouseEnter: e => { e.currentTarget.style.borderColor = "#7cd8a0"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; },
@@ -2338,12 +2370,31 @@
   }
 
   function MobileCTABar() {
+    // Появляется после прокрутки на 2 viewport-высоты вниз
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+      const onScroll = () => {
+        const threshold = window.innerHeight * 2;
+        setShow(window.scrollY > threshold);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => window.removeEventListener("scroll", onScroll);
+    }, []);
     return _e("div", { className: "hh-mobile-cta",
-      style: { position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 90, padding: "12px 16px", display: "none", background: "rgba(8,8,10,0.94)", backdropFilter: "blur(14px)", borderTop: "1px solid var(--line)" }
+      style: {
+        position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 90,
+        padding: "12px 16px", display: "none",
+        background: "rgba(8,8,10,0.94)", backdropFilter: "blur(14px)",
+        borderTop: "1px solid var(--line)",
+        transform: show ? "translateY(0)" : "translateY(110%)",
+        transition: "transform .35s ease",
+        pointerEvents: show ? "auto" : "none"
+      }
     },
       _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
         style: { display: "block", textAlign: "center", padding: "14px 18px", borderRadius: 100, fontSize: 14, fontWeight: 800, textDecoration: "none" }
-      }, "Стать партнёром · бесплатно")
+      }, "Стать партнёром")
     );
   }
 
@@ -2381,12 +2432,12 @@
     st.id = "hh-partner-styles";
     st.textContent = `
       @media (max-width: 980px) {
-        .hh-partner-hero-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+        .hh-partner-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
         .hh-why-grid { grid-template-columns: repeat(2, 1fr) !important; }
         .hh-income-grid { grid-template-columns: 1fr !important; }
         .hh-tiers-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        .hh-calc-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-        .hh-steps-grid, .hh-steps-head, .hh-cab-head, .hh-lb-head, .hh-yt-head, .hh-sup-head { grid-template-columns: 1fr !important; gap: 24px !important; }
+        .hh-calc-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+        .hh-steps-grid, .hh-steps-head, .hh-cab-head, .hh-lb-head, .hh-yt-head, .hh-sup-head, .hh-events-head { grid-template-columns: 1fr !important; gap: 16px !important; align-items: start !important; }
         .hh-cab-body { grid-template-columns: 1fr !important; }
         .hh-cab-side { display: none !important; }
         .hh-cab-stage { grid-template-columns: 1fr !important; }
@@ -2399,11 +2450,92 @@
         .hh-nav-desktop { display: none !important; }
         .hh-mob-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
         .hh-mobile-cta { display: block !important; }
-        .hh-lb-row { grid-template-columns: 60px 1fr 100px 100px !important; padding: 14px 18px !important; }
+        .hh-lb-row { grid-template-columns: 50px minmax(0, 1fr) auto !important; padding: 12px 16px !important; }
       }
+
+      /* === Мобильная версия (≤ 640px) — 14 правок === */
       @media (max-width: 640px) {
-        .hh-why-grid, .hh-steps-grid, .hh-tiers-grid, .hh-cab-explainers { grid-template-columns: 1fr !important; }
         .hh-footer-grid { grid-template-columns: 1fr !important; }
+
+        /* (1) Hero: btn-ghost «Рассчитать доход» ярче на мобилке */
+        #hashhedge-root .tilda-html-hashhedge.hh-with-glow .hh-partner-hero .btn-ghost {
+          color: #fcd535 !important;
+          border-color: #fcd535 !important;
+          background: rgba(252,213,53,0.08) !important;
+        }
+        /* (2) Hero candles: не растягиваются по всей секции, остаются только сверху над текстом */
+        .hh-hero-candles { bottom: 50% !important; }
+
+        /* (11) Меньше отступы заголовок↔описание во всех секциях */
+        .hh-partner-hero { padding-top: 32px !important; padding-bottom: 48px !important; }
+        section[id] { padding-top: 56px !important; padding-bottom: 56px !important; }
+        section h2, section .h1 { margin-bottom: 12px !important; }
+        section h2 + p, section h2 + .container > p { margin-top: 8px !important; }
+
+        /* (4) WhyPartner — image-left/text-right horizontal layout на mobile */
+        .hh-why-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+        .hh-why-card { flex-direction: row !important; height: auto !important; align-items: stretch !important; }
+        .hh-why-card-vis { min-height: auto !important; width: 36% !important; flex-shrink: 0 !important; border-bottom: none !important; border-right: 1px solid var(--line) !important; padding: 16px !important; }
+        .hh-why-card-vis svg { max-width: 100% !important; max-height: 120px !important; }
+        .hh-why-card-body { padding: 14px 16px !important; flex: 1 !important; }
+        .hh-why-card-body h3 { font-size: 16px !important; line-height: 1.2 !important; margin-bottom: 6px !important; }
+        .hh-why-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
+
+        /* (5) IncomeSources — graphic слева, текст справа */
+        .hh-income-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+        .hh-income-card { flex-direction: row !important; height: auto !important; padding: 16px !important; align-items: flex-start !important; gap: 14px !important; }
+        .hh-income-head { flex-direction: column !important; align-items: center !important; gap: 8px !important; min-width: 56px !important; margin-bottom: 0 !important; flex-shrink: 0 !important; }
+        .hh-income-body { flex: 1 !important; }
+        .hh-income-body h3 { font-size: 16px !important; margin-bottom: 6px !important; }
+        .hh-income-body p { font-size: 13px !important; line-height: 1.45 !important; margin-bottom: 10px !important; }
+
+        /* (6) Tiers — горизонтальный список карточек по порядку */
+        .hh-tiers-grid {
+          grid-template-columns: none !important;
+          display: flex !important;
+          overflow-x: auto !important;
+          gap: 12px !important;
+          padding-bottom: 8px !important;
+          scroll-snap-type: x mandatory !important;
+          -webkit-overflow-scrolling: touch !important;
+          scrollbar-width: none !important;
+        }
+        .hh-tiers-grid::-webkit-scrollbar { display: none; }
+        .hh-tiers-grid > * { flex: 0 0 220px !important; scroll-snap-align: start !important; }
+
+        /* (7) Calculator — компактный, сумма всегда видна */
+        .hh-calc-h2 br { display: none !important; }
+        .hh-calc-h2 { font-size: 28px !important; line-height: 1.1 !important; }
+        .hh-calc-grid > div:first-child { padding: 0 !important; }
+        .hh-calc-grid > div:first-child > div:nth-child(4) { display: none !important; } /* нижний disclaimer на mobile */
+
+        /* (8) Steps — вертикальный список «круг номер + текст» */
+        .hh-steps-timeline { display: none !important; }
+        .hh-steps-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+        .hh-steps-card { display: flex !important; flex-direction: row !important; align-items: stretch !important; gap: 14px !important; padding: 14px 16px !important; }
+        .hh-steps-num-mobile { display: inline-flex !important; }
+        .hh-steps-card-body { flex: 1 !important; }
+        .hh-steps-card-body h3 { font-size: 16px !important; margin-bottom: 6px !important; }
+        .hh-steps-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
+
+        /* (9) CabinetPreview — компактнее */
+        .hh-cab-explainers { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+        .hh-cab-mockup { font-size: 11px !important; }
+
+        /* (10) Leaderboard — компактные строки на mobile */
+        .hh-lb-row { grid-template-columns: 38px 1fr auto !important; gap: 10px !important; padding: 10px 14px !important; }
+        .hh-lb-head-row > div:nth-child(3) { text-align: right !important; }
+        .hh-lb-row > div { font-size: 13px !important; }
+
+        /* (13) Events — все 4 карточки одного среднего размера + шрифт title одинаковый */
+        .hh-event-card { aspect-ratio: 1.5 / 1 !important; }
+        .hh-event-card-big { aspect-ratio: 1.5 / 1 !important; }
+        .hh-event-card-title { font-size: 18px !important; max-width: 100% !important; }
+        .hh-event-card-bottom { bottom: 16px !important; left: 16px !important; right: 16px !important; }
+
+        /* (14) Support — карточки ближе друг к другу */
+        .hh-sup-ctas { gap: 8px !important; margin-top: 10px !important; }
+        .hh-support-grid { gap: 12px !important; }
       }
       @keyframes hh-globe-pulse {
         0%, 100% { r: 2.4; opacity: 1; }
