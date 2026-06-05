@@ -227,36 +227,45 @@
     const STEP = 100 / candles.norm.length;
     const W = STEP * 0.55;
     const maPath = candles.ma.map((y, i) => `${i === 0 ? "M" : "L"} ${i * STEP + STEP * 0.5} ${y}`).join(" ");
-    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, opacity: 0.42, pointerEvents: "none", zIndex: 0 } },
-      // Background grid pattern — выраженная трейдерская сетка (плотнее и контрастнее)
-      _e("div", { style: { position: "absolute", inset: 0,
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
-        backgroundSize: "36px 36px",
-        maskImage: "radial-gradient(ellipse 85% 75% at 50% 50%, #000 35%, transparent 85%)",
-        WebkitMaskImage: "radial-gradient(ellipse 85% 75% at 50% 50%, #000 35%, transparent 85%)"
+    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 } },
+      // Background grid — крупные ровные квадраты 64×64, контрастная тонкая обводка
+      _e("div", { style: { position: "absolute", inset: 0, opacity: 0.55,
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.075) 1px, transparent 1px)",
+        backgroundSize: "64px 64px",
+        backgroundPosition: "0 0",
+        maskImage: "radial-gradient(ellipse 95% 85% at 50% 50%, #000 45%, transparent 95%)",
+        WebkitMaskImage: "radial-gradient(ellipse 95% 85% at 50% 50%, #000 45%, transparent 95%)"
       } }),
-      // тонкие горизонтальные «уровни» поверх сетки
-      _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
-        [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.10)", strokeWidth: 0.12 } }))
+      // свечи и MA — wrapper с собственной прозрачностью, чтобы grid остался ярким
+      _e("div", { style: { position: "absolute", inset: 0, opacity: 0.42 } },
+        // тонкие горизонтальные «уровни» поверх сетки
+        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+          [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.10)", strokeWidth: 0.12 } }))
+        ),
+        // свечи
+        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+          candles.norm.map((c, i) => {
+            const x = i * STEP + STEP * 0.225;
+            const cx = x + W / 2;
+            const color = c.up ? "#4ade80" : "#ff4b5c";
+            const top = Math.min(c.o, c.c);
+            const bot = Math.max(c.o, c.c);
+            return _e("g", { key: i },
+              _e("line", { x1: cx, x2: cx, y1: c.h, y2: c.l, style: { stroke: color, strokeWidth: 0.22, opacity: 0.95 } }),
+              _e("rect", { x, y: top, width: W, height: Math.max(0.5, bot - top), style: { fill: color, opacity: 0.95 } })
+            );
+          })
+        ),
+        // yellow MA line
+        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+          _e("path", { d: maPath, style: { stroke: "#fcd535", strokeWidth: 0.45, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", filter: "drop-shadow(0 0 1px rgba(252,213,53,0.5))" } })
+        )
       ),
-      // свечи (плотнее и ярче, чтобы выделялись на сетке)
-      _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
-        candles.norm.map((c, i) => {
-          const x = i * STEP + STEP * 0.225;
-          const cx = x + W / 2;
-          const color = c.up ? "#4ade80" : "#ff4b5c";
-          const top = Math.min(c.o, c.c);
-          const bot = Math.max(c.o, c.c);
-          return _e("g", { key: i },
-            _e("line", { x1: cx, x2: cx, y1: c.h, y2: c.l, style: { stroke: color, strokeWidth: 0.22, opacity: 0.95 } }),
-            _e("rect", { x, y: top, width: W, height: Math.max(0.5, bot - top), style: { fill: color, opacity: 0.95 } })
-          );
-        })
-      ),
-      // yellow MA line (как на vercel — толстая жёлтая линия поверх свечей)
-      _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
-        _e("path", { d: maPath, style: { stroke: "#fcd535", strokeWidth: 0.45, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", filter: "drop-shadow(0 0 1px rgba(252,213,53,0.5))" } })
-      ),
+      // Затемнение под текстом — radial-gradient с тёмным центром слева, где находится H1+бейдж+кнопки
+      _e("div", { style: {
+        position: "absolute", inset: 0,
+        background: "radial-gradient(ellipse 55% 70% at 28% 50%, rgba(8,8,10,0.88) 0%, rgba(8,8,10,0.65) 35%, rgba(8,8,10,0.20) 65%, rgba(8,8,10,0) 85%)"
+      } }),
       // fade edges
       _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--bg) 0%, rgba(8,8,10,0) 16%, rgba(8,8,10,0) 64%, var(--bg) 100%), linear-gradient(90deg, var(--bg) 0%, rgba(8,8,10,0) 10%, rgba(8,8,10,0) 90%, var(--bg) 100%)" } })
     );
@@ -755,7 +764,7 @@
         body: "Привлекай других аффилиатов по своей ссылке и зарабатывай на многоуровневой партнёрской сети." }
     ];
 
-    return _e("section", { id: "why", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "why", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 760, margin: "0 auto 48px" } },
@@ -1080,12 +1089,12 @@
               _e("p", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
             ),
 
-            // RIGHT result card — высота = высоте левой колонки (height: 100%), без minHeight
+            // RIGHT result card — компактный column-start: блоки идут друг за другом без растяжки.
             _e("div", { style: {
               background: "linear-gradient(180deg, rgba(11,11,14,0.6), #151517)",
               border: "1px solid var(--line)", borderRadius: 22, padding: 28,
               boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
-              display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%"
+              display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", gap: 24
             } },
               // верхняя группа (eyebrow + результат + подпись)
               _e("div", null,
@@ -1391,7 +1400,8 @@
             [
               { paths: ["M22 12h-4l-3 9L9 3l-3 9H2"], t: "Аналитика в реальном времени", b: "Клики, регистрации, покупки и комиссии обновляются автоматически." },
               { paths: ["M22 11.08V12a10 10 0 1 1-5.93-9.14", "M22 4L12 14.01l-3-3"], t: "Статистика по суб-партнёрам", b: "Контролируй начисления со всех уровней: твоих прямых партнёров и их рефералов." },
-              { paths: ["M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2", "M16 11h.01", "M18 14a4 4 0 0 0 0-4"], t: "Вывод в любой момент", b: "Запрашивай выплаты в USDT без фиксированных дат." },
+              // Lucide "wallet" — чистая иконка кошелька с застёжкой, ассоциируется с выводом средств
+              { paths: ["M21 12V7H5a2 2 0 0 1 0-4h14v4", "M3 5v14a2 2 0 0 0 2 2h16v-5", "M18 12a2 2 0 0 0 0 4h4v-4Z"], t: "Вывод в любой момент", b: "Запрашивай выплаты в USDT без фиксированных дат." },
               { paths: ["M12 20h9", "M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"], t: "Гибкие инструменты", b: "Генерируй ссылки, промокоды и подключай постбэки за пару секунд." }
             ].map((ex, i) => _e("div", { key: i, style: { padding: 18, background: "#151517", border: "1px solid var(--line)", borderRadius: 14 } },
               _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", marginBottom: 12 } },
@@ -1424,11 +1434,30 @@
       { n: 10, name: "Anonymous",         amount: 104524.55, alt: true  }
     ];
     const fmtUSD = v => "$" + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return _e("section", { id: "leaderboard", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "leaderboard", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
+        // Header: eyebrow + H2 слева, описание справа (вернул из v3.1)
         _e(Reveal, null,
+          _e("div", { className: "hh-lb-head", style: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 60, alignItems: "end", marginBottom: 40 } },
+            _e("div", null,
+              _e("span", {
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
+              },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                "Обновляется в реальном времени"
+              ),
+              _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
+                "Топ партнёры", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "за месяц")
+              )
+            ),
+            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
+              "Привлекай рефералов и выходи в топ. Лидерборд в реальном времени показывает партнёров с самым высоким доходом за месяц."
+            )
+          )
+        ),
+        _e(Reveal, { delay: "1" },
           _e("div", { style: { background: "rgba(255,255,255,0.02)", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden" } },
-            // Header section с заголовком
+            // Header section с заголовком таблицы
             _e("div", { style: { padding: "26px 32px 18px" } },
               _e("h3", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", margin: 0, letterSpacing: "-0.01em" } }, "Топ партнёры")
             ),
@@ -1659,8 +1688,10 @@
       const ov = scene.overrides && scene.overrides[i];
       return Object.assign({}, c, ov || {}, { active: i === scene.activeIdx });
     });
+    // var(--bg) = #101012 имеет небольшой синий B-bias (B=18 vs R=G=16).
+    // Поэтому здесь явный тёплый нейтральный #0d0c0a — секция перестаёт казаться синей.
     return _e("section", { id: "telegram",
-      style: { padding: "100px 0 120px", background: "var(--bg)", position: "relative" }
+      style: { padding: "100px 0 120px", background: "#0d0c0a", position: "relative" }
     },
       _e("style", null, `
         /* Одноразовое появление каналов */
