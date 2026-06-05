@@ -215,10 +215,36 @@
   // ============================================================================
   function LivePartnerCard() {
     const earned = 12480;
+    // Пул выплат для анимации — флаги из списка географии,
+    // чаще RU/BR/UAE/UA. Список ротируется каждые 3.5с.
+    const payoutPool = [
+      { flag: "🇷🇺", name: "Сергей",  city: "Москва",         amt: 9050 },
+      { flag: "🇧🇷", name: "Lucas",   city: "São Paulo",       amt: 4820 },
+      { flag: "🇦🇪", name: "Khalid",  city: "Dubai",           amt: 6310 },
+      { flag: "🇺🇸", name: "Mike",    city: "New York",        amt: 7240 },
+      { flag: "🇩🇪", name: "Jonas",   city: "Berlin",          amt: 3470 },
+      { flag: "🇷🇺", name: "Анна",    city: "СПб",             amt: 5180 },
+      { flag: "🇮🇳", name: "Arjun",   city: "Mumbai",          amt: 2090 },
+      { flag: "🇹🇷", name: "Cem",     city: "Istanbul",        amt: 1860 },
+      { flag: "🇫🇷", name: "Pierre",  city: "Paris",           amt: 3210 },
+      { flag: "🇧🇷", name: "Tiago",   city: "Rio",             amt: 4380 },
+      { flag: "🇰🇷", name: "Min-Jun", city: "Seoul",           amt: 2750 },
+      { flag: "🇬🇧", name: "James",   city: "London",          amt: 4520 },
+      { flag: "🇦🇪", name: "Yousef",  city: "Abu Dhabi",       amt: 5610 },
+      { flag: "🇷🇺", name: "Игорь",   city: "Казань",          amt: 2840 },
+      { flag: "🇪🇸", name: "Diego",   city: "Madrid",          amt: 1780 }
+    ];
+    // Анимация: визуально показываем 3 последних, верхняя строка добавляется
+    // и нижняя выезжает вниз. Используем поворот по индексу через setInterval.
+    const [pIdx, setPIdx] = useState(0);
+    useEffect(() => {
+      const id = setInterval(() => setPIdx(i => (i + 1) % payoutPool.length), 3500);
+      return () => clearInterval(id);
+    }, []);
     const payouts = [
-      { flag: "🇷🇺", name: "Сергей", city: "СПб",     amt: 9050 },
-      { flag: "🇰🇿", name: "Адиль",  city: "Бишкек",  amt: 3470 },
-      { flag: "🇬🇪", name: "Nino",   city: "Тбилиси", amt: 540  }
+      payoutPool[pIdx],
+      payoutPool[(pIdx + 1) % payoutPool.length],
+      payoutPool[(pIdx + 2) % payoutPool.length]
     ];
     // Mini sparkline данные — растущая кривая
     const sparkPts = [60, 55, 58, 50, 48, 42, 38, 32, 28, 22, 18, 12];
@@ -232,20 +258,20 @@
         boxShadow: "0 40px 80px -20px rgba(0,0,0,0.7)"
       }
     },
-      // Header
+      // Header — green LIVE badge, no dot before "Личный кабинет"
       _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 22px", borderBottom: "1px solid var(--line)" } },
-        _e("div", { style: { display: "flex", alignItems: "center", gap: 10 } },
-          _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 0 4px rgba(74,222,128,0.18)" } }),
-          _e("span", { style: { fontSize: 11, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", fontFamily: "Akrobat, Onest, sans-serif" } }, "Личный кабинет")
-        ),
-        _e("span", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", padding: "3px 9px", background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.35)", color: "#fcd535", borderRadius: 100, fontFamily: "Akrobat, Onest, sans-serif" } }, "LIVE")
+        _e("span", { style: { fontSize: 12, fontWeight: 700, letterSpacing: "0.10em", textTransform: "uppercase", color: "#a1a0a4" } }, "Личный кабинет"),
+        _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", padding: "4px 10px", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.4)", color: "#4ade80", borderRadius: 100 } },
+          _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade80" } }),
+          "LIVE"
+        )
       ),
 
       // Earned + sparkline
       _e("div", { style: { padding: "18px 22px", borderBottom: "1px solid var(--line)" } },
         _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 } },
           _e("div", null,
-            _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 6, fontFamily: "Akrobat, Onest, sans-serif" } }, "Заработано за месяц"),
+            _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 6 } }, "Заработано за месяц"),
             _e("div", { style: { fontSize: 38, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1 } }, "$12 480"),
             _e("div", { style: { fontSize: 12, color: "#4ade80", marginTop: 8, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 4 } },
               _e("span", null, "↑"), "+18% за месяц"
@@ -275,25 +301,31 @@
 
       // Last payouts
       _e("div", { style: { padding: "18px 22px" } },
-        _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 14, fontFamily: "Akrobat, Onest, sans-serif" } }, "Последние выплаты партнёрам"),
-        payouts.map((p, i) => _e("div", {
-          key: i,
-          style: { display: "grid", gridTemplateColumns: "32px 1fr auto", gap: 12, alignItems: "center", padding: "10px 0", borderTop: i === 0 ? "none" : "1px solid var(--line)" }
-        },
-          _e("span", { style: { fontSize: 22, lineHeight: 1 } }, p.flag),
-          _e("div", null,
-            _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#f5f1e8" } }, `${p.name} · ${p.city}`)
-          ),
-          _e("span", { style: { color: "#fcd535", fontWeight: 800, fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace", fontSize: 13 } }, `+$${p.amt.toLocaleString("ru-RU").replace(/,/g, " ")}`)
-        )),
+        _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 14 } }, "Последние выплаты партнёрам"),
+        _e("div", { style: { position: "relative", minHeight: 158, overflow: "hidden" } },
+          payouts.map((p, i) => _e("div", {
+            key: pIdx + "-" + i,
+            style: {
+              display: "grid", gridTemplateColumns: "32px 1fr auto", gap: 12, alignItems: "center",
+              padding: "10px 0", borderTop: i === 0 ? "none" : "1px solid var(--line)",
+              animation: i === 0 ? "hh-payout-in .55s var(--ease-out, cubic-bezier(.22,1,.36,1)) both" : "hh-payout-shift .55s ease both"
+            }
+          },
+            _e("span", { style: { fontSize: 22, lineHeight: 1 } }, p.flag),
+            _e("div", null,
+              _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#f5f1e8" } }, `${p.name} · ${p.city}`)
+            ),
+            _e("span", { style: { color: "#fcd535", fontWeight: 800, fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace", fontSize: 13 } }, `+$${p.amt.toLocaleString("ru-RU").replace(/,/g, " ")}`)
+          ))
+        ),
         // География выплат — mini block
         _e("div", { style: { marginTop: 14, paddingTop: 14, borderTop: "1px solid var(--line)" } },
-          _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 10, fontFamily: "Akrobat, Onest, sans-serif" } }, "География выплат"),
+          _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 10 } }, "География выплат"),
           _e("div", { style: { display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" } },
-            ["🇷🇺", "🇰🇿", "🇺🇦", "🇬🇪", "🇧🇾", "🇺🇿", "🇰🇬", "🇦🇿", "🇲🇩", "🇹🇯"].map((f, i) =>
+            ["🇺🇸", "🇩🇪", "🇬🇧", "🇯🇵", "🇰🇷", "🇧🇷", "🇦🇪", "🇫🇷", "🇮🇳", "🇨🇦", "🇳🇱", "🇸🇬", "🇮🇹", "🇵🇱", "🇪🇸", "🇹🇷"].map((f, i) =>
               _e("span", { key: i, style: { fontSize: 18, opacity: 0.92 } }, f)
             ),
-            _e("span", { style: { fontSize: 12, color: "#a1a0a4", marginLeft: 4 } }, "+ ещё 110+ стран")
+            _e("span", { style: { fontSize: 12, color: "#a1a0a4", marginLeft: 4 } }, "+ ещё 60")
           )
         )
       )
@@ -323,7 +355,7 @@
                   border: "1px solid var(--line)",
                   background: "rgba(255,255,255,0.02)",
                   fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4",
-                  marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif"
+                  marginBottom: 24
                 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
@@ -337,9 +369,10 @@
                   letterSpacing: "-0.03em", margin: "0 0 24px", color: "#f5f1e8"
                 }
               },
-                "Продвигай ",
-                _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"),
-                " и зарабатывай вместе с нами"
+                "Продвигай", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"), _e("br", null),
+                "и зарабатывай", _e("br", null),
+                "вместе с нами"
               ),
 
               _e("p", { style: { fontSize: 18, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 36, maxWidth: 580 } },
@@ -385,7 +418,7 @@
       { v: "2 500+", l: "активных партнёров" },
       { v: "120",    l: "стран" },
       { v: "$2.5M+", l: "выплачено партнёрам" },
-      { v: "4.9/5",  l: "Trustpilot" }
+      { v: "4.4/5",  l: "Trustpilot" }
     ];
     return _e("section", { style: { padding: "40px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -414,7 +447,7 @@
         children
       ),
       _e("div", { style: { padding: "20px 22px 22px" } },
-        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", fontSize: 10, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 14, fontFamily: "Akrobat, Onest, sans-serif" } },
+        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", fontSize: 10, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 14 } },
           _e("svg", { width: 11, height: 11, viewBox: "0 0 12 12", style: { fill: "#9ef0c0" } }, _e("path", { d: "M4.5 9L1.5 6l1-1 2 2 4.5-4.5 1 1z", style: { fill: "#9ef0c0" } })),
           chip
         ),
@@ -428,7 +461,7 @@
 
     // VIZ 1 — 80% bar
     const V1 = () => _e("div", { style: { width: "100%", padding: "0 8px" } },
-      _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 14, textAlign: "center", fontFamily: "Akrobat, Onest, sans-serif" } }, "Комиссия партнёра"),
+      _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 14, textAlign: "center" } }, "Комиссия партнёра"),
       _e("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 } },
         _e("div", { style: { display: "grid", gridTemplateColumns: "100px 1fr 50px", gap: 10, alignItems: "center" } },
           _e("span", { style: { fontSize: 13, color: "#f5f1e8", fontWeight: 600 } }, "Партнёр"),
@@ -473,15 +506,15 @@
 
     // VIZ 3 — 5-10x exchange comparison
     const V3 = () => _e("div", { style: { width: "100%", padding: "0 8px", textAlign: "center" } },
-      _e("div", { style: { fontSize: 48, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 6, fontFamily: "Akrobat, Onest, sans-serif" } }, "5–10×"),
+      _e("div", { style: { fontSize: 48, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 6 } }, "5–10×"),
       _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 16 } }, "доход vs биржевой реферал"),
       _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 } },
         _e("div", { style: { padding: "10px 8px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 10 } },
-          _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4, fontFamily: "Akrobat, Onest, sans-serif" } }, "Биржа"),
+          _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Биржа"),
           _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#a1a0a4" } }, "$30–60")
         ),
         _e("div", { style: { padding: "10px 8px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 10 } },
-          _e("div", { style: { fontSize: 10, color: "#fcd535", marginBottom: 4, fontWeight: 700, fontFamily: "Akrobat, Onest, sans-serif" } }, "Hash Hedge"),
+          _e("div", { style: { fontSize: 10, color: "#fcd535", marginBottom: 4, fontWeight: 700 } }, "Hash Hedge"),
           _e("div", { style: { fontSize: 16, fontWeight: 800, color: "#f5f1e8" } }, "$300+")
         )
       )
@@ -519,25 +552,58 @@
       })
     );
 
-    // VIZ 6 — World map silhouettes + chip
-    const V6 = () => _e("div", { style: { position: "relative", textAlign: "center" } },
-      _e("svg", { width: "180", height: "100", viewBox: "0 0 180 100", style: { display: "block", margin: "0 auto" } },
-        // Stylized continent shapes
-        _e("path", { d: "M 18 30 Q 28 20 42 26 Q 52 30 50 42 Q 46 52 32 48 Q 18 44 16 38 Z", style: { fill: "rgba(255,255,255,0.07)", stroke: "rgba(252,213,53,0.3)", strokeWidth: 0.8 } }),
-        _e("path", { d: "M 60 22 Q 80 18 95 28 Q 105 36 100 50 Q 88 56 72 50 Q 58 40 60 30 Z", style: { fill: "rgba(255,255,255,0.07)", stroke: "rgba(252,213,53,0.3)", strokeWidth: 0.8 } }),
-        _e("path", { d: "M 115 28 Q 140 22 158 34 Q 165 46 152 56 Q 130 60 118 50 Q 112 40 114 32 Z", style: { fill: "rgba(255,255,255,0.07)", stroke: "rgba(252,213,53,0.3)", strokeWidth: 0.8 } }),
-        _e("path", { d: "M 70 58 Q 85 56 90 66 Q 88 74 78 76 Q 68 72 68 62 Z", style: { fill: "rgba(255,255,255,0.07)", stroke: "rgba(252,213,53,0.3)", strokeWidth: 0.8 } }),
-        // dots
-        [[34, 38], [78, 36], [134, 42], [76, 66]].map(([cx, cy], i) => _e("circle", { key: i, cx, cy, r: 1.5, style: { fill: "#fcd535" } }))
-      ),
-      _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.35)", fontSize: 10, fontWeight: 700, color: "#fcd535", letterSpacing: "0.04em", textTransform: "uppercase", marginTop: 8, fontFamily: "Akrobat, Onest, sans-serif" } },
-        "Глобальный охват · 154 страны"
-      )
-    );
+    // VIZ 6 — World map с точками + соединительными линиями (как у hh map widgets)
+    const V6 = () => {
+      // dots — города/гео-точки активности на карте
+      const dots = [
+        { x: 38, y: 42, big: true  }, // NYC
+        { x: 60, y: 38, big: false }, // Toronto
+        { x: 88, y: 38, big: true  }, // London
+        { x: 96, y: 44, big: false }, // Paris
+        { x: 105, y: 35, big: false }, // Berlin
+        { x: 113, y: 42, big: false }, // Moscow-ish
+        { x: 132, y: 50, big: true  }, // Dubai
+        { x: 152, y: 38, big: false }, // Beijing
+        { x: 160, y: 46, big: false }, // Seoul
+        { x: 158, y: 56, big: true  }, // Tokyo
+        { x: 142, y: 64, big: false }, // Mumbai
+        { x: 158, y: 72, big: false }, // Singapore
+        { x: 50, y: 72, big: true  }, // Sao Paulo
+        { x: 62, y: 78, big: false }, // Buenos Aires
+        { x: 112, y: 72, big: false }  // Cape Town
+      ];
+      // лёгкие связи между крупными точками
+      const links = [
+        [0, 2], [2, 6], [6, 9], [9, 12], [12, 6], [0, 12]
+      ];
+      return _e("div", { style: { position: "relative", textAlign: "center" } },
+        _e("svg", { width: "100%", height: "120", viewBox: "0 0 200 110", style: { display: "block", maxWidth: 240, margin: "0 auto" } },
+          // континенты — мягкие силуэты
+          _e("path", { d: "M 18 38 Q 30 30 44 34 Q 56 38 56 48 Q 50 56 36 56 Q 22 54 18 48 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
+          _e("path", { d: "M 78 32 Q 100 28 122 36 Q 132 44 122 56 Q 108 60 90 58 Q 78 50 78 42 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
+          _e("path", { d: "M 132 38 Q 156 32 180 42 Q 184 56 168 64 Q 146 64 132 56 Q 128 46 132 40 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
+          _e("path", { d: "M 42 66 Q 58 66 64 76 Q 60 88 50 88 Q 38 82 40 72 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
+          _e("path", { d: "M 96 64 Q 116 64 122 76 Q 114 84 102 82 Q 92 76 94 70 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
+          // связи
+          links.map(([a, b], i) => _e("line", { key: "l" + i,
+            x1: dots[a].x, y1: dots[a].y, x2: dots[b].x, y2: dots[b].y,
+            style: { stroke: "rgba(252,213,53,0.35)", strokeWidth: 0.5, strokeDasharray: "2 2" }
+          })),
+          // точки
+          dots.map((d, i) => _e("g", { key: "d" + i },
+            d.big && _e("circle", { cx: d.x, cy: d.y, r: 3.5, style: { fill: "rgba(252,213,53,0.15)" } }),
+            _e("circle", { cx: d.x, cy: d.y, r: d.big ? 1.6 : 1, style: { fill: "#fcd535" } })
+          ))
+        ),
+        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.35)", fontSize: 10, fontWeight: 700, color: "#fcd535", letterSpacing: "0.04em", textTransform: "uppercase", marginTop: 8 } },
+          "Глобальный охват · 154 страны"
+        )
+      );
+    };
 
     // VIZ 7 — Promo code field with Partner2026
     const V7 = () => _e("div", { style: { width: "100%", padding: "0 6px", textAlign: "center" } },
-      _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 12, fontFamily: "Akrobat, Onest, sans-serif" } }, "Промокод"),
+      _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 12 } }, "Промокод"),
       _e("div", { style: { display: "flex", gap: 0, maxWidth: 240, margin: "0 auto" } },
         _e("div", { style: { flex: 1, padding: "12px 14px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRight: "none", borderRadius: "10px 0 0 10px", textAlign: "left", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 14, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em" } }, "PARTNER2026"),
         _e("div", { style: { padding: "12px 16px", background: "#fcd535", borderRadius: "0 10px 10px 0", color: "#13111c", fontSize: 12, fontWeight: 800 } }, "−25%")
@@ -555,13 +621,13 @@
           { k: "Источник", v: "YouTube" },
           { k: "Клики", v: "1 284" }
         ].map((it, i) => _e("div", { key: i, style: { padding: "10px 12px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 8 } },
-          _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginBottom: 4, fontFamily: "Akrobat, Onest, sans-serif", textTransform: "uppercase", letterSpacing: "0.1em" } }, it.k),
+          _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.1em" } }, it.k),
           _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, it.v)
         ))
       ),
       _e("div", { style: { padding: "12px 14px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 8 } },
         _e("div", { style: { display: "flex", justifyContent: "space-between", marginBottom: 8 } },
-          _e("span", { style: { fontSize: 10, color: "#a1a0a4", fontFamily: "Akrobat, Onest, sans-serif", textTransform: "uppercase", letterSpacing: "0.1em" } }, "Доход с канала"),
+          _e("span", { style: { fontSize: 10, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.1em" } }, "Доход с канала"),
           _e("span", { style: { fontSize: 10, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
         ),
         _e("div", { style: { fontSize: 18, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
@@ -580,7 +646,7 @@
         _e("line", { x1: 140, y1: 65, x2: 160, y2: 95, style: { stroke: "rgba(252,213,53,0.25)", strokeWidth: 1 } }),
         // Top node (you)
         _e("circle", { cx: 100, cy: 30, r: 14, style: { fill: "#fcd535" } }),
-        _e("text", { x: 100, y: 34, textAnchor: "middle", style: { fontSize: 9, fontWeight: 800, fill: "#13111c", fontFamily: "Akrobat, Onest, sans-serif" } }, "Я"),
+        _e("text", { x: 100, y: 34, textAnchor: "middle", style: { fontSize: 9, fontWeight: 800, fill: "#13111c" } }, "Я"),
         // L1 nodes
         _e("circle", { cx: 60, cy: 65, r: 11, style: { fill: "rgba(252,213,53,0.20)", stroke: "rgba(252,213,53,0.6)", strokeWidth: 1 } }),
         _e("circle", { cx: 140, cy: 65, r: 11, style: { fill: "rgba(252,213,53,0.20)", stroke: "rgba(252,213,53,0.6)", strokeWidth: 1 } }),
@@ -619,7 +685,7 @@
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 760, margin: "0 auto 48px" } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Почему Hash Hedge"
@@ -667,14 +733,14 @@
       { n: "03", title: "Доход с суб-партнёров",
         body: _e(F, null, "Строй многоуровневую сеть. Ты зарабатываешь ", _e("b", { style: { color: "#fcd535" } }, "5%"), " от дохода прямых партнёров и ", _e("b", { style: { color: "#fcd535" } }, "3%"), " от привлечённых ими суб-партнёров."),
         pill: "5% + 3% с партнёрской сети",
-        icon: ["M16 5v14", "M12 12l-4 4 4 4", "M16 16h-8", "M6 5h8a4 4 0 0 1 4 4v0"] }
+        icon: ["M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M19 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M12 8v3", "M6.5 16l4.5-3 4.5 3", "M9 21h6"] }
     ];
     return _e("section", { id: "income", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 760, margin: "0 auto 48px" } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "3 источника дохода"
@@ -742,7 +808,7 @@
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 880, margin: "0 auto 48px" } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Партнёрские уровни"
@@ -767,12 +833,12 @@
             },
               _e(TierIcon, { shape: t.shape, color: t.color }),
               _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, `Уровень ${t.lvl}`),
-              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.featured ? "#fcd535" : "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14, fontFamily: "Akrobat, Onest, sans-serif" } }, t.label),
+              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.featured ? "#fcd535" : "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
               !t.label && _e("div", { style: { height: 14 } }),
-              _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 6, fontFamily: "Akrobat, Onest, sans-serif" } }, "Комиссия"),
+              _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 6 } }, "Комиссия"),
               _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.featured ? "#fcd535" : "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
               _e("div", { style: { width: "100%", marginTop: "auto", padding: "12px 10px", background: "rgba(8,8,10,0.4)", border: "1px solid var(--line)", borderRadius: 10 } },
-                _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4, fontFamily: "Akrobat, Onest, sans-serif" } }, "Привлечённых трейдеров"),
+                _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Привлечённых трейдеров"),
                 _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, t.range),
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, "в месяц")
               )
@@ -840,7 +906,7 @@
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 56px" } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Твой доход"
@@ -890,7 +956,7 @@
               _e("div", { style: { padding: "18px 22px", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 } },
                 _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
                   _e("div", null,
-                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4, fontFamily: "Akrobat, Onest, sans-serif" } }, "Твой уровень · авто"),
+                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Твой уровень · авто"),
                     _e("div", { style: { fontSize: 19, fontWeight: 700, color: "#f5f1e8" } }, `Уровень ${tier.lvl}`)
                   ),
                   _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#fcd535" } }, `${tier.pct}%`)
@@ -905,7 +971,7 @@
               border: "1px solid var(--line)", borderRadius: 22, padding: 32,
               boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)"
             } },
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 16, fontFamily: "Akrobat, Onest, sans-serif" } },
+              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 16 } },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#fcd535" } }),
                 "Твой доход в месяц"
               ),
@@ -972,7 +1038,7 @@
         _e("div", { className: "hh-steps-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
           steps.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" } },
-              _e("div", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12, fontFamily: "Akrobat, Onest, sans-serif" } }, s.chip),
+              _e("div", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12 } }, s.chip),
               _e("h3", { style: { fontSize: 19, fontWeight: 700, lineHeight: 1.25, marginBottom: 12, color: "#f5f1e8" } }, s.title),
               _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, s.body)
             )
@@ -992,7 +1058,7 @@
           _e("div", { className: "hh-cab-head", style: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 60, alignItems: "end", marginBottom: 40 } },
             _e("div", null,
               _e("span", {
-                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Личный кабинет"
@@ -1025,7 +1091,7 @@
                   ),
                   _e("div", { style: { lineHeight: 1.15 } },
                     _e("div", { style: { fontSize: 13, fontWeight: 800, color: "#f5f1e8" } }, "HASH HEDGE"),
-                    _e("div", { style: { fontSize: 9, fontWeight: 800, letterSpacing: "0.1em", color: "#a1a0a4", fontFamily: "Akrobat, Onest, sans-serif" } }, "ПАРТНЁРСКИЙ ЦЕНТР")
+                    _e("div", { style: { fontSize: 9, fontWeight: 800, letterSpacing: "0.1em", color: "#a1a0a4" } }, "ПАРТНЁРСКИЙ ЦЕНТР")
                   )
                 ),
                 _e("div", { className: "hh-cab-greet", style: { lineHeight: 1.3, paddingLeft: 14, borderLeft: "1px solid var(--line)" } },
@@ -1086,7 +1152,7 @@
                     { l: "Партнёрское соглашение", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" }
                   ]}
                 ].map((g, gi) => _e("div", { key: gi, style: { marginBottom: 16 } },
-                  _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "0 10px", marginBottom: 6, fontFamily: "Akrobat, Onest, sans-serif" } },
+                  _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "0 10px", marginBottom: 6 } },
                     _e("span", null, g.title),
                     _e("span", { style: { color: "#a1a0a4", fontSize: 14 } }, "▾")
                   ),
@@ -1227,7 +1293,7 @@
           _e("div", { className: "hh-lb-head", style: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 60, alignItems: "end", marginBottom: 40 } },
             _e("div", null,
               _e("span", {
-                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Обновляется в реальном времени"
@@ -1245,7 +1311,7 @@
           _e("div", { style: { background: "rgba(255,255,255,0.02)", border: "1px solid var(--line)", borderRadius: 16, overflow: "hidden" } },
             // Header
             _e("div", { className: "hh-lb-row hh-lb-head-row", style: { display: "grid", gridTemplateColumns: "80px 1fr 220px 160px", gap: 16, padding: "16px 24px", borderBottom: "1px solid var(--line)" } },
-              ["#", "Партнёр", "Активных трейдеров", "Доход за месяц"].map((h, i) => _e("div", { key: i, style: { fontSize: 11, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", textAlign: i === 3 ? "right" : i === 2 ? "right" : "left", fontFamily: "Akrobat, Onest, sans-serif" } }, h))
+              ["#", "Партнёр", "Активных трейдеров", "Доход за месяц"].map((h, i) => _e("div", { key: i, style: { fontSize: 11, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", textAlign: i === 3 ? "right" : i === 2 ? "right" : "left" } }, h))
             ),
             // Rows
             rows.map((r, i) => _e("div", {
@@ -1302,7 +1368,7 @@
           _e("div", { className: "hh-yt-head", style: { display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 60, alignItems: "end", marginBottom: 32 } },
             _e("div", null,
               _e("span", {
-                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Контент партнёров"
@@ -1315,7 +1381,7 @@
               _e("p", { style: { fontSize: 15, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 14 } },
                 "Изучай кейсы нашего огромного комьюнити. Вдохновляйся форматами других партнёров, смотри, как 2500+ блогеров создают контент и привлекают клиентов. Используй рабочие механики."
               ),
-              _e("div", { style: { textAlign: "right", fontSize: 11, color: "#a1a0a4", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "Akrobat, Onest, sans-serif" } }, "← листай ролики →")
+              _e("div", { style: { textAlign: "right", fontSize: 11, color: "#a1a0a4", letterSpacing: "0.08em", textTransform: "uppercase" } }, "← листай ролики →")
             )
           )
         ),
@@ -1336,7 +1402,7 @@
               ),
               _e("div", { style: { padding: 16 } },
                 _e("div", { style: { fontSize: 14, fontWeight: 700, lineHeight: 1.3, color: "#f5f1e8", marginBottom: 8, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, v.title),
-                _e("div", { style: { fontSize: 10, color: "#a1a0a4", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "Akrobat, Onest, sans-serif" } }, "YouTube · Hash Hedge")
+                _e("div", { style: { fontSize: 10, color: "#a1a0a4", letterSpacing: "0.08em", textTransform: "uppercase" } }, "YouTube · Hash Hedge")
               )
             ))
           )
@@ -1372,7 +1438,7 @@
         _e(Reveal, null,
           _e("div", { style: { marginBottom: 48 } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Ивенты"
@@ -1422,18 +1488,18 @@
             } },
               _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.7) 100%)" } }),
               // ОНЛАЙН chip top-left
-              _e("div", { style: { position: "absolute", top: 18, left: 18, display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(8,8,10,0.7)", border: "1px solid rgba(74,222,128,0.4)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "Akrobat, Onest, sans-serif" } },
+              _e("div", { style: { position: "absolute", top: 18, left: 18, display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(8,8,10,0.7)", border: "1px solid rgba(74,222,128,0.4)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.06em", textTransform: "uppercase" } },
                 _e("span", { style: { width: 7, height: 7, borderRadius: "50%", background: "#4ade80" } }),
                 "Онлайн"
               ),
               // time pill top-right
               _e("div", { style: { position: "absolute", top: 18, right: 18, padding: "10px 14px", background: "rgba(8,8,10,0.7)", border: "1px solid var(--line)", borderRadius: 12, textAlign: "right" } },
                 _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#fcd535", lineHeight: 1 } }, "1 мин 47 сек"),
-                _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginTop: 4, letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "Akrobat, Onest, sans-serif" } }, "среднее время ответа")
+                _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginTop: 4, letterSpacing: "0.1em", textTransform: "uppercase" } }, "среднее время ответа")
               ),
               // bottom info
               _e("div", { style: { position: "absolute", bottom: 22, left: 22, right: 22 } },
-                _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8, fontFamily: "Akrobat, Onest, sans-serif" } }, "Личный менеджер партнёров"),
+                _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 } }, "Личный менеджер партнёров"),
                 _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em", marginBottom: 14 } }, "Команда Hash Hedge"),
                 _e("div", { style: { display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" } },
                   ["RU", "EN", "ES", "TR"].map(l => _e("span", { key: l, style: { padding: "4px 10px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 6, fontSize: 11, fontWeight: 700, color: "#f5f1e8" } }, l)),
@@ -1507,7 +1573,7 @@
               _e("div", { style: { flex: 1 } },
                 _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8 } },
                   _e("span", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, "Поддержка в Telegram"),
-                  _e("span", { style: { fontSize: 10, color: "#4ade80", padding: "2px 8px", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 100, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "Akrobat, Onest, sans-serif" } }, "онлайн")
+                  _e("span", { style: { fontSize: 10, color: "#4ade80", padding: "2px 8px", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 100, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" } }, "онлайн")
                 ),
                 _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 2 } }, "Задай любой вопрос о партнёрской программе")
               ),
@@ -1540,7 +1606,7 @@
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 48px" } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             }, "FAQ"),
             _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } }, "Часто задаваемые вопросы"),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4" } }, "Всё что нужно знать о партнёрской программе.")
@@ -1595,7 +1661,7 @@
             border: "1px solid var(--line)", borderRadius: 24
           } },
             _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24, fontFamily: "Akrobat, Onest, sans-serif" }
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Готов начать?"
@@ -1643,7 +1709,7 @@
             { h: "Партнёрам", links: [["Регистрация", "https://partner.hashhedge.com"], ["Личный кабинет", "https://partner.hashhedge.com"], ["FAQ", "#faq"], ["Поддержка", "https://t.me/hashhedgesupportbot"]] },
             { h: "Hash Hedge", links: [["Главная", "https://www.hashhedge.com/ru"], ["Челленджи", "https://hashhedge.com/ru#challenge"], ["Блог", "https://www.hashhedge.com/blog/ru"], ["Политика аффилированных", "https://hashhedge.com/affiliate-politics"]] }
           ].map((col, i) => _e("div", { key: i },
-            _e("div", { style: { fontSize: 12, fontWeight: 800, color: "#a1a0a4", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16, fontFamily: "Akrobat, Onest, sans-serif" } }, col.h),
+            _e("div", { style: { fontSize: 12, fontWeight: 800, color: "#a1a0a4", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 } }, col.h),
             _e("div", { style: { display: "flex", flexDirection: "column", gap: 10 } },
               col.links.map(([l, h], j) => _e("a", { key: j, href: h, style: { color: "#f5f1e8", textDecoration: "none", fontSize: 14 } }, l))
             )
@@ -1725,6 +1791,14 @@
       @media (max-width: 640px) {
         .hh-why-grid, .hh-steps-grid, .hh-tiers-grid, .hh-cab-explainers { grid-template-columns: 1fr !important; }
         .hh-footer-grid { grid-template-columns: 1fr !important; }
+      }
+      @keyframes hh-payout-in {
+        from { opacity: 0; transform: translateY(-12px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes hh-payout-shift {
+        from { opacity: 0.5; transform: translateY(-6px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
       input[type=range]::-webkit-slider-thumb {
         -webkit-appearance: none; appearance: none;
