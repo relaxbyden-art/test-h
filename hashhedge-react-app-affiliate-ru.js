@@ -227,14 +227,19 @@
     const STEP = 100 / candles.norm.length;
     const W = STEP * 0.55;
     const maPath = candles.ma.map((y, i) => `${i === 0 ? "M" : "L"} ${i * STEP + STEP * 0.5} ${y}`).join(" ");
-    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, opacity: 0.22, pointerEvents: "none", zIndex: 0 } },
-      // Background grid pattern — квадратная сетка как на главной
-      _e("div", { style: { position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)", backgroundSize: "48px 48px", maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 80%)" } }),
-      // candles grid (fine)
+    return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, opacity: 0.42, pointerEvents: "none", zIndex: 0 } },
+      // Background grid pattern — выраженная трейдерская сетка (плотнее и контрастнее)
+      _e("div", { style: { position: "absolute", inset: 0,
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+        backgroundSize: "36px 36px",
+        maskImage: "radial-gradient(ellipse 85% 75% at 50% 50%, #000 35%, transparent 85%)",
+        WebkitMaskImage: "radial-gradient(ellipse 85% 75% at 50% 50%, #000 35%, transparent 85%)"
+      } }),
+      // тонкие горизонтальные «уровни» поверх сетки
       _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
-        [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.04)", strokeWidth: 0.1 } }))
+        [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.10)", strokeWidth: 0.12 } }))
       ),
-      // candles
+      // свечи (плотнее и ярче, чтобы выделялись на сетке)
       _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
         candles.norm.map((c, i) => {
           const x = i * STEP + STEP * 0.225;
@@ -243,8 +248,8 @@
           const top = Math.min(c.o, c.c);
           const bot = Math.max(c.o, c.c);
           return _e("g", { key: i },
-            _e("line", { x1: cx, x2: cx, y1: c.h, y2: c.l, style: { stroke: color, strokeWidth: 0.18, opacity: 0.85 } }),
-            _e("rect", { x, y: top, width: W, height: Math.max(0.5, bot - top), style: { fill: color, opacity: 0.85 } })
+            _e("line", { x1: cx, x2: cx, y1: c.h, y2: c.l, style: { stroke: color, strokeWidth: 0.22, opacity: 0.95 } }),
+            _e("rect", { x, y: top, width: W, height: Math.max(0.5, bot - top), style: { fill: color, opacity: 0.95 } })
           );
         })
       ),
@@ -389,6 +394,7 @@
   function Hero() {
     return _e("section", {
       className: "hh-partner-hero",
+      "data-no-glow": true,
       style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
     },
       _e(HeroCandles, null),
@@ -804,7 +810,7 @@
         pill: "5% + 3% с партнёрской сети",
         icon: ["M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M19 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M12 8v3", "M6.5 16l4.5-3 4.5 3", "M9 21h6"] }
     ];
-    return _e("section", { id: "income", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "income", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 760, margin: "0 auto 48px" } },
@@ -1006,7 +1012,7 @@
     const base = chPrice;
     const monthly = Math.round(refs * base * tier.pct / 100);
 
-    return _e("section", { id: "calc", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "calc", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 56px" } },
@@ -1404,71 +1410,55 @@
   // LEADERBOARD — 4 cols, no tabs
   // ============================================================================
   function Leaderboard() {
+    // Данные 1:1 по скрину пользователя (вкладка «Топ партнёры»)
     const rows = [
-      { n: 1, init: "QE", email: "qew*****@gmail.ru",   lvl: 7, pct: 80, traders: 742, income: 60628, top: true },
-      { n: 2, init: "TR", email: "tra*****@mail.ru",    lvl: 6, pct: 75, traders: 611, income: 47633 },
-      { n: 3, init: "CR", email: "cry*****@gmail.com",  lvl: 6, pct: 75, traders: 478, income: 34401 },
-      { n: 4, init: "MV", email: "mvp*****@gmail.ru",   lvl: 5, pct: 70, traders: 352, income: 24047 },
-      { n: 5, init: "AC", email: "ace*****@yandex.ru",  lvl: 5, pct: 70, traders: 238, income: 18463 },
-      { n: 6, init: "LE", email: "lev*****@gmail.ru",   lvl: 4, pct: 65, traders: 121, income: 8337 },
-      { n: 7, init: "NF", email: "nft*****@mail.ru",    lvl: 3, pct: 60, traders: 96,  income: 7296 }
+      { n: 1,  name: "Anonymous",         amount: 962251.41, alt: false },
+      { n: 2,  name: "Anonymous",         amount: 347129.75, alt: true  },
+      { n: 3,  name: "Anonymous",         amount: 316436.55, alt: false },
+      { n: 4,  name: "Boss",              amount: 360446.05, alt: true  },
+      { n: 5,  name: "To The Moon 🚀",   amount: 217354.42, alt: false },
+      { n: 6,  name: "Anonymous",         amount: 258404.20, alt: true  },
+      { n: 7,  name: "igoraa500",         amount: 156723.11, alt: false },
+      { n: 8,  name: "Anonymous",         amount: 104789.08, alt: true  },
+      { n: 9,  name: "Anonymous",         amount: 110175.53, alt: false },
+      { n: 10, name: "Anonymous",         amount: 104524.55, alt: true  }
     ];
+    const fmtUSD = v => "$" + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return _e("section", { id: "leaderboard", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
-          _e("div", { className: "hh-lb-head", style: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 60, alignItems: "end", marginBottom: 40 } },
-            _e("div", null,
-              _e("span", {
-                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
-              },
-                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "Обновляется в реальном времени"
-              ),
-              _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
-                "Топ партнёры", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "за месяц")
-              )
+          _e("div", { style: { background: "rgba(255,255,255,0.02)", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden" } },
+            // Header section с заголовком
+            _e("div", { style: { padding: "26px 32px 18px" } },
+              _e("h3", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", margin: 0, letterSpacing: "-0.01em" } }, "Топ партнёры")
             ),
-            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Привлекай рефералов и выходи в топ. Лидерборд в реальном времени показывает партнёров с самым высоким доходом за месяц."
-            )
-          )
-        ),
-        _e(Reveal, { delay: "1" },
-          _e("div", { style: { background: "rgba(255,255,255,0.02)", border: "1px solid var(--line)", borderRadius: 16, overflow: "hidden" } },
-            // Header
-            _e("div", { className: "hh-lb-row hh-lb-head-row", style: { display: "grid", gridTemplateColumns: "80px 1fr 220px 160px", gap: 16, padding: "16px 24px", borderBottom: "1px solid var(--line)" } },
-              ["#", "Партнёр", "Активных трейдеров", "Доход за месяц"].map((h, i) => _e("div", { key: i, style: { fontSize: 11, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", textAlign: i === 3 ? "right" : i === 2 ? "right" : "left" } }, h))
+            // Column headers
+            _e("div", { className: "hh-lb-row hh-lb-head-row",
+              style: {
+                display: "grid", gridTemplateColumns: "120px 1fr 220px", gap: 16,
+                padding: "16px 32px", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)",
+                background: "rgba(255,255,255,0.02)"
+              }
+            },
+              ["Ранг", "Партнёр", "Сумма покупки"].map((h, i) => _e("div", { key: i,
+                style: { fontSize: 13, color: "#a1a0a4", fontWeight: 500, textAlign: i === 2 ? "right" : "left" }
+              }, h))
             ),
             // Rows
             rows.map((r, i) => _e("div", {
               key: r.n,
               className: "hh-lb-row",
               style: {
-                display: "grid", gridTemplateColumns: "80px 1fr 220px 160px", gap: 16,
-                padding: "18px 24px", alignItems: "center",
-                borderBottom: i === rows.length - 1 ? "none" : "1px solid var(--line)",
-                background: r.top ? "rgba(252,213,53,0.04)" : "transparent"
+                display: "grid", gridTemplateColumns: "120px 1fr 220px", gap: 16,
+                padding: "18px 32px", alignItems: "center",
+                background: r.alt ? "rgba(255,255,255,0.025)" : "transparent",
+                borderBottom: i === rows.length - 1 ? "none" : "1px solid rgba(255,255,255,0.04)"
               }
             },
-              _e("div", null,
-                _e("div", { style: { width: 36, height: 36, borderRadius: "50%", background: r.top ? "rgba(252,213,53,0.15)" : "rgba(255,255,255,0.04)", border: r.top ? "1px solid rgba(252,213,53,0.4)" : "1px solid var(--line)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 14, color: r.top ? "#fcd535" : "#f5f1e8" } }, r.n)
-              ),
-              _e("div", { style: { display: "flex", alignItems: "center", gap: 12 } },
-                _e("div", { style: { width: 36, height: 36, borderRadius: "50%", background: "rgba(255,255,255,0.05)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "#a1a0a4" } }, r.init),
-                _e("div", null,
-                  _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, r.email),
-                  _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 2 } }, `Уровень ${r.lvl} · ${r.pct}% комиссии`)
-                )
-              ),
-              _e("div", { style: { textAlign: "right", fontSize: 16, fontWeight: 700, color: "#f5f1e8" } }, r.traders),
-              _e("div", { style: { textAlign: "right", fontSize: 16, fontWeight: 800, color: "#fcd535" } }, `$${r.income.toLocaleString("ru-RU").replace(/,/g, " ")}`)
-            )),
-            _e("div", { style: { padding: "14px 24px", fontSize: 11, color: "#a1a0a4", display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--line)" } },
-              _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6 } },
-                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }), "Обновлено только что"
-              ),
-              _e("span", null, "Топ-5 закрепляются по итогам месяца · почты скрыты для приватности")
-            )
+              _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, r.n),
+              _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, r.name),
+              _e("div", { style: { textAlign: "right", fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, fmtUSD(r.amount))
+            ))
           )
         )
       )
@@ -1500,7 +1490,7 @@
       { id: "xJ4yA5MDMDU", title: "Интервью с funded-трейдером" },
       { id: "lnsWjuJuguE", title: "Стратегия торговли на челлендже" }
     ];
-    return _e("section", { id: "content", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "content", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("div", { className: "hh-yt-head", style: { display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 60, alignItems: "end", marginBottom: 32 } },
@@ -1593,18 +1583,23 @@
     );
     return _e("section", { id: "events", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
-        _e(Reveal, null,
-          _e("div", { style: { marginBottom: 48 } },
-            _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
-            },
-              _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-              "Ивенты"
-            ),
-            _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
-              _e("span", { style: { color: "#fcd535" } }, "Живые"), " встречи"
-            ),
-            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, maxWidth: 760 } },
+        // Header в 2 колонки: eyebrow + H2 слева, description справа (как в TG-сообществе)
+        _e("div", { className: "hh-events-head", style: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 60, alignItems: "end", marginBottom: 48 } },
+          _e(Reveal, null,
+            _e("div", null,
+              _e("span", {
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
+              },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                "Ивенты"
+              ),
+              _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
+                _e("span", { style: { color: "#fcd535" } }, "Живые"), " встречи"
+              )
+            )
+          ),
+          _e(Reveal, { delay: "2" },
+            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
               "Стань частью партнёрского сообщества Hash Hedge. Мы регулярно проводим оффлайн-ивенты, где можно отлично отдохнуть и познакомиться с другими топ-партнёрами."
             )
           )
@@ -1664,8 +1659,8 @@
       const ov = scene.overrides && scene.overrides[i];
       return Object.assign({}, c, ov || {}, { active: i === scene.activeIdx });
     });
-    return _e("section", { id: "telegram", "data-no-glow": true,
-      style: { padding: "100px 0 120px", background: "#0a0a0e", position: "relative", zIndex: 1 }
+    return _e("section", { id: "telegram",
+      style: { padding: "100px 0 120px", background: "var(--bg)", position: "relative" }
     },
       _e("style", null, `
         /* Одноразовое появление каналов */
@@ -1690,14 +1685,12 @@
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Telegram-сообщество"
               ),
-              // Заголовок в 3 строки: «Партнёрское / сообщество / Hash Hedge»
               _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 22 } },
-                "Партнёрское ", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "сообщество"), _e("br", null),
-                "Hash Hedge"
+                _e("span", { style: { color: "#fcd535" } }, "Закрытый чат"), _e("br", null),
+                "для партнёров"
               ),
               _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 32, maxWidth: 540 } },
-                "Закрытый Telegram-чат для партнёров: новости раньше всех, эксклюзивные промо-материалы, акции и прямое общение с командой."
+                "Эксклюзивные промо-материалы, специальные акции и прямое общение с командой Hash Hedge. Доступ после регистрации."
               ),
               _e("div", { style: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14, marginBottom: 22 } },
                 [
@@ -2125,7 +2118,7 @@
       }
       return result;
     }, []);
-    return _e("section", { id: "cta", style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" } },
+    return _e("section", { id: "cta", "data-no-glow": true, style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" } },
       _e("style", null, `
         @keyframes hh-cta-dot-blink {
           0%, 100% { opacity: 1;   transform: scale(1); }
