@@ -5525,6 +5525,12 @@ body[data-fm="phone"] [data-press-duplicate="true"] {
 #hashhedge-root .tilda-html-hashhedge a.btn-primary{color:#13111c!important}
 #hashhedge-root .tilda-html-hashhedge .btn-ghost,
 #hashhedge-root .tilda-html-hashhedge a.btn-ghost{color:var(--accent-dark)!important}
+/* Telegram CTA on affiliate FAQ — белый текст и иконка поверх синей кнопки */
+#hashhedge-root .tilda-html-hashhedge a.hh-btn-tg,
+#hashhedge-root .tilda-html-hashhedge a.hh-btn-tg *,
+#hashhedge-root .tilda-html-hashhedge a.hh-btn-tg span{color:#fff!important}
+#hashhedge-root .tilda-html-hashhedge a.hh-btn-tg{background:#229ED9!important;border:1px solid #229ED9!important}
+#hashhedge-root .tilda-html-hashhedge a.hh-btn-tg:hover{background:#1E8BBE!important;border-color:#1E8BBE!important}
 #hashhedge-root .tilda-html-hashhedge .chip.green{color:#9ef0c0!important}
 #hashhedge-root .tilda-html-hashhedge{background:#101012;color:#e8e8e9}
 

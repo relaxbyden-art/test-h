@@ -477,7 +477,7 @@
         padding: 0, overflow: "hidden", display: "flex", flexDirection: "column", height: "100%"
       }
     },
-      _e("div", { style: { padding: 22, paddingBottom: 18, minHeight: 220, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--line)", background: "#131314" } },
+      _e("div", { style: { padding: 22, paddingBottom: 18, minHeight: 220, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--line)", background: "#0B0B0C" } },
         children
       ),
       _e("div", { style: { padding: "20px 22px 22px" } },
@@ -586,79 +586,67 @@
       })
     );
 
-    // VIZ 6 — 3D-глобус с материками + мигающие жёлтые точки (города)
+    // VIZ 6 — Wireframe-глобус (как сетка-планета из примера), жёлтые тона, без ореола
     const V6 = () => {
-      // city dots в спроецированных координатах на сферу
-      const cities = [
-        { lon: -74, lat: 41 },  // NYC
-        { lon: 0,   lat: 51 },  // London
-        { lon: 13,  lat: 52 },  // Berlin
-        { lon: 37,  lat: 55 },  // Moscow
-        { lon: 55,  lat: 25 },  // Dubai
-        { lon: 116, lat: 39 },  // Beijing
-        { lon: 139, lat: 35 },  // Tokyo
-        { lon: 73,  lat: 19 },  // Mumbai
-        { lon: 103, lat: 1 },   // Singapore
-        { lon: -46, lat: -23 }  // São Paulo
-      ];
-      // Spherical projection — globe rotates lon offset = -25 (showing Europe/Asia)
+      // Спроецированные точки на сферу (используем те же координаты городов + равномерные на сетке)
       const project = (lon, lat) => {
-        const ROT = -25; // degrees
+        const ROT = -20;
         const lonR = (lon + ROT) * Math.PI / 180;
         const latR = lat * Math.PI / 180;
         const x = Math.cos(latR) * Math.sin(lonR);
         const y = -Math.sin(latR);
         const z = Math.cos(latR) * Math.cos(lonR);
-        return { x: 50 + x * 40, y: 50 + y * 40, z };
+        return { x: 50 + x * 38, y: 50 + y * 38, z };
       };
-      const visibleCities = cities.map(c => ({ c, p: project(c.lon, c.lat) })).filter(o => o.p.z > 0);
+      // dense grid dots на каждом пересечении сетки (через каждые 15°) — только видимые
+      const gridDots = [];
+      for (let lat = -75; lat <= 75; lat += 15) {
+        for (let lon = -180; lon < 180; lon += 18) {
+          const p = project(lon, lat);
+          if (p.z > 0.05) gridDots.push({ p, key: `${lat}_${lon}` });
+        }
+      }
+      // "Города" — крупные пульсирующие точки
+      const cities = [
+        { lon: -74, lat: 41 }, { lon: 0,   lat: 51 }, { lon: 13,  lat: 52 },
+        { lon: 37,  lat: 55 }, { lon: 55,  lat: 25 }, { lon: 116, lat: 39 },
+        { lon: 139, lat: 35 }, { lon: 73,  lat: 19 }, { lon: 103, lat: 1  },
+        { lon: -46, lat: -23 }
+      ].map(c => ({ p: project(c.lon, c.lat) })).filter(o => o.p.z > 0);
 
-      return _e("div", { style: { position: "relative", textAlign: "center" } },
-        _e("svg", { width: "100%", height: "200", viewBox: "0 0 100 100", style: { display: "block", maxWidth: 200, margin: "0 auto" } },
-          _e("defs", null,
-            // глобус: радиальный градиент чтобы выглядеть как сфера
-            _e("radialGradient", { id: "globeFill", cx: "35%", cy: "30%", r: "75%" },
-              _e("stop", { offset: "0%", stopColor: "#2a2733", stopOpacity: 1 }),
-              _e("stop", { offset: "70%", stopColor: "#1a1820", stopOpacity: 1 }),
-              _e("stop", { offset: "100%", stopColor: "#0c0a12", stopOpacity: 1 })
-            ),
-            _e("radialGradient", { id: "globeRim", cx: "50%", cy: "50%", r: "50%" },
-              _e("stop", { offset: "85%", stopColor: "rgba(252,213,53,0)", stopOpacity: 0 }),
-              _e("stop", { offset: "100%", stopColor: "rgba(252,213,53,0.45)", stopOpacity: 1 })
-            )
-          ),
-          // outer rim glow
-          _e("circle", { cx: 50, cy: 50, r: 46, style: { fill: "url(#globeRim)" } }),
-          // sphere body
-          _e("circle", { cx: 50, cy: 50, r: 40, style: { fill: "url(#globeFill)" } }),
-          // latitude lines
-          [-60, -30, 0, 30, 60].map((lat, i) => {
-            const y = 50 - Math.sin(lat * Math.PI / 180) * 40;
-            const r = Math.cos(lat * Math.PI / 180) * 40;
-            return _e("ellipse", { key: "lat" + i, cx: 50, cy: y, rx: r, ry: r * 0.18, style: { fill: "none", stroke: "rgba(255,255,255,0.06)", strokeWidth: 0.25 } });
-          }),
-          // longitude lines (meridians) — only front-facing ellipses
-          [-60, -30, 0, 30, 60].map((lon, i) => {
-            const rot = lon - 25;
-            return _e("ellipse", { key: "lon" + i, cx: 50, cy: 50, rx: 40 * Math.abs(Math.cos(rot * Math.PI / 180)), ry: 40, style: { fill: "none", stroke: "rgba(255,255,255,0.06)", strokeWidth: 0.25 } });
-          }),
-          // continents — стилизованные пятна материков
-          // Eurasia
-          _e("path", { d: "M 38 38 Q 50 30 64 32 Q 78 36 80 42 Q 78 48 70 50 Q 62 52 56 50 Q 48 48 42 46 Q 36 42 38 38 Z", style: { fill: "rgba(252,213,53,0.10)" } }),
-          // Africa
-          _e("path", { d: "M 50 54 Q 58 54 60 62 Q 60 70 54 72 Q 48 70 48 64 Q 46 58 50 54 Z", style: { fill: "rgba(252,213,53,0.10)" } }),
-          // Americas (silhouette на левом краю)
-          _e("path", { d: "M 22 42 Q 28 38 30 44 Q 30 50 26 54 Q 24 58 26 64 Q 28 70 24 72 Q 18 66 20 56 Q 18 48 22 42 Z", style: { fill: "rgba(252,213,53,0.08)" } }),
-          // Australia
-          _e("path", { d: "M 76 64 Q 82 64 82 68 Q 80 72 74 70 Q 72 66 76 64 Z", style: { fill: "rgba(252,213,53,0.10)" } }),
-          // city dots — blinking
-          visibleCities.map((o, i) => _e("g", { key: "city" + i },
-            _e("circle", { cx: o.p.x, cy: o.p.y, r: 2.4, style: { fill: "rgba(252,213,53,0.20)", animation: `hh-globe-pulse 2.4s ease-in-out ${i * 0.25}s infinite` } }),
+      // Меридианы — front-facing arcs (видимые полуэллипсы)
+      const meridians = [];
+      for (let lon = -90; lon <= 90; lon += 22.5) {
+        const rot = lon - 20;
+        const rx = 38 * Math.abs(Math.cos(rot * Math.PI / 180));
+        meridians.push({ rx, key: "m" + lon });
+      }
+      // Параллели — горизонтальные эллипсы
+      const parallels = [-60, -45, -30, -15, 0, 15, 30, 45, 60].map(lat => {
+        const y = 50 - Math.sin(lat * Math.PI / 180) * 38;
+        const r = Math.cos(lat * Math.PI / 180) * 38;
+        return { y, r, key: "p" + lat };
+      });
+
+      return _e("div", { style: { position: "relative", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" } },
+        _e("svg", { width: "100%", height: "180", viewBox: "0 0 100 100", style: { display: "block", maxWidth: 180, margin: "0 auto" } },
+          // Контур сферы — тонкая жёлтая обводка
+          _e("circle", { cx: 50, cy: 50, r: 38, style: { fill: "none", stroke: "rgba(252,213,53,0.25)", strokeWidth: 0.4 } }),
+          // Параллели
+          parallels.map(p => _e("ellipse", { key: p.key, cx: 50, cy: p.y, rx: p.r, ry: p.r * 0.18,
+            style: { fill: "none", stroke: "rgba(252,213,53,0.18)", strokeWidth: 0.22 } })),
+          // Меридианы
+          meridians.map(m => _e("ellipse", { key: m.key, cx: 50, cy: 50, rx: m.rx, ry: 38,
+            style: { fill: "none", stroke: "rgba(252,213,53,0.18)", strokeWidth: 0.22 } })),
+          // Grid dots на пересечениях
+          gridDots.map(d => _e("circle", { key: d.key, cx: d.p.x, cy: d.p.y, r: 0.45,
+            style: { fill: "rgba(252,213,53,0.55)" } })),
+          // City dots — мигающие
+          cities.map((o, i) => _e("g", { key: "city" + i },
+            _e("circle", { cx: o.p.x, cy: o.p.y, r: 2.2,
+              style: { fill: "rgba(252,213,53,0.25)", animation: `hh-globe-pulse 2.4s ease-in-out ${i * 0.25}s infinite` } }),
             _e("circle", { cx: o.p.x, cy: o.p.y, r: 0.9, style: { fill: "#fcd535" } })
           ))
-        ),
-        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.35)", fontSize: 10, fontWeight: 700, color: "#fcd535", letterSpacing: "0.04em", textTransform: "uppercase", marginTop: 8 } },
-          "Глобальный охват · 154 страны"
         )
       );
     };
@@ -891,16 +879,15 @@
         )
       )
     );
-    // Все шейпы жёлтые #fcd535 (как на главной HowItWorks). Уровни различаются формой,
-    // не цветом. Tier 7 выделен жёлтой подложкой и glow — он featured.
+    // Каждый уровень — свой цвет иконки и слабый фоновый градиент в тон. Tier 7 (top) — фирменный жёлтый.
     const tiers = [
-      { lvl: 7, pct: 80, range: "700+",   label: "максимум", shape: "diamond",  color: "#fcd535", featured: true },
-      { lvl: 6, pct: 75, range: "400–699", label: null,      shape: "hexagon",  color: "#fcd535" },
-      { lvl: 5, pct: 70, range: "200–399", label: null,      shape: "pentagon", color: "#fcd535" },
-      { lvl: 4, pct: 65, range: "100–199", label: null,      shape: "shield",   color: "#fcd535" },
-      { lvl: 3, pct: 60, range: "50–99",   label: null,      shape: "square",   color: "#fcd535" },
-      { lvl: 2, pct: 55, range: "15–49",   label: null,      shape: "rhombus",  color: "#fcd535" },
-      { lvl: 1, pct: 50, range: "0–14",    label: "старт",   shape: "circle",   color: "#fcd535" }
+      { lvl: 7, pct: 80, range: "700+",    label: "максимум", shape: "diamond",  color: "#fcd535", grad: "linear-gradient(180deg, rgba(252,213,53,0.12), rgba(252,213,53,0.02))", border: "rgba(252,213,53,0.40)", featured: true },
+      { lvl: 6, pct: 75, range: "400–699", label: null,       shape: "hexagon",  color: "#e879f9", grad: "linear-gradient(180deg, rgba(232,121,249,0.10), rgba(232,121,249,0.015))", border: "rgba(232,121,249,0.28)" },
+      { lvl: 5, pct: 70, range: "200–399", label: null,       shape: "pentagon", color: "#a78bfa", grad: "linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.015))", border: "rgba(167,139,250,0.28)" },
+      { lvl: 4, pct: 65, range: "100–199", label: null,       shape: "shield",   color: "#60a5fa", grad: "linear-gradient(180deg, rgba(96,165,250,0.10), rgba(96,165,250,0.015))",  border: "rgba(96,165,250,0.28)" },
+      { lvl: 3, pct: 60, range: "50–99",   label: null,       shape: "square",   color: "#22d3ee", grad: "linear-gradient(180deg, rgba(34,211,238,0.10), rgba(34,211,238,0.015))",  border: "rgba(34,211,238,0.28)" },
+      { lvl: 2, pct: 55, range: "15–49",   label: null,       shape: "rhombus",  color: "#4ade80", grad: "linear-gradient(180deg, rgba(74,222,128,0.10), rgba(74,222,128,0.015))",  border: "rgba(74,222,128,0.28)" },
+      { lvl: 1, pct: 50, range: "0–14",    label: "старт",    shape: "circle",   color: "#f59e0b", grad: "linear-gradient(180deg, rgba(245,158,11,0.10), rgba(245,158,11,0.015))",  border: "rgba(245,158,11,0.28)" }
     ];
     return _e("section", { id: "levels", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -923,8 +910,8 @@
           tiers.map((t, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
             _e("div", {
               style: {
-                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.10), rgba(252,213,53,0.02))" : "#151517",
-                border: t.featured ? "1px solid rgba(252,213,53,0.4)" : "1px solid var(--line)",
+                background: t.grad ? `${t.grad}, #151517` : "#151517",
+                border: `1px solid ${t.border}`,
                 borderRadius: 18, padding: "26px 18px",
                 textAlign: "center", height: "100%",
                 display: "flex", flexDirection: "column", alignItems: "center"
@@ -932,10 +919,10 @@
             },
               _e(TierIcon, { shape: t.shape, color: t.color }),
               _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, `Уровень ${t.lvl}`),
-              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.featured ? "#fcd535" : "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
+              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.color, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
               !t.label && _e("div", { style: { height: 14 } }),
               _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 6 } }, "Комиссия"),
-              _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.featured ? "#fcd535" : "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
+              _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.color, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
               _e("div", { style: { width: "100%", marginTop: "auto", padding: "12px 10px", background: "rgba(8,8,10,0.4)", border: "1px solid var(--line)", borderRadius: 10 } },
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Привлечённых трейдеров"),
                 _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, t.range),
@@ -1028,9 +1015,10 @@
                     onClick: () => setChIdx(i),
                     style: {
                       padding: "10px 14px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer",
-                      background: i === chIdx ? "#fcd535" : "rgba(11,11,14,0.6)",
-                      color: i === chIdx ? "#13111c" : "#f5f1e8",
-                      border: i === chIdx ? "1px solid #fcd535" : "1px solid var(--line)",
+                      // активный таб — в цвет блока «Твой уровень · авто» (#151517), выделение через жёлтую рамку
+                      background: i === chIdx ? "#151517" : "rgba(11,11,14,0.6)",
+                      color: i === chIdx ? "#fcd535" : "#f5f1e8",
+                      border: i === chIdx ? "1px solid rgba(252,213,53,0.55)" : "1px solid var(--line)",
                       transition: "all .15s"
                     }
                   }, `${c.size} · $${c.price}`))
@@ -1926,16 +1914,33 @@
           )
         ),
         _e(Reveal, { delay: "2" },
-          _e("div", { style: { maxWidth: 820, margin: "48px auto 0", padding: "28px 32px", background: "#151517", border: "1px solid rgba(43,156,222,0.4)", borderRadius: 16, textAlign: "center" } },
-            _e("div", { style: { fontSize: 22, fontWeight: 700, color: "#f5f1e8", marginBottom: 8 } }, "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")),
-            _e("div", { style: { fontSize: 14, color: "#a1a0a4", marginBottom: 24, lineHeight: 1.5, maxWidth: 540, margin: "0 auto 24px" } }, "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе."),
+          _e("div", { className: "hh-faq-cta",
+            style: {
+              maxWidth: 820, margin: "48px auto 0", padding: "28px 32px",
+              background: "#151517", border: "1px solid rgba(43,156,222,0.4)", borderRadius: 16,
+              display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28, flexWrap: "wrap"
+            }
+          },
+            _e("div", { style: { flex: "1 1 320px", minWidth: 0 } },
+              _e("div", { style: { fontSize: 22, fontWeight: 700, color: "#f5f1e8", marginBottom: 8 } },
+                "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")
+              ),
+              _e("div", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.5, margin: 0 } },
+                "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе."
+              )
+            ),
             _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer", className: "hh-btn-tg",
-              style: { display: "inline-flex", alignItems: "center", gap: 10, padding: "16px 32px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: `0 12px 32px -8px ${TG_BLUE_DARK}` }
+              style: {
+                display: "inline-flex", alignItems: "center", gap: 10,
+                padding: "16px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700,
+                textDecoration: "none", color: "#fff", whiteSpace: "nowrap", flexShrink: 0,
+                boxShadow: `0 12px 32px -8px ${TG_BLUE_DARK}`
+              }
             },
               _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fff" } },
                 _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
               ),
-              "Поддержка в Telegram"
+              _e("span", { style: { color: "#fff" } }, "Поддержка в Telegram")
             )
           )
         )
@@ -1947,62 +1952,86 @@
   // BIG CTA
   // ============================================================================
   function BigCTA() {
-    // Растущий жёлтый chart на фоне (как трейдинг-сигнал, идущий вверх)
+    // Растущий жёлтый chart на фоне — теперь плавная Catmull-Rom-like кривая (через C)
     const chartPath = useMemo(() => {
-      const points = [];
-      const N = 80;
+      const N = 28;
+      const pts = [];
       for (let i = 0; i < N; i++) {
         const x = (i / (N - 1)) * 1200;
         const t = i / (N - 1);
-        const noise = Math.sin(i * 0.45) * 14 + Math.cos(i * 0.83) * 8;
-        const trend = 220 - t * 180;
-        points.push([x, trend + noise]);
+        // меньше шума → более плавная линия
+        const noise = Math.sin(i * 0.55) * 6 + Math.cos(i * 0.31) * 4;
+        const trend = 230 - t * 195;
+        pts.push([x, trend + noise]);
       }
-      return points.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ");
+      // Smooth path через cubic Bezier между точками
+      let d = `M ${pts[0][0]} ${pts[0][1]}`;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i - 1] || pts[i];
+        const p1 = pts[i];
+        const p2 = pts[i + 1];
+        const p3 = pts[i + 2] || p2;
+        const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+        const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+        const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2[0]} ${p2[1]}`;
+      }
+      return d;
     }, []);
-    return _e("section", { id: "cta", style: { padding: "140px 0", background: "var(--bg)", position: "relative", overflow: "hidden" } },
-      // Background: chart svg растущий вправо-вверх + glow
-      _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.32 } },
-        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 1200 300", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
-          // grid lines
-          [60, 120, 180, 240].map((y, i) => _e("line", { key: "g" + i, x1: 0, x2: 1200, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.04)", strokeWidth: 1 } })),
-          // area under chart
-          _e("path", { d: chartPath + " L 1200 300 L 0 300 Z", style: { fill: "url(#bigctaFill)" } }),
-          // line
-          _e("path", { d: chartPath, style: { stroke: "#fcd535", strokeWidth: 2.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" } }),
-          // glowing endpoint
-          _e("circle", { cx: 1200, cy: 40, r: 5, style: { fill: "#fcd535" } }),
-          _e("circle", { cx: 1200, cy: 40, r: 14, style: { fill: "rgba(252,213,53,0.25)" } }),
-          _e("defs", null,
-            _e("linearGradient", { id: "bigctaFill", x1: "0", y1: "0", x2: "0", y2: "1" },
-              _e("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: 0.35 }),
-              _e("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: 0 })
-            )
-          )
-        )
-      ),
-      // central radial glow
-      _e("div", { "aria-hidden": true, style: { position: "absolute", left: "50%", top: "50%", width: 900, height: 600, transform: "translate(-50%, -50%)", borderRadius: "50%", background: "radial-gradient(ellipse, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.04) 35%, transparent 70%)", filter: "blur(30px)", pointerEvents: "none" } }),
-
+    return _e("section", { id: "cta", style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" } },
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e(Reveal, null,
-          _e("div", { style: { textAlign: "center" } },
-            _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.04)", backdropFilter: "blur(10px)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 28 }
-            },
-              _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-              "Готов начать?"
+          // Shape с градиентом — обёртка для всего CTA-контента
+          _e("div", {
+            style: {
+              position: "relative", overflow: "hidden",
+              borderRadius: 28,
+              padding: "80px 40px",
+              background: "linear-gradient(135deg, rgba(252,213,53,0.10) 0%, rgba(252,213,53,0.04) 40%, rgba(11,11,14,0.6) 100%), #0f0f12",
+              border: "1px solid rgba(252,213,53,0.22)",
+              boxShadow: "0 40px 100px -30px rgba(252,213,53,0.18), inset 0 1px 0 rgba(255,255,255,0.04)"
+            }
+          },
+            // Chart background — внутри shape, более тонкий и плавный
+            _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.55 } },
+              _e("svg", { width: "100%", height: "100%", viewBox: "0 0 1200 300", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+                _e("defs", null,
+                  _e("linearGradient", { id: "bigctaFill", x1: "0", y1: "0", x2: "0", y2: "1" },
+                    _e("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: 0.22 }),
+                    _e("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: 0 })
+                  )
+                ),
+                // area
+                _e("path", { d: chartPath + " L 1200 300 L 0 300 Z", style: { fill: "url(#bigctaFill)" } }),
+                // тонкая плавная линия
+                _e("path", { d: chartPath, style: { stroke: "#fcd535", strokeWidth: 1.4, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeOpacity: 0.85 } }),
+                // endpoint dot
+                _e("circle", { cx: 1200, cy: 35, r: 3.5, style: { fill: "#fcd535" } }),
+                _e("circle", { cx: 1200, cy: 35, r: 10, style: { fill: "rgba(252,213,53,0.20)" } })
+              )
             ),
-            _e("h2", { style: { fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", marginBottom: 36 } },
-              "Начни зарабатывать с ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 40px rgba(252,213,53,0.4)" } }, "Hash Hedge")
-            ),
-            _e("div", { style: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" } },
-              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                style: { padding: "18px 36px", borderRadius: 14, fontSize: 16, fontWeight: 800, textDecoration: "none", boxShadow: "0 14px 40px -8px rgba(252,213,53,0.55), inset 0 -2px 0 rgba(0,0,0,0.15)" }
-              }, "Зарегистрироваться"),
-              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-outline",
-                style: { padding: "18px 32px", borderRadius: 14, fontSize: 16, fontWeight: 600, textDecoration: "none" }
-              }, "Войти в кабинет")
+
+            _e("div", { style: { position: "relative", zIndex: 1, textAlign: "center" } },
+              _e("span", {
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid rgba(252,213,53,0.30)", background: "rgba(11,11,14,0.55)", backdropFilter: "blur(10px)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#fcd535", marginBottom: 24 }
+              },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                "Готов начать?"
+              ),
+              // Заголовок в 2 строки
+              _e("h2", { style: { fontSize: "clamp(38px, 5.6vw, 64px)", lineHeight: 1.08, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 28 } },
+                "Начни зарабатывать", _e("br", null),
+                "с ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 36px rgba(252,213,53,0.45)" } }, "Hash Hedge")
+              ),
+              _e("div", { style: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" } },
+                _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
+                  style: { textDecoration: "none" }
+                }, "Зарегистрироваться"),
+                _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-ghost",
+                  style: { textDecoration: "none" }
+                }, "Войти в кабинет")
+              )
             )
           )
         )
@@ -2013,33 +2042,67 @@
   // ============================================================================
   // FOOTER
   // ============================================================================
+  // Footer — 1:1 как на главной русской hashhedge-react-app-ru.js (Footer @ ~line 10826).
   function Footer() {
-    return _e("footer", { style: { padding: "60px 0 32px", background: "var(--bg)", borderTop: "1px solid var(--line)" } },
-      _e("div", { className: "container" },
-        _e("div", { className: "hh-footer-grid", style: { display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 56, marginBottom: 40 } },
-          _e("div", null,
-            _e(HashHedgeLogo, { size: 26 }),
-            _e("p", { style: { fontSize: 13, color: "#a1a0a4", lineHeight: 1.55, marginTop: 16, maxWidth: 320 } },
-              "Партнёрская программа крипто проп-фирмы Hash Hedge. До 80% комиссии. Вывод по запросу."
+    const columns = [
+      { t: "Продукт", l: [
+        { label: "Челленджи",              href: "https://www.hashhedge.com/ru#challenge" },
+        { label: "Партнёрская программа",  href: "https://www.hashhedge.com/affiliateprogram/ru" },
+        { label: "Блог",                   href: "https://www.hashhedge.com/blog/ru" },
+        { label: "Руководство",            href: "https://hashhedge.gitbook.io/hashhedge-user-guide" }
+      ]},
+      { t: "О нас", l: [
+        { label: "Поддержка", href: "https://t.me/hashhedgesupportbot" },
+        { label: "FAQ",       href: "https://www.hashhedge.com/faq/ru" },
+        { label: "Вакансии",  href: "https://www.hashhedge.com/vacancies" }
+      ]},
+      { t: "Документы", l: [
+        { label: "Политика конфиденциальности", href: "https://www.hashhedge.com/privacy-policy" },
+        { label: "Условия использования",       href: "https://www.hashhedge.com/terms-and-conditions" },
+        { label: "Коммерческие условия",        href: "https://www.hashhedge.com/commercial-terms" },
+        { label: "Партнёрская политика",        href: "https://www.hashhedge.com/affiliate-politics" }
+      ]}
+    ];
+    const partners = [
+      { name: "HyperPay",      style: { fontStyle: "italic", fontWeight: 900 } },
+      { name: "Cipherbc",      style: { fontWeight: 700, letterSpacing: "-0.05em" } },
+      { name: "TradingView",   style: { fontWeight: 800 } },
+      { name: "CoinMarketCap", style: { fontWeight: 700 } },
+      { name: "Crypto Banter", style: { fontWeight: 900, textTransform: "uppercase", fontSize: 16, lineHeight: 1.05 } }
+    ];
+    return _e("footer", { style: { padding: "88px 0 64px", background: "var(--bg-elev)", borderTop: "1px solid var(--line)" } },
+      _e("div", { className: "container", style: { maxWidth: 1180 } },
+        _e("div", { className: "hh-footer-grid", style: { display: "grid", gridTemplateColumns: "1.25fr repeat(3, 1fr)", gap: 86, marginBottom: 92 } },
+          _e("div", { style: { paddingTop: 4 } },
+            _e(HashHedgeLogo, null),
+            _e("p", { style: { fontSize: 15, color: "var(--fg-low)", marginTop: 44, lineHeight: 1.45, maxWidth: 260 } },
+              "Hash Hedge — платформа для проп-трейдинга: торгуйте криптовалютой и TradFi-активами. Управляйте капиталом до $150K."
             )
           ),
-          [
-            { h: "Программа", links: [["Преимущества", "#why"], ["Как начать", "#how"], ["Уровни", "#levels"], ["Калькулятор", "#calc"], ["Лидерборд", "#leaderboard"]] },
-            { h: "Партнёрам", links: [["Регистрация", "https://partner.hashhedge.com"], ["Личный кабинет", "https://partner.hashhedge.com"], ["FAQ", "#faq"], ["Поддержка", "https://t.me/hashhedgesupportbot"]] },
-            { h: "Hash Hedge", links: [["Главная", "https://www.hashhedge.com/ru"], ["Челленджи", "https://hashhedge.com/ru#challenge"], ["Блог", "https://www.hashhedge.com/blog/ru"], ["Политика аффилированных", "https://hashhedge.com/affiliate-politics"]] }
-          ].map((col, i) => _e("div", { key: i },
-            _e("div", { style: { fontSize: 12, fontWeight: 800, color: "#a1a0a4", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 } }, col.h),
-            _e("div", { style: { display: "flex", flexDirection: "column", gap: 10 } },
-              col.links.map(([l, h], j) => _e("a", { key: j, href: h, style: { color: "#f5f1e8", textDecoration: "none", fontSize: 14 } }, l))
+          columns.map(col => _e("div", { key: col.t },
+            _e("div", { style: { fontSize: 18, fontWeight: 800, letterSpacing: "-0.01em", color: "rgba(238,238,243,0.28)", textTransform: "uppercase", marginBottom: 26 } }, col.t),
+            _e("ul", { style: { listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 18 } },
+              col.l.map(li => _e("li", { key: li.label },
+                _e("a", { href: li.href, target: "_blank", rel: "noopener",
+                  style: { fontSize: 15, color: "rgba(238,238,243,0.72)", textDecoration: "none" }
+                }, li.label)
+              ))
             )
           ))
         ),
-        _e("div", { style: { display: "flex", justifyContent: "space-between", paddingTop: 24, borderTop: "1px solid var(--line)", fontSize: 12, color: "#a1a0a4", flexWrap: "wrap", gap: 16 } },
-          _e("span", null, "© 2026 Hash Hedge. Все права защищены."),
-          _e("div", { style: { display: "flex", gap: 22 } },
-            _e("a", { href: "https://www.hashhedge.com/privacy-policy", style: { color: "#a1a0a4", textDecoration: "none" } }, "Конфиденциальность"),
-            _e("a", { href: "https://www.hashhedge.com/terms-and-conditions", style: { color: "#a1a0a4", textDecoration: "none" } }, "Условия"),
-            _e("a", { href: "https://hashhedge.com/affiliate-politics", style: { color: "#a1a0a4", textDecoration: "none" } }, "Аффилированные лица")
+        _e("div", { className: "hh-footer-partners", style: { display: "flex", alignItems: "center", gap: 54, marginBottom: 116, flexWrap: "wrap" } },
+          _e("div", { style: { fontSize: 14, fontWeight: 800, color: "rgba(238,238,243,0.8)" } }, "Наши партнёры"),
+          _e("div", { style: { display: "flex", alignItems: "center", gap: 42, flexWrap: "wrap" } },
+            partners.map((p, i) => _e("div", {
+              key: p.name,
+              style: Object.assign({ color: "#fff", opacity: i === partners.length - 1 ? 0.65 : 0.95, fontSize: i === 1 ? 25 : 18, fontFamily: "Onest, sans-serif" }, p.style)
+            }, p.name))
+          )
+        ),
+        _e("div", { style: { textAlign: "center" } },
+          _e("div", { style: { fontSize: 16, color: "rgba(238,238,243,0.86)", marginBottom: 34 } }, "© 2026 HashHedge. All Right Reserved."),
+          _e("p", { style: { fontSize: 12, lineHeight: 1.35, color: "rgba(238,238,243,0.36)", maxWidth: 1050, margin: "0 auto" } },
+            "Вся информация на этом сайте предназначена исключительно для ознакомления с торговлей на финансовых рынках и ни в коей мере не является конкретной инвестиционной, бизнес- или иной рекомендацией относительно торговли инвестиционными инструментами."
           )
         )
       )
