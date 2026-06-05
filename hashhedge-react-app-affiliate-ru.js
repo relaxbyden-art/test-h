@@ -214,31 +214,28 @@
   // LIVE PARTNER CARD (правая часть Hero)
   // ============================================================================
   function LivePartnerCard() {
-    const earned = 12480;
-    // Пул выплат для анимации — флаги из списка географии,
-    // чаще RU/BR/UAE/UA. Список ротируется каждые 3.5с.
+    // Пул выплат — только локальный рынок (RU/KZ/UA/GE/TR), небольшие суммы.
+    // Ротация медленная (8 сек), чтобы не дёргалось.
     const payoutPool = [
-      { flag: "🇷🇺", name: "Сергей",  city: "Москва",         amt: 9050 },
-      { flag: "🇧🇷", name: "Lucas",   city: "São Paulo",       amt: 4820 },
-      { flag: "🇦🇪", name: "Khalid",  city: "Dubai",           amt: 6310 },
-      { flag: "🇺🇸", name: "Mike",    city: "New York",        amt: 7240 },
-      { flag: "🇩🇪", name: "Jonas",   city: "Berlin",          amt: 3470 },
-      { flag: "🇷🇺", name: "Анна",    city: "СПб",             amt: 5180 },
-      { flag: "🇮🇳", name: "Arjun",   city: "Mumbai",          amt: 2090 },
-      { flag: "🇹🇷", name: "Cem",     city: "Istanbul",        amt: 1860 },
-      { flag: "🇫🇷", name: "Pierre",  city: "Paris",           amt: 3210 },
-      { flag: "🇧🇷", name: "Tiago",   city: "Rio",             amt: 4380 },
-      { flag: "🇰🇷", name: "Min-Jun", city: "Seoul",           amt: 2750 },
-      { flag: "🇬🇧", name: "James",   city: "London",          amt: 4520 },
-      { flag: "🇦🇪", name: "Yousef",  city: "Abu Dhabi",       amt: 5610 },
-      { flag: "🇷🇺", name: "Игорь",   city: "Казань",          amt: 2840 },
-      { flag: "🇪🇸", name: "Diego",   city: "Madrid",          amt: 1780 }
+      { flag: "🇷🇺", name: "Сергей",     city: "Москва",       amt: 1850 },
+      { flag: "🇰🇿", name: "Адиль",      city: "Алматы",       amt: 1240 },
+      { flag: "🇺🇦", name: "Олег",       city: "Київ",         amt: 1670 },
+      { flag: "🇬🇪", name: "Nino",       city: "Тбилиси",      amt: 980  },
+      { flag: "🇹🇷", name: "Cem",        city: "Istanbul",     amt: 1420 },
+      { flag: "🇷🇺", name: "Анна",       city: "СПб",          amt: 2310 },
+      { flag: "🇰🇿", name: "Бахыт",      city: "Астана",       amt: 1390 },
+      { flag: "🇺🇦", name: "Лариса",     city: "Одеса",        amt: 1130 },
+      { flag: "🇷🇺", name: "Игорь",      city: "Казань",       amt: 760  },
+      { flag: "🇬🇪", name: "Гиорги",     city: "Батуми",       amt: 1280 },
+      { flag: "🇹🇷", name: "Mehmet",     city: "Анкара",       amt: 890  },
+      { flag: "🇷🇺", name: "Дмитрий",    city: "Новосибирск",  amt: 2080 },
+      { flag: "🇰🇿", name: "Айгуль",     city: "Шымкент",      amt: 1050 },
+      { flag: "🇺🇦", name: "Анастасія",  city: "Львів",        amt: 1380 },
+      { flag: "🇷🇺", name: "Артур",      city: "Екатеринбург", amt: 1620 }
     ];
-    // Анимация: визуально показываем 3 последних, верхняя строка добавляется
-    // и нижняя выезжает вниз. Используем поворот по индексу через setInterval.
     const [pIdx, setPIdx] = useState(0);
     useEffect(() => {
-      const id = setInterval(() => setPIdx(i => (i + 1) % payoutPool.length), 3500);
+      const id = setInterval(() => setPIdx(i => (i + 1) % payoutPool.length), 8000);
       return () => clearInterval(id);
     }, []);
     const payouts = [
@@ -246,12 +243,19 @@
       payoutPool[(pIdx + 1) % payoutPool.length],
       payoutPool[(pIdx + 2) % payoutPool.length]
     ];
+
+    // Анимированный счётчик "Заработано за месяц" — растёт медленно по чуть-чуть
+    const [earned, setEarned] = useState(12480);
+    useEffect(() => {
+      const id = setInterval(() => setEarned(e => e + Math.floor(20 + Math.random() * 40)), 9000);
+      return () => clearInterval(id);
+    }, []);
     // Mini sparkline данные — растущая кривая
     const sparkPts = [60, 55, 58, 50, 48, 42, 38, 32, 28, 22, 18, 12];
     const sparkPath = sparkPts.map((y, i) => `${i === 0 ? "M" : "L"} ${i / (sparkPts.length - 1) * 100} ${y}`).join(" ");
     return _e("div", {
       style: {
-        background: "rgba(11,11,14,0.85)",
+        background: "#1F1D25",
         border: "1px solid var(--line)",
         borderRadius: 18, overflow: "hidden",
         backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
@@ -272,7 +276,7 @@
         _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 } },
           _e("div", null,
             _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 6 } }, "Заработано за месяц"),
-            _e("div", { style: { fontSize: 38, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1 } }, "$12 480"),
+            _e("div", { style: { fontSize: 38, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1 } }, "$" + earned.toLocaleString("ru-RU").replace(/,/g, " ")),
             _e("div", { style: { fontSize: 12, color: "#4ade80", marginTop: 8, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 4 } },
               _e("span", null, "↑"), "+18% за месяц"
             )
@@ -302,7 +306,7 @@
       // Last payouts
       _e("div", { style: { padding: "18px 22px" } },
         _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 14 } }, "Последние выплаты партнёрам"),
-        _e("div", { style: { position: "relative", minHeight: 158, overflow: "hidden" } },
+        _e("div", { style: { position: "relative", minHeight: 138, overflow: "hidden" } },
           payouts.map((p, i) => _e("div", {
             key: pIdx + "-" + i,
             style: {
@@ -319,13 +323,13 @@
           ))
         ),
         // География выплат — mini block
-        _e("div", { style: { marginTop: 14, paddingTop: 14, borderTop: "1px solid var(--line)" } },
+        _e("div", { style: { marginTop: 4, paddingTop: 12, borderTop: "1px solid var(--line)" } },
           _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 10 } }, "География выплат"),
           _e("div", { style: { display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" } },
             ["🇺🇸", "🇩🇪", "🇬🇧", "🇯🇵", "🇰🇷", "🇧🇷", "🇦🇪", "🇫🇷", "🇮🇳", "🇨🇦", "🇳🇱", "🇸🇬", "🇮🇹", "🇵🇱", "🇪🇸", "🇹🇷"].map((f, i) =>
               _e("span", { key: i, style: { fontSize: 18, opacity: 0.92 } }, f)
             ),
-            _e("span", { style: { fontSize: 12, color: "#a1a0a4", marginLeft: 4 } }, "+ ещё 60")
+            _e("span", { style: { fontSize: 12, color: "#a1a0a4", marginLeft: 4 } }, "+ ещё 138 стран")
           )
         )
       )
@@ -416,7 +420,7 @@
     // Статичные метрики вместо бегущей строки (как у FTMO / Stripe)
     const stats = [
       { v: "2 500+", l: "активных партнёров" },
-      { v: "120",    l: "стран" },
+      { v: "154",    l: "стран" },
       { v: "$2.5M+", l: "выплачено партнёрам" },
       { v: "4.4/5",  l: "Trustpilot" }
     ];
@@ -439,7 +443,7 @@
     // Each card has its own custom visual rendered at top
     const Card = ({ children, chip, title, titleAccent, body }) => _e("div", {
       style: {
-        background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 18,
+        background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 18,
         padding: 0, overflow: "hidden", display: "flex", flexDirection: "column", height: "100%"
       }
     },
@@ -753,7 +757,7 @@
         ),
         _e("div", { className: "hh-income-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 } },
           sources.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
-            _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" } },
+            _e("div", { style: { background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" } },
               _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 20 } },
                 _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", fontFamily: "ui-monospace,Menlo,monospace" } }, s.n),
                 _e(Icon, { d: s.icon })
@@ -861,7 +865,7 @@
           tiers.map((t, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
             _e("div", {
               style: {
-                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.10), rgba(252,213,53,0.02))" : "rgba(11,11,14,0.85)",
+                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.10), rgba(252,213,53,0.02))" : "#1F1D25",
                 border: t.featured ? "1px solid rgba(252,213,53,0.4)" : "1px solid var(--line)",
                 borderRadius: 18, padding: "26px 18px",
                 textAlign: "center", height: "100%",
@@ -990,7 +994,7 @@
                 ),
                 _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 12, lineHeight: 1.5 } }, "Больше активных трейдеров в месяц — выше твой уровень и комиссия.")
               ),
-              _e("div", { style: { padding: "18px 22px", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 } },
+              _e("div", { style: { padding: "18px 22px", background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 } },
                 _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
                   _e("div", null,
                     _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Твой уровень · авто"),
@@ -1002,25 +1006,32 @@
               _e("p", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
             ),
 
-            // RIGHT result card
+            // RIGHT result card — flex column, кнопка прижата к низу
             _e("div", { style: {
-              background: "linear-gradient(180deg, rgba(11,11,14,0.6), rgba(11,11,14,0.85))",
+              background: "linear-gradient(180deg, rgba(11,11,14,0.6), #1F1D25)",
               border: "1px solid var(--line)", borderRadius: 22, padding: 32,
-              boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)"
+              boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
+              display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 460
             } },
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 16 } },
-                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#fcd535" } }),
-                "Твой доход в месяц"
+              // верхняя группа (eyebrow + результат + подпись)
+              _e("div", null,
+                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 16 } },
+                  _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }),
+                  "Твой доход в месяц"
+                ),
+                _e("div", { style: { fontSize: "clamp(56px, 7vw, 86px)", fontWeight: 800, color: "#4ade80", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 12, textShadow: "0 0 40px rgba(74,222,128,0.25)" } },
+                  `$${monthly.toLocaleString("ru-RU").replace(/,/g, " ")}`
+                ),
+                _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "в месяц при выбранных параметрах")
               ),
-              _e("div", { style: { fontSize: "clamp(56px, 7vw, 86px)", fontWeight: 800, color: "#4ade80", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 12, textShadow: "0 0 40px rgba(74,222,128,0.25)" } },
-                `$${monthly.toLocaleString("ru-RU").replace(/,/g, " ")}`
-              ),
-              _e("div", { style: { fontSize: 14, color: "#a1a0a4", marginBottom: 30 } }, "в месяц при выбранных параметрах"),
-              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
-              }, "Стать партнёром →"),
-              _e("p", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 18, marginBottom: 0, lineHeight: 1.5 } },
-                "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
+              // нижняя группа (кнопка + дисклеймер) — прижата к низу
+              _e("div", null,
+                _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
+                  style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
+                }, "Стать партнёром →"),
+                _e("p", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 14, marginBottom: 0, lineHeight: 1.5 } },
+                  "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
+                )
               )
             )
           )
@@ -1074,7 +1085,7 @@
         // 4 description cards
         _e("div", { className: "hh-steps-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
           steps.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
-            _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" } },
+            _e("div", { style: { background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 16, padding: 24, height: "100%" } },
               _e("div", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fcd535", marginBottom: 12 } }, s.chip),
               _e("h3", { style: { fontSize: 19, fontWeight: 700, lineHeight: 1.25, marginBottom: 12, color: "#f5f1e8" } }, s.title),
               _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, s.body)
@@ -1089,6 +1100,21 @@
   // CABINET PREVIEW — KPI col left + chart right
   // ============================================================================
   function CabinetPreview() {
+    // Очень медленная анимация KPI — растут на чуть-чуть каждые 30 секунд
+    const [cabTick, setCabTick] = useState(0);
+    useEffect(() => {
+      const id = setInterval(() => setCabTick(t => t + 1), 30000);
+      return () => clearInterval(id);
+    }, []);
+    const cabKpis = useMemo(() => {
+      const tick = cabTick;
+      return [
+        { k: "Всего покупок",      v: "$" + (48920 + tick * 320).toLocaleString("ru-RU").replace(/,/g, " "), d: "+18,4%", ic: "M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18" },
+        { k: "Количество покупок", v: String(312 + Math.floor(tick * 0.4)),                                  d: "+24",    ic: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" },
+        { k: "Регистрации",        v: (1284 + tick * 3).toLocaleString("ru-RU").replace(/,/g, " "),         d: "+61",    ic: "M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M20 8v6 M23 11h-6" },
+        { k: "Комиссия партнера",  v: "$" + (34244 + tick * 180).toLocaleString("ru-RU").replace(/,/g, " "), d: "+21,7%", ic: "M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" }
+      ];
+    }, [cabTick]);
     return _e("section", { id: "cabinet", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
@@ -1225,12 +1251,7 @@
                 _e("div", { className: "hh-cab-stage", style: { display: "grid", gridTemplateColumns: "260px 1fr", gap: 14 } },
                   // KPI column
                   _e("div", { style: { display: "flex", flexDirection: "column", gap: 10 } },
-                    [
-                      { k: "Всего покупок", v: "$48 920", d: "+18,4%", ic: "M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18" },
-                      { k: "Количество покупок", v: "312", d: "+24", ic: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" },
-                      { k: "Регистрации", v: "1 284", d: "+61", ic: "M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M20 8v6 M23 11h-6" },
-                      { k: "Комиссия партнера", v: "$34 244", d: "+21,7%", ic: "M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" }
-                    ].map((s, i) => _e("div", { key: i, style: { padding: 16, background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 12 } },
+                    cabKpis.map((s, i) => _e("div", { key: i, style: { padding: 16, background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 12 } },
                       _e("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 10 } },
                         _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 1.7, strokeLinecap: "round", strokeLinejoin: "round" } },
                           _e("path", { d: s.ic, style: { fill: "none", stroke: "#a1a0a4" } })
@@ -1250,7 +1271,7 @@
                   _e("div", { style: { padding: 22, background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 12, display: "flex", flexDirection: "column" } },
                     _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18 } },
                       _e("div", null,
-                        _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, letterSpacing: "-0.02em" } }, "$34 244,80"),
+                        _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, letterSpacing: "-0.02em" } }, "$" + (34244 + cabTick * 180).toLocaleString("ru-RU").replace(/,/g, " ") + ",80"),
                         _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 6 } }, "Баланс")
                       ),
                       _e("div", { style: { padding: "8px 14px", background: "rgba(8,8,10,0.7)", border: "1px solid var(--line)", borderRadius: 100, fontSize: 12, color: "#f5f1e8", fontWeight: 600 } }, "May 04, 2026 — Jun 02, 2026")
@@ -1298,7 +1319,7 @@
               { paths: ["M22 11.08V12a10 10 0 1 1-5.93-9.14", "M22 4L12 14.01l-3-3"], t: "Статистика по суб-партнёрам", b: "Контролируй начисления со всех уровней: твоих прямых партнёров и их рефералов." },
               { paths: ["M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2", "M16 11h.01", "M18 14a4 4 0 0 0 0-4"], t: "Вывод в любой момент", b: "Запрашивай выплаты в USDT без фиксированных дат." },
               { paths: ["M12 20h9", "M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"], t: "Гибкие инструменты", b: "Генерируй ссылки, промокоды и подключай постбэки за пару секунд." }
-            ].map((ex, i) => _e("div", { key: i, style: { padding: 18, background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14 } },
+            ].map((ex, i) => _e("div", { key: i, style: { padding: 18, background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 14 } },
               _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", marginBottom: 12 } },
                 ex.paths.map((p, j) => _e("path", { key: j, d: p, style: { fill: "none", stroke: "#fcd535" } }))
               ),
@@ -1432,7 +1453,7 @@
               ),
               _e("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" } },
               _e("button", { id: "hh-yt-prev", "aria-label": "Назад",
-                style: { width: 44, height: 44, borderRadius: "50%", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", color: "#f5f1e8", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }
+                style: { width: 44, height: 44, borderRadius: "50%", background: "#1F1D25", border: "1px solid var(--line)", color: "#f5f1e8", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }
               },
                 _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#f5f1e8", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } },
                   _e("path", { d: "M15 18l-6-6 6-6", style: { fill: "none", stroke: "#f5f1e8" } })
@@ -1455,7 +1476,7 @@
           },
             videos.map((v, i) => _e("a", {
               key: i, href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
-              style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)", scrollSnapAlign: "start" }
+              style: { background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)", scrollSnapAlign: "start" }
             },
               _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${v.id}/hqdefault.jpg) center / cover, #111` } },
                 _e("div", { style: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 48, height: 48, borderRadius: "50%", background: "#ff0000", display: "inline-flex", alignItems: "center", justifyContent: "center" } },
@@ -1486,6 +1507,21 @@
       { flag: "🇧🇷", city: "Сан-Паулу", year: "2025",          role: "Организатор", title: "WSCT Бразилия · Оффлайн турнир", img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
       { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор", title: "Награждение Топ-партнёров",      img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
     ];
+    const Card = ({ ev, big }) => _e("div", {
+      style: { position: "relative", aspectRatio: big ? "2.4 / 1" : "1 / 1.05", borderRadius: 18, overflow: "hidden", border: "1px solid var(--line)", background: "#1F1D25" }
+    },
+      _e("div", { style: { position: "absolute", inset: 0, backgroundImage: `url(${ev.img})`, backgroundSize: "cover", backgroundPosition: "center" } }),
+      _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.88) 100%)", pointerEvents: "none" } }),
+      _e("div", { style: { position: "absolute", top: 14, left: 14, display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 12, fontWeight: 600, color: "#fff" } },
+        _e("span", { style: { fontSize: 14 } }, ev.flag),
+        _e("span", null, ev.city)
+      ),
+      _e("div", { style: { position: "absolute", top: 14, right: 14, padding: "6px 12px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.06em", textTransform: "uppercase" } }, ev.year),
+      _e("div", { style: { position: "absolute", bottom: big ? 26 : 18, left: big ? 26 : 18, right: big ? 26 : 18, color: "#fff" } },
+        ev.role && _e("div", { style: { display: "inline-block", fontSize: 10, fontWeight: 800, color: "#fcd535", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 10 } }, ev.role),
+        _e("div", { style: { fontSize: big ? 28 : 18, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", maxWidth: big ? 600 : "100%" } }, ev.title)
+      )
+    );
     return _e("section", { id: "events", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
@@ -1504,29 +1540,12 @@
             )
           )
         ),
-        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
-          events.map((ev, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
-            _e("div", {
-              style: { position: "relative", aspectRatio: "1 / 1.35", borderRadius: 18, overflow: "hidden", border: "1px solid var(--line)", background: "rgba(11,11,14,0.85)" }
-            },
-              // фото
-              _e("div", { style: { position: "absolute", inset: 0, backgroundImage: `url(${ev.img})`, backgroundSize: "cover", backgroundPosition: "center" } }),
-              // нижний gradient для текста
-              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.85) 100%)", pointerEvents: "none" } }),
-              // top-left flag+city
-              _e("div", { style: { position: "absolute", top: 14, left: 14, display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 12, fontWeight: 600, color: "#fff" } },
-                _e("span", { style: { fontSize: 14 } }, ev.flag),
-                _e("span", null, ev.city)
-              ),
-              // top-right year
-              _e("div", { style: { position: "absolute", top: 14, right: 14, padding: "6px 12px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.06em", textTransform: "uppercase" } }, ev.year),
-              // bottom: ОРГАНИЗАТОР badge + title
-              _e("div", { style: { position: "absolute", bottom: 18, left: 18, right: 18, color: "#fff" } },
-                ev.role && _e("div", { style: { display: "inline-block", fontSize: 10, fontWeight: 800, color: "#fcd535", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 10 } }, ev.role),
-                _e("div", { style: { fontSize: 18, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em" } }, ev.title)
-              )
-            )
-          ))
+        // 1 hero card сверху + 3 в ряд снизу
+        _e(Reveal, { delay: "1" },
+          _e("div", { style: { marginBottom: 18 } }, _e(Card, { ev: events[0], big: true }))
+        ),
+        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 } },
+          events.slice(1).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 2) }, _e(Card, { ev, big: false })))
         )
       )
     );
@@ -1536,12 +1555,16 @@
   // TELEGRAM COMMUNITY (закрытый чат для партнёров)
   // ============================================================================
   function TelegramCommunity() {
+    // Каналы как на скрине-эталоне с главной RU
     const channels = [
-      { ic: "#",  name: "Новости",         sub: "Новый личный кабинет партнёра…",          time: "ВТ",     unread: 0 },
-      { ic: "🎬", name: "Контент",         sub: "Queen Prop: выложила новый креатив 🎬",   time: "сейчас", unread: 1, active: true },
-      { ic: "📢", name: "Чат партнёров",   sub: "Друзья, всем привет! Напоминаем…",        time: "ПТ",     unread: 13 },
-      { ic: "⚡", name: "Акции",            sub: "Flash Sale на Hash Hedge: 28–29 мая",      time: "ЧТ",     unread: 6 },
-      { ic: "📋", name: "Промо материалы", sub: "ГОТОВЫЕ МАТЕРИАЛЫ ДЛЯ ПРОДВИЖЕНИЯ",       time: "03/13",  unread: 0 }
+      { ic: "#",  iconBg: "#5e6b7a", name: "Welcome | Добро пожаловать", sub: "CAPTCHA · Привет, Данияр! Добро пожаловать в Hash Hedge…", time: "15:32", pinned: true },
+      { ic: "🔗", iconBg: "#3a4554", name: "Links | Ссылки",              sub: "🔗 General | Основное · Website | Сайт · Support |…",        time: "02/04", pinned: true },
+      { ic: "🔔", iconBg: "#c5984a", name: "Announcements | EN",          sub: "FLASH SALE: осталось 62 из 200 ваучеров…",                  time: "Wed",   pinned: true },
+      { ic: "📢", iconBg: "#7a7d83", name: "Анонсы | RU",                 sub: "Новый актив добавлен на платформу",                          time: "Thu",   pinned: true },
+      { ic: "💰", iconBg: "#c08b3a", name: "Payout Wall | Стена выплат",  sub: "+$8,320 выплата подтверждена · 🇩🇪",                          time: "сейчас", unread: 1, active: true },
+      { ic: "💬", iconBg: "#3a4554", name: "Чат | RU",                    sub: "Pavel Sokolov · 12 градусов, а у вас?",                      time: "14:10" },
+      { ic: "📊", iconBg: "#4a6b54", name: "Торговля | RU",               sub: "Дмитрий · 🖼 Фото",                                          time: "13:06" },
+      { ic: "💬", iconBg: "#3a4554", name: "Chat | EN",                   sub: "Denis S. · Коллеги, flash sale закрывается через 4 часа…",  time: "Wed" }
     ];
     return _e("section", { id: "telegram", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -1568,7 +1591,7 @@
                   ["146",     "Сейчас онлайн"],
                   ["<2 мин",  "Ответ менеджера"],
                   ["24/7",    "Чат открыт всегда"]
-                ].map(([v, l], i) => _e("div", { key: i, style: { padding: "20px 22px", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 14 } },
+                ].map(([v, l], i) => _e("div", { key: i, style: { padding: "20px 22px", background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 14 } },
                   _e("div", { style: { fontSize: 32, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6 } }, v),
                   _e("div", { style: { fontSize: 11, color: "#a1a0a4", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" } }, l)
                 ))
@@ -1580,63 +1603,81 @@
             )
           ),
 
-          // RIGHT — phone mockup with channels
+          // RIGHT — iPhone mockup как на скрине-эталоне (dark theme, notch, full UI)
           _e(Reveal, { delay: "2" },
-            _e("div", { style: { maxWidth: 420, margin: "0 auto", position: "relative" } },
+            _e("div", { style: { maxWidth: 380, margin: "0 auto", position: "relative" } },
               _e("div", {
                 style: {
-                  background: "#17212b", borderRadius: 36, overflow: "hidden",
-                  border: "10px solid #08080a", boxShadow: "0 60px 120px -20px rgba(0,0,0,0.7)",
-                  position: "relative"
+                  background: "#08080a",
+                  borderRadius: 48, overflow: "hidden",
+                  padding: 8,
+                  boxShadow: "0 60px 120px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.05)"
                 }
               },
-                // status bar
-                _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 22px 8px", color: "#fff", fontSize: 14, fontWeight: 600 } },
-                  _e("span", null, "16:48"),
-                  _e("div", { style: { display: "flex", gap: 6, opacity: 0.8 } },
-                    _e("span", null, "▮▮▮"),
-                    _e("span", null, "📶"),
-                    _e("span", null, "🔋")
-                  )
-                ),
-                // header
-                _e("div", { style: { padding: "8px 16px 14px", display: "flex", alignItems: "center", gap: 12, borderBottom: "1px solid rgba(255,255,255,0.05)" } },
-                  _e("span", { style: { color: "#5BB5E8", fontSize: 22 } }, "‹"),
-                  _e("div", { style: { flex: 1, textAlign: "center", color: "#fff" } },
-                    _e("div", { style: { fontSize: 15, fontWeight: 700 } }, "Hash Hedge Partner | CIS"),
-                    _e("div", { style: { fontSize: 12, color: "#7DA8C7" } },
-                      "332 участника, ", _e("span", { style: { color: "#4ade80" } }, "146 в сети")
+                _e("div", { style: { background: "#0e0e10", borderRadius: 40, overflow: "hidden", position: "relative" } },
+                  // Notch (Dynamic Island)
+                  _e("div", { style: { position: "absolute", top: 8, left: "50%", transform: "translateX(-50%)", width: 110, height: 28, background: "#000", borderRadius: 20, zIndex: 2 } }),
+                  // Status bar
+                  _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 28px 8px", color: "#fff", fontSize: 13, fontWeight: 600, position: "relative", zIndex: 1 } },
+                    _e("span", null, "16:48"),
+                    _e("div", { style: { display: "inline-flex", gap: 6, alignItems: "center", opacity: 0.85 } },
+                      _e("svg", { width: 16, height: 12, viewBox: "0 0 16 12", style: { fill: "#fff" } },
+                        _e("path", { d: "M0 9h3v3H0V9zm5-3h3v6H5V6zm5-3h3v9h-3V3z", style: { fill: "#fff" } })
+                      ),
+                      _e("svg", { width: 16, height: 12, viewBox: "0 0 16 12", style: { fill: "#fff" } },
+                        _e("path", { d: "M8 2C5.5 2 3.2 3 1.4 4.7l1.4 1.4C4.2 4.7 6 4 8 4s3.8.7 5.2 2.1l1.4-1.4C12.8 3 10.5 2 8 2zm0 4c-1.4 0-2.7.5-3.7 1.4l1.4 1.4C6.3 8.3 7.1 8 8 8s1.7.3 2.3.8l1.4-1.4C10.7 6.5 9.4 6 8 6zm0 4l-1.4 1.4c.4.4.9.6 1.4.6.5 0 1-.2 1.4-.6L8 10z", style: { fill: "#fff" } })
+                      ),
+                      _e("svg", { width: 22, height: 12, viewBox: "0 0 22 12", style: { fill: "#fff" } },
+                        _e("rect", { x: 0, y: 1, width: 18, height: 10, rx: 2, style: { fill: "none", stroke: "#fff", strokeWidth: 1, opacity: 0.6 } }),
+                        _e("rect", { x: 2, y: 3, width: 14, height: 6, style: { fill: "#fff" } }),
+                        _e("rect", { x: 19, y: 4, width: 1.5, height: 4, style: { fill: "#fff", opacity: 0.6 } })
+                      )
                     )
                   ),
-                  _e("span", { style: { color: "#fff", opacity: 0.7 } }, "···")
-                ),
-                // search
-                _e("div", { style: { padding: "10px 16px", borderBottom: "1px solid rgba(255,255,255,0.05)" } },
-                  _e("div", { style: { display: "flex", alignItems: "center", gap: 10, padding: "8px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 100, color: "#7DA8C7", fontSize: 14 } },
-                    _e("span", null, "🔍"),
-                    _e("span", null, "Поиск")
-                  )
-                ),
-                // channels list
-                _e("div", { style: { display: "flex", flexDirection: "column" } },
-                  channels.map((ch, i) => _e("div", { key: i,
-                    style: {
-                      display: "grid", gridTemplateColumns: "44px 1fr auto", gap: 12, alignItems: "center",
-                      padding: "12px 16px",
-                      background: ch.active ? "rgba(43,156,222,0.18)" : "transparent",
-                      borderLeft: ch.active ? "3px solid #229ED9" : "3px solid transparent"
-                    }
-                  },
-                    _e("div", { style: { width: 40, height: 40, borderRadius: "50%", background: ch.active ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 18 } }, ch.ic),
-                    _e("div", { style: { minWidth: 0 } },
-                      _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 2 } }, ch.name),
-                      _e("div", { style: { fontSize: 12, color: "#7DA8C7", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, ch.sub)
+                  // Header
+                  _e("div", { style: { padding: "16px 14px 12px", display: "grid", gridTemplateColumns: "44px 1fr 44px", gap: 8, alignItems: "center" } },
+                    _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: "rgba(255,255,255,0.06)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#5BB5E8", fontSize: 22 } }, "‹"),
+                    _e("div", { style: { textAlign: "center" } },
+                      _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 2 } }, "Hash Hedge Community"),
+                      _e("div", { style: { fontSize: 12, color: "#7d8590" } }, "1200+ members, 218 online")
                     ),
-                    _e("div", { style: { textAlign: "right" } },
-                      _e("div", { style: { fontSize: 11, color: ch.active ? "#5BB5E8" : "#7DA8C7", marginBottom: 4 } }, ch.time),
-                      ch.unread > 0 && _e("span", { style: { display: "inline-block", minWidth: 22, padding: "2px 7px", background: ch.active ? "#5BB5E8" : "#5BB5E8", color: "#fff", borderRadius: 100, fontSize: 11, fontWeight: 700, textAlign: "center" } }, ch.unread)
+                    _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: "rgba(255,255,255,0.06)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 18 } }, "···")
+                  ),
+                  // Search
+                  _e("div", { style: { padding: "8px 14px 14px" } },
+                    _e("div", { style: { display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 12, color: "#7d8590", fontSize: 15 } },
+                      _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#7d8590", strokeWidth: 2, strokeLinecap: "round" } },
+                        _e("circle", { cx: 11, cy: 11, r: 7, style: { fill: "none", stroke: "#7d8590" } }),
+                        _e("path", { d: "M21 21l-4.35-4.35", style: { stroke: "#7d8590" } })
+                      ),
+                      "Поиск"
                     )
-                  ))
+                  ),
+                  // Channels list
+                  _e("div", { style: { display: "flex", flexDirection: "column", maxHeight: 500, overflow: "hidden", borderTop: "0.5px solid rgba(255,255,255,0.06)" } },
+                    channels.map((ch, i) => _e("div", { key: i,
+                      style: {
+                        display: "grid", gridTemplateColumns: "52px 1fr auto", gap: 10, alignItems: "center",
+                        padding: "10px 14px",
+                        background: ch.active ? "rgba(43,156,222,0.16)" : "transparent",
+                        borderBottom: "0.5px solid rgba(255,255,255,0.04)"
+                      }
+                    },
+                      _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: ch.iconBg, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 18, color: "#fff" } }, ch.ic),
+                      _e("div", { style: { minWidth: 0 } },
+                        _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, ch.name),
+                        _e("div", { style: { fontSize: 12, color: "#7d8590", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, ch.sub)
+                      ),
+                      _e("div", { style: { textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 } },
+                        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: ch.active ? "#5BB5E8" : "#7d8590" } },
+                          ch.pinned && _e("svg", { width: 10, height: 10, viewBox: "0 0 24 24", style: { fill: "#7d8590" } }, _e("path", { d: "M12 2L8 6h3v6l-5 4v2h12v-2l-5-4V6h3L12 2z", style: { fill: "#7d8590" } })),
+                          ch.time
+                        ),
+                        ch.unread && _e("span", { style: { display: "inline-block", minWidth: 22, padding: "2px 7px", background: "#5BB5E8", color: "#fff", borderRadius: 100, fontSize: 11, fontWeight: 700, textAlign: "center" } }, ch.unread),
+                        !ch.unread && ch.pinned && _e("span", { style: { color: "#3a4554", fontSize: 14 } }, "☆")
+                      )
+                    ))
+                  )
                 )
               )
             )
@@ -1663,15 +1704,16 @@
           )
         ),
 
-        _e("div", { className: "hh-support-grid", style: { display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 18 } },
+        _e("div", { className: "hh-support-grid", style: { display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 18, alignItems: "stretch" } },
           // Manager photo card
           _e(Reveal, { delay: "1" },
             _e("div", { style: {
-              position: "relative", aspectRatio: "1 / 1.2", borderRadius: 18, overflow: "hidden",
+              position: "relative", height: "100%", minHeight: 540, borderRadius: 18, overflow: "hidden",
               background: "url(https://hash-hedge-partner.vercel.app/assets/manager.jpeg) center / cover, #1a1a1f",
-              border: "1px solid var(--line)"
+              border: "1px solid var(--line)",
+              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)"
             } },
-              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.7) 100%)" } }),
+              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.92) 100%)" } }),
               // ОНЛАЙН chip top-left
               _e("div", { style: { position: "absolute", top: 18, left: 18, display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 12px", background: "rgba(8,8,10,0.7)", border: "1px solid rgba(74,222,128,0.4)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.06em", textTransform: "uppercase" } },
                 _e("span", { style: { width: 7, height: 7, borderRadius: "50%", background: "#4ade80" } }),
@@ -1694,9 +1736,9 @@
             )
           ),
 
-          // Chat mockup
+          // Chat mockup — равная высота с фото
           _e(Reveal, { delay: "2" },
-            _e("div", { style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 18, padding: 22, display: "flex", flexDirection: "column", aspectRatio: "1.4 / 1.2" } },
+            _e("div", { style: { background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 18, padding: 22, display: "flex", flexDirection: "column", minHeight: 540 } },
               // header
               _e("div", { style: { display: "flex", alignItems: "center", gap: 12, paddingBottom: 16, borderBottom: "1px solid var(--line)", marginBottom: 14 } },
                 _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80" } }),
@@ -1739,7 +1781,7 @@
           _e("div", { className: "hh-sup-ctas", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20 } },
             // Карточка 1 — Личный менеджер (зелёный accent)
             _e("a", { href: "#cta",
-              style: { display: "flex", alignItems: "center", gap: 18, padding: "22px 24px", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 16, textDecoration: "none", transition: "border-color .2s" },
+              style: { display: "flex", alignItems: "center", gap: 18, padding: "22px 24px", background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 16, textDecoration: "none", transition: "border-color .2s" },
               onMouseEnter: e => e.currentTarget.style.borderColor = "rgba(74,222,128,0.5)",
               onMouseLeave: e => e.currentTarget.style.borderColor = "var(--line)"
             },
@@ -1758,7 +1800,7 @@
             ),
             // Карточка 2 — Telegram-поддержка (синий accent)
             _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-              style: { display: "flex", alignItems: "center", gap: 18, padding: "22px 24px", background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 16, textDecoration: "none", transition: "border-color .2s" },
+              style: { display: "flex", alignItems: "center", gap: 18, padding: "22px 24px", background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 16, textDecoration: "none", transition: "border-color .2s" },
               onMouseEnter: e => e.currentTarget.style.borderColor = "rgba(43,156,222,0.55)",
               onMouseLeave: e => e.currentTarget.style.borderColor = "var(--line)"
             },
@@ -1814,7 +1856,7 @@
           _e("div", { style: { maxWidth: 820, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 } },
             items.map((it, i) => _e("div", {
               key: i,
-              style: { background: "rgba(11,11,14,0.85)", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }
+              style: { background: "#1F1D25", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }
             },
               _e("button", { onClick: () => setOpen(open === i ? -1 : i),
                 style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", color: "#f5f1e8", fontSize: 16, fontWeight: 700, textAlign: "left" }
@@ -1827,7 +1869,7 @@
           )
         ),
         _e(Reveal, { delay: "2" },
-          _e("div", { style: { maxWidth: 820, margin: "48px auto 0", padding: "28px 32px", background: "rgba(11,11,14,0.85)", border: "1px solid rgba(43,156,222,0.4)", borderRadius: 16, textAlign: "center" } },
+          _e("div", { style: { maxWidth: 820, margin: "48px auto 0", padding: "28px 32px", background: "#1F1D25", border: "1px solid rgba(43,156,222,0.4)", borderRadius: 16, textAlign: "center" } },
             _e("div", { style: { fontSize: 22, fontWeight: 700, color: "#f5f1e8", marginBottom: 8 } }, "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")),
             _e("div", { style: { fontSize: 14, color: "#a1a0a4", marginBottom: 24, lineHeight: 1.5, maxWidth: 540, margin: "0 auto 24px" } }, "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе."),
             _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer", className: "hh-btn-tg",
@@ -1848,73 +1890,66 @@
   // BIG CTA
   // ============================================================================
   function BigCTA() {
-    // Live partner counter — кручусь жёлтыми цифрами
-    const [n, setN] = useState(2547);
-    useEffect(() => {
-      const id = setInterval(() => setN(v => v + 1 + Math.floor(Math.random() * 2)), 4000);
-      return () => clearInterval(id);
+    // Растущий жёлтый chart на фоне (как трейдинг-сигнал, идущий вверх)
+    const chartPath = useMemo(() => {
+      const points = [];
+      const N = 80;
+      for (let i = 0; i < N; i++) {
+        const x = (i / (N - 1)) * 1200;
+        const t = i / (N - 1);
+        const noise = Math.sin(i * 0.45) * 14 + Math.cos(i * 0.83) * 8;
+        const trend = 220 - t * 180;
+        points.push([x, trend + noise]);
+      }
+      return points.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ");
     }, []);
     return _e("section", { id: "cta", style: { padding: "140px 0", background: "var(--bg)", position: "relative", overflow: "hidden" } },
-      // Background graphics — large yellow glow + scattered yellow particles
-      _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none" } },
-        _e("div", { style: { position: "absolute", left: "50%", top: "50%", width: 900, height: 900, transform: "translate(-50%, -50%)", borderRadius: "50%", background: "radial-gradient(circle, rgba(252,213,53,0.16) 0%, rgba(252,213,53,0.06) 30%, transparent 65%)", filter: "blur(40px)" } }),
-        // floating diamonds (decorative)
-        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 1200 600", preserveAspectRatio: "none", style: { position: "absolute", inset: 0, opacity: 0.5 } },
-          [[120, 80, 8], [220, 460, 12], [980, 100, 10], [1100, 480, 8], [180, 280, 6], [1050, 280, 6], [400, 60, 5], [820, 540, 6]].map(([x, y, s], i) =>
-            _e("g", { key: i, transform: `translate(${x},${y}) rotate(45)` },
-              _e("rect", { x: -s, y: -s, width: s * 2, height: s * 2, style: { fill: "none", stroke: "#fcd535", strokeWidth: 1.2, opacity: 0.55 } })
+      // Background: chart svg растущий вправо-вверх + glow
+      _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.32 } },
+        _e("svg", { width: "100%", height: "100%", viewBox: "0 0 1200 300", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
+          // grid lines
+          [60, 120, 180, 240].map((y, i) => _e("line", { key: "g" + i, x1: 0, x2: 1200, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.04)", strokeWidth: 1 } })),
+          // area under chart
+          _e("path", { d: chartPath + " L 1200 300 L 0 300 Z", style: { fill: "url(#bigctaFill)" } }),
+          // line
+          _e("path", { d: chartPath, style: { stroke: "#fcd535", strokeWidth: 2.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" } }),
+          // glowing endpoint
+          _e("circle", { cx: 1200, cy: 40, r: 5, style: { fill: "#fcd535" } }),
+          _e("circle", { cx: 1200, cy: 40, r: 14, style: { fill: "rgba(252,213,53,0.25)" } }),
+          _e("defs", null,
+            _e("linearGradient", { id: "bigctaFill", x1: "0", y1: "0", x2: "0", y2: "1" },
+              _e("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: 0.35 }),
+              _e("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: 0 })
             )
           )
         )
       ),
+      // central radial glow
+      _e("div", { "aria-hidden": true, style: { position: "absolute", left: "50%", top: "50%", width: 900, height: 600, transform: "translate(-50%, -50%)", borderRadius: "50%", background: "radial-gradient(ellipse, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.04) 35%, transparent 70%)", filter: "blur(30px)", pointerEvents: "none" } }),
+
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e(Reveal, null,
-          _e("div", { style: {
-            maxWidth: 920, margin: "0 auto", padding: "72px 40px",
-            background: "linear-gradient(180deg, rgba(11,11,14,0.92) 0%, rgba(11,11,14,0.85) 100%)",
-            border: "1px solid rgba(252,213,53,0.22)", borderRadius: 24,
-            textAlign: "center", position: "relative", overflow: "hidden",
-            boxShadow: "0 60px 120px -30px rgba(0,0,0,0.7), 0 0 80px -20px rgba(252,213,53,0.15)"
-          } },
-            // top accent line glow
-            _e("div", { style: { position: "absolute", top: -1, left: "20%", right: "20%", height: 1, background: "linear-gradient(90deg, transparent, #fcd535, transparent)", opacity: 0.7 } }),
-            // Live partners pill on top
-            _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 18px", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.35)", borderRadius: 100, marginBottom: 28 } },
-              _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80", animation: "hh-pulse 1.6s ease-in-out infinite" } }),
-              _e("span", { style: { fontSize: 12, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.08em", textTransform: "uppercase" } },
-                _e("b", { style: { color: "#fff", fontWeight: 800 } }, n.toLocaleString("ru-RU").replace(/,/g, " ")),
-                " активных партнёров"
-              )
+          _e("div", { style: { textAlign: "center" } },
+            _e("span", {
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.04)", backdropFilter: "blur(10px)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 28 }
+            },
+              _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+              "Готов начать?"
             ),
-            _e("h2", { style: { fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", marginBottom: 24 } },
-              "Начни зарабатывать", _e("br", null), "с ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 40px rgba(252,213,53,0.4)" } }, "Hash Hedge")
+            _e("h2", { style: { fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", marginBottom: 36 } },
+              "Начни зарабатывать с ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 40px rgba(252,213,53,0.4)" } }, "Hash Hedge")
             ),
-            _e("p", { style: { fontSize: 17, color: "#a1a0a4", maxWidth: 580, margin: "0 auto 36px", lineHeight: 1.55 } },
-              "Получай до 80% от прибыли с каждого реферала. Пожизненные начисления. Выплаты в USDT в течение 72 часов."
-            ),
-            _e("div", { style: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", marginBottom: 32 } },
+            _e("div", { style: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" } },
               _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                style: { padding: "18px 36px", borderRadius: 14, fontSize: 16, fontWeight: 800, textDecoration: "none", boxShadow: "0 14px 40px -8px rgba(252,213,53,0.55), inset 0 -2px 0 rgba(0,0,0,0.15)", display: "inline-flex", alignItems: "center", gap: 8 }
-              }, "Зарегистрироваться", _e("span", { style: { fontSize: 18 } }, "→")),
+                style: { padding: "18px 36px", borderRadius: 14, fontSize: 16, fontWeight: 800, textDecoration: "none", boxShadow: "0 14px 40px -8px rgba(252,213,53,0.55), inset 0 -2px 0 rgba(0,0,0,0.15)" }
+              }, "Зарегистрироваться"),
               _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-outline",
                 style: { padding: "18px 32px", borderRadius: 14, fontSize: 16, fontWeight: 600, textDecoration: "none" }
               }, "Войти в кабинет")
-            ),
-            // 3 mini guarantees
-            _e("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginTop: 36, paddingTop: 28, borderTop: "1px solid rgba(255,255,255,0.06)" }, className: "hh-bigcta-guarantees" },
-              [
-                { v: "до 80%", l: "комиссия" },
-                { v: "72 ч",    l: "выплата USDT" },
-                { v: "∞",        l: "пожизненно" }
-              ].map((g, i) => _e("div", { key: i, style: { textAlign: "center" } },
-                _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6 } }, g.v),
-                _e("div", { style: { fontSize: 12, color: "#a1a0a4", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 600 } }, g.l)
-              ))
             )
           )
         )
-      ),
-      _e("style", null, "@keyframes hh-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.9); } }")
+      )
     );
   }
 
