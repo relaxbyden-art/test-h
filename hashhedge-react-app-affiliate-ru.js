@@ -603,15 +603,15 @@
       ))
     );
 
-    // VIZ 3 — 5-10x exchange comparison. На mobile — ультра-компактный.
+    // VIZ 3 — 5-10x exchange comparison. На mobile плашки прижаты к подписи (marginBottom 6 → 2).
     const V3 = () => _e("div", { className: "hh-viz hh-viz-3",
       style: { width: "100%", maxWidth: isMobile ? 200 : 280, padding: "0 4px", textAlign: "center", boxSizing: "border-box" }
     },
       _e("div", {
-        style: { fontSize: isMobile ? 26 : 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: isMobile ? 2 : 4 }
+        style: { fontSize: isMobile ? 26 : 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: isMobile ? 1 : 4 }
       }, "5–10×"),
       _e("div", {
-        style: { fontSize: isMobile ? 9 : 10, color: "#a1a0a4", marginBottom: isMobile ? 6 : 10 }
+        style: { fontSize: isMobile ? 9 : 10, color: "#a1a0a4", marginBottom: isMobile ? 2 : 10 }
       }, "доход vs биржевой реферал"),
       _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 4 : 6 } },
         _e("div", { style: { padding: isMobile ? "4px 4px" : "6px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 6 } },
@@ -744,27 +744,49 @@
     );
 
     // VIZ 8 — Tracking analytics snippet
-    // VIZ 8 — Tracking analytics. На mobile — ультра-компактный.
-    const V8 = () => _e("div", { className: "hh-viz hh-viz-8",
-      style: { width: "100%", maxWidth: isMobile ? 220 : 280, padding: "0 4px", boxSizing: "border-box" }
-    },
-      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 4 : 6, marginBottom: isMobile ? 4 : 6 } },
-        [
-          { k: "Источник", v: "YouTube" },
-          { k: "Клики", v: "1 284" }
-        ].map((it, i) => _e("div", { key: i, style: { padding: isMobile ? "4px 6px" : "6px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6 } },
-          _e("div", { style: { fontSize: isMobile ? 7 : 8, color: "#a1a0a4", marginBottom: 1, textTransform: "uppercase", letterSpacing: "0.08em" } }, it.k),
-          _e("div", { style: { fontSize: isMobile ? 10 : 12, fontWeight: 700, color: "#f5f1e8" } }, it.v)
-        ))
-      ),
-      _e("div", { style: { padding: isMobile ? "5px 8px" : "8px 10px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 6 } },
-        _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: isMobile ? 2 : 4 } },
-          _e("span", { style: { fontSize: isMobile ? 7 : 8, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.08em" } }, "Доход с канала"),
-          _e("span", { style: { fontSize: isMobile ? 8 : 9, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
-        ),
-        _e("div", { style: { fontSize: isMobile ? 12 : 15, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
-      )
-    );
+    // VIZ 8 — Tracking analytics. На mobile все 3 плашки в 1 столбец без пустого места.
+    const V8 = () => isMobile
+      ? _e("div", { className: "hh-viz hh-viz-8",
+          style: { width: "100%", maxWidth: 220, padding: 0, boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 3 }
+        },
+          // 3 плашки подряд, одинакового стиля, прижаты друг к другу
+          _e("div", { style: { padding: "4px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6, display: "flex", justifyContent: "space-between", alignItems: "center" } },
+            _e("span", { style: { fontSize: 7, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.08em" } }, "Источник"),
+            _e("span", { style: { fontSize: 11, fontWeight: 700, color: "#f5f1e8" } }, "YouTube")
+          ),
+          _e("div", { style: { padding: "4px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6, display: "flex", justifyContent: "space-between", alignItems: "center" } },
+            _e("span", { style: { fontSize: 7, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.08em" } }, "Клики"),
+            _e("span", { style: { fontSize: 11, fontWeight: 700, color: "#f5f1e8" } }, "1 284")
+          ),
+          _e("div", { style: { padding: "4px 8px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 6, display: "flex", justifyContent: "space-between", alignItems: "center" } },
+            _e("div", { style: { display: "flex", flexDirection: "column" } },
+              _e("span", { style: { fontSize: 7, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.08em" } }, "Доход с канала"),
+              _e("span", { style: { fontSize: 12, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
+            ),
+            _e("span", { style: { fontSize: 9, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
+          )
+        )
+      // Desktop версия — без изменений
+      : _e("div", { className: "hh-viz hh-viz-8",
+          style: { width: "100%", maxWidth: 280, padding: "0 4px", boxSizing: "border-box" }
+        },
+          _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 6 } },
+            [
+              { k: "Источник", v: "YouTube" },
+              { k: "Клики", v: "1 284" }
+            ].map((it, i) => _e("div", { key: i, style: { padding: "6px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6 } },
+              _e("div", { style: { fontSize: 8, color: "#a1a0a4", marginBottom: 1, textTransform: "uppercase", letterSpacing: "0.08em" } }, it.k),
+              _e("div", { style: { fontSize: 12, fontWeight: 700, color: "#f5f1e8" } }, it.v)
+            ))
+          ),
+          _e("div", { style: { padding: "8px 10px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 6 } },
+            _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 } },
+              _e("span", { style: { fontSize: 8, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.08em" } }, "Доход с канала"),
+              _e("span", { style: { fontSize: 9, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
+            ),
+            _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
+          )
+        );
 
     // VIZ 9 — Sub-partner network
     // V9 — Многоуровневая сеть. Картинка увеличена (viewBox шире), круги с непрозрачным фоном.
@@ -1150,37 +1172,38 @@
               }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
             ),
 
-            // RIGHT result card — компактный, высота auto (не тянется по левой колонке).
-            _e("div", { style: {
-              background: "linear-gradient(180deg, rgba(11,11,14,0.6), #151517)",
-              border: "1px solid var(--line)", borderRadius: 22, padding: 28,
-              boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
-              display: "flex", flexDirection: "column", gap: 20
-            } },
-              // верхняя группа (eyebrow + результат + подпись)
+            // RIGHT result card — компактный, тексты прижаты ближе
+            _e("div", { className: "hh-calc-result",
+              style: {
+                background: "linear-gradient(180deg, rgba(11,11,14,0.6), #151517)",
+                border: "1px solid var(--line)", borderRadius: 22, padding: 24,
+                boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
+                display: "flex", flexDirection: "column", gap: 12
+              }
+            },
+              // верхняя группа (eyebrow + результат + подпись) — отступы прижаты
               _e("div", null,
-                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 16 } },
+                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } },
                   _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }),
                   "Твой доход в месяц"
                 ),
                 _e("div", { style: {
                   fontSize: "clamp(40px, 4.4vw, 64px)",
                   fontWeight: 800, color: "#f5f1e8",
-                  letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 12,
+                  letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6,
                   whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"
                 } },
                   `$${monthly.toLocaleString("ru-RU").replace(/,/g, " ")}`
                 ),
-                _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "в месяц при выбранных параметрах")
+                _e("div", { style: { fontSize: 13, color: "#a1a0a4" } }, "в месяц при выбранных параметрах")
               ),
-              // нижняя группа (кнопка + дисклеймер) — прижата к низу
+              // нижняя группа (кнопка + дисклеймер)
               _e("div", null,
                 _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                  style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
+                  style: { display: "block", textAlign: "center", padding: "16px 24px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
                 }, "Стать партнёром →"),
-                // div (не p) — Tilda CSS-override игнорируется
                 _e("div", { className: "hh-calc-disclaimer",
-                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 20, lineHeight: 1.5 }
+                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 14, lineHeight: 1.5 }
                 },
                   "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
                 )
