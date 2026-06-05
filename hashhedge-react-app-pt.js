@@ -3464,7 +3464,7 @@ function Pricing() {
     const isBest = false;
     const isFlash = s === flashSaleSize;
     const badge = isFlash ? "PROMO" : isBest ? "MELHOR VALOR" : isPop ? "POPULAR" : null;
-    const badgeBg = isFlash ? "var(--accent)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
+    const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
       onClick: () => {
@@ -3481,13 +3481,13 @@ function Pricing() {
       style: {
         position: "relative",
         padding: "15px 10px 13px",
-        border: `1px solid ${active || isFlash ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
-        background: active || isFlash ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
+        border: `1px solid ${active ? "var(--accent)" : isFlash ? "var(--green)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
+        background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isFlash ? "linear-gradient(180deg, rgba(74,222,128,0.10) 0%, rgba(74,222,128,0.02) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
         borderRadius: 14,
         cursor: "pointer",
         transition: "all .2s",
         textAlign: "center",
-        boxShadow: active || isFlash ? "0 16px 40px -14px rgba(252,213,53,0.45)" : isBest ? "0 14px 36px -16px rgba(123,199,90,0.4)" : "none",
+        boxShadow: active ? "0 16px 40px -14px rgba(252,213,53,0.45)" : isFlash ? "0 16px 40px -14px rgba(74,222,128,0.45)" : isBest ? "0 14px 36px -16px rgba(123,199,90,0.4)" : "none",
         fontFamily: "Onest, sans-serif"
       }
     }, badge && /*#__PURE__*/React.createElement("div", {
@@ -3512,7 +3512,7 @@ function Pricing() {
         fontSize: 9,
         fontWeight: 700,
         letterSpacing: "0.1em",
-        color: active || isFlash ? "var(--accent)" : "var(--fg-low)",
+        color: active ? "var(--accent)" : isFlash ? "var(--green)" : "var(--fg-low)",
         textTransform: "uppercase",
         marginBottom: 5
       }
@@ -3535,7 +3535,7 @@ function Pricing() {
         fontSize: 16,
         fontWeight: 800,
         letterSpacing: "-0.01em",
-        color: active || isFlash ? "var(--accent)" : "var(--fg-muted)"
+        color: active ? "var(--accent)" : isFlash ? "var(--green)" : "var(--fg-muted)"
       }
     }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
       "data-account-tab-note": true,
