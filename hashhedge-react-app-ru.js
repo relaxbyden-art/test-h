@@ -11246,19 +11246,12 @@ function MobileCTABar() {
 function FlashSalePopup() {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
-    var SEEN_KEY = "hh-flash10k-seen";
-    var TTL_HOURS = 24;
-    try {
-      var seen = localStorage.getItem(SEEN_KEY);
-      if (seen && Date.now() - Number(seen) < TTL_HOURS * 3600 * 1000) return;
-    } catch (e) {}
+    // Без localStorage: попап показывается при каждой загрузке страницы.
+    // Закрывается только на текущую сессию (state в памяти).
     var t = setTimeout(function () { setOpen(true); }, 1200);
     return function () { clearTimeout(t); };
   }, []);
-  function close() {
-    setOpen(false);
-    try { localStorage.setItem("hh-flash10k-seen", String(Date.now())); } catch (e) {}
-  }
+  function close() { setOpen(false); }
   if (!open) return null;
   var BUY_URL = "https://app.hashhedge.com/ru/app/payment-form/e1e37983-305a-4781-b104-945c92da525c";
   return React.createElement("div", {
@@ -11339,24 +11332,29 @@ function FlashSalePopup() {
           style: { fontSize: 48, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.03em", lineHeight: 1 }
         }, "$79")
       ),
-      // Кнопка — ПОД ценой, на всю ширину центрированного блока
+      // Кнопка — ПОД ценой. className "btn btn-primary" нужен чтобы Tilda CSS-override
+      // (#hashhedge-root .tilda-html-hashhedge a.btn-primary { color: #13111c !important })
+      // дал тёмному тексту приоритет над прозрачным color: inherit.
       React.createElement("a", {
         href: BUY_URL,
         target: "_blank",
         rel: "noopener",
         onClick: close,
+        className: "btn btn-primary",
         style: {
           display: "flex", alignItems: "center", justifyContent: "center",
           width: "100%", maxWidth: 320, height: 56,
           margin: "0 auto",
           borderRadius: 14,
           background: "#fcd535",
-          color: "#13111c",
           textDecoration: "none",
           fontSize: 16, fontWeight: 800, letterSpacing: 0,
           boxShadow: "0 14px 40px -8px rgba(252,213,53,0.55)"
         }
-      }, "Забрать акцию →"),
+      },
+        // span с color чтобы дополнительно перебить любые наследуемые цвета
+        React.createElement("span", { style: { color: "#13111c" } }, "Забрать акцию →")
+      ),
       React.createElement("div", {
         style: { fontSize: 12, color: "rgba(245,241,232,0.45)", marginTop: 14 }
       }, "Челлендж $10K с правилами как у обычного. Капитал — настоящий.")
