@@ -1091,7 +1091,9 @@
                 ),
                 _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 12, lineHeight: 1.5 } }, "Больше активных трейдеров в месяц — выше твой уровень и комиссия.")
               ),
-              _e("div", { style: { padding: "18px 22px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 } },
+              _e("div", { className: "hh-calc-tier-card",
+                style: { padding: "18px 22px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 }
+              },
                 _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
                   _e("div", null,
                     _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Твой уровень · авто"),
@@ -1131,7 +1133,9 @@
                 _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
                   style: { display: "block", textAlign: "center", padding: "18px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
                 }, "Стать партнёром →"),
-                _e("p", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 14, marginBottom: 0, lineHeight: 1.5 } },
+                _e("p", { className: "hh-calc-disclaimer",
+                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 14, marginBottom: 0, lineHeight: 1.5 }
+                },
                   "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
                 )
               )
@@ -2453,89 +2457,135 @@
         .hh-lb-row { grid-template-columns: 50px minmax(0, 1fr) auto !important; padding: 12px 16px !important; }
       }
 
-      /* === Мобильная версия (≤ 640px) — 14 правок === */
+      /* === TG-сетка на планшете/мобиле: 1 колонка чтобы и левая часть, и телефон были видны === */
+      @media (max-width: 980px) {
+        .hh-tg-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+      }
+
+      /* === Мобильная версия (≤ 640px) === */
       @media (max-width: 640px) {
         .hh-footer-grid { grid-template-columns: 1fr !important; }
 
-        /* (1) Hero: btn-ghost «Рассчитать доход» ярче на мобилке */
+        /* (1) Hero: btn-ghost ярче на мобилке */
         #hashhedge-root .tilda-html-hashhedge.hh-with-glow .hh-partner-hero .btn-ghost {
           color: #fcd535 !important;
           border-color: #fcd535 !important;
           background: rgba(252,213,53,0.08) !important;
         }
-        /* (2) Hero candles: не растягиваются по всей секции, остаются только сверху над текстом */
-        .hh-hero-candles { bottom: 50% !important; }
+        /* (2) Hero candles: меньше по высоте, остаются только сверху */
+        .hh-hero-candles { bottom: 65% !important; opacity: 0.7 !important; }
 
         /* (11) Меньше отступы заголовок↔описание во всех секциях */
-        .hh-partner-hero { padding-top: 32px !important; padding-bottom: 48px !important; }
-        section[id] { padding-top: 56px !important; padding-bottom: 56px !important; }
-        section h2, section .h1 { margin-bottom: 12px !important; }
-        section h2 + p, section h2 + .container > p { margin-top: 8px !important; }
+        .hh-partner-hero { padding-top: 32px !important; padding-bottom: 32px !important; }
+        section[id] { padding-top: 48px !important; padding-bottom: 48px !important; }
+        section h2, section .h1 { margin-bottom: 10px !important; }
+        section h2 + p, section h2 + .container > p { margin-top: 6px !important; }
 
-        /* (4) WhyPartner — image-left/text-right horizontal layout на mobile */
+        /* === (v3.7 #2) WhyPartner: вернули вертикальный layout, vis-area компактная === */
         .hh-why-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-        .hh-why-card { flex-direction: row !important; height: auto !important; align-items: stretch !important; }
-        .hh-why-card-vis { min-height: auto !important; width: 36% !important; flex-shrink: 0 !important; border-bottom: none !important; border-right: 1px solid var(--line) !important; padding: 16px !important; }
-        .hh-why-card-vis svg { max-width: 100% !important; max-height: 120px !important; }
-        .hh-why-card-body { padding: 14px 16px !important; flex: 1 !important; }
-        .hh-why-card-body h3 { font-size: 16px !important; line-height: 1.2 !important; margin-bottom: 6px !important; }
+        .hh-why-card { flex-direction: column !important; height: auto !important; }
+        .hh-why-card-vis {
+          min-height: 140px !important; width: 100% !important;
+          border-bottom: 1px solid var(--line) !important; border-right: none !important;
+          padding: 18px !important;
+        }
+        .hh-why-card-vis > * { max-height: 110px !important; }
+        .hh-why-card-vis svg { max-width: 100% !important; max-height: 110px !important; }
+        .hh-why-card-body { padding: 14px 16px 18px !important; }
+        .hh-why-card-body h3 { font-size: 18px !important; line-height: 1.2 !important; margin-bottom: 8px !important; }
         .hh-why-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
 
-        /* (5) IncomeSources — graphic слева, текст справа */
+        /* === (v3.7 #3) IncomeSources: row-layout, но номер 01/02/03 СКРЫТ + иконка выше === */
         .hh-income-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
         .hh-income-card { flex-direction: row !important; height: auto !important; padding: 16px !important; align-items: flex-start !important; gap: 14px !important; }
-        .hh-income-head { flex-direction: column !important; align-items: center !important; gap: 8px !important; min-width: 56px !important; margin-bottom: 0 !important; flex-shrink: 0 !important; }
-        .hh-income-body { flex: 1 !important; }
+        .hh-income-head {
+          flex-direction: column !important; align-items: center !important; justify-content: flex-start !important;
+          gap: 0 !important; min-width: 56px !important; margin-bottom: 0 !important; flex-shrink: 0 !important;
+        }
+        /* скрываем номер 01/02/03 (первый ребёнок head) */
+        .hh-income-head > div:first-child { display: none !important; }
+        .hh-income-body { flex: 1 !important; min-width: 0 !important; }
         .hh-income-body h3 { font-size: 16px !important; margin-bottom: 6px !important; }
         .hh-income-body p { font-size: 13px !important; line-height: 1.45 !important; margin-bottom: 10px !important; }
 
-        /* (6) Tiers — горизонтальный список карточек по порядку */
+        /* === (v3.7 #4) Tiers: горизонтальный список + одинаковая высота + НЕ прыгают === */
         .hh-tiers-grid {
           grid-template-columns: none !important;
           display: flex !important;
+          flex-wrap: nowrap !important;
           overflow-x: auto !important;
           gap: 12px !important;
-          padding-bottom: 8px !important;
+          padding-bottom: 12px !important;
           scroll-snap-type: x mandatory !important;
           -webkit-overflow-scrolling: touch !important;
           scrollbar-width: none !important;
+          align-items: stretch !important;
         }
         .hh-tiers-grid::-webkit-scrollbar { display: none; }
-        .hh-tiers-grid > * { flex: 0 0 220px !important; scroll-snap-align: start !important; }
+        /* Принудительно одинаковая высота карточек, фиксируем opacity (нет Reveal-прыжков) */
+        .hh-tiers-grid > * {
+          flex: 0 0 220px !important;
+          scroll-snap-align: start !important;
+          opacity: 1 !important;
+          transform: none !important;
+          animation: none !important;
+        }
+        .hh-tiers-grid > * > div { min-height: 320px !important; }
 
-        /* (7) Calculator — компактный, сумма всегда видна */
+        /* === (v3.7 #5) Calculator: тексты одного размера, блок «Твой уровень» компактнее === */
         .hh-calc-h2 br { display: none !important; }
-        .hh-calc-h2 { font-size: 28px !important; line-height: 1.1 !important; }
+        .hh-calc-h2 { font-size: 28px !important; line-height: 1.15 !important; }
         .hh-calc-grid > div:first-child { padding: 0 !important; }
-        .hh-calc-grid > div:first-child > div:nth-child(4) { display: none !important; } /* нижний disclaimer на mobile */
+        /* «Уровень и ставка комиссии растут…» — fontSize 11 как у «Больше активных трейдеров…» */
+        .hh-calc-grid > div:first-child > p { font-size: 11px !important; line-height: 1.5 !important; }
+        /* Компактный блок «Твой уровень · авто» */
+        .hh-calc-tier-card { padding: 12px 16px !important; margin-bottom: 10px !important; }
+        .hh-calc-tier-card > div > div:first-child > div:nth-child(2) { font-size: 16px !important; }
+        .hh-calc-tier-card > div > div:last-child { font-size: 22px !important; }
+        /* «Расчёт примерный…» отделить от кнопки + такой же мелкий шрифт + увеличить gap до кнопки */
+        .hh-calc-disclaimer { font-size: 11px !important; line-height: 1.5 !important; margin-top: 16px !important; }
 
-        /* (8) Steps — вертикальный список «круг номер + текст» */
+        /* === (v3.7 #6) Steps: гарантированно 1 колонка, круг слева, текст справа === */
         .hh-steps-timeline { display: none !important; }
-        .hh-steps-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
-        .hh-steps-card { display: flex !important; flex-direction: row !important; align-items: stretch !important; gap: 14px !important; padding: 14px 16px !important; }
+        .hh-steps-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 10px !important; }
+        .hh-steps-grid > * { width: 100% !important; }
+        .hh-steps-card {
+          display: flex !important; flex-direction: row !important;
+          align-items: flex-start !important; gap: 14px !important;
+          padding: 16px !important; height: auto !important;
+          width: 100% !important; box-sizing: border-box !important;
+        }
         .hh-steps-num-mobile { display: inline-flex !important; }
-        .hh-steps-card-body { flex: 1 !important; }
+        .hh-steps-card-body { flex: 1 !important; min-width: 0 !important; }
         .hh-steps-card-body h3 { font-size: 16px !important; margin-bottom: 6px !important; }
         .hh-steps-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
 
-        /* (9) CabinetPreview — компактнее */
+        /* CabinetPreview — компактнее */
         .hh-cab-explainers { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
         .hh-cab-mockup { font-size: 11px !important; }
 
-        /* (10) Leaderboard — компактные строки на mobile */
+        /* Leaderboard — компактные строки на mobile */
         .hh-lb-row { grid-template-columns: 38px 1fr auto !important; gap: 10px !important; padding: 10px 14px !important; }
         .hh-lb-head-row > div:nth-child(3) { text-align: right !important; }
         .hh-lb-row > div { font-size: 13px !important; }
 
-        /* (13) Events — все 4 карточки одного среднего размера + шрифт title одинаковый */
+        /* Events — все 4 карточки одного размера + единый title 18px */
         .hh-event-card { aspect-ratio: 1.5 / 1 !important; }
         .hh-event-card-big { aspect-ratio: 1.5 / 1 !important; }
         .hh-event-card-title { font-size: 18px !important; max-width: 100% !important; }
         .hh-event-card-bottom { bottom: 16px !important; left: 16px !important; right: 16px !important; }
 
-        /* (14) Support — карточки ближе друг к другу */
-        .hh-sup-ctas { gap: 8px !important; margin-top: 10px !important; }
+        /* === (v3.7 #7) Telegram-сообщество: телефон масштабируется по mobile-ширине === */
+        .hh-tg-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+        .hh-tg-grid > *:last-child > div { max-width: 320px !important; }
+
+        /* === (v3.7 #8) Support — photo card имеет компактный minHeight на mobile === */
         .hh-support-grid { gap: 12px !important; }
+        .hh-support-grid > div > div { min-height: 360px !important; }
+
+        /* === (v3.7 #9) Sup-ctas карточки ещё ближе === */
+        .hh-sup-ctas { gap: 6px !important; margin-top: 8px !important; }
+        .hh-sup-ctas > a { padding: 12px 14px !important; }
       }
       @keyframes hh-globe-pulse {
         0%, 100% { r: 2.4; opacity: 1; }
