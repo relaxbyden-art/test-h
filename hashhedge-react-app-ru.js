@@ -11320,7 +11320,7 @@ function FlashSalePopup() {
       ),
       React.createElement("p", {
         style: { fontSize: 14, color: "rgba(245,241,232,0.72)", lineHeight: 1.5, margin: "0 auto 22px", maxWidth: 380 }
-      }, "Только сейчас стартуй с капиталом $10 000 за цену челленджа $5 000. Ограниченное предложение."),
+      }, "Стоимость такая же, а капитал в два раза больше."),
       // Цена — отдельный блок, по центру
       React.createElement("div", {
         style: { display: "flex", alignItems: "baseline", justifyContent: "center", gap: 12, marginBottom: 24, fontFamily: "Onest, sans-serif" }
@@ -11353,11 +11353,11 @@ function FlashSalePopup() {
         }
       },
         // span с color чтобы дополнительно перебить любые наследуемые цвета
-        React.createElement("span", { style: { color: "#13111c" } }, "Забрать акцию →")
+        React.createElement("span", { style: { color: "#13111c" } }, "Купить челлендж")
       ),
       React.createElement("div", {
-        style: { fontSize: 12, color: "rgba(245,241,232,0.45)", marginTop: 14 }
-      }, "Челлендж $10K с правилами как у обычного. Капитал — настоящий.")
+        style: { fontSize: 12, color: "rgba(245,241,232,0.55)", marginTop: 14, fontWeight: 600, letterSpacing: "0.02em" }
+      }, "Ограниченное предложение")
     )
   );
 }
