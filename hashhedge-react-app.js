@@ -3158,12 +3158,12 @@ function Pricing() {
   const pricing = {
     5000: 79,
     10000: 79,
-    25000: 299,
+    25000: 240,
     50000: 499,
     100000: 799,
     150000: 1093
   };
-  const flashSaleSize = 10000;
+  const flashSaleSizes = [10000, 25000];
   const paymentLinks = {
     5000: "https://app.hashhedge.com/en/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
     10000: "https://app.hashhedge.com/en/app/payment-form/e1e37983-305a-4781-b104-945c92da525c",
@@ -3462,7 +3462,7 @@ function Pricing() {
     const active = size === s;
     const isPop = false;
     const isBest = false;
-    const isFlash = s === flashSaleSize;
+    const isFlash = flashSaleSizes.indexOf(s) >= 0;
     const badge = isFlash ? "SALE" : isBest ? "BEST VALUE" : isPop ? "POPULAR" : null;
     const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
