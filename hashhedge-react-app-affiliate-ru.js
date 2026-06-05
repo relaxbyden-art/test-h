@@ -603,24 +603,24 @@
       ))
     );
 
-    // VIZ 3 — 5-10x exchange comparison. На mobile плашки прижаты к подписи (marginBottom 6 → 2).
+    // VIZ 3 — 5-10x exchange comparison. На mobile MAX компактно, всё прижато.
     const V3 = () => _e("div", { className: "hh-viz hh-viz-3",
-      style: { width: "100%", maxWidth: isMobile ? 200 : 280, padding: "0 4px", textAlign: "center", boxSizing: "border-box" }
+      style: { width: "100%", maxWidth: isMobile ? 200 : 280, padding: 0, textAlign: "center", boxSizing: "border-box" }
     },
       _e("div", {
-        style: { fontSize: isMobile ? 26 : 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: isMobile ? 1 : 4 }
+        style: { fontSize: isMobile ? 22 : 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 0 }
       }, "5–10×"),
       _e("div", {
-        style: { fontSize: isMobile ? 9 : 10, color: "#a1a0a4", marginBottom: isMobile ? 2 : 10 }
+        style: { fontSize: isMobile ? 8 : 10, color: "#a1a0a4", marginBottom: isMobile ? 2 : 10, lineHeight: 1.1, marginTop: isMobile ? 1 : 4 }
       }, "доход vs биржевой реферал"),
-      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 4 : 6 } },
-        _e("div", { style: { padding: isMobile ? "4px 4px" : "6px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 6 } },
-          _e("div", { style: { fontSize: isMobile ? 8 : 9, color: "#a1a0a4", marginBottom: 1 } }, "Биржа"),
-          _e("div", { style: { fontSize: isMobile ? 11 : 13, fontWeight: 700, color: "#a1a0a4" } }, "$30–60")
+      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 3 : 6 } },
+        _e("div", { style: { padding: isMobile ? "3px 4px" : "6px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 6 } },
+          _e("div", { style: { fontSize: isMobile ? 7 : 9, color: "#a1a0a4", marginBottom: 0, lineHeight: 1.1 } }, "Биржа"),
+          _e("div", { style: { fontSize: isMobile ? 11 : 13, fontWeight: 700, color: "#a1a0a4", lineHeight: 1.1 } }, "$30–60")
         ),
-        _e("div", { style: { padding: isMobile ? "4px 4px" : "6px 6px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 6 } },
-          _e("div", { style: { fontSize: isMobile ? 8 : 9, color: "#fcd535", marginBottom: 1, fontWeight: 700 } }, "Hash Hedge"),
-          _e("div", { style: { fontSize: isMobile ? 11 : 13, fontWeight: 800, color: "#f5f1e8" } }, "$300+")
+        _e("div", { style: { padding: isMobile ? "3px 4px" : "6px 6px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 6 } },
+          _e("div", { style: { fontSize: isMobile ? 7 : 9, color: "#fcd535", marginBottom: 0, fontWeight: 700, lineHeight: 1.1 } }, "Hash Hedge"),
+          _e("div", { style: { fontSize: isMobile ? 11 : 13, fontWeight: 800, color: "#f5f1e8", lineHeight: 1.1 } }, "$300+")
         )
       )
     );
@@ -2564,13 +2564,13 @@
           isolation: isolate !important;
         }
         .hh-why-card-vis {
-          height: 180px !important;
-          min-height: 180px !important;
-          max-height: 180px !important;
+          height: 160px !important;
+          min-height: 160px !important;
+          max-height: 160px !important;
           width: 100% !important;
           border-bottom: 1px solid var(--line) !important;
           border-right: none !important;
-          padding: 16px !important;
+          padding: 12px !important;
           overflow: hidden !important;
           position: relative !important;
           display: flex !important;
