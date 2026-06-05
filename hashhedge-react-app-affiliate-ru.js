@@ -1040,9 +1040,9 @@
           )
         ),
         _e(Reveal, { delay: "1" },
-          // 2.2fr / 1fr — левая часть с табами+слайдером шире, правая (доход) ~30%.
-          // alignItems: center чтобы правая карточка не тянулась по высоте, а была компактной.
-          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "2.2fr 1fr", gap: 28, margin: "0 auto", alignItems: "center" } },
+          // Правая колонка с фиксированной шириной 380px — иначе число дохода («$471 356» vs «$4 111»)
+          // меняет ширину и левая колонка дёргается при движении ползунка.
+          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "minmax(0, 1fr) 380px", gap: 28, margin: "0 auto", alignItems: "center" } },
             // LEFT controls
             _e("div", { style: { padding: 28 } },
               _e("div", { style: { marginBottom: 28 } },
@@ -1103,7 +1103,12 @@
                   _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }),
                   "Твой доход в месяц"
                 ),
-                _e("div", { style: { fontSize: "clamp(56px, 7vw, 86px)", fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 12 } },
+                _e("div", { style: {
+                  fontSize: "clamp(40px, 4.4vw, 64px)",
+                  fontWeight: 800, color: "#f5f1e8",
+                  letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 12,
+                  whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"
+                } },
                   `$${monthly.toLocaleString("ru-RU").replace(/,/g, " ")}`
                 ),
                 _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "в месяц при выбранных параметрах")
