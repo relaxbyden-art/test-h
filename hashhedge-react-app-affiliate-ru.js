@@ -516,9 +516,17 @@
       }
     },
       _e("div", { className: "hh-why-card-vis",
-        style: { padding: 22, paddingBottom: 18, minHeight: 220, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--line)", background: "#0B0B0C" }
+        style: {
+          padding: 22, paddingBottom: 18, minHeight: 220,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          borderBottom: "1px solid var(--line)", background: "#0B0B0C",
+          position: "relative", overflow: "hidden"
+        }
       },
-        children
+        // Дополнительный clipper-обёрткой — гарантирует containment
+        _e("div", { className: "hh-why-vis-clip",
+          style: { position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }
+        }, children)
       ),
       _e("div", { className: "hh-why-card-body", style: { padding: "20px 22px 22px" } },
         _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", fontSize: 10, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 14 } },
@@ -2481,9 +2489,13 @@
         section h2, section .h1 { margin-bottom: 10px !important; }
         section h2 + p, section h2 + .container > p { margin-top: 6px !important; }
 
-        /* === (v3.8) WhyPartner: vis-area фикс-высота + overflow:hidden чтобы контент не наезжал на body === */
+        /* === (v3.9) WhyPartner: жёсткий containment vis-area === */
         .hh-why-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-        .hh-why-card { flex-direction: column !important; height: auto !important; overflow: hidden !important; }
+        .hh-why-card {
+          flex-direction: column !important; height: auto !important;
+          overflow: hidden !important;
+          isolation: isolate !important;
+        }
         .hh-why-card-vis {
           height: 180px !important;
           min-height: 180px !important;
@@ -2498,16 +2510,30 @@
           align-items: center !important;
           justify-content: center !important;
           background: #0B0B0C !important;
+          contain: layout paint !important;
         }
-        /* Содержимое vis уменьшается чтобы поместиться, не вылезая на body */
-        .hh-why-card-vis > * {
+        /* Clipper-обёртка обрезает любой абсолютно позиционированный контент */
+        .hh-why-vis-clip {
+          height: 100% !important;
+          width: 100% !important;
+          overflow: hidden !important;
+          position: relative !important;
+          contain: layout paint !important;
+        }
+        /* Содержимое vis уменьшается чтобы помещалось */
+        .hh-why-vis-clip > * {
           max-width: 100% !important;
           max-height: 100% !important;
-          transform: scale(0.85);
-          transform-origin: center center;
+          transform: scale(0.78) !important;
+          transform-origin: center center !important;
         }
-        .hh-why-card-vis svg { max-width: 100% !important; max-height: 140px !important; }
-        .hh-why-card-body { padding: 16px 16px 20px !important; position: relative !important; z-index: 1 !important; background: #151517 !important; }
+        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 130px !important; }
+        .hh-why-card-body {
+          padding: 16px 16px 20px !important;
+          position: relative !important;
+          z-index: 2 !important;
+          background: #151517 !important;
+        }
         .hh-why-card-body h3 { font-size: 18px !important; line-height: 1.2 !important; margin-bottom: 8px !important; }
         .hh-why-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
 
