@@ -3187,12 +3187,13 @@ function Pricing() {
   const sizes = [5000, 10000, 25000, 50000, 100000, 150000];
   const pricing = {
     5000: 79,
-    10000: 99,
+    10000: 79,
     25000: 299,
     50000: 499,
     100000: 799,
     150000: 1093
   };
+  const flashSaleSize = 10000;
   const paymentLinks = {
     5000: "https://app.hashhedge.com/ru/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
     10000: "https://app.hashhedge.com/ru/app/payment-form/e1e37983-305a-4781-b104-945c92da525c",
@@ -3489,10 +3490,11 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === 150000;
-    const badge = isBest ? "ТИІМДІ" : isPop ? "ТАНЫМАЛ" : null;
-    const badgeBg = isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
+    const isPop = false;
+    const isBest = false;
+    const isFlash = s === flashSaleSize;
+    const badge = isFlash ? "АКЦИЯ" : isBest ? "ТИІМДІ" : isPop ? "ТАНЫМАЛ" : null;
+    const badgeBg = isFlash ? "var(--accent)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
       onClick: () => {
@@ -3509,13 +3511,13 @@ function Pricing() {
       style: {
         position: "relative",
         padding: "15px 10px 13px",
-        border: `1px solid ${active ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
-        background: active ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
+        border: `1px solid ${active || isFlash ? "var(--accent)" : isBest ? "rgba(123,199,90,0.5)" : "var(--line)"}`,
+        background: active || isFlash ? "linear-gradient(180deg, rgba(252,213,53,0.12) 0%, rgba(252,213,53,0.03) 100%)" : isBest ? "linear-gradient(180deg, rgba(123,199,90,0.08) 0%, rgba(123,199,90,0.02) 100%)" : "rgba(255,255,255,0.02)",
         borderRadius: 14,
         cursor: "pointer",
         transition: "all .2s",
         textAlign: "center",
-        boxShadow: active ? "0 16px 40px -14px rgba(252,213,53,0.45)" : isBest ? "0 14px 36px -16px rgba(123,199,90,0.4)" : "none",
+        boxShadow: active || isFlash ? "0 16px 40px -14px rgba(252,213,53,0.45)" : isBest ? "0 14px 36px -16px rgba(123,199,90,0.4)" : "none",
         fontFamily: "Onest, sans-serif"
       }
     }, badge && /*#__PURE__*/React.createElement("div", {
@@ -3540,7 +3542,7 @@ function Pricing() {
         fontSize: 9,
         fontWeight: 700,
         letterSpacing: "0.1em",
-        color: active ? "var(--accent)" : "var(--fg-low)",
+        color: active || isFlash ? "var(--accent)" : "var(--fg-low)",
         textTransform: "uppercase",
         marginBottom: 5
       }
@@ -3563,7 +3565,7 @@ function Pricing() {
         fontSize: 16,
         fontWeight: 800,
         letterSpacing: "-0.01em",
-        color: active ? "var(--accent)" : "var(--fg-muted)"
+        color: active || isFlash ? "var(--accent)" : "var(--fg-muted)"
       }
     }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
       "data-account-tab-note": true,
@@ -3580,8 +3582,8 @@ function Pricing() {
     "aria-label": "Капитал көлемін таңда"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === 150000;
+    const isPop = false;
+    const isBest = false;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,

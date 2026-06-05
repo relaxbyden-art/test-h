@@ -3490,8 +3490,8 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === 150000;
+    const isPop = false;
+    const isBest = false;
     const isFlash = s === flashSaleSize;
     const badge = isFlash ? "АКЦИЯ" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
     const badgeBg = isFlash ? "var(--accent)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
@@ -3582,8 +3582,8 @@ function Pricing() {
     "aria-label": "Выбери размер аккаунта"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === 150000;
+    const isPop = false;
+    const isBest = false;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
