@@ -84,103 +84,86 @@
   // HEADER
   // ============================================================================
   function Header() {
-    const [scrolled, setScrolled] = useState(false);
+    // Использую CSS-классы главной RU: .nav, .nav-inner, .nav ul, .hh-lang-*,
+    // .btn .btn-primary — Tilda-overrides уже на них висят. height: 76px из CSS.
     const [menuOpen, setMenuOpen] = useState(false);
     const [langOpen, setLangOpen] = useState(false);
+    const langRef = useRef(null);
     useEffect(() => {
-      const onScroll = () => setScrolled(window.scrollY > 8);
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+      if (!langOpen) return;
+      const handler = e => { if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false); };
+      document.addEventListener("mousedown", handler);
+      return () => document.removeEventListener("mousedown", handler);
+    }, [langOpen]);
     const nav = [
-      { l: "Программа", h: "#why" },
-      { l: "Как начать", h: "#how" },
-      { l: "Уровни", h: "#levels" },
-      { l: "Калькулятор", h: "#calc" },
-      { l: "Кабинет", h: "#cabinet" },
-      { l: "FAQ", h: "#faq" }
+      { l: "Программа",   h: "#why"   },
+      { l: "Как начать",  h: "#how"   },
+      { l: "Уровни",      h: "#levels" },
+      { l: "Калькулятор", h: "#calc"  },
+      { l: "Кабинет",     h: "#cabinet" },
+      { l: "FAQ",         h: "#faq"   }
     ];
     const langs = [
-      { code: "RU", flag: "🇷🇺", url: "#",                                                  current: true },
-      { code: "EN", flag: "🇬🇧", url: "https://www.hashhedge.com/affiliateprogram" },
-      { code: "DE", flag: "🇩🇪", url: "https://www.hashhedge.com/affiliateprogram/de" },
-      { code: "FR", flag: "🇫🇷", url: "https://www.hashhedge.com/affiliateprogram/fr" },
-      { code: "ES", flag: "🇪🇸", url: "https://www.hashhedge.com/affiliateprogram/es" },
-      { code: "PT", flag: "🇧🇷", url: "https://www.hashhedge.com/affiliateprogram/pt" },
-      { code: "UA", flag: "🇺🇦", url: "https://www.hashhedge.com/affiliateprogram/ua" },
-      { code: "KZ", flag: "🇰🇿", url: "https://www.hashhedge.com/affiliateprogram/kz" }
+      { code: "EN", flag: "🇬🇧", label: "English",          href: "https://www.hashhedge.com/affiliateprogram" },
+      { code: "DE", flag: "🇩🇪", label: "Deutsch",          href: "https://www.hashhedge.com/affiliateprogram/de" },
+      { code: "PT", flag: "🇧🇷", label: "Português",        href: "https://www.hashhedge.com/affiliateprogram/pt" },
+      { code: "FR", flag: "🇫🇷", label: "Française",        href: "https://www.hashhedge.com/affiliateprogram/fr" },
+      { code: "ES", flag: "🇪🇸", label: "Español",          href: "https://www.hashhedge.com/affiliateprogram/es" },
+      { code: "HI", flag: "🇮🇳", label: "हिन्दी",            href: "https://www.hashhedge.com/affiliateprogram/hi" },
+      { code: "ID", flag: "🇮🇩", label: "Bahasa Indonesia", href: "https://www.hashhedge.com/affiliateprogram/in" },
+      { code: "RU", flag: "🇷🇺", label: "Русский",          href: "#", current: true },
+      { code: "UA", flag: "🇺🇦", label: "Український",      href: "https://www.hashhedge.com/affiliateprogram/ua" },
+      { code: "KZ", flag: "🇰🇿", label: "Қазақша",          href: "https://www.hashhedge.com/affiliateprogram/kz" }
     ];
-    return _e("header", {
-      style: {
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        padding: "16px 0",
-        background: scrolled ? "rgba(8,8,10,0.88)" : "transparent",
-        backdropFilter: scrolled ? "saturate(140%) blur(14px)" : "none",
-        borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",
-        transition: "background .25s, border-color .25s"
-      }
-    },
-      _e("div", { className: "container", style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 } },
-        _e(HashHedgeLogo, { size: 32 }),
-        _e("nav", { className: "hh-nav-desktop", style: { display: "flex", gap: 32 } },
-          nav.map(n => _e("a", { key: n.l, href: n.h,
-            style: { color: "#a1a0a4", textDecoration: "none", fontSize: 15, fontWeight: 500, transition: "color .2s" },
-            onMouseEnter: e => e.currentTarget.style.color = "#f5f1e8",
-            onMouseLeave: e => e.currentTarget.style.color = "#a1a0a4"
-          }, n.l))
+    return _e("nav", { className: "nav" },
+      _e("div", { className: "container nav-inner" },
+        _e(HashHedgeLogo, null),
+        _e("ul", null,
+          nav.map(n => _e("li", { key: n.l },
+            _e("a", { href: n.h }, n.l)
+          ))
         ),
-        _e("div", { style: { display: "flex", alignItems: "center", gap: 12 } },
-          _e("a", { href: "https://partner.hashhedge.com",
-            style: { color: "#f5f1e8", textDecoration: "none", fontSize: 15, fontWeight: 600, padding: "10px 6px" }
+        _e("div", { style: { display: "flex", gap: 12, alignItems: "center" } },
+          _e("a", { href: "https://partner.hashhedge.com", target: "_blank", rel: "noopener",
+            className: "nav-cta-desktop",
+            style: { fontSize: 14, color: "var(--fg-muted)", padding: "10px 14px" }
           }, "Войти"),
-          _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-            style: { padding: "14px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700, textDecoration: "none" }
+          _e("a", { href: "https://partner.hashhedge.com", target: "_blank", rel: "noopener",
+            className: "btn btn-primary nav-cta-desktop"
           }, "Стать партнёром"),
-          // Language switcher как на главной (flag + RU + chevron)
-          _e("div", { style: { position: "relative" } },
+          // Language switcher — те же классы что на главной
+          _e("div", { className: "hh-lang-switcher", ref: langRef },
             _e("button", {
+              type: "button",
+              className: "hh-lang-trigger",
               onClick: () => setLangOpen(v => !v),
-              style: {
-                display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "10px 16px", borderRadius: 100,
-                background: "rgba(255,255,255,0.04)", border: "1px solid var(--line)",
-                color: "#f5f1e8", fontSize: 14, fontWeight: 600, cursor: "pointer"
-              }
+              "aria-expanded": langOpen,
+              "aria-label": "Выбрать язык"
             },
-              _e("span", { style: { fontSize: 16 } }, "🇷🇺"),
-              _e("span", null, "RU"),
-              _e("span", { style: { fontSize: 10, color: "#a1a0a4", transform: langOpen ? "rotate(180deg)" : "none", transition: "transform .2s" } }, "▾")
+              _e("span", null, "🇷🇺"),
+              _e("b", null, "RU"),
+              _e("svg", { width: 12, height: 12, viewBox: "0 0 12 12", fill: "none" },
+                _e("path", { d: "M3 4.5 6 7.5 9 4.5", stroke: "currentColor", strokeWidth: 1.7, strokeLinecap: "round", strokeLinejoin: "round" })
+              )
             ),
-            langOpen && _e("div", {
-              style: { position: "absolute", top: "calc(100% + 8px)", right: 0, background: "rgba(8,8,10,0.96)", backdropFilter: "blur(14px)", border: "1px solid var(--line)", borderRadius: 14, padding: 6, minWidth: 160, display: "flex", flexDirection: "column", gap: 2, boxShadow: "0 24px 60px -16px rgba(0,0,0,0.6)" }
-            },
-              langs.map(lg => _e("a", {
-                key: lg.code, href: lg.url,
-                onClick: () => setLangOpen(false),
-                style: {
-                  display: "flex", alignItems: "center", gap: 10,
-                  padding: "10px 12px", borderRadius: 8,
-                  color: lg.current ? "#fcd535" : "#f5f1e8",
-                  background: lg.current ? "rgba(252,213,53,0.08)" : "transparent",
-                  textDecoration: "none", fontSize: 14, fontWeight: 600,
-                  transition: "background .15s"
-                },
-                onMouseEnter: e => { if (!lg.current) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; },
-                onMouseLeave: e => { if (!lg.current) e.currentTarget.style.background = "transparent"; }
-              }, _e("span", { style: { fontSize: 17 } }, lg.flag), _e("span", null, lg.code)))
+            _e("div", { className: "hh-lang-menu" + (langOpen ? " open" : "") },
+              langs.map(l => _e("a", { key: l.code, href: l.href, onClick: () => setLangOpen(false) },
+                _e("span", null, l.flag),
+                _e("em", null, l.label)
+              ))
             )
           ),
-          _e("button", { className: "hh-mob-toggle", "aria-label": "Меню",
+          _e("button", { className: "nav-burger",
             onClick: () => setMenuOpen(v => !v),
-            style: { display: "none", background: "transparent", border: "1px solid var(--line)", borderRadius: 10, width: 40, height: 40, color: "var(--fg)", cursor: "pointer" }
+            "aria-label": "Открыть меню"
           },
-            _e("svg", { width: 20, height: 14, viewBox: "0 0 20 14", fill: "none", stroke: "currentColor", strokeWidth: 2 },
-              _e("path", { d: "M0 1h20M0 7h20M0 13h20" })
+            _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none" },
+              _e("path", { d: "M3 6h18M3 12h18M3 18h18", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" })
             )
           )
         )
       ),
-      menuOpen && _e("div", { style: { position: "absolute", top: "100%", left: 0, right: 0, background: "rgba(8,8,10,0.98)", borderTop: "1px solid var(--line)", padding: "20px 0" } },
+      menuOpen && _e("div", { style: { position: "absolute", top: "100%", left: 0, right: 0, background: "rgba(8,8,10,0.98)", borderTop: "1px solid var(--line)", padding: "20px 0", zIndex: 100 } },
         _e("div", { className: "container", style: { display: "flex", flexDirection: "column", gap: 4 } },
           nav.map(n => _e("a", { key: n.l, href: n.h, onClick: () => setMenuOpen(false),
             style: { color: "var(--fg)", textDecoration: "none", fontSize: 16, fontWeight: 500, padding: "12px 0", borderBottom: "1px solid var(--line)" } }, n.l))
@@ -388,7 +371,7 @@
   function Hero() {
     return _e("section", {
       className: "hh-partner-hero",
-      style: { position: "relative", overflow: "hidden", paddingTop: 130, paddingBottom: 80, background: "var(--bg)" }
+      style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
     },
       _e(HeroCandles, null),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
@@ -429,12 +412,13 @@
                 "Получай до 80% комиссии с каждого привлечённого трейдера. Пожизненные начисления, прозрачная статистика и быстрые выплаты."
               ),
 
+              // Hero buttons — те же классы что на главной (.btn .btn-primary / .btn .btn-ghost, height 56px из CSS)
               _e("div", { style: { display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 32 } },
-                _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                  style: { padding: "16px 26px", borderRadius: 100, fontSize: 15, fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, boxShadow: "0 12px 32px -8px rgba(252,213,53,0.45)" }
+                _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
+                  style: { textDecoration: "none" }
                 }, "Стать партнёром →"),
-                _e("a", { href: "#calc", className: "hh-btn-outline",
-                  style: { padding: "16px 26px", borderRadius: 100, fontSize: 15, fontWeight: 600, textDecoration: "none" }
+                _e("a", { href: "#calc", className: "btn btn-ghost",
+                  style: { textDecoration: "none" }
                 }, "Рассчитать доход")
               ),
 
@@ -1629,16 +1613,13 @@
   // TELEGRAM COMMUNITY (закрытый чат для партнёров)
   // ============================================================================
   function TelegramCommunity() {
-    // Каналы как на скрине-эталоне с главной RU
+    // Каналы как на скрине-эталоне партнёрской программы Hash Hedge Partner | CIS
     const channels = [
-      { ic: "#",  iconBg: "#5e6b7a", name: "Welcome | Добро пожаловать", sub: "CAPTCHA · Привет, Данияр! Добро пожаловать в Hash Hedge…", time: "15:32", pinned: true },
-      { ic: "🔗", iconBg: "#3a4554", name: "Links | Ссылки",              sub: "🔗 General | Основное · Website | Сайт · Support |…",        time: "02/04", pinned: true },
-      { ic: "🔔", iconBg: "#c5984a", name: "Announcements | EN",          sub: "FLASH SALE: осталось 62 из 200 ваучеров…",                  time: "Wed",   pinned: true },
-      { ic: "📢", iconBg: "#7a7d83", name: "Анонсы | RU",                 sub: "Новый актив добавлен на платформу",                          time: "Thu",   pinned: true },
-      { ic: "💰", iconBg: "#c08b3a", name: "Payout Wall | Стена выплат",  sub: "+$8,320 выплата подтверждена · 🇩🇪",                          time: "сейчас", unread: 1, active: true },
-      { ic: "💬", iconBg: "#3a4554", name: "Чат | RU",                    sub: "Pavel Sokolov · 12 градусов, а у вас?",                      time: "14:10" },
-      { ic: "📊", iconBg: "#4a6b54", name: "Торговля | RU",               sub: "Дмитрий · 🖼 Фото",                                          time: "13:06" },
-      { ic: "💬", iconBg: "#3a4554", name: "Chat | EN",                   sub: "Denis S. · Коллеги, flash sale закрывается через 4 часа…",  time: "Wed" }
+      { ic: "#",  iconBg: "#3a4554", name: "Новости 📩",      sub: "Новый личный кабинет партнёра…",      time: "ВТ"     },
+      { ic: "🎬", iconBg: "#3a4554", name: "Контент",         sub: "Queen Prop: Готово, и вы пожалуйста 😊", time: "ВС", unread: 29 },
+      { ic: "📣", iconBg: "#3a4554", name: "Чат партнёров",   sub: "Друзья, всем привет! Напоминаем…",     time: "ПТ", unread: 13 },
+      { ic: "⚡", iconBg: "#c5984a", name: "Акции",           sub: "Flash Sale на Hash Hedge: 28–29 мая",   time: "ЧТ", unread: 6 },
+      { ic: "📝", iconBg: "#3a4554", name: "Промо материалы", sub: "обновили баннеры для сторис",          time: "сейчас", unread: 1, active: true }
     ];
     return _e("section", { id: "telegram", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -1712,8 +1693,10 @@
                   _e("div", { style: { padding: "16px 14px 12px", display: "grid", gridTemplateColumns: "44px 1fr 44px", gap: 8, alignItems: "center" } },
                     _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: "rgba(255,255,255,0.06)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#5BB5E8", fontSize: 22 } }, "‹"),
                     _e("div", { style: { textAlign: "center" } },
-                      _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 2 } }, "Hash Hedge Community"),
-                      _e("div", { style: { fontSize: 12, color: "#7d8590" } }, "1200+ members, 218 online")
+                      _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 2 } }, "Hash Hedge Partner | CIS"),
+                      _e("div", { style: { fontSize: 12, color: "#7d8590" } },
+                        "332 участника, ", _e("span", { style: { color: "#4ade80" } }, "146 в сети")
+                      )
                     ),
                     _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: "rgba(255,255,255,0.06)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 18 } }, "···")
                   ),
