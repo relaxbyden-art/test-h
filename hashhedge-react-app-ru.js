@@ -3203,6 +3203,44 @@ function Pricing() {
     100000: "https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7",
     150000: "https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"
   };
+  // 90/10 split — отдельные ссылки и цены. Для $25K акции: 90/10 за $276 (вместо 80/20 за $240).
+  // TODO: заменить URL ниже на реальный 90/10 payment-form, когда будет готов.
+  const paymentLinks9010 = {
+    25000: "https://app.hashhedge.com/ru/app/payment-form/ea03d4c8-df35-41ed-b36e-203a6b15bc11"
+  };
+  const pricing9010 = {
+    25000: 276
+  };
+  // Helper: рендерит CTA — одну кнопку или две (80/20 и 90/10) для размеров с двумя вариантами
+  function renderBuyCta(s, opts) {
+    var arrowSvg = React.createElement("svg", {
+      width: "16", height: "16", viewBox: "0 0 24 24", fill: "none",
+      style: { marginLeft: 8 }
+    }, React.createElement("path", {
+      d: "M5 12h14M13 5l7 7-7 7", stroke: "currentColor", strokeWidth: "2.5",
+      strokeLinecap: "round", strokeLinejoin: "round"
+    }));
+    var baseBtnStyle = (opts && opts.style) || {};
+    if (s === 25000 && paymentLinks9010[s]) {
+      return React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 10, width: "100%" } },
+        React.createElement("a", {
+          href: paymentLinks[s], target: "_blank", rel: "noopener",
+          className: "btn btn-primary btn-lg",
+          style: Object.assign({ whiteSpace: "nowrap" }, baseBtnStyle)
+        }, "Купить 80/20 — $", pricing[s], arrowSvg),
+        React.createElement("a", {
+          href: paymentLinks9010[s], target: "_blank", rel: "noopener",
+          className: "btn btn-primary btn-lg",
+          style: Object.assign({ whiteSpace: "nowrap" }, baseBtnStyle)
+        }, "Купить 90/10 — $", pricing9010[s], arrowSvg)
+      );
+    }
+    return React.createElement("a", {
+      href: paymentLinks[s], target: "_blank", rel: "noopener",
+      className: "btn btn-primary btn-lg",
+      style: Object.assign({ whiteSpace: "nowrap" }, baseBtnStyle)
+    }, "Начать челлендж", arrowSvg);
+  }
   const price = pricing[size];
   const popular = 25000;
   const accountNotes = {
@@ -3650,26 +3688,7 @@ function Pricing() {
     className: "hh-mobile-account-fee"
   }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))), /*#__PURE__*/React.createElement("a", {
-    href: paymentLinks[size],
-    target: "_blank",
-    rel: "noopener",
-    className: "btn btn-primary btn-lg"
-  }, "Начать челлендж", /*#__PURE__*/React.createElement("svg", {
-    width: "16",
-    height: "16",
-    viewBox: "0 0 24 24",
-    fill: "none",
-    style: {
-      marginLeft: 8
-    }
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M5 12h14M13 5l7 7-7 7",
-    stroke: "currentColor",
-    strokeWidth: "2.5",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }))))), /*#__PURE__*/React.createElement(Reveal, {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Этап 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))), renderBuyCta(size))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "4"
   }, /*#__PURE__*/React.createElement("div", {
     "data-mobile-comp-table": true,
@@ -3946,29 +3965,7 @@ function Pricing() {
     style: {
       color: "var(--fg)"
     }
-  }, "$", (price / size * 1000).toFixed(2)), " за $1,000 капитала"))), /*#__PURE__*/React.createElement("a", {
-    href: paymentLinks[size],
-    target: "_blank",
-    rel: "noopener",
-    className: "btn btn-primary btn-lg",
-    style: {
-      whiteSpace: "nowrap"
-    }
-  }, "Начать челлендж", /*#__PURE__*/React.createElement("svg", {
-    width: "16",
-    height: "16",
-    viewBox: "0 0 24 24",
-    fill: "none",
-    style: {
-      marginLeft: 8
-    }
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M5 12h14M13 5l7 7-7 7",
-    stroke: "currentColor",
-    strokeWidth: "2.5",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }))))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "$", (price / size * 1000).toFixed(2)), " за $1,000 капитала"))), renderBuyCta(size))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "6"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
