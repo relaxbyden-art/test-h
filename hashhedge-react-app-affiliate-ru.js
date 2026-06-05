@@ -507,6 +507,23 @@
   // WHY PARTNER — 6 cards with unique mini-visualizations (3x2 grid)
   // ============================================================================
   function WhyPartner() {
+    // matchMedia-based mobile detection — V3/V4/V8 рендерятся компактнее на mobile
+    // вне зависимости от CSS-overrides и кеша.
+    const [isMobile, setIsMobile] = useState(() =>
+      typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 640px)").matches
+    );
+    useEffect(() => {
+      if (typeof window === "undefined" || !window.matchMedia) return;
+      const mql = window.matchMedia("(max-width: 640px)");
+      const fn = e => setIsMobile(e.matches);
+      if (mql.addEventListener) mql.addEventListener("change", fn);
+      else mql.addListener(fn);
+      return () => {
+        if (mql.removeEventListener) mql.removeEventListener("change", fn);
+        else mql.removeListener(fn);
+      };
+    }, []);
+
     // Each card has its own custom visual rendered at top
     const Card = ({ children, chip, title, titleAccent, body }) => _e("div", {
       className: "hh-why-card",
@@ -586,48 +603,48 @@
       ))
     );
 
-    // VIZ 3 — 5-10x exchange comparison (компактнее, помещается в 180px vis-area)
+    // VIZ 3 — 5-10x exchange comparison. На mobile — ультра-компактный.
     const V3 = () => _e("div", { className: "hh-viz hh-viz-3",
-      style: { width: "100%", maxWidth: 280, padding: "0 8px", textAlign: "center", boxSizing: "border-box" }
+      style: { width: "100%", maxWidth: isMobile ? 200 : 280, padding: "0 4px", textAlign: "center", boxSizing: "border-box" }
     },
-      _e("div", { className: "hh-viz-3-big",
-        style: { fontSize: 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 4 }
+      _e("div", {
+        style: { fontSize: isMobile ? 26 : 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: isMobile ? 2 : 4 }
       }, "5–10×"),
-      _e("div", { className: "hh-viz-3-sub",
-        style: { fontSize: 10, color: "#a1a0a4", marginBottom: 10 }
+      _e("div", {
+        style: { fontSize: isMobile ? 9 : 10, color: "#a1a0a4", marginBottom: isMobile ? 6 : 10 }
       }, "доход vs биржевой реферал"),
-      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 } },
-        _e("div", { style: { padding: "6px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 8 } },
-          _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginBottom: 2 } }, "Биржа"),
-          _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#a1a0a4" } }, "$30–60")
+      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 4 : 6 } },
+        _e("div", { style: { padding: isMobile ? "4px 4px" : "6px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 6 } },
+          _e("div", { style: { fontSize: isMobile ? 8 : 9, color: "#a1a0a4", marginBottom: 1 } }, "Биржа"),
+          _e("div", { style: { fontSize: isMobile ? 11 : 13, fontWeight: 700, color: "#a1a0a4" } }, "$30–60")
         ),
-        _e("div", { style: { padding: "6px 6px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 8 } },
-          _e("div", { style: { fontSize: 9, color: "#fcd535", marginBottom: 2, fontWeight: 700 } }, "Hash Hedge"),
-          _e("div", { style: { fontSize: 13, fontWeight: 800, color: "#f5f1e8" } }, "$300+")
+        _e("div", { style: { padding: isMobile ? "4px 4px" : "6px 6px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 6 } },
+          _e("div", { style: { fontSize: isMobile ? 8 : 9, color: "#fcd535", marginBottom: 1, fontWeight: 700 } }, "Hash Hedge"),
+          _e("div", { style: { fontSize: isMobile ? 11 : 13, fontWeight: 800, color: "#f5f1e8" } }, "$300+")
         )
       )
     );
 
-    // VIZ 4 — USDT $2,340 green circle (компактнее, помещается в 180px vis-area)
+    // VIZ 4 — USDT $2,340 green circle. На mobile — ультра-компактный.
     const V4 = () => _e("div", { className: "hh-viz hh-viz-4",
-      style: { textAlign: "center", maxWidth: 240, boxSizing: "border-box" }
+      style: { textAlign: "center", maxWidth: isMobile ? 200 : 240, boxSizing: "border-box" }
     },
-      _e("div", { className: "hh-viz-4-circle",
+      _e("div", {
         style: {
-          width: 60, height: 60, borderRadius: "50%",
+          width: isMobile ? 44 : 60, height: isMobile ? 44 : 60, borderRadius: "50%",
           background: "linear-gradient(135deg, rgba(74,222,128,0.18), rgba(74,222,128,0.05))",
           border: "1px solid rgba(74,222,128,0.4)",
           display: "inline-flex", alignItems: "center", justifyContent: "center",
-          marginBottom: 8, color: "#4ade80", fontWeight: 800, fontSize: 14
+          marginBottom: isMobile ? 4 : 8, color: "#4ade80", fontWeight: 800, fontSize: isMobile ? 11 : 14
         }
       }, "USDT"),
-      _e("div", { className: "hh-viz-4-amount",
-        style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, marginBottom: 4 }
+      _e("div", {
+        style: { fontSize: isMobile ? 16 : 22, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, marginBottom: 2 }
       },
-        "$2 340", _e("span", { style: { fontSize: 11, color: "#a1a0a4", marginLeft: 5, fontWeight: 600 } }, "USDT")
+        "$2 340", _e("span", { style: { fontSize: isMobile ? 9 : 11, color: "#a1a0a4", marginLeft: 4, fontWeight: 600 } }, "USDT")
       ),
-      _e("div", { className: "hh-viz-4-chip",
-        style: { display: "inline-flex", alignItems: "center", gap: 5, fontSize: 10, color: "#4ade80", padding: "3px 8px", background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 100, marginTop: 6 }
+      _e("div", {
+        style: { display: "inline-flex", alignItems: "center", gap: 4, fontSize: isMobile ? 8 : 10, color: "#4ade80", padding: isMobile ? "2px 6px" : "3px 8px", background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 100, marginTop: isMobile ? 4 : 6 }
       },
         _e("span", { style: { width: 4, height: 4, borderRadius: "50%", background: "#4ade80" } }),
         "Выплата отправлена"
@@ -727,25 +744,25 @@
     );
 
     // VIZ 8 — Tracking analytics snippet
-    // VIZ 8 — Tracking analytics (компактнее, помещается в 180px vis-area)
+    // VIZ 8 — Tracking analytics. На mobile — ультра-компактный.
     const V8 = () => _e("div", { className: "hh-viz hh-viz-8",
-      style: { width: "100%", maxWidth: 280, padding: "0 8px", boxSizing: "border-box" }
+      style: { width: "100%", maxWidth: isMobile ? 220 : 280, padding: "0 4px", boxSizing: "border-box" }
     },
-      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 6 } },
+      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 4 : 6, marginBottom: isMobile ? 4 : 6 } },
         [
           { k: "Источник", v: "YouTube" },
           { k: "Клики", v: "1 284" }
-        ].map((it, i) => _e("div", { key: i, style: { padding: "6px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6 } },
-          _e("div", { style: { fontSize: 8, color: "#a1a0a4", marginBottom: 2, textTransform: "uppercase", letterSpacing: "0.1em" } }, it.k),
-          _e("div", { style: { fontSize: 12, fontWeight: 700, color: "#f5f1e8" } }, it.v)
+        ].map((it, i) => _e("div", { key: i, style: { padding: isMobile ? "4px 6px" : "6px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6 } },
+          _e("div", { style: { fontSize: isMobile ? 7 : 8, color: "#a1a0a4", marginBottom: 1, textTransform: "uppercase", letterSpacing: "0.08em" } }, it.k),
+          _e("div", { style: { fontSize: isMobile ? 10 : 12, fontWeight: 700, color: "#f5f1e8" } }, it.v)
         ))
       ),
-      _e("div", { style: { padding: "8px 10px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 6 } },
-        _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 } },
-          _e("span", { style: { fontSize: 8, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.1em" } }, "Доход с канала"),
-          _e("span", { style: { fontSize: 9, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
+      _e("div", { style: { padding: isMobile ? "5px 8px" : "8px 10px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 6 } },
+        _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: isMobile ? 2 : 4 } },
+          _e("span", { style: { fontSize: isMobile ? 7 : 8, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.08em" } }, "Доход с канала"),
+          _e("span", { style: { fontSize: isMobile ? 8 : 9, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
         ),
-        _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
+        _e("div", { style: { fontSize: isMobile ? 12 : 15, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
       )
     );
 
