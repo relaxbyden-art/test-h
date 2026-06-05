@@ -685,26 +685,27 @@
     );
 
     // VIZ 9 — Sub-partner network
-    const V9 = () => _e("div", { style: { width: "100%", padding: "0 8px", position: "relative" } },
-      _e("svg", { width: "100%", height: 110, viewBox: "0 0 200 110" },
-        // Lines
-        _e("line", { x1: 100, y1: 30, x2: 60, y2: 65, style: { stroke: "rgba(252,213,53,0.4)", strokeWidth: 1 } }),
-        _e("line", { x1: 100, y1: 30, x2: 140, y2: 65, style: { stroke: "rgba(252,213,53,0.4)", strokeWidth: 1 } }),
-        _e("line", { x1: 60, y1: 65, x2: 40, y2: 95, style: { stroke: "rgba(252,213,53,0.25)", strokeWidth: 1 } }),
-        _e("line", { x1: 60, y1: 65, x2: 80, y2: 95, style: { stroke: "rgba(252,213,53,0.25)", strokeWidth: 1 } }),
-        _e("line", { x1: 140, y1: 65, x2: 120, y2: 95, style: { stroke: "rgba(252,213,53,0.25)", strokeWidth: 1 } }),
-        _e("line", { x1: 140, y1: 65, x2: 160, y2: 95, style: { stroke: "rgba(252,213,53,0.25)", strokeWidth: 1 } }),
-        // Top node (you)
-        _e("circle", { cx: 100, cy: 30, r: 14, style: { fill: "#fcd535" } }),
-        _e("text", { x: 100, y: 34, textAnchor: "middle", style: { fontSize: 9, fontWeight: 800, fill: "#13111c" } }, "Я"),
-        // L1 nodes
-        _e("circle", { cx: 60, cy: 65, r: 11, style: { fill: "rgba(252,213,53,0.20)", stroke: "rgba(252,213,53,0.6)", strokeWidth: 1 } }),
-        _e("circle", { cx: 140, cy: 65, r: 11, style: { fill: "rgba(252,213,53,0.20)", stroke: "rgba(252,213,53,0.6)", strokeWidth: 1 } }),
-        _e("text", { x: 60, y: 68, textAnchor: "middle", style: { fontSize: 8, fontWeight: 700, fill: "#fcd535" } }, "5%"),
-        _e("text", { x: 140, y: 68, textAnchor: "middle", style: { fontSize: 8, fontWeight: 700, fill: "#fcd535" } }, "5%"),
-        // L2 nodes
-        [40, 80, 120, 160].map((x, i) => _e("circle", { key: i, cx: x, cy: 95, r: 7, style: { fill: "rgba(255,255,255,0.06)", stroke: "rgba(255,255,255,0.18)", strokeWidth: 1 } })),
-        [40, 80, 120, 160].map((x, i) => _e("text", { key: "t" + i, x, y: 97, textAnchor: "middle", style: { fontSize: 7, fontWeight: 700, fill: "#a1a0a4" } }, "3%"))
+    // V9 — Многоуровневая сеть. Картинка увеличена (viewBox шире), круги с непрозрачным фоном.
+    const V9 = () => _e("div", { style: { width: "100%", padding: 0, position: "relative" } },
+      _e("svg", { width: "100%", height: 180, viewBox: "0 0 220 130", style: { display: "block" } },
+        // Lines (рисуем под кругами)
+        _e("line", { x1: 110, y1: 28, x2: 65, y2: 70, style: { stroke: "rgba(252,213,53,0.40)", strokeWidth: 1.4 } }),
+        _e("line", { x1: 110, y1: 28, x2: 155, y2: 70, style: { stroke: "rgba(252,213,53,0.40)", strokeWidth: 1.4 } }),
+        _e("line", { x1: 65,  y1: 70, x2: 40,  y2: 112, style: { stroke: "rgba(252,213,53,0.22)", strokeWidth: 1.2 } }),
+        _e("line", { x1: 65,  y1: 70, x2: 90,  y2: 112, style: { stroke: "rgba(252,213,53,0.22)", strokeWidth: 1.2 } }),
+        _e("line", { x1: 155, y1: 70, x2: 130, y2: 112, style: { stroke: "rgba(252,213,53,0.22)", strokeWidth: 1.2 } }),
+        _e("line", { x1: 155, y1: 70, x2: 180, y2: 112, style: { stroke: "rgba(252,213,53,0.22)", strokeWidth: 1.2 } }),
+        // Top node (you) — больше
+        _e("circle", { cx: 110, cy: 28, r: 17, style: { fill: "#fcd535" } }),
+        _e("text", { x: 110, y: 33, textAnchor: "middle", style: { fontSize: 11, fontWeight: 800, fill: "#13111c" } }, "Я"),
+        // L1 nodes — непрозрачные, перекрывают линии
+        _e("circle", { cx: 65,  cy: 70, r: 14, style: { fill: "#3a2f0e", stroke: "rgba(252,213,53,0.75)", strokeWidth: 1.4 } }),
+        _e("circle", { cx: 155, cy: 70, r: 14, style: { fill: "#3a2f0e", stroke: "rgba(252,213,53,0.75)", strokeWidth: 1.4 } }),
+        _e("text", { x: 65,  y: 73, textAnchor: "middle", style: { fontSize: 10, fontWeight: 800, fill: "#fcd535" } }, "5%"),
+        _e("text", { x: 155, y: 73, textAnchor: "middle", style: { fontSize: 10, fontWeight: 800, fill: "#fcd535" } }, "5%"),
+        // L2 nodes — непрозрачные тёмные
+        [40, 90, 130, 180].map((x, i) => _e("circle", { key: i, cx: x, cy: 112, r: 9, style: { fill: "#222226", stroke: "rgba(255,255,255,0.22)", strokeWidth: 1 } })),
+        [40, 90, 130, 180].map((x, i) => _e("text", { key: "t" + i, x, y: 115, textAnchor: "middle", style: { fontSize: 8, fontWeight: 700, fill: "#cfcfd3" } }, "3%"))
       )
     );
 
@@ -900,7 +901,7 @@
               "Партнёрские уровни"
             ),
             _e("h2", { style: { fontSize: "clamp(34px, 4.5vw, 52px)", lineHeight: 1.08, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
-              "Чем больше привлечённых трейдеров —", _e("br", null), "тем выше твоя комиссия"
+              "Чем больше трейдеров —", _e("br", null), "тем выше твоя комиссия"
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Развивай сеть трейдеров, повышай уровень и забирай до 80% прибыли Hash Hedge.")
           )
@@ -1613,7 +1614,18 @@
       { ic: "⚡", iconBg: "#c5984a", name: "Акции",           sub: "Flash Sale на Hash Hedge: 28–29 мая",   time: "ЧТ", unread: 6 },
       { ic: "📝", iconBg: "#3a4554", name: "Промо материалы", sub: "обновили баннеры для сторис",          time: "сейчас", unread: 1, active: true }
     ];
-    return _e("section", { id: "telegram", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "telegram", style: { padding: "100px 0 120px", background: "#0a0a0e", position: "relative", zIndex: 1 } },
+      _e("style", null, `
+        @keyframes hh-tg-row-in {
+          0%   { opacity: 0; transform: translateY(-6px); }
+          5%, 92% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes hh-tg-badge-pulse {
+          0%, 100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(91,181,232,0.5); }
+          50%      { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(91,181,232,0); }
+        }
+      `),
       _e("div", { className: "container" },
         _e("div", { className: "hh-tg-grid", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" } },
 
@@ -1626,8 +1638,11 @@
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Telegram-сообщество"
               ),
+              // Заголовок в 3 строки: «Партнёрское / сообщество / Hash Hedge»
               _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 22 } },
-                "Партнёрское ", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "сообщество"), " Hash Hedge"
+                "Партнёрское ", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "сообщество"), _e("br", null),
+                "Hash Hedge"
               ),
               _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 32, maxWidth: 540 } },
                 "Закрытый Telegram-чат для партнёров: новости раньше всех, эксклюзивные промо-материалы, акции и прямое общение с командой."
@@ -1702,14 +1717,17 @@
                       "Поиск"
                     )
                   ),
-                  // Channels list — телефон удлинён (без maxHeight), после "Промо материалы" пустое пространство
+                  // Channels list — анимация: каналы появляются по очереди (новый чат пришёл),
+                  // unread-badge активного канала пульсирует.
                   _e("div", { style: { display: "flex", flexDirection: "column", borderTop: "0.5px solid rgba(255,255,255,0.06)" } },
                     channels.map((ch, i) => _e("div", { key: i,
                       style: {
                         display: "grid", gridTemplateColumns: "52px 1fr auto", gap: 10, alignItems: "center",
                         padding: "10px 14px",
                         background: ch.active ? "rgba(43,156,222,0.16)" : "transparent",
-                        borderBottom: "0.5px solid rgba(255,255,255,0.04)"
+                        borderBottom: "0.5px solid rgba(255,255,255,0.04)",
+                        animation: `hh-tg-row-in 14s ease ${i * 1.2}s infinite both`,
+                        opacity: 0
                       }
                     },
                       _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: ch.iconBg, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 18, color: "#fff" } }, ch.ic),
@@ -1722,7 +1740,14 @@
                           ch.pinned && _e("svg", { width: 10, height: 10, viewBox: "0 0 24 24", style: { fill: "#7d8590" } }, _e("path", { d: "M12 2L8 6h3v6l-5 4v2h12v-2l-5-4V6h3L12 2z", style: { fill: "#7d8590" } })),
                           ch.time
                         ),
-                        ch.unread && _e("span", { style: { display: "inline-block", minWidth: 22, padding: "2px 7px", background: "#5BB5E8", color: "#fff", borderRadius: 100, fontSize: 11, fontWeight: 700, textAlign: "center" } }, ch.unread),
+                        ch.unread && _e("span", {
+                          style: {
+                            display: "inline-block", minWidth: 22, padding: "2px 7px",
+                            background: "#5BB5E8", color: "#fff", borderRadius: 100,
+                            fontSize: 11, fontWeight: 700, textAlign: "center",
+                            animation: ch.active ? "hh-tg-badge-pulse 1.6s ease-in-out infinite" : "none"
+                          }
+                        }, ch.unread),
                         !ch.unread && ch.pinned && _e("span", { style: { color: "#3a4554", fontSize: 14 } }, "☆")
                       )
                     )),
@@ -1756,8 +1781,13 @@
       _e("div", { "aria-hidden": true, style: { position: "absolute", bottom: 0, left: 0, right: 0, height: 360, background: "radial-gradient(ellipse 90% 100% at 70% 100%, rgba(252,213,53,0.1) 0%, rgba(252,213,53,0.04) 35%, rgba(252,213,53,0) 70%)", pointerEvents: "none", zIndex: 0 } }),
       _e("style", null, `
         @keyframes support-status-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(124,216,160,0.55); }
-          70%      { box-shadow: 0 0 0 14px rgba(124,216,160,0);   }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(124,216,160,0.30); }
+          70%      { box-shadow: 0 0 0 4px rgba(124,216,160,0);   }
+        }
+        @keyframes hh-chat-msg-in {
+          0%   { opacity: 0; transform: translateY(8px); }
+          18%, 92% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(0); }
         }
       `),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
@@ -1792,28 +1822,32 @@
             _e("div", { style: {
               position: "relative", height: "100%", minHeight: 540, borderRadius: 24, overflow: "hidden",
               background: "url(https://hash-hedge-partner.vercel.app/assets/manager.jpeg) center / cover, #1a1a1f",
-              border: "1px solid var(--line)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)"
+              border: "1px solid var(--line)"  // одна тонкая серая рамка как у чата
             } },
               _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
               // ONLINE chip top-left (стилизован под главную)
               _e("div", { style: { position: "absolute", top: 20, left: 20, display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 999, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", border: "1px solid rgba(124,216,160,0.4)", fontSize: 11, fontWeight: 800, color: "#9be0b6", letterSpacing: "0.14em", textTransform: "uppercase" } },
-                _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", animation: "support-status-pulse 1.8s ease-out infinite" } }),
+                _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", animation: "support-status-pulse 2.2s ease-out infinite" } }),
                 "Онлайн"
               ),
-              // time pill top-right (стилизован под главную)
-              _e("div", { style: { position: "absolute", top: 20, right: 20, padding: "10px 14px", borderRadius: 12, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.12)", textAlign: "right" } },
-                _e("div", { style: { fontFamily: "Onest, sans-serif", fontSize: 22, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1 } }, "1 мин 47 сек"),
-                _e("div", { style: { fontSize: 10, color: "#6b6a70", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 } }, "Среднее время ответа")
+              // time pill top-right — меньше число, светлее подпись
+              _e("div", { style: { position: "absolute", top: 20, right: 20, padding: "8px 12px", borderRadius: 12, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.12)", textAlign: "right" } },
+                _e("div", { style: { fontFamily: "Onest, sans-serif", fontSize: 16, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em", lineHeight: 1 } }, "1 мин 47 сек"),
+                _e("div", { style: { fontSize: 9, color: "#cfcfd3", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4, opacity: 0.85 } }, "Среднее время ответа")
               ),
-              // bottom info — тексты v2.7 + типографика main RU
+              // bottom info — флаги к языкам
               _e("div", { style: { position: "absolute", left: 24, right: 24, bottom: 24 } },
                 _e("div", { style: { fontSize: 11, color: "#fcd535", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Личный менеджер партнёров"),
                 _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Команда Hash Hedge"),
                 _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } },
-                  ["RU", "EN", "ES", "TR"].map(l => _e("span", { key: l,
-                    style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.1em", padding: "4px 9px", borderRadius: 999, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "#fff" }
-                  }, l)),
+                  [
+                    { code: "RU", flag: "🇷🇺" },
+                    { code: "EN", flag: "🇬🇧" },
+                    { code: "ES", flag: "🇪🇸" },
+                    { code: "TR", flag: "🇹🇷" }
+                  ].map(l => _e("span", { key: l.code,
+                    style: { display: "inline-flex", alignItems: "center", gap: 5, fontSize: 10, fontWeight: 800, letterSpacing: "0.1em", padding: "4px 9px", borderRadius: 999, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "#fff" }
+                  }, _e("span", { style: { fontSize: 12, letterSpacing: 0 } }, l.flag), l.code)),
                   _e("span", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.1em", padding: "4px 9px", borderRadius: 999, background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.18)", color: "#a1a0a4" } }, "+ ещё 18 в команде онлайн")
                 )
               )
@@ -1826,9 +1860,8 @@
               border: "1px solid var(--line)", borderRadius: 24, padding: 22,
               display: "flex", flexDirection: "column", minHeight: 540
             } },
-              // header
+              // header — одна точка внутри "Онлайн сейчас" (верхняя дубль-dot удалена)
               _e("div", { style: { display: "flex", alignItems: "center", gap: 12, paddingBottom: 16, borderBottom: "1px solid var(--line)", marginBottom: 14 } },
-                _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 _e("div", null,
                   _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#f5f1e8" } }, "Hash Hedge Support"),
                   _e("div", { style: { fontSize: 11, color: "#4ade80", display: "inline-flex", alignItems: "center", gap: 6 } },
@@ -1836,7 +1869,7 @@
                   )
                 )
               ),
-              // messages
+              // messages — циклическая анимация: каждое сообщение fadein/up с задержкой, цикл 12s
               _e("div", { style: { flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: 12 } },
                 [
                   { who: "HH", text: "Привет! У нас акция — скидка 25% на челленджи. Поделитесь у себя в контенте? 🔥", time: "14:01" },
@@ -1844,7 +1877,13 @@
                   { who: "you", text: "А как отслеживать конверсии с поста?", time: "14:02" },
                   { who: "HH", text: "В кабинете партнёра есть «Аналитика» — клики, регистрации и доход видно в реальном времени 📊", time: "14:03" },
                   { who: "you", text: "Супер, всё наглядно. Спасибо! 🙌", time: "14:03" }
-                ].map((m, i) => _e("div", { key: i, style: { display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-end" } },
+                ].map((m, i) => _e("div", { key: i,
+                  style: {
+                    display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-end",
+                    animation: `hh-chat-msg-in 12s ease ${i * 1.4}s infinite both`,
+                    opacity: 0
+                  }
+                },
                   m.who === "HH" && _e("div", { style: { width: 28, height: 28, borderRadius: "50%", background: "#fcd535", color: "#13111c", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 900, flexShrink: 0 } }, "HH"),
                   _e("div", { style: { display: "flex", flexDirection: "column", alignItems: m.who === "you" ? "flex-end" : "flex-start", maxWidth: "70%" } },
                     _e("div", { style: {
@@ -2056,7 +2095,7 @@
               boxShadow: "0 30px 70px -30px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)"
             }
           },
-            // Chart background — тонкая линия + мерцающие точки на ней
+            // Chart background — тонкая линия SVG
             _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.6 } },
               _e("svg", { width: "100%", height: "100%", viewBox: "0 0 1200 300", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
                 _e("defs", null,
@@ -2065,21 +2104,39 @@
                     _e("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: 0 })
                   )
                 ),
-                // area
                 _e("path", { d: chartPath + " L 1200 300 L 0 300 Z", style: { fill: "url(#bigctaFill)" } }),
-                // тонкая плавная линия
-                _e("path", { d: chartPath, style: { stroke: "#fcd535", strokeWidth: 1.4, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeOpacity: 0.85 } }),
-                // мерцающие точки на линии графика
-                dotsAlongLine.map((d, i) => _e("g", { key: "dot" + i },
-                  _e("circle", { cx: d.x, cy: d.y, r: 6,
-                    style: { fill: "rgba(252,213,53,0.55)", transformOrigin: `${d.x}px ${d.y}px`, animation: `hh-cta-dot-glow 2.4s ease-in-out ${d.delay}s infinite` } }),
-                  _e("circle", { cx: d.x, cy: d.y, r: 2.4,
-                    style: { fill: "#fcd535", transformOrigin: `${d.x}px ${d.y}px`, animation: `hh-cta-dot-blink 2.4s ease-in-out ${d.delay}s infinite` } })
-                )),
-                // endpoint dot
-                _e("circle", { cx: 1200, cy: 35, r: 3.5, style: { fill: "#fcd535" } }),
-                _e("circle", { cx: 1200, cy: 35, r: 10, style: { fill: "rgba(252,213,53,0.18)" } })
+                _e("path", { d: chartPath, style: { stroke: "#fcd535", strokeWidth: 1.4, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeOpacity: 0.85 } })
               )
+            ),
+            // Точки на линии — HTML divs (всегда идеальные круги, не подвержены preserveAspectRatio none).
+            // Внешняя обёртка центрирует точку (translate -50%,-50%), внутренние div'ы анимируют scale/opacity.
+            _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none" } },
+              dotsAlongLine.map((d, i) => _e("div", { key: "dot" + i,
+                style: {
+                  position: "absolute",
+                  left: `${(d.x / 1200) * 100}%`,
+                  top:  `${(d.y / 300) * 100}%`,
+                  width: 24, height: 24,
+                  marginLeft: -12, marginTop: -12,
+                  display: "flex", alignItems: "center", justifyContent: "center"
+                }
+              },
+                // внешний glow — отдельный слой
+                _e("div", { style: {
+                  position: "absolute",
+                  width: 18, height: 18, borderRadius: "50%",
+                  background: "rgba(252,213,53,0.45)",
+                  animation: `hh-cta-dot-glow 2.4s ease-in-out ${d.delay}s infinite`
+                } }),
+                // ядро — отдельный слой
+                _e("div", { style: {
+                  position: "absolute",
+                  width: 6, height: 6, borderRadius: "50%",
+                  background: "#fcd535",
+                  boxShadow: "0 0 8px rgba(252,213,53,0.7)",
+                  animation: `hh-cta-dot-blink 2.4s ease-in-out ${d.delay}s infinite`
+                } })
+              ))
             ),
             // Затемнение фона между графиком и текстом для читаемости
             _e("div", { "aria-hidden": true, style: {
@@ -2195,10 +2252,26 @@
   }
 
   // ============================================================================
+  // PAGE GLOW — большие еле заметные жёлтые размытые круги по бокам контента
+  // fixed-позиционирование чтобы glow сопровождал прокрутку
+  // ============================================================================
+  function PageGlow() {
+    return _e("div", { "aria-hidden": true,
+      style: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }
+    },
+      _e("div", { style: { position: "absolute", top: "8%",  left:  "-18%", width: 900, height: 900, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.07 } }),
+      _e("div", { style: { position: "absolute", top: "40%", right: "-18%", width: 900, height: 900, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.06 } }),
+      _e("div", { style: { position: "absolute", top: "75%", left:  "-15%", width: 750, height: 750, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.05 } }),
+      _e("div", { style: { position: "absolute", top: "110%",right: "-15%", width: 750, height: 750, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.05 } })
+    );
+  }
+
+  // ============================================================================
   // APP
   // ============================================================================
   function App() {
-    return _e("div", { className: "tilda-html-hashhedge" },
+    return _e("div", { className: "tilda-html-hashhedge hh-with-glow" },
+      _e(PageGlow, null),
       _e(Header, null),
       _e(Hero, null),
       _e(Marquee, null),
