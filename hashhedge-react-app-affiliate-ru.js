@@ -2481,17 +2481,33 @@
         section h2, section .h1 { margin-bottom: 10px !important; }
         section h2 + p, section h2 + .container > p { margin-top: 6px !important; }
 
-        /* === (v3.7 #2) WhyPartner: вернули вертикальный layout, vis-area компактная === */
+        /* === (v3.8) WhyPartner: vis-area фикс-высота + overflow:hidden чтобы контент не наезжал на body === */
         .hh-why-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-        .hh-why-card { flex-direction: column !important; height: auto !important; }
+        .hh-why-card { flex-direction: column !important; height: auto !important; overflow: hidden !important; }
         .hh-why-card-vis {
-          min-height: 140px !important; width: 100% !important;
-          border-bottom: 1px solid var(--line) !important; border-right: none !important;
-          padding: 18px !important;
+          height: 180px !important;
+          min-height: 180px !important;
+          max-height: 180px !important;
+          width: 100% !important;
+          border-bottom: 1px solid var(--line) !important;
+          border-right: none !important;
+          padding: 16px !important;
+          overflow: hidden !important;
+          position: relative !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          background: #0B0B0C !important;
         }
-        .hh-why-card-vis > * { max-height: 110px !important; }
-        .hh-why-card-vis svg { max-width: 100% !important; max-height: 110px !important; }
-        .hh-why-card-body { padding: 14px 16px 18px !important; }
+        /* Содержимое vis уменьшается чтобы поместиться, не вылезая на body */
+        .hh-why-card-vis > * {
+          max-width: 100% !important;
+          max-height: 100% !important;
+          transform: scale(0.85);
+          transform-origin: center center;
+        }
+        .hh-why-card-vis svg { max-width: 100% !important; max-height: 140px !important; }
+        .hh-why-card-body { padding: 16px 16px 20px !important; position: relative !important; z-index: 1 !important; background: #151517 !important; }
         .hh-why-card-body h3 { font-size: 18px !important; line-height: 1.2 !important; margin-bottom: 8px !important; }
         .hh-why-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
 
