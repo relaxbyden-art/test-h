@@ -228,11 +228,13 @@
     const W = STEP * 0.55;
     const maPath = candles.ma.map((y, i) => `${i === 0 ? "M" : "L"} ${i * STEP + STEP * 0.5} ${y}`).join(" ");
     return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 } },
-      // Background grid — крупные ровные квадраты 64×64, контрастная тонкая обводка
+      // Background grid — крупные ровные квадраты 64×64 на «жёстком» SVG-паттерне (без дробных пикселей).
+      // Используем inline SVG как фон — гарантирует ровные линии независимо от ширины экрана.
       _e("div", { style: { position: "absolute", inset: 0, opacity: 0.55,
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.075) 1px, transparent 1px)",
+        backgroundImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'64\' height=\'64\'><rect width=\'64\' height=\'64\' fill=\'none\'/><path d=\'M64 0H0V64\' fill=\'none\' stroke=\'rgba(255,255,255,0.075)\' stroke-width=\'1\'/></svg>")',
         backgroundSize: "64px 64px",
         backgroundPosition: "0 0",
+        backgroundRepeat: "repeat",
         maskImage: "radial-gradient(ellipse 95% 85% at 50% 50%, #000 45%, transparent 95%)",
         WebkitMaskImage: "radial-gradient(ellipse 95% 85% at 50% 50%, #000 45%, transparent 95%)"
       } }),
@@ -487,7 +489,7 @@
       { v: "$2.5M+", l: "выплачено партнёрам" },
       { v: "4.4/5",  l: "Trustpilot" }
     ];
-    return _e("section", { style: { padding: "40px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", background: "var(--bg)" } },
+    return _e("section", { "data-no-glow": true, style: { padding: "40px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e("div", { className: "hh-metrics-strip", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 } },
           stats.map((s, i) => _e("div", { key: i, style: { display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 6, padding: "0 16px", borderLeft: i === 0 ? "none" : "1px solid var(--line)" } },
@@ -1039,9 +1041,8 @@
         ),
         _e(Reveal, { delay: "1" },
           // 2.2fr / 1fr — левая часть с табами+слайдером шире, правая (доход) ~30%.
-          // maxWidth убран — раскрывается на полную ширину контейнера как другие блоки.
-          // alignItems: stretch чтобы правая карточка тянулась по высоте левой колонки.
-          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "2.2fr 1fr", gap: 28, margin: "0 auto", alignItems: "stretch" } },
+          // alignItems: center чтобы правая карточка не тянулась по высоте, а была компактной.
+          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "2.2fr 1fr", gap: 28, margin: "0 auto", alignItems: "center" } },
             // LEFT controls
             _e("div", { style: { padding: 28 } },
               _e("div", { style: { marginBottom: 28 } },
@@ -1089,12 +1090,12 @@
               _e("p", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Уровень и ставка комиссии растут автоматически с числом привлечённых трейдеров в месяц — отдельно выбирать ничего не нужно.")
             ),
 
-            // RIGHT result card — компактный column-start: блоки идут друг за другом без растяжки.
+            // RIGHT result card — компактный, высота auto (не тянется по левой колонке).
             _e("div", { style: {
               background: "linear-gradient(180deg, rgba(11,11,14,0.6), #151517)",
               border: "1px solid var(--line)", borderRadius: 22, padding: 28,
               boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
-              display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", gap: 24
+              display: "flex", flexDirection: "column", gap: 20
             } },
               // верхняя группа (eyebrow + результат + подпись)
               _e("div", null,
@@ -1473,21 +1474,28 @@
                 style: { fontSize: 13, color: "#a1a0a4", fontWeight: 500, textAlign: i === 2 ? "right" : "left" }
               }, h))
             ),
-            // Rows
+            // Rows — компактнее (padding 12px вместо 18px)
             rows.map((r, i) => _e("div", {
               key: r.n,
               className: "hh-lb-row",
               style: {
                 display: "grid", gridTemplateColumns: "120px 1fr 220px", gap: 16,
-                padding: "18px 32px", alignItems: "center",
+                padding: "12px 32px", alignItems: "center",
                 background: r.alt ? "rgba(255,255,255,0.025)" : "transparent",
                 borderBottom: i === rows.length - 1 ? "none" : "1px solid rgba(255,255,255,0.04)"
               }
             },
-              _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, r.n),
-              _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, r.name),
-              _e("div", { style: { textAlign: "right", fontSize: 15, fontWeight: 700, color: "#f5f1e8" } }, fmtUSD(r.amount))
-            ))
+              _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, r.n),
+              _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, r.name),
+              _e("div", { style: { textAlign: "right", fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, fmtUSD(r.amount))
+            )),
+            // Подпись снизу таблицы
+            _e("div", { style: { padding: "14px 32px", fontSize: 11, color: "#a1a0a4", display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--line)", flexWrap: "wrap", gap: 12 } },
+              _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6 } },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }), "Обновлено только что"
+              ),
+              _e("span", null, "Топ-5 закрепляются по итогам месяца · имена скрыты для приватности")
+            )
           )
         )
       )
@@ -1688,10 +1696,16 @@
       const ov = scene.overrides && scene.overrides[i];
       return Object.assign({}, c, ov || {}, { active: i === scene.activeIdx });
     });
-    // var(--bg) = #101012 имеет небольшой синий B-bias (B=18 vs R=G=16).
-    // Поэтому здесь явный тёплый нейтральный #0d0c0a — секция перестаёт казаться синей.
-    return _e("section", { id: "telegram",
-      style: { padding: "100px 0 120px", background: "#0d0c0a", position: "relative" }
+    // Финальный фикс синего: явный warm-black #0a0907 + data-no-glow (чтобы жёлтый ::after не давал
+    // обратный визуальный контраст), + boxShadow с warm-black гасит light bleeding от соседних секций.
+    return _e("section", { id: "telegram", "data-no-glow": true,
+      style: {
+        padding: "100px 0 120px",
+        background: "#0a0907",
+        position: "relative",
+        boxShadow: "inset 0 0 80px 0 #0a0907",
+        zIndex: 1
+      }
     },
       _e("style", null, `
         /* Одноразовое появление каналов */
@@ -1956,14 +1970,14 @@
                   { who: "you", text: "Супер, всё наглядно. Спасибо! 🙌", time: "14:03" }
                 ].map((m, i) => _e("div", { key: i,
                   style: {
-                    display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-end",
+                    display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", alignItems: "flex-end",
                     // запускаем анимацию один раз, когда раздел появился в viewport
                     animation: chatInView ? `hh-chat-msg-in 0.5s ease ${i * 0.7}s both` : "none",
                     opacity: chatInView ? undefined : 0
                   }
                 },
-                  m.who === "HH" && _e("div", { style: { width: 28, height: 28, borderRadius: "50%", background: "#fcd535", color: "#13111c", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 900, flexShrink: 0 } }, "HH"),
-                  _e("div", { style: { display: "flex", flexDirection: "column", alignItems: m.who === "you" ? "flex-end" : "flex-start", maxWidth: "70%" } },
+                  // аватары HH/Я убраны — только пузыри с сообщениями
+                  _e("div", { style: { display: "flex", flexDirection: "column", alignItems: m.who === "you" ? "flex-end" : "flex-start", maxWidth: "75%" } },
                     _e("div", { style: {
                       padding: "10px 14px", borderRadius: 14, fontSize: 14, lineHeight: 1.4,
                       background: m.who === "you" ? "#229ED9" : "rgba(255,255,255,0.05)",
@@ -1972,8 +1986,7 @@
                       borderTopRightRadius: m.who === "you" ? 4 : 14
                     } }, m.text),
                     _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginTop: 4 } }, m.time)
-                  ),
-                  m.who === "you" && _e("div", { style: { width: 28, height: 28, borderRadius: "50%", background: "#229ED9", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, flexShrink: 0 } }, "Я")
+                  )
                 ))
               )
             )
