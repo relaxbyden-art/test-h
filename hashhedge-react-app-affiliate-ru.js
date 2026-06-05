@@ -86,6 +86,7 @@
   function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [langOpen, setLangOpen] = useState(false);
     useEffect(() => {
       const onScroll = () => setScrolled(window.scrollY > 8);
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -99,32 +100,76 @@
       { l: "Кабинет", h: "#cabinet" },
       { l: "FAQ", h: "#faq" }
     ];
+    const langs = [
+      { code: "RU", flag: "🇷🇺", url: "#",                                                  current: true },
+      { code: "EN", flag: "🇬🇧", url: "https://www.hashhedge.com/affiliateprogram" },
+      { code: "DE", flag: "🇩🇪", url: "https://www.hashhedge.com/affiliateprogram/de" },
+      { code: "FR", flag: "🇫🇷", url: "https://www.hashhedge.com/affiliateprogram/fr" },
+      { code: "ES", flag: "🇪🇸", url: "https://www.hashhedge.com/affiliateprogram/es" },
+      { code: "PT", flag: "🇧🇷", url: "https://www.hashhedge.com/affiliateprogram/pt" },
+      { code: "UA", flag: "🇺🇦", url: "https://www.hashhedge.com/affiliateprogram/ua" },
+      { code: "KZ", flag: "🇰🇿", url: "https://www.hashhedge.com/affiliateprogram/kz" }
+    ];
     return _e("header", {
       style: {
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        padding: "10px 0",
-        background: scrolled ? "rgba(8,8,10,0.86)" : "transparent",
+        padding: "16px 0",
+        background: scrolled ? "rgba(8,8,10,0.88)" : "transparent",
         backdropFilter: scrolled ? "saturate(140%) blur(14px)" : "none",
         borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",
         transition: "background .25s, border-color .25s"
       }
     },
       _e("div", { className: "container", style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 } },
-        _e(HashHedgeLogo, { size: 28 }),
-        _e("nav", { className: "hh-nav-desktop", style: { display: "flex", gap: 28 } },
+        _e(HashHedgeLogo, { size: 32 }),
+        _e("nav", { className: "hh-nav-desktop", style: { display: "flex", gap: 32 } },
           nav.map(n => _e("a", { key: n.l, href: n.h,
-            style: { color: "var(--fg-muted)", textDecoration: "none", fontSize: 14, fontWeight: 500, transition: "color .2s" },
-            onMouseEnter: e => e.currentTarget.style.color = "var(--fg)",
-            onMouseLeave: e => e.currentTarget.style.color = "var(--fg-muted)"
+            style: { color: "#a1a0a4", textDecoration: "none", fontSize: 15, fontWeight: 500, transition: "color .2s" },
+            onMouseEnter: e => e.currentTarget.style.color = "#f5f1e8",
+            onMouseLeave: e => e.currentTarget.style.color = "#a1a0a4"
           }, n.l))
         ),
-        _e("div", { style: { display: "flex", alignItems: "center", gap: 8 } },
-          _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-outline",
-            style: { padding: "7px 14px", borderRadius: 100, fontSize: 13, fontWeight: 600, textDecoration: "none" }
+        _e("div", { style: { display: "flex", alignItems: "center", gap: 12 } },
+          _e("a", { href: "https://partner.hashhedge.com",
+            style: { color: "#f5f1e8", textDecoration: "none", fontSize: 15, fontWeight: 600, padding: "10px 6px" }
           }, "Войти"),
           _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-            style: { padding: "7px 14px", borderRadius: 100, fontSize: 13, fontWeight: 700, textDecoration: "none" }
+            style: { padding: "14px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700, textDecoration: "none" }
           }, "Стать партнёром"),
+          // Language switcher как на главной (flag + RU + chevron)
+          _e("div", { style: { position: "relative" } },
+            _e("button", {
+              onClick: () => setLangOpen(v => !v),
+              style: {
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "10px 16px", borderRadius: 100,
+                background: "rgba(255,255,255,0.04)", border: "1px solid var(--line)",
+                color: "#f5f1e8", fontSize: 14, fontWeight: 600, cursor: "pointer"
+              }
+            },
+              _e("span", { style: { fontSize: 16 } }, "🇷🇺"),
+              _e("span", null, "RU"),
+              _e("span", { style: { fontSize: 10, color: "#a1a0a4", transform: langOpen ? "rotate(180deg)" : "none", transition: "transform .2s" } }, "▾")
+            ),
+            langOpen && _e("div", {
+              style: { position: "absolute", top: "calc(100% + 8px)", right: 0, background: "rgba(8,8,10,0.96)", backdropFilter: "blur(14px)", border: "1px solid var(--line)", borderRadius: 14, padding: 6, minWidth: 160, display: "flex", flexDirection: "column", gap: 2, boxShadow: "0 24px 60px -16px rgba(0,0,0,0.6)" }
+            },
+              langs.map(lg => _e("a", {
+                key: lg.code, href: lg.url,
+                onClick: () => setLangOpen(false),
+                style: {
+                  display: "flex", alignItems: "center", gap: 10,
+                  padding: "10px 12px", borderRadius: 8,
+                  color: lg.current ? "#fcd535" : "#f5f1e8",
+                  background: lg.current ? "rgba(252,213,53,0.08)" : "transparent",
+                  textDecoration: "none", fontSize: 14, fontWeight: 600,
+                  transition: "background .15s"
+                },
+                onMouseEnter: e => { if (!lg.current) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; },
+                onMouseLeave: e => { if (!lg.current) e.currentTarget.style.background = "transparent"; }
+              }, _e("span", { style: { fontSize: 17 } }, lg.flag), _e("span", null, lg.code)))
+            )
+          ),
           _e("button", { className: "hh-mob-toggle", "aria-label": "Меню",
             onClick: () => setMenuOpen(v => !v),
             style: { display: "none", background: "transparent", border: "1px solid var(--line)", borderRadius: 10, width: 40, height: 40, color: "var(--fg)", cursor: "pointer" }
@@ -182,10 +227,11 @@
     const W = STEP * 0.55;
     const maPath = candles.ma.map((y, i) => `${i === 0 ? "M" : "L"} ${i * STEP + STEP * 0.5} ${y}`).join(" ");
     return _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, opacity: 0.22, pointerEvents: "none", zIndex: 0 } },
-      // grid
+      // Background grid pattern — квадратная сетка как на главной
+      _e("div", { style: { position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)", backgroundSize: "48px 48px", maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 80%)" } }),
+      // candles grid (fine)
       _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
-        [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.04)", strokeWidth: 0.1 } })),
-        Array.from({ length: 12 }).map((_, i) => _e("line", { key: "v" + i, x1: i * 100 / 12, x2: i * 100 / 12, y1: 0, y2: 100, style: { stroke: "rgba(255,255,255,0.03)", strokeWidth: 0.08 } }))
+        [10, 25, 40, 55, 70, 85].map((y, i) => _e("line", { key: "h" + i, x1: 0, x2: 100, y1: y, y2: y, style: { stroke: "rgba(255,255,255,0.04)", strokeWidth: 0.1 } }))
       ),
       // candles
       _e("svg", { width: "100%", height: "100%", viewBox: "0 0 100 100", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
@@ -276,7 +322,7 @@
         _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 } },
           _e("div", null,
             _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 6 } }, "Заработано за месяц"),
-            _e("div", { style: { fontSize: 38, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1 } }, "$" + earned.toLocaleString("ru-RU").replace(/,/g, " ")),
+            _e("div", { style: { fontSize: 38, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1 } }, "$" + earned.toLocaleString("ru-RU").replace(/,/g, " ")),
             _e("div", { style: { fontSize: 12, color: "#4ade80", marginTop: 8, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 4 } },
               _e("span", null, "↑"), "+18% за месяц"
             )
@@ -556,47 +602,75 @@
       })
     );
 
-    // VIZ 6 — World map с точками + соединительными линиями (как у hh map widgets)
+    // VIZ 6 — 3D-глобус с материками + мигающие жёлтые точки (города)
     const V6 = () => {
-      // dots — города/гео-точки активности на карте
-      const dots = [
-        { x: 38, y: 42, big: true  }, // NYC
-        { x: 60, y: 38, big: false }, // Toronto
-        { x: 88, y: 38, big: true  }, // London
-        { x: 96, y: 44, big: false }, // Paris
-        { x: 105, y: 35, big: false }, // Berlin
-        { x: 113, y: 42, big: false }, // Moscow-ish
-        { x: 132, y: 50, big: true  }, // Dubai
-        { x: 152, y: 38, big: false }, // Beijing
-        { x: 160, y: 46, big: false }, // Seoul
-        { x: 158, y: 56, big: true  }, // Tokyo
-        { x: 142, y: 64, big: false }, // Mumbai
-        { x: 158, y: 72, big: false }, // Singapore
-        { x: 50, y: 72, big: true  }, // Sao Paulo
-        { x: 62, y: 78, big: false }, // Buenos Aires
-        { x: 112, y: 72, big: false }  // Cape Town
+      // city dots в спроецированных координатах на сферу
+      const cities = [
+        { lon: -74, lat: 41 },  // NYC
+        { lon: 0,   lat: 51 },  // London
+        { lon: 13,  lat: 52 },  // Berlin
+        { lon: 37,  lat: 55 },  // Moscow
+        { lon: 55,  lat: 25 },  // Dubai
+        { lon: 116, lat: 39 },  // Beijing
+        { lon: 139, lat: 35 },  // Tokyo
+        { lon: 73,  lat: 19 },  // Mumbai
+        { lon: 103, lat: 1 },   // Singapore
+        { lon: -46, lat: -23 }  // São Paulo
       ];
-      // лёгкие связи между крупными точками
-      const links = [
-        [0, 2], [2, 6], [6, 9], [9, 12], [12, 6], [0, 12]
-      ];
+      // Spherical projection — globe rotates lon offset = -25 (showing Europe/Asia)
+      const project = (lon, lat) => {
+        const ROT = -25; // degrees
+        const lonR = (lon + ROT) * Math.PI / 180;
+        const latR = lat * Math.PI / 180;
+        const x = Math.cos(latR) * Math.sin(lonR);
+        const y = -Math.sin(latR);
+        const z = Math.cos(latR) * Math.cos(lonR);
+        return { x: 50 + x * 40, y: 50 + y * 40, z };
+      };
+      const visibleCities = cities.map(c => ({ c, p: project(c.lon, c.lat) })).filter(o => o.p.z > 0);
+
       return _e("div", { style: { position: "relative", textAlign: "center" } },
-        _e("svg", { width: "100%", height: "120", viewBox: "0 0 200 110", style: { display: "block", maxWidth: 240, margin: "0 auto" } },
-          // континенты — мягкие силуэты
-          _e("path", { d: "M 18 38 Q 30 30 44 34 Q 56 38 56 48 Q 50 56 36 56 Q 22 54 18 48 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
-          _e("path", { d: "M 78 32 Q 100 28 122 36 Q 132 44 122 56 Q 108 60 90 58 Q 78 50 78 42 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
-          _e("path", { d: "M 132 38 Q 156 32 180 42 Q 184 56 168 64 Q 146 64 132 56 Q 128 46 132 40 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
-          _e("path", { d: "M 42 66 Q 58 66 64 76 Q 60 88 50 88 Q 38 82 40 72 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
-          _e("path", { d: "M 96 64 Q 116 64 122 76 Q 114 84 102 82 Q 92 76 94 70 Z", style: { fill: "rgba(255,255,255,0.04)" } }),
-          // связи
-          links.map(([a, b], i) => _e("line", { key: "l" + i,
-            x1: dots[a].x, y1: dots[a].y, x2: dots[b].x, y2: dots[b].y,
-            style: { stroke: "rgba(252,213,53,0.35)", strokeWidth: 0.5, strokeDasharray: "2 2" }
-          })),
-          // точки
-          dots.map((d, i) => _e("g", { key: "d" + i },
-            d.big && _e("circle", { cx: d.x, cy: d.y, r: 3.5, style: { fill: "rgba(252,213,53,0.15)" } }),
-            _e("circle", { cx: d.x, cy: d.y, r: d.big ? 1.6 : 1, style: { fill: "#fcd535" } })
+        _e("svg", { width: "100%", height: "200", viewBox: "0 0 100 100", style: { display: "block", maxWidth: 200, margin: "0 auto" } },
+          _e("defs", null,
+            // глобус: радиальный градиент чтобы выглядеть как сфера
+            _e("radialGradient", { id: "globeFill", cx: "35%", cy: "30%", r: "75%" },
+              _e("stop", { offset: "0%", stopColor: "#2a2733", stopOpacity: 1 }),
+              _e("stop", { offset: "70%", stopColor: "#1a1820", stopOpacity: 1 }),
+              _e("stop", { offset: "100%", stopColor: "#0c0a12", stopOpacity: 1 })
+            ),
+            _e("radialGradient", { id: "globeRim", cx: "50%", cy: "50%", r: "50%" },
+              _e("stop", { offset: "85%", stopColor: "rgba(252,213,53,0)", stopOpacity: 0 }),
+              _e("stop", { offset: "100%", stopColor: "rgba(252,213,53,0.45)", stopOpacity: 1 })
+            )
+          ),
+          // outer rim glow
+          _e("circle", { cx: 50, cy: 50, r: 46, style: { fill: "url(#globeRim)" } }),
+          // sphere body
+          _e("circle", { cx: 50, cy: 50, r: 40, style: { fill: "url(#globeFill)" } }),
+          // latitude lines
+          [-60, -30, 0, 30, 60].map((lat, i) => {
+            const y = 50 - Math.sin(lat * Math.PI / 180) * 40;
+            const r = Math.cos(lat * Math.PI / 180) * 40;
+            return _e("ellipse", { key: "lat" + i, cx: 50, cy: y, rx: r, ry: r * 0.18, style: { fill: "none", stroke: "rgba(255,255,255,0.06)", strokeWidth: 0.25 } });
+          }),
+          // longitude lines (meridians) — only front-facing ellipses
+          [-60, -30, 0, 30, 60].map((lon, i) => {
+            const rot = lon - 25;
+            return _e("ellipse", { key: "lon" + i, cx: 50, cy: 50, rx: 40 * Math.abs(Math.cos(rot * Math.PI / 180)), ry: 40, style: { fill: "none", stroke: "rgba(255,255,255,0.06)", strokeWidth: 0.25 } });
+          }),
+          // continents — стилизованные пятна материков
+          // Eurasia
+          _e("path", { d: "M 38 38 Q 50 30 64 32 Q 78 36 80 42 Q 78 48 70 50 Q 62 52 56 50 Q 48 48 42 46 Q 36 42 38 38 Z", style: { fill: "rgba(252,213,53,0.10)" } }),
+          // Africa
+          _e("path", { d: "M 50 54 Q 58 54 60 62 Q 60 70 54 72 Q 48 70 48 64 Q 46 58 50 54 Z", style: { fill: "rgba(252,213,53,0.10)" } }),
+          // Americas (silhouette на левом краю)
+          _e("path", { d: "M 22 42 Q 28 38 30 44 Q 30 50 26 54 Q 24 58 26 64 Q 28 70 24 72 Q 18 66 20 56 Q 18 48 22 42 Z", style: { fill: "rgba(252,213,53,0.08)" } }),
+          // Australia
+          _e("path", { d: "M 76 64 Q 82 64 82 68 Q 80 72 74 70 Q 72 66 76 64 Z", style: { fill: "rgba(252,213,53,0.10)" } }),
+          // city dots — blinking
+          visibleCities.map((o, i) => _e("g", { key: "city" + i },
+            _e("circle", { cx: o.p.x, cy: o.p.y, r: 2.4, style: { fill: "rgba(252,213,53,0.20)", animation: `hh-globe-pulse 2.4s ease-in-out ${i * 0.25}s infinite` } }),
+            _e("circle", { cx: o.p.x, cy: o.p.y, r: 0.9, style: { fill: "#fcd535" } })
           ))
         ),
         _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.35)", fontSize: 10, fontWeight: 700, color: "#fcd535", letterSpacing: "0.04em", textTransform: "uppercase", marginTop: 8 } },
@@ -2054,6 +2128,10 @@
       @media (max-width: 640px) {
         .hh-why-grid, .hh-steps-grid, .hh-tiers-grid, .hh-cab-explainers { grid-template-columns: 1fr !important; }
         .hh-footer-grid { grid-template-columns: 1fr !important; }
+      }
+      @keyframes hh-globe-pulse {
+        0%, 100% { r: 2.4; opacity: 1; }
+        50%      { r: 4.2; opacity: 0.3; }
       }
       @keyframes hh-payout-in {
         from { opacity: 0; transform: translateY(-12px); }
