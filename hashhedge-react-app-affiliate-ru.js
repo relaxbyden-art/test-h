@@ -536,7 +536,9 @@
         style: {
           padding: 22, paddingBottom: 18, minHeight: 220,
           display: "flex", alignItems: "center", justifyContent: "center",
-          borderBottom: "1px solid var(--line)", background: "#0B0B0C",
+          borderBottom: "1px solid var(--line)",
+          // Слабый жёлтый градиент сверху вниз поверх тёмного фона
+          background: "linear-gradient(180deg, rgba(252,213,53,0.08) 0%, rgba(252,213,53,0.02) 50%, rgba(252,213,53,0) 100%), #0B0B0C",
           position: "relative", overflow: "hidden"
         }
       },
@@ -2576,7 +2578,7 @@
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
-          background: #0B0B0C !important;
+          background: linear-gradient(180deg, rgba(252,213,53,0.08) 0%, rgba(252,213,53,0.02) 50%, rgba(252,213,53,0) 100%), #0B0B0C !important;
           contain: layout paint !important;
         }
         /* Clipper-обёртка обрезает любой абсолютно позиционированный контент */
