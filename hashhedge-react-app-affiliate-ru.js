@@ -1,5 +1,23 @@
 (function(){
   const { useEffect, useRef, useState, useMemo } = React;
+
+  // Хук: возвращает true когда элемент попал в viewport один раз (триггерит анимации появления).
+  function useInView(ref, opts) {
+    const [inView, setInView] = useState(false);
+    useEffect(() => {
+      if (!ref.current) return;
+      if (typeof IntersectionObserver === "undefined") { setInView(true); return; }
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0] && entries[0].isIntersecting) {
+          setInView(true);
+          obs.disconnect();
+        }
+      }, opts || { threshold: 0.2 });
+      obs.observe(ref.current);
+      return () => obs.disconnect();
+    }, []);
+    return inView;
+  }
   const _e = React.createElement;
   const F = React.Fragment;
 
@@ -1606,20 +1624,54 @@
   // TELEGRAM COMMUNITY (закрытый чат для партнёров)
   // ============================================================================
   function TelegramCommunity() {
-    // Каналы как на скрине-эталоне партнёрской программы Hash Hedge Partner | CIS
-    const channels = [
+    // Базовые каналы партнёрской программы Hash Hedge Partner | CIS
+    const channelsBase = [
       { ic: "#",  iconBg: "#3a4554", name: "Новости 📩",      sub: "Новый личный кабинет партнёра…",      time: "ВТ"     },
       { ic: "🎬", iconBg: "#3a4554", name: "Контент",         sub: "Queen Prop: Готово, и вы пожалуйста 😊", time: "ВС", unread: 29 },
       { ic: "📣", iconBg: "#3a4554", name: "Чат партнёров",   sub: "Друзья, всем привет! Напоминаем…",     time: "ПТ", unread: 13 },
       { ic: "⚡", iconBg: "#c5984a", name: "Акции",           sub: "Flash Sale на Hash Hedge: 28–29 мая",   time: "ЧТ", unread: 6 },
-      { ic: "📝", iconBg: "#3a4554", name: "Промо материалы", sub: "обновили баннеры для сторис",          time: "сейчас", unread: 1, active: true }
+      { ic: "📝", iconBg: "#3a4554", name: "Промо материалы", sub: "обновили баннеры для сторис",          time: "сейчас", unread: 1 }
     ];
-    return _e("section", { id: "telegram", style: { padding: "100px 0 120px", background: "#0a0a0e", position: "relative", zIndex: 1 } },
+    // Сценарий «живого» движения в чате партнёров (имитация переписки): меняется sub/time/unread
+    // у одного из каналов, активный канал (выделение строки) переключается.
+    const tgScenes = [
+      { activeIdx: 4, overrides: { 4: { sub: "обновили баннеры для сторис",                                   time: "сейчас",  unread: 1 } } },
+      { activeIdx: 2, overrides: { 2: { sub: "печатает…",                                                       time: "сейчас",  unread: 0, subColor: "#5BB5E8" } } },
+      { activeIdx: 2, overrides: { 2: { sub: "Максим · Алматы 🇰🇿: только что прошёл Level 3 🔥",              time: "сейчас",  unread: 1 } } },
+      { activeIdx: 2, overrides: { 2: { sub: "Igor K.: отличный кейс — надо делать видос",                     time: "сейчас",  unread: 2 } } },
+      { activeIdx: 2, overrides: { 2: { sub: "печатает…",                                                       time: "сейчас",  unread: 2, subColor: "#5BB5E8" } } },
+      { activeIdx: 2, overrides: { 2: { sub: "Olga · Москва: спасибо за промо-материалы, забрала 🤝",          time: "сейчас",  unread: 3 } } }
+    ];
+    const tgRef = useRef(null);
+    const tgInView = useInView(tgRef, { threshold: 0.3 });
+    const [tgStep, setTgStep] = useState(0);
+    useEffect(() => {
+      if (!tgInView) return;
+      // первое появление каналов длится ~5 × 0.5s = 2.5s, потом запускаем сценарий
+      const initialDelay = 3000;
+      const tick = 3500;
+      let i = 0;
+      const start = setTimeout(function loop() {
+        i = (i + 1) % tgScenes.length;
+        setTgStep(i);
+        timer = setTimeout(loop, tick);
+      }, initialDelay);
+      let timer = start;
+      return () => clearTimeout(timer);
+    }, [tgInView]);
+    const scene = tgScenes[tgStep] || tgScenes[0];
+    const channels = channelsBase.map((c, i) => {
+      const ov = scene.overrides && scene.overrides[i];
+      return Object.assign({}, c, ov || {}, { active: i === scene.activeIdx });
+    });
+    return _e("section", { id: "telegram", "data-no-glow": true,
+      style: { padding: "100px 0 120px", background: "#0a0a0e", position: "relative", zIndex: 1 }
+    },
       _e("style", null, `
+        /* Одноразовое появление каналов */
         @keyframes hh-tg-row-in {
           0%   { opacity: 0; transform: translateY(-6px); }
-          5%, 92% { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(-6px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
         @keyframes hh-tg-badge-pulse {
           0%, 100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(91,181,232,0.5); }
@@ -1667,7 +1719,7 @@
 
           // RIGHT — iPhone mockup как на скрине-эталоне (dark theme, notch, full UI)
           _e(Reveal, { delay: "2" },
-            _e("div", { style: { maxWidth: 380, margin: "0 auto", position: "relative" } },
+            _e("div", { ref: tgRef, style: { maxWidth: 380, margin: "0 auto", position: "relative" } },
               _e("div", {
                 style: {
                   background: "#08080a",
@@ -1717,8 +1769,8 @@
                       "Поиск"
                     )
                   ),
-                  // Channels list — анимация: каналы появляются по очереди (новый чат пришёл),
-                  // unread-badge активного канала пульсирует.
+                  // Channels list — каналы появляются один раз когда секция в viewport.
+                  // Затем в активном канале «Чат партнёров» по сценарию меняется sub/badge — имитация переписки.
                   _e("div", { style: { display: "flex", flexDirection: "column", borderTop: "0.5px solid rgba(255,255,255,0.06)" } },
                     channels.map((ch, i) => _e("div", { key: i,
                       style: {
@@ -1726,28 +1778,29 @@
                         padding: "10px 14px",
                         background: ch.active ? "rgba(43,156,222,0.16)" : "transparent",
                         borderBottom: "0.5px solid rgba(255,255,255,0.04)",
-                        animation: `hh-tg-row-in 14s ease ${i * 1.2}s infinite both`,
-                        opacity: 0
+                        transition: "background .35s",
+                        animation: tgInView ? `hh-tg-row-in 0.5s ease ${i * 0.45}s both` : "none",
+                        opacity: tgInView ? undefined : 0
                       }
                     },
                       _e("div", { style: { width: 44, height: 44, borderRadius: "50%", background: ch.iconBg, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 18, color: "#fff" } }, ch.ic),
                       _e("div", { style: { minWidth: 0 } },
                         _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, ch.name),
-                        _e("div", { style: { fontSize: 12, color: "#7d8590", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, ch.sub)
+                        _e("div", { style: { fontSize: 12, color: ch.subColor || "#7d8590", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontStyle: ch.subColor ? "italic" : "normal" } }, ch.sub)
                       ),
                       _e("div", { style: { textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 } },
                         _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: ch.active ? "#5BB5E8" : "#7d8590" } },
                           ch.pinned && _e("svg", { width: 10, height: 10, viewBox: "0 0 24 24", style: { fill: "#7d8590" } }, _e("path", { d: "M12 2L8 6h3v6l-5 4v2h12v-2l-5-4V6h3L12 2z", style: { fill: "#7d8590" } })),
                           ch.time
                         ),
-                        ch.unread && _e("span", {
+                        ch.unread ? _e("span", {
                           style: {
                             display: "inline-block", minWidth: 22, padding: "2px 7px",
                             background: "#5BB5E8", color: "#fff", borderRadius: 100,
                             fontSize: 11, fontWeight: 700, textAlign: "center",
                             animation: ch.active ? "hh-tg-badge-pulse 1.6s ease-in-out infinite" : "none"
                           }
-                        }, ch.unread),
+                        }, ch.unread) : null,
                         !ch.unread && ch.pinned && _e("span", { style: { color: "#3a4554", fontSize: 14 } }, "☆")
                       )
                     )),
@@ -1766,28 +1819,24 @@
   // ============================================================================
   // SUPPORT
   // ============================================================================
-  // Support — структура v2.7 (photo card + chat mockup + 2 CTA-карточки), но стили из главной RU:
-  // background glow effects, типографика eyebrow/H2, цветовая палитра card/line.
+  // Support — структура v2.7 (photo card + chat mockup + 2 CTA-карточки), но стили из главной RU.
+  // Анимация чата — запускается один раз при появлении в viewport (IntersectionObserver).
   function Support() {
+    const chatRef = useRef(null);
+    const chatInView = useInView(chatRef);
     return _e("section", { id: "support", className: "hh-support-section",
       style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" }
     },
-      // фон-эффекты с главной RU: фейд сверху, два glow, нижний радиальный жёлтый glow
-      _e("div", { "aria-hidden": true, style: { position: "absolute", top: 0, left: 0, right: 0, height: 280, background: "linear-gradient(180deg, #0a0a0e 0%, rgba(13,13,16,0.55) 35%, transparent 100%)", pointerEvents: "none", zIndex: 0 } }),
-      _e("div", { "aria-hidden": true,
-        style: { position: "absolute", width: 800, height: 800, top: "10%", left: "-10%", background: "#4ade80", filter: "blur(120px)", opacity: 0.05, borderRadius: "50%", pointerEvents: "none", zIndex: 0 } }),
-      _e("div", { "aria-hidden": true,
-        style: { position: "absolute", width: 600, height: 600, bottom: "-30%", right: "-10%", background: "#fcd535", filter: "blur(120px)", opacity: 0.04, borderRadius: "50%", pointerEvents: "none", zIndex: 0 } }),
-      _e("div", { "aria-hidden": true, style: { position: "absolute", bottom: 0, left: 0, right: 0, height: 360, background: "radial-gradient(ellipse 90% 100% at 70% 100%, rgba(252,213,53,0.1) 0%, rgba(252,213,53,0.04) 35%, rgba(252,213,53,0) 70%)", pointerEvents: "none", zIndex: 0 } }),
+      // Локальных blur-кругов больше нет — общий glow задаётся через CSS ::after для всех секций.
       _e("style", null, `
         @keyframes support-status-pulse {
           0%, 100% { box-shadow: 0 0 0 0 rgba(124,216,160,0.30); }
           70%      { box-shadow: 0 0 0 4px rgba(124,216,160,0);   }
         }
+        /* Одноразовая анимация появления сообщения */
         @keyframes hh-chat-msg-in {
           0%   { opacity: 0; transform: translateY(8px); }
-          18%, 92% { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(0); }
+          100% { opacity: 1; transform: translateY(0); }
         }
       `),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
@@ -1819,11 +1868,15 @@
         // MAIN 2-col: фото-карта (1fr) + чат-мокап (1.3fr) — структура v2.7
         _e("div", { className: "hh-support-grid", style: { display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 18, alignItems: "stretch" } },
           _e(Reveal, { delay: "1" },
+            // Структура и стиль обводки как на главной RU SupportSection: <div> с border-line + <img> objectFit cover.
             _e("div", { style: {
               position: "relative", height: "100%", minHeight: 540, borderRadius: 24, overflow: "hidden",
-              background: "url(https://hash-hedge-partner.vercel.app/assets/manager.jpeg) center / cover, #1a1a1f",
-              border: "1px solid var(--line)"  // одна тонкая серая рамка как у чата
+              border: "1px solid var(--line)",
+              background: "var(--card, #151517)"
             } },
+              _e("img", { src: "https://hash-hedge-partner.vercel.app/assets/manager.jpeg", alt: "Личный менеджер партнёров",
+                style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }
+              }),
               _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
               // ONLINE chip top-left (стилизован под главную)
               _e("div", { style: { position: "absolute", top: 20, left: 20, display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 999, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", border: "1px solid rgba(124,216,160,0.4)", fontSize: 11, fontWeight: 800, color: "#9be0b6", letterSpacing: "0.14em", textTransform: "uppercase" } },
@@ -1855,7 +1908,7 @@
           ),
           // Chat mockup — структура v2.7, цвета и border-radius под главную
           _e(Reveal, { delay: "2" },
-            _e("div", { style: {
+            _e("div", { ref: chatRef, style: {
               background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%), #151517",
               border: "1px solid var(--line)", borderRadius: 24, padding: 22,
               display: "flex", flexDirection: "column", minHeight: 540
@@ -1880,8 +1933,9 @@
                 ].map((m, i) => _e("div", { key: i,
                   style: {
                     display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-end",
-                    animation: `hh-chat-msg-in 12s ease ${i * 1.4}s infinite both`,
-                    opacity: 0
+                    // запускаем анимацию один раз, когда раздел появился в viewport
+                    animation: chatInView ? `hh-chat-msg-in 0.5s ease ${i * 0.7}s both` : "none",
+                    opacity: chatInView ? undefined : 0
                   }
                 },
                   m.who === "HH" && _e("div", { style: { width: 28, height: 28, borderRadius: "50%", background: "#fcd535", color: "#13111c", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 900, flexShrink: 0 } }, "HH"),
@@ -2252,26 +2306,12 @@
   }
 
   // ============================================================================
-  // PAGE GLOW — большие еле заметные жёлтые размытые круги по бокам контента
-  // fixed-позиционирование чтобы glow сопровождал прокрутку
-  // ============================================================================
-  function PageGlow() {
-    return _e("div", { "aria-hidden": true,
-      style: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }
-    },
-      _e("div", { style: { position: "absolute", top: "8%",  left:  "-18%", width: 900, height: 900, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.07 } }),
-      _e("div", { style: { position: "absolute", top: "40%", right: "-18%", width: 900, height: 900, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.06 } }),
-      _e("div", { style: { position: "absolute", top: "75%", left:  "-15%", width: 750, height: 750, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.05 } }),
-      _e("div", { style: { position: "absolute", top: "110%",right: "-15%", width: 750, height: 750, borderRadius: "50%", background: "#fcd535", filter: "blur(180px)", opacity: 0.05 } })
-    );
-  }
-
-  // ============================================================================
   // APP
   // ============================================================================
   function App() {
+    // Жёлтые размытые круги добавляются через CSS ::after на каждой секции.
+    // Чередуется слева/справа. TG-секция помечена data-no-glow, Footer исключён по тегу.
     return _e("div", { className: "tilda-html-hashhedge hh-with-glow" },
-      _e(PageGlow, null),
       _e(Header, null),
       _e(Hero, null),
       _e(Marquee, null),
