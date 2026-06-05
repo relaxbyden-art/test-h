@@ -8761,18 +8761,10 @@ function YouTubeSection() {
     style: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
+      justifyContent: "flex-end",
       marginBottom: 20
     }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      fontWeight: 800,
-      letterSpacing: "0.16em",
-      color: "var(--fg-dim)",
-      textTransform: "uppercase"
-    }
-  }, rail.length, " more reviews"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8
