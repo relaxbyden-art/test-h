@@ -586,36 +586,50 @@
       ))
     );
 
-    // VIZ 3 — 5-10x exchange comparison
-    const V3 = () => _e("div", { style: { width: "100%", padding: "0 8px", textAlign: "center" } },
-      _e("div", { style: { fontSize: 48, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 6 } }, "5–10×"),
-      _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 16 } }, "доход vs биржевой реферал"),
-      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 } },
-        _e("div", { style: { padding: "10px 8px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 10 } },
-          _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Биржа"),
-          _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#a1a0a4" } }, "$30–60")
+    // VIZ 3 — 5-10x exchange comparison (компактнее, помещается в 180px vis-area)
+    const V3 = () => _e("div", { className: "hh-viz hh-viz-3",
+      style: { width: "100%", maxWidth: 280, padding: "0 8px", textAlign: "center", boxSizing: "border-box" }
+    },
+      _e("div", { className: "hh-viz-3-big",
+        style: { fontSize: 40, fontWeight: 900, color: "#fcd535", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 4 }
+      }, "5–10×"),
+      _e("div", { className: "hh-viz-3-sub",
+        style: { fontSize: 10, color: "#a1a0a4", marginBottom: 10 }
+      }, "доход vs биржевой реферал"),
+      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 } },
+        _e("div", { style: { padding: "6px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRadius: 8 } },
+          _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginBottom: 2 } }, "Биржа"),
+          _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#a1a0a4" } }, "$30–60")
         ),
-        _e("div", { style: { padding: "10px 8px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 10 } },
-          _e("div", { style: { fontSize: 10, color: "#fcd535", marginBottom: 4, fontWeight: 700 } }, "Hash Hedge"),
-          _e("div", { style: { fontSize: 16, fontWeight: 800, color: "#f5f1e8" } }, "$300+")
+        _e("div", { style: { padding: "6px 6px", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.4)", borderRadius: 8 } },
+          _e("div", { style: { fontSize: 9, color: "#fcd535", marginBottom: 2, fontWeight: 700 } }, "Hash Hedge"),
+          _e("div", { style: { fontSize: 13, fontWeight: 800, color: "#f5f1e8" } }, "$300+")
         )
       )
     );
 
-    // VIZ 4 — USDT $2,340 green circle
-    const V4 = () => _e("div", { style: { textAlign: "center" } },
-      _e("div", { style: {
-        width: 80, height: 80, borderRadius: "50%",
-        background: "linear-gradient(135deg, rgba(74,222,128,0.18), rgba(74,222,128,0.05))",
-        border: "1px solid rgba(74,222,128,0.4)",
-        display: "inline-flex", alignItems: "center", justifyContent: "center",
-        marginBottom: 12, color: "#4ade80", fontWeight: 800, fontSize: 18
-      } }, "USDT"),
-      _e("div", { style: { fontSize: 30, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, marginBottom: 4 } },
-        "$2 340", _e("span", { style: { fontSize: 13, color: "#a1a0a4", marginLeft: 6, fontWeight: 600 } }, "USDT")
+    // VIZ 4 — USDT $2,340 green circle (компактнее, помещается в 180px vis-area)
+    const V4 = () => _e("div", { className: "hh-viz hh-viz-4",
+      style: { textAlign: "center", maxWidth: 240, boxSizing: "border-box" }
+    },
+      _e("div", { className: "hh-viz-4-circle",
+        style: {
+          width: 60, height: 60, borderRadius: "50%",
+          background: "linear-gradient(135deg, rgba(74,222,128,0.18), rgba(74,222,128,0.05))",
+          border: "1px solid rgba(74,222,128,0.4)",
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          marginBottom: 8, color: "#4ade80", fontWeight: 800, fontSize: 14
+        }
+      }, "USDT"),
+      _e("div", { className: "hh-viz-4-amount",
+        style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, marginBottom: 4 }
+      },
+        "$2 340", _e("span", { style: { fontSize: 11, color: "#a1a0a4", marginLeft: 5, fontWeight: 600 } }, "USDT")
       ),
-      _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, color: "#4ade80", padding: "4px 10px", background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 100, marginTop: 10 } },
-        _e("span", { style: { width: 5, height: 5, borderRadius: "50%", background: "#4ade80" } }),
+      _e("div", { className: "hh-viz-4-chip",
+        style: { display: "inline-flex", alignItems: "center", gap: 5, fontSize: 10, color: "#4ade80", padding: "3px 8px", background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 100, marginTop: 6 }
+      },
+        _e("span", { style: { width: 4, height: 4, borderRadius: "50%", background: "#4ade80" } }),
         "Выплата отправлена"
       )
     );
@@ -713,22 +727,25 @@
     );
 
     // VIZ 8 — Tracking analytics snippet
-    const V8 = () => _e("div", { style: { width: "100%", padding: "0 8px" } },
-      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 } },
+    // VIZ 8 — Tracking analytics (компактнее, помещается в 180px vis-area)
+    const V8 = () => _e("div", { className: "hh-viz hh-viz-8",
+      style: { width: "100%", maxWidth: 280, padding: "0 8px", boxSizing: "border-box" }
+    },
+      _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 6 } },
         [
           { k: "Источник", v: "YouTube" },
           { k: "Клики", v: "1 284" }
-        ].map((it, i) => _e("div", { key: i, style: { padding: "10px 12px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 8 } },
-          _e("div", { style: { fontSize: 9, color: "#a1a0a4", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.1em" } }, it.k),
-          _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, it.v)
+        ].map((it, i) => _e("div", { key: i, style: { padding: "6px 8px", background: "rgba(8,8,10,0.55)", border: "1px solid var(--line)", borderRadius: 6 } },
+          _e("div", { style: { fontSize: 8, color: "#a1a0a4", marginBottom: 2, textTransform: "uppercase", letterSpacing: "0.1em" } }, it.k),
+          _e("div", { style: { fontSize: 12, fontWeight: 700, color: "#f5f1e8" } }, it.v)
         ))
       ),
-      _e("div", { style: { padding: "12px 14px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 8 } },
-        _e("div", { style: { display: "flex", justifyContent: "space-between", marginBottom: 8 } },
-          _e("span", { style: { fontSize: 10, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.1em" } }, "Доход с канала"),
-          _e("span", { style: { fontSize: 10, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
+      _e("div", { style: { padding: "8px 10px", background: "rgba(252,213,53,0.06)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 6 } },
+        _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 } },
+          _e("span", { style: { fontSize: 8, color: "#a1a0a4", textTransform: "uppercase", letterSpacing: "0.1em" } }, "Доход с канала"),
+          _e("span", { style: { fontSize: 9, color: "#4ade80", fontWeight: 700 } }, "↑ +34%")
         ),
-        _e("div", { style: { fontSize: 18, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
+        _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em" } }, "$3 480")
       )
     );
 
@@ -2520,14 +2537,12 @@
           position: relative !important;
           contain: layout paint !important;
         }
-        /* Содержимое vis уменьшается чтобы помещалось */
+        /* Содержимое vis помещается без масштабирования (V3/V4/V8 уже компактные) */
         .hh-why-vis-clip > * {
           max-width: 100% !important;
           max-height: 100% !important;
-          transform: scale(0.78) !important;
-          transform-origin: center center !important;
         }
-        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 130px !important; }
+        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 140px !important; }
         .hh-why-card-body {
           padding: 16px 16px 20px !important;
           position: relative !important;
