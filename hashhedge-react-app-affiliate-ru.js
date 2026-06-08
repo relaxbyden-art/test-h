@@ -707,10 +707,7 @@
         }, children)
       ),
       _e("div", { className: "hh-why-card-body", style: { padding: "20px 22px 22px" } },
-        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.3)", fontSize: 10, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 14 } },
-          _e("svg", { width: 11, height: 11, viewBox: "0 0 12 12", style: { fill: "#9ef0c0" } }, _e("path", { d: "M4.5 9L1.5 6l1-1 2 2 4.5-4.5 1 1z", style: { fill: "#9ef0c0" } })),
-          chip
-        ),
+        // Зелёные chip-плашки убраны по правкам
         _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", marginBottom: 10, color: "#f5f1e8" } },
           titleAccent === "before" && _e("span", { style: { color: "#fcd535" } }, title.split(" ")[0] + " "),
           titleAccent === "before" ? title.split(" ").slice(1).join(" ") : title
@@ -2182,7 +2179,7 @@
               border: "1px solid var(--line)",
               background: "var(--card, #1C1C1F)"
             } },
-              _e("img", { src: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/support-man.png", alt: "Team Lead партнёрской программы",
+              _e("img", { src: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/tati.jpg", alt: "Team Lead партнёрской программы",
                 style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%" }
               }),
               _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
@@ -2199,7 +2196,7 @@
               // bottom info — флаги к языкам
               _e("div", { style: { position: "absolute", left: 24, right: 24, bottom: 24 } },
                 _e("div", { style: { fontSize: 11, color: "#fcd535", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Team Lead партнёрской программы"),
-                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Daniel R."),
+                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Tisha"),
                 _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } },
                   [
                     { code: "RU", flag: "🇷🇺" },
@@ -2753,21 +2750,25 @@
           font-size: 10px !important;
         }
 
-        /* === (v3.9) WhyPartner: жёсткий containment vis-area === */
-        .hh-why-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+        /* === v8.5 mobile WhyPartner: горизонтальная компоновка как на главной — image left + text right === */
+        .hh-why-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
         .hh-why-card {
-          flex-direction: column !important; height: auto !important;
+          flex-direction: row !important;
+          height: auto !important;
           overflow: hidden !important;
           isolation: isolate !important;
+          align-items: stretch !important;
         }
         .hh-why-card-vis {
-          height: 160px !important;
-          min-height: 160px !important;
-          max-height: 160px !important;
-          width: 100% !important;
-          border-bottom: 1px solid var(--line) !important;
-          border-right: none !important;
-          padding: 12px !important;
+          width: 110px !important;
+          min-width: 110px !important;
+          max-width: 110px !important;
+          height: auto !important;
+          min-height: 100% !important;
+          flex-shrink: 0 !important;
+          border-bottom: none !important;
+          border-right: 1px solid var(--line) !important;
+          padding: 10px !important;
           overflow: hidden !important;
           position: relative !important;
           display: flex !important;
@@ -2776,7 +2777,6 @@
           background: linear-gradient(180deg, rgba(252,213,53,0.08) 0%, rgba(252,213,53,0.02) 50%, rgba(252,213,53,0) 100%), #0B0B0C !important;
           contain: layout paint !important;
         }
-        /* Clipper-обёртка обрезает любой абсолютно позиционированный контент */
         .hh-why-vis-clip {
           height: 100% !important;
           width: 100% !important;
@@ -2784,20 +2784,24 @@
           position: relative !important;
           contain: layout paint !important;
         }
-        /* Содержимое vis помещается без масштабирования (V3/V4/V8 уже компактные) */
         .hh-why-vis-clip > * {
           max-width: 100% !important;
           max-height: 100% !important;
+          transform: scale(0.7) !important;
         }
-        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 140px !important; }
+        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 90px !important; }
         .hh-why-card-body {
-          padding: 16px 16px 20px !important;
+          padding: 12px 14px !important;
           position: relative !important;
           z-index: 2 !important;
           background: #1C1C1F !important;
+          flex: 1 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: center !important;
         }
-        .hh-why-card-body h3 { font-size: 18px !important; line-height: 1.2 !important; margin-bottom: 8px !important; }
-        .hh-why-card-body p { font-size: 13px !important; line-height: 1.45 !important; }
+        .hh-why-card-body h3 { font-size: 15px !important; line-height: 1.2 !important; margin-bottom: 4px !important; }
+        .hh-why-card-body p { font-size: 12px !important; line-height: 1.4 !important; }
 
         /* === (v3.7 #3) IncomeSources: row-layout, но номер 01/02/03 СКРЫТ + иконка выше === */
         .hh-income-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
