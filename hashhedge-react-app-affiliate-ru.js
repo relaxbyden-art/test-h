@@ -318,16 +318,29 @@
     // Mini sparkline данные — растущая кривая
     const sparkPts = [60, 55, 58, 50, 48, 42, 38, 32, 28, 22, 18, 12];
     const sparkPath = sparkPts.map((y, i) => `${i === 0 ? "M" : "L"} ${i / (sparkPts.length - 1) * 100} ${y}`).join(" ");
-    return _e("div", { className: "hh-live-card",
+    return _e("div", { className: "hh-live-card hh-glass",
       style: {
         position: "relative",
-        background: "linear-gradient(180deg, rgba(252,213,53,0.05) 0%, rgba(28,28,31,1) 30%, rgba(28,28,31,1) 100%), #1C1C1F",
-        border: "1px solid rgba(252,213,53,0.22)",
-        borderRadius: 22, overflow: "hidden",
-        backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
-        boxShadow: "0 40px 80px -20px rgba(0,0,0,0.75), 0 0 60px -10px rgba(252,213,53,0.18), inset 0 1px 0 rgba(252,213,53,0.18)"
+        // iOS 26 «Liquid Glass» — полупрозрачное стекло с blur backdrop и saturation boost
+        background: "linear-gradient(180deg, rgba(252,213,53,0.08) 0%, rgba(28,28,31,0.55) 30%, rgba(28,28,31,0.55) 100%)",
+        border: "1px solid rgba(255,255,255,0.10)",
+        borderRadius: 26, overflow: "hidden",
+        backdropFilter: "blur(28px) saturate(180%)", WebkitBackdropFilter: "blur(28px) saturate(180%)",
+        boxShadow: [
+          "0 30px 60px -16px rgba(0,0,0,0.55)",            // мягкая тень глубины
+          "0 0 60px -10px rgba(252,213,53,0.18)",          // жёлтый glow вокруг
+          "inset 0 1px 0 rgba(255,255,255,0.18)",          // верхняя highlight линия
+          "inset 0 -1px 0 rgba(0,0,0,0.20)",               // нижняя shadow линия
+          "inset 0 0 0 1px rgba(255,255,255,0.04)"         // тонкая внутренняя ramp
+        ].join(", ")
       }
     },
+      // Specular блик сверху (Apple-style)
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", top: 0, left: 0, right: 0, height: "45%",
+        background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 100%)",
+        pointerEvents: "none", zIndex: 1, borderRadius: "26px 26px 0 0"
+      } }),
       // Inline-стили только для этой карточки — keyframes для pulse, shimmer, ripple
       _e("style", null, `
         @keyframes hh-live-pulse {
@@ -475,6 +488,14 @@
       style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
     },
       _e(HeroCandles, null),
+      // Liquid Glass: жёлтый blur-blob позади LiveCard — даёт стеклу что преломлять
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", right: "8%", top: "30%",
+        width: 460, height: 460, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(252,213,53,0.22) 0%, rgba(252,213,53,0.06) 40%, transparent 70%)",
+        filter: "blur(60px)",
+        pointerEvents: "none", zIndex: 0
+      } }),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.35fr minmax(380px, 460px)", gap: 64, alignItems: "center" } },
 
