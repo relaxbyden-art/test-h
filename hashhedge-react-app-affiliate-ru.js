@@ -943,13 +943,15 @@
   function Tiers() {
     // 7 tiers + 1 CTA cell. Иконки — 3D-рендеры в assets/tiers/tier-1..7.png.
     const TIERS_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
-    // Иконка в тёмной плашке: серая обводка + скруглённые углы, меньше предыдущей версии
+    // Иконка в тёмной плашке: серая обводка + скруглённые углы.
+    // Фон плашки = чёрный сплошной (как у самой PNG), иначе на жёлтой featured-карточке
+    // полупрозрачный фон даёт желтоватый тон и видно ступеньку между плашкой и иконкой.
     const TierIcon = ({ lvl }) => _e("div", {
       style: {
         width: 64, height: 64,
         borderRadius: 16,
         border: "1px solid var(--line)",
-        background: "rgba(8,8,10,0.55)",
+        background: "#000",
         display: "inline-flex", alignItems: "center", justifyContent: "center",
         marginBottom: 14, padding: 6,
         boxSizing: "border-box"
@@ -2007,8 +2009,8 @@
               border: "1px solid var(--line)",
               background: "var(--card, #151517)"
             } },
-              _e("img", { src: "https://hash-hedge-partner.vercel.app/assets/manager.jpeg", alt: "Team Lead партнёрской программы",
-                style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }
+              _e("img", { src: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/support-man.png", alt: "Team Lead партнёрской программы",
+                style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%" }
               }),
               _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
               // ONLINE chip top-left (стилизован под главную)
@@ -2024,7 +2026,7 @@
               // bottom info — флаги к языкам
               _e("div", { style: { position: "absolute", left: 24, right: 24, bottom: 24 } },
                 _e("div", { style: { fontSize: 11, color: "#fcd535", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Team Lead партнёрской программы"),
-                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Anna M."),
+                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Daniel R."),
                 _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } },
                   [
                     { code: "RU", flag: "🇷🇺" },
