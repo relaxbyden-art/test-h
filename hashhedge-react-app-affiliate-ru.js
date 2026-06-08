@@ -1596,12 +1596,10 @@
     // v5.6: переписан как 1 hero + 6 в 3-col grid (вместо horizontal slider). Слайдер делал секцию визуально
     // похожей на YouTubeSection на главной RU — теперь mosaic-layout, акцентирует первый ролик.
     const videos = [
-      { id: "PUAyUaSommg", title: "От $49 до $5 580 — как изменить жизнь на крипто-проп-трейдинге", author: "@yariktrade", views: "127K" },
-      { id: "IlSjDtqwwuA", title: "Обзор челленджа Hash Hedge",                                     author: "@cryptopro",   views: "94K"  },
-      { id: "PpA50UZYusw", title: "Доказательство выплат в USDT",                                   author: "@propnews",    views: "58K"  },
       { id: "v70Cj06fueA", title: "Как пройти 1-фазный челлендж",                                   author: "@trader_oleg", views: "73K"  },
-      { id: "oz_72s2S5Xc", title: "Разбор платформы и условий",                                     author: "@cryptoschool",views: "41K"  },
       { id: "xJ4yA5MDMDU", title: "Интервью с funded-трейдером",                                    author: "@yariktrade",  views: "112K" },
+      { id: "PUAyUaSommg", title: "От $49 до $5 580 — как изменить жизнь на крипто-проп-трейдинге", author: "@yariktrade",  views: "127K" },
+      { id: "oz_72s2S5Xc", title: "Разбор платформы и условий",                                     author: "@cryptoschool",views: "41K"  },
       { id: "lnsWjuJuguE", title: "Стратегия торговли на челлендже",                                author: "@cryptopro",   views: "67K"  }
     ];
     // PlayBtn — единая кнопка-плей с YouTube-стилем
@@ -1656,9 +1654,9 @@
               )
             )
           ),
-          // RIGHT — стек 3 карточек горизонтальной компоновкой (thumb-слева, текст-справа)
+          // RIGHT — стек 2 карточек горизонтальной компоновкой (thumb-слева, текст-справа)
           _e("div", { style: { display: "flex", flexDirection: "column", gap: 14 } },
-            rest.slice(0, 3).map((v, i) => _e(Reveal, { key: i, delay: String(i + 2) },
+            rest.slice(0, 2).map((v, i) => _e(Reveal, { key: i, delay: String(i + 2) },
               _e("a", {
                 href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
                 style: { display: "grid", gridTemplateColumns: "160px 1fr", gap: 14, background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)", alignItems: "stretch" }
@@ -1674,9 +1672,9 @@
             ))
           )
         ),
-        // BOTTOM — оставшиеся 3 ролика в 3-col grid
-        _e("div", { className: "hh-yt-bottom", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginTop: 20 } },
-          rest.slice(3).map((v, i) => _e(Reveal, { key: i, delay: String(i + 1) },
+        // BOTTOM — оставшиеся 2 ролика в 2-col grid
+        _e("div", { className: "hh-yt-bottom", style: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginTop: 20 } },
+          rest.slice(2).map((v, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("a", {
               href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
               style: { display: "block", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
