@@ -1660,7 +1660,7 @@
     const videos = [
       { id: "v70Cj06fueA", title: "Как пройти 1-фазный челлендж",                                   author: "@trader_oleg", views: "73K"  },
       { id: "xJ4yA5MDMDU", title: "Интервью с funded-трейдером",                                    author: "@yariktrade",  views: "112K" },
-      { id: "PUAyUaSommg", title: "От $49 до $5 580 — как изменить жизнь на крипто-проп-трейдинге", author: "@yariktrade",  views: "127K" },
+      { id: "PUAyUaSommg", title: "От $49 до $5 580 — как изменить жизнь на крипто-проп-трейдинге", author: "Хедлайнеры | Никита Ануфриев", views: "127K" },
       { id: "oz_72s2S5Xc", title: "Разбор платформы и условий",                                     author: "@cryptoschool",views: "41K"  },
       { id: "lnsWjuJuguE", title: "Стратегия торговли на челлендже",                                author: "@cryptopro",   views: "67K"  }
     ];
