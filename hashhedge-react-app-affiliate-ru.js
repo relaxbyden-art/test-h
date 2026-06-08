@@ -1660,6 +1660,7 @@
     const videos = [
       { id: "v70Cj06fueA", title: "Как пройти 1-фазный челлендж",                                   author: "@trader_oleg", views: "73K"  },
       { id: "xJ4yA5MDMDU", title: "Интервью с funded-трейдером",                                    author: "@yariktrade",  views: "112K" },
+      { id: "IlSjDtqwwuA", title: "Обзор челленджа Hash Hedge",                                     author: "@cryptopro",   views: "94K"  },
       { id: "PUAyUaSommg", title: "От $49 до $5 580 — как изменить жизнь на крипто-проп-трейдинге", author: "Хедлайнеры | Никита Ануфриев", views: "127K" },
       { id: "oz_72s2S5Xc", title: "Разбор платформы и условий",                                     author: "@cryptoschool",views: "41K"  },
       { id: "lnsWjuJuguE", title: "Стратегия торговли на челлендже",                                author: "@cryptopro",   views: "67K"  }
@@ -1697,9 +1698,9 @@
             )
           )
         ),
-        // TOP — 2 видео: первое 2/3 (hero), второе 1/3 (вертикальный thumb вверху + текст). Карточки одной высоты.
+        // TOP — 1 hero слева (2/3) + 2 видео-thumb стек справа (1/3). Стиль как на главной RU YouTubeSection.
         _e("div", { className: "hh-yt-top", style: { display: "grid", gridTemplateColumns: "2fr 1fr", gap: 18, alignItems: "stretch" } },
-          // HERO — слева большой (2/3 ширины)
+          // HERO — слева большой (2/3)
           _e(Reveal, { delay: "1" },
             _e("a", {
               href: `https://www.youtube.com/watch?v=${hero.id}`, target: "_blank", rel: "noopener noreferrer",
@@ -1715,28 +1716,27 @@
               )
             )
           ),
-          // RIGHT — 1 видео на 1/3 ширины. Превью сверху, инфо снизу. Карточка такой же высоты как hero.
-          _e(Reveal, { delay: "2" },
-            (() => {
-              const v = rest[0];
-              return _e("a", {
+          // RIGHT — 2 thumb-карточки в стек на 1/3 ширины. Каждая = ровно половина высоты hero.
+          _e("div", { style: { display: "grid", gridTemplateRows: "1fr 1fr", gap: 18, height: "100%" } },
+            rest.slice(0, 2).map((v, i) => _e(Reveal, { key: i, delay: String(i + 2) },
+              _e("a", {
                 href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
-                style: { display: "flex", flexDirection: "column", height: "100%", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
+                style: { display: "flex", flexDirection: "column", height: "100%", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
               },
                 _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${v.id}/hqdefault.jpg) center / cover, #111`, flexShrink: 0 } },
-                  _e(PlayBtn, { size: 52 })
+                  _e(PlayBtn, { size: 42 })
                 ),
-                _e("div", { style: { padding: "18px 20px 20px", flex: 1 } },
-                  _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", marginBottom: 8 } }, v.author + " · " + v.views + " просмотров"),
-                  _e("div", { style: { fontSize: 16, fontWeight: 800, lineHeight: 1.3, color: "#f5f1e8", letterSpacing: "-0.005em" } }, v.title)
+                _e("div", { style: { padding: "12px 14px 14px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" } },
+                  _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", marginBottom: 5 } }, v.author + " · " + v.views),
+                  _e("div", { style: { fontSize: 13, fontWeight: 700, lineHeight: 1.3, color: "#f5f1e8", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, v.title)
                 )
-              );
-            })()
+              )
+            ))
           )
         ),
         // BOTTOM — 3 видео в 3-col grid, все одного размера
         _e("div", { className: "hh-yt-bottom", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 18 } },
-          rest.slice(1).map((v, i) => _e(Reveal, { key: i, delay: String(i + 1) },
+          rest.slice(2).map((v, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("a", {
               href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
               style: { display: "flex", flexDirection: "column", height: "100%", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
