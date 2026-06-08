@@ -479,7 +479,7 @@
       "data-no-glow": true,
       style: {
         position: "relative", overflow: "hidden",
-        minHeight: 620,
+        minHeight: 540,
         background: "var(--bg)"
       }
     },
@@ -521,7 +521,7 @@
       } }),
 
       // ── Layer 3: Content (text слева + notif chips справа + geo) ───
-      _e("div", { className: "container", style: { position: "relative", zIndex: 3, minHeight: 620, paddingTop: 40, paddingBottom: 50 } },
+      _e("div", { className: "container", style: { position: "relative", zIndex: 3, minHeight: 540, paddingTop: 28, paddingBottom: 28 } },
         // TEXT слева
         _e("div", { style: { maxWidth: 540 } },
           _e(Reveal, null,
@@ -627,7 +627,7 @@
         icon: _e("polygon", { points: "12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2", style: { fill: "none" } })
       }
     ];
-    return _e("section", { "data-no-glow": true, style: { padding: "40px 0", background: "var(--bg)" } },
+    return _e("section", { "data-no-glow": true, style: { padding: "0 0 32px", background: "var(--bg)", marginTop: -8 } },
       _e("div", { className: "container" },
         _e("div", { className: "hh-metrics-strip",
           style: {
