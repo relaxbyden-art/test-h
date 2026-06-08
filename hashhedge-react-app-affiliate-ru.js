@@ -2760,15 +2760,15 @@
           align-items: stretch !important;
         }
         .hh-why-card-vis {
-          width: 110px !important;
-          min-width: 110px !important;
-          max-width: 110px !important;
+          width: 140px !important;
+          min-width: 140px !important;
+          max-width: 140px !important;
           height: auto !important;
           min-height: 100% !important;
           flex-shrink: 0 !important;
           border-bottom: none !important;
           border-right: 1px solid var(--line) !important;
-          padding: 10px !important;
+          padding: 8px !important;
           overflow: hidden !important;
           position: relative !important;
           display: flex !important;
@@ -2783,13 +2783,20 @@
           overflow: hidden !important;
           position: relative !important;
           contain: layout paint !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
         }
+        /* Сжимаем композитный контент vis-блоков — уменьшение через transform с компенсацией width */
         .hh-why-vis-clip > * {
           max-width: 100% !important;
           max-height: 100% !important;
-          transform: scale(0.7) !important;
+          transform: scale(0.55) !important;
+          transform-origin: center center !important;
+          width: 182% !important;
+          flex-shrink: 0 !important;
         }
-        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 90px !important; }
+        .hh-why-vis-clip svg { max-width: 100% !important; max-height: 80px !important; }
         .hh-why-card-body {
           padding: 12px 14px !important;
           position: relative !important;
