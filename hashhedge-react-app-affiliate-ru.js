@@ -546,19 +546,72 @@
   // MARQUEE (thin strip)
   // ============================================================================
   function Marquee() {
-    // Статичные метрики вместо бегущей строки (как у FTMO / Stripe)
+    // 4-stat strip — стиль из v7.0 (blur + плашка + иконки в жёлтых квадратах).
+    // Иконки — чистые Lucide-style, без кривых path'ов.
     const stats = [
-      { v: "2 500+", l: "активных партнёров" },
-      { v: "154",    l: "стран" },
-      { v: "$2.5M+", l: "выплачено партнёрам" },
-      { v: "4.4/5",  l: "Trustpilot" }
+      {
+        v: "2 500+", l: "партнёров",
+        // person/users
+        icon: _e(F, null,
+          _e("path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" }),
+          _e("circle", { cx: 9, cy: 7, r: 4, style: { fill: "none" } }),
+          _e("path", { d: "M22 21v-2a4 4 0 0 0-3-3.87" }),
+          _e("path", { d: "M16 3.13a4 4 0 0 1 0 7.75" })
+        )
+      },
+      {
+        v: "154", l: "страны",
+        // globe
+        icon: _e(F, null,
+          _e("circle", { cx: 12, cy: 12, r: 10, style: { fill: "none" } }),
+          _e("path", { d: "M2 12h20" }),
+          _e("path", { d: "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" })
+        )
+      },
+      {
+        v: "$2.5M+", l: "выплачено партнёрам",
+        // wallet/dollar
+        icon: _e(F, null,
+          _e("rect", { x: 2, y: 6, width: 20, height: 14, rx: 2, style: { fill: "none" } }),
+          _e("path", { d: "M2 10h20" }),
+          _e("circle", { cx: 17, cy: 15, r: 1.5, style: { fill: "currentColor", stroke: "none" } })
+        )
+      },
+      {
+        v: "4.4/5", l: "оценка на Trustpilot",
+        // star
+        icon: _e("polygon", { points: "12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2", style: { fill: "none" } })
+      }
     ];
-    return _e("section", { "data-no-glow": true, style: { padding: "40px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", background: "var(--bg)" } },
+    return _e("section", { "data-no-glow": true, style: { padding: "40px 0", background: "var(--bg)" } },
       _e("div", { className: "container" },
-        _e("div", { className: "hh-metrics-strip", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 } },
-          stats.map((s, i) => _e("div", { key: i, style: { display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 6, padding: "0 16px", borderLeft: i === 0 ? "none" : "1px solid var(--line)" } },
-            _e("div", { style: { fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 800, color: "#fcd535", letterSpacing: "-0.02em", lineHeight: 1 } }, s.v),
-            _e("div", { style: { fontSize: 13, color: "#a1a0a4", fontWeight: 500 } }, s.l)
+        _e("div", { className: "hh-metrics-strip",
+          style: {
+            padding: "20px 24px",
+            background: "rgba(15,15,18,0.6)",
+            backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 18,
+            display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16
+          }
+        },
+          stats.map((s, i) => _e("div", { key: i,
+            style: { display: "flex", alignItems: "center", gap: 14, padding: "0 14px", borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.08)" }
+          },
+            _e("div", { style: {
+              width: 44, height: 44, borderRadius: 12,
+              background: "rgba(252,213,53,0.10)",
+              border: "1px solid rgba(252,213,53,0.30)",
+              display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+            } },
+              _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24",
+                style: { fill: "none", stroke: "#fcd535", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }
+              }, s.icon)
+            ),
+            _e("div", null,
+              _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, s.v),
+              _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 5 } }, s.l)
+            )
           ))
         )
       )
