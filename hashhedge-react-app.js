@@ -3157,13 +3157,13 @@ function Pricing() {
   const sizes = [5000, 10000, 25000, 50000, 100000, 150000];
   const pricing = {
     5000: 79,
-    10000: 79,
-    25000: 240,
+    10000: 99,
+    25000: 299,
     50000: 499,
     100000: 799,
     150000: 1093
   };
-  const flashSaleSizes = [10000, 25000];
+  const flashSaleSizes = []; // акции выключены — оставляем механизм для будущих кампаний
   const paymentLinks = {
     5000: "https://app.hashhedge.com/en/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
     10000: "https://app.hashhedge.com/en/app/payment-form/e1e37983-305a-4781-b104-945c92da525c",
