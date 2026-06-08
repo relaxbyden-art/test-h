@@ -318,65 +318,124 @@
     // Mini sparkline данные — растущая кривая
     const sparkPts = [60, 55, 58, 50, 48, 42, 38, 32, 28, 22, 18, 12];
     const sparkPath = sparkPts.map((y, i) => `${i === 0 ? "M" : "L"} ${i / (sparkPts.length - 1) * 100} ${y}`).join(" ");
-    return _e("div", {
+    return _e("div", { className: "hh-live-card",
       style: {
-        background: "#1C1C1F",
-        border: "1px solid var(--line)",
-        borderRadius: 18, overflow: "hidden",
+        position: "relative",
+        background: "linear-gradient(180deg, rgba(252,213,53,0.05) 0%, rgba(28,28,31,1) 30%, rgba(28,28,31,1) 100%), #1C1C1F",
+        border: "1px solid rgba(252,213,53,0.22)",
+        borderRadius: 22, overflow: "hidden",
         backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
-        boxShadow: "0 40px 80px -20px rgba(0,0,0,0.7)"
+        boxShadow: "0 40px 80px -20px rgba(0,0,0,0.75), 0 0 60px -10px rgba(252,213,53,0.18), inset 0 1px 0 rgba(252,213,53,0.18)"
       }
     },
-      // Header — green LIVE badge, no dot before "Личный кабинет"
-      _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 22px", borderBottom: "1px solid var(--line)" } },
+      // Inline-стили только для этой карточки — keyframes для pulse, shimmer, ripple
+      _e("style", null, `
+        @keyframes hh-live-pulse {
+          0%, 100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
+          70%      { transform: scale(1.15); box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+        }
+        @keyframes hh-progress-shimmer {
+          0%   { transform: translateX(-100%); }
+          100% { transform: translateX(220%); }
+        }
+        @keyframes hh-spark-dot {
+          0%, 100% { transform: scale(1);   opacity: 1; }
+          50%      { transform: scale(1.4); opacity: 0.6; }
+        }
+        @keyframes hh-num-glow {
+          0%, 100% { text-shadow: 0 0 18px rgba(252,213,53,0.18); }
+          50%      { text-shadow: 0 0 28px rgba(252,213,53,0.34); }
+        }
+        .hh-spark-dot { transform-origin: center; animation: hh-spark-dot 1.8s ease-in-out infinite; }
+        .hh-flag-grid span { transition: transform .25s ease; }
+        .hh-flag-grid span:hover { transform: scale(1.25) translateY(-1px); }
+      `),
+      // Top hairline accent — тонкая жёлтая линия по верхней кромке
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", top: 0, left: "10%", right: "10%", height: 1,
+        background: "linear-gradient(90deg, transparent, #fcd535 50%, transparent)",
+        opacity: 0.7, pointerEvents: "none"
+      } }),
+      // Header — pulsing LIVE badge
+      _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 22px", borderBottom: "1px solid rgba(255,255,255,0.05)" } },
         _e("span", { style: { fontSize: 12, fontWeight: 700, letterSpacing: "0.10em", textTransform: "uppercase", color: "#a1a0a4" } }, "Личный кабинет"),
-        _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", padding: "4px 10px", background: "rgba(74,222,128,0.10)", border: "1px solid rgba(74,222,128,0.4)", color: "#4ade80", borderRadius: 100 } },
-          _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade80" } }),
+        _e("span", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", padding: "4px 10px", background: "rgba(74,222,128,0.12)", border: "1px solid rgba(74,222,128,0.45)", color: "#4ade80", borderRadius: 100 } },
+          _e("span", { style: { width: 7, height: 7, borderRadius: "50%", background: "#4ade80", animation: "hh-live-pulse 1.6s ease-in-out infinite" } }),
           "LIVE"
         )
       ),
 
       // Earned + sparkline
-      _e("div", { style: { padding: "18px 22px", borderBottom: "1px solid var(--line)" } },
+      _e("div", { style: { padding: "20px 22px 22px", borderBottom: "1px solid rgba(255,255,255,0.05)" } },
         _e("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 } },
           _e("div", null,
-            _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 6 } }, "Заработано за месяц"),
-            _e("div", { style: { fontSize: 38, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1 } }, "$" + earned.toLocaleString("ru-RU").replace(/,/g, " ")),
-            _e("div", { style: { fontSize: 12, color: "#4ade80", marginTop: 8, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 4 } },
-              _e("span", null, "↑"), "+18% за месяц"
+            _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Заработано за месяц"),
+            // Gradient text + лёгкое свечение
+            _e("div", { style: {
+              fontSize: 42, fontWeight: 800,
+              backgroundImage: "linear-gradient(135deg, #fff 0%, #fcd535 65%, #f0b800 100%)",
+              WebkitBackgroundClip: "text", backgroundClip: "text",
+              WebkitTextFillColor: "transparent", color: "transparent",
+              letterSpacing: "-0.025em", lineHeight: 1,
+              animation: "hh-num-glow 3s ease-in-out infinite",
+              fontFamily: "Akrobat, Onest, sans-serif"
+            } }, "$" + earned.toLocaleString("ru-RU").replace(/,/g, " ")),
+            // +18% теперь жирнее, в виде «pill»
+            _e("div", { style: {
+              display: "inline-flex", alignItems: "center", gap: 5,
+              marginTop: 12, padding: "5px 10px", borderRadius: 100,
+              background: "rgba(74,222,128,0.12)", border: "1px solid rgba(74,222,128,0.32)",
+              color: "#4ade80", fontSize: 11, fontWeight: 700, letterSpacing: "0.02em"
+            } },
+              _e("span", { style: { fontSize: 12, lineHeight: 1 } }, "↑"), "+18% за месяц"
             )
           ),
-          _e("svg", { width: 110, height: 44, viewBox: "0 0 100 70", preserveAspectRatio: "none", style: { flexShrink: 0 } },
-            _e("path", { d: sparkPath + ` L 100 70 L 0 70 Z`, style: { fill: "url(#sparkFill)", opacity: 0.4 } }),
-            _e("path", { d: sparkPath, style: { stroke: "#fcd535", strokeWidth: 2.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" } }),
-            _e("circle", { cx: 100, cy: 12, r: 2.5, style: { fill: "#fcd535" } }),
+          _e("svg", { width: 120, height: 50, viewBox: "0 0 100 70", preserveAspectRatio: "none", style: { flexShrink: 0 } },
+            _e("path", { d: sparkPath + ` L 100 70 L 0 70 Z`, style: { fill: "url(#sparkFill)", opacity: 0.55 } }),
+            _e("path", { d: sparkPath, style: { stroke: "#fcd535", strokeWidth: 2.6, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", filter: "drop-shadow(0 0 6px rgba(252,213,53,0.5))" } }),
+            _e("circle", { className: "hh-spark-dot", cx: 100, cy: 12, r: 3, style: { fill: "#fcd535", filter: "drop-shadow(0 0 6px #fcd535)" } }),
             _e("defs", null, _e("linearGradient", { id: "sparkFill", x1: "0", y1: "0", x2: "0", y2: "1" },
-              _e("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: 0.5 }),
+              _e("stop", { offset: "0%", stopColor: "#fcd535", stopOpacity: 0.6 }),
               _e("stop", { offset: "100%", stopColor: "#fcd535", stopOpacity: 0 })
             ))
           )
         ),
-        // Level progress
-        _e("div", { style: { marginTop: 18 } },
-          _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 11, color: "#a1a0a4", marginBottom: 6 } },
+        // Level progress с shimmer-полоской
+        _e("div", { style: { marginTop: 20 } },
+          _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 11, color: "#a1a0a4", marginBottom: 8 } },
             _e("span", null, "Уровень 5 · ", _e("span", { style: { color: "#fcd535", fontWeight: 700 } }, "70%")),
             _e("span", null, "до Ур. 6 · 75%")
           ),
-          _e("div", { style: { position: "relative", height: 6, borderRadius: 4, background: "rgba(255,255,255,0.06)", overflow: "hidden" } },
-            _e("div", { style: { position: "absolute", inset: "0 24% 0 0", background: "linear-gradient(90deg, #fcd535 0%, #f0b800 100%)", borderRadius: 4 } })
+          _e("div", { style: { position: "relative", height: 8, borderRadius: 6, background: "rgba(255,255,255,0.06)", overflow: "hidden", border: "1px solid rgba(255,255,255,0.04)" } },
+            _e("div", { style: { position: "absolute", inset: "0 24% 0 0", background: "linear-gradient(90deg, #fcd535 0%, #f0b800 100%)", borderRadius: 6, boxShadow: "0 0 12px rgba(252,213,53,0.45)" } }),
+            // Shimmer-полоска
+            _e("div", { style: {
+              position: "absolute", inset: "0 24% 0 0", borderRadius: 6, overflow: "hidden", pointerEvents: "none"
+            } },
+              _e("div", { style: {
+                position: "absolute", top: 0, left: 0, bottom: 0, width: "30%",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
+                animation: "hh-progress-shimmer 2.4s ease-in-out infinite"
+              } })
+            )
           )
         )
       ),
 
-      // Last payouts
+      // Last payouts — теперь каждая строка на отдельной плитке
       _e("div", { style: { padding: "18px 22px" } },
-        _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 14 } }, "Последние выплаты партнёрам"),
-        _e("div", { style: { position: "relative", minHeight: 138, overflow: "hidden" } },
+        _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 12 } }, "Последние выплаты партнёрам"),
+        _e("div", { style: { position: "relative", minHeight: 146, overflow: "hidden", display: "flex", flexDirection: "column", gap: 8 } },
           payouts.map((p, i) => _e("div", {
             key: pIdx + "-" + i,
             style: {
-              display: "grid", gridTemplateColumns: "32px 1fr auto", gap: 12, alignItems: "center",
-              padding: "10px 0", borderTop: i === 0 ? "none" : "1px solid var(--line)",
+              display: "grid", gridTemplateColumns: "30px 1fr auto", gap: 12, alignItems: "center",
+              padding: "10px 12px",
+              background: i === 0
+                ? "linear-gradient(90deg, rgba(252,213,53,0.10) 0%, rgba(252,213,53,0.02) 100%)"
+                : "rgba(255,255,255,0.025)",
+              border: i === 0 ? "1px solid rgba(252,213,53,0.22)" : "1px solid rgba(255,255,255,0.05)",
+              borderRadius: 10,
               animation: i === 0 ? "hh-payout-in .55s var(--ease-out, cubic-bezier(.22,1,.36,1)) both" : "hh-payout-shift .55s ease both"
             }
           },
@@ -384,17 +443,20 @@
             _e("div", null,
               _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#f5f1e8" } }, `${p.name} · ${p.city}`)
             ),
-            _e("span", { style: { color: "#fcd535", fontWeight: 800, fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace", fontSize: 13 } }, `+$${p.amt.toLocaleString("ru-RU").replace(/,/g, " ")}`)
+            _e("span", { style: { color: "#fcd535", fontWeight: 800, fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace", fontSize: 14, textShadow: i === 0 ? "0 0 8px rgba(252,213,53,0.4)" : "none" } }, `+$${p.amt.toLocaleString("ru-RU").replace(/,/g, " ")}`)
           ))
         ),
-        // География выплат — mini block
-        _e("div", { style: { marginTop: 4, paddingTop: 12, borderTop: "1px solid var(--line)" } },
-          _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 10 } }, "География выплат"),
-          _e("div", { style: { display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" } },
+        // География выплат — mini block с интерактивными hover на флагах
+        _e("div", { style: { marginTop: 14, paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.05)" } },
+          _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 } },
+            _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#a1a0a4" } }, "География выплат"),
+            _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 5, padding: "3px 9px", borderRadius: 100, background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.25)", color: "#fcd535", fontSize: 10, fontWeight: 800, letterSpacing: "0.08em" } }, "154 СТРАНЫ")
+          ),
+          _e("div", { className: "hh-flag-grid", style: { display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" } },
             ["🇺🇸", "🇩🇪", "🇬🇧", "🇯🇵", "🇰🇷", "🇧🇷", "🇦🇪", "🇫🇷", "🇮🇳", "🇨🇦", "🇳🇱", "🇸🇬", "🇮🇹", "🇵🇱", "🇪🇸", "🇹🇷"].map((f, i) =>
-              _e("span", { key: i, style: { fontSize: 18, opacity: 0.92 } }, f)
+              _e("span", { key: i, style: { fontSize: 18, opacity: 0.95, cursor: "default", display: "inline-block" } }, f)
             ),
-            _e("span", { style: { fontSize: 12, color: "#a1a0a4", marginLeft: 4 } }, "+ ещё 138 стран")
+            _e("span", { style: { fontSize: 12, color: "#a1a0a4", marginLeft: 4 } }, "+ ещё 138")
           )
         )
       )
