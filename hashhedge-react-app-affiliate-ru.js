@@ -541,9 +541,9 @@
             )
           ),
           _e(Reveal, { delay: "1" },
-            _e("h1", {
+            _e("h1", { className: "hh-partner-hero-h1",
               style: {
-                fontSize: "clamp(34px, 4.2vw, 52px)", lineHeight: 1.04, fontWeight: 800,
+                fontSize: 60, lineHeight: 1.04, fontWeight: 800,
                 letterSpacing: "-0.03em", margin: "0 0 18px", color: "#f5f1e8",
                 whiteSpace: "nowrap"
               }
@@ -2723,6 +2723,12 @@
         .hh-hero-bg, .hh-hero-fg, .hh-hero-overlay, .hh-hero-livecard-wrap { display: none !important; }
         .hh-partner-hero { background: var(--bg) !important; }
         .hh-partner-hero .container { min-height: auto !important; }
+
+        /* === v8.4: H1 на мобиле меньше (десктоп = 60px) === */
+        .hh-partner-hero-h1 {
+          font-size: 38px !important;
+          white-space: normal !important;
+        }
 
         /* === v8.2 mobile: Marquee 4-stat block — 2x2 grid без вертикальных разделителей === */
         .hh-metrics-strip {
