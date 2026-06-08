@@ -321,14 +321,13 @@
     return _e("div", { className: "hh-live-card hh-glass",
       style: {
         position: "relative",
-        // iOS 26 «Liquid Glass» — полупрозрачное стекло с blur backdrop и saturation boost
-        background: "linear-gradient(180deg, rgba(252,213,53,0.08) 0%, rgba(28,28,31,0.55) 30%, rgba(28,28,31,0.55) 100%)",
+        // iOS 26 «Liquid Glass» — нейтральный, без жёлтых тонов
+        background: "rgba(28,28,31,0.48)",
         border: "1px solid rgba(255,255,255,0.10)",
         borderRadius: 26, overflow: "hidden",
         backdropFilter: "blur(28px) saturate(180%)", WebkitBackdropFilter: "blur(28px) saturate(180%)",
         boxShadow: [
-          "0 30px 60px -16px rgba(0,0,0,0.55)",            // мягкая тень глубины
-          "0 0 60px -10px rgba(252,213,53,0.18)",          // жёлтый glow вокруг
+          "0 30px 60px -16px rgba(0,0,0,0.55)",            // глубокая тень парения
           "inset 0 1px 0 rgba(255,255,255,0.18)",          // верхняя highlight линия
           "inset 0 -1px 0 rgba(0,0,0,0.20)",               // нижняя shadow линия
           "inset 0 0 0 1px rgba(255,255,255,0.04)"         // тонкая внутренняя ramp
@@ -488,13 +487,25 @@
       style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
     },
       _e(HeroCandles, null),
-      // Liquid Glass: жёлтый blur-blob позади LiveCard — даёт стеклу что преломлять
+      // Liquid Glass — несколько цветных blob'ов позади LiveCard для преломления.
+      // Multi-color mesh (фирменный жёлтый + холодный аква + фиолетовый) даёт богатое стекло без визуального шума.
       _e("div", { "aria-hidden": true, style: {
-        position: "absolute", right: "8%", top: "30%",
-        width: 460, height: 460, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(252,213,53,0.22) 0%, rgba(252,213,53,0.06) 40%, transparent 70%)",
-        filter: "blur(60px)",
-        pointerEvents: "none", zIndex: 0
+        position: "absolute", right: "18%", top: "20%",
+        width: 320, height: 320, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(252,213,53,0.18) 0%, transparent 70%)",
+        filter: "blur(60px)", pointerEvents: "none", zIndex: 0
+      } }),
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", right: "4%", top: "55%",
+        width: 340, height: 340, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(91,181,232,0.22) 0%, transparent 70%)",
+        filter: "blur(70px)", pointerEvents: "none", zIndex: 0
+      } }),
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", right: "26%", top: "60%",
+        width: 280, height: 280, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)",
+        filter: "blur(80px)", pointerEvents: "none", zIndex: 0
       } }),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.35fr minmax(380px, 460px)", gap: 64, alignItems: "center" } },
