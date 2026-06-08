@@ -543,7 +543,7 @@
   }
 
   function Hero() {
-    const HERO_BG = ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/hero-partner-bg.png";
+    const HERO_BG = ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/hero-partner-bg.jpg";
     const heroStats = [
       { v: "2 500+", l: "партнёров",          ic: "M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" },
       { v: "154",    l: "страны",             ic: "M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18 M3 12a9 9 0 0 1 18 0 9 9 0 0 1-18 0z" },
