@@ -697,7 +697,19 @@
     );
 
     // VIZ 2 — timeline (Нед.1 +$240 → ∞)
-    const V2 = () => _e("div", { style: { display: "flex", alignItems: "flex-end", gap: 8, padding: "0 4px" } },
+    const V2 = () => isMobile
+      ? _e("div", { style: { width: "100%", display: "flex", flexDirection: "column", gap: 6, padding: "0 6px", justifyContent: "center", height: "100%" } },
+          [
+            { l: "Нед. 1", v: "+$240" },
+            { l: "Нед. 2", v: "+$280" },
+            { l: "Нед. 3", v: "+$310" },
+            { l: "всегда", v: "∞", inf: true }
+          ].map((it, i) => _e("div", { key: i, style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 9px", borderRadius: 8, border: it.inf ? "1px solid rgba(252,213,53,0.45)" : "1px solid var(--line)", background: it.inf ? "rgba(252,213,53,0.08)" : "rgba(255,255,255,0.025)" } },
+            _e("span", { style: { fontSize: 9, color: "#a1a0a4", fontWeight: 600 } }, it.l),
+            _e("span", { style: { fontSize: it.inf ? 16 : 12, fontWeight: 800, color: it.inf ? "#fcd535" : "#f5f1e8", lineHeight: 1 } }, it.v)
+          ))
+        )
+      : _e("div", { style: { display: "flex", alignItems: "flex-end", gap: 8, padding: "0 4px" } },
       [
         { l: "Нед. 1", v: "+$240", w: "60px" },
         { l: "Нед. 2", v: "+$280", w: "60px" },
@@ -844,7 +856,18 @@
     };
 
     // VIZ 7 — Promo code field with Partner2026
-    const V7 = () => _e("div", { style: { width: "100%", padding: "0 6px", textAlign: "center" } },
+    const V7 = () => isMobile
+      ? _e("div", { style: { width: "100%", padding: "0 4px", textAlign: "center", display: "flex", flexDirection: "column", gap: 8, justifyContent: "center", height: "100%" } },
+          _e("div", { style: { display: "flex", gap: 0, width: "100%" } },
+            _e("div", { style: { flex: 1, padding: "8px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRight: "none", borderRadius: "8px 0 0 8px", textAlign: "center", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.04em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, "PARTNER"),
+            _e("div", { style: { padding: "8px 10px", background: "#fcd535", borderRadius: "0 8px 8px 0", color: "#13111c", fontSize: 13, fontWeight: 800, whiteSpace: "nowrap" } }, "−25%")
+          ),
+          _e("div", { style: { fontSize: 10, color: "#9ef0c0", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4, lineHeight: 1.2 } },
+            _e("span", { style: { width: 4, height: 4, borderRadius: "50%", background: "#9ef0c0", flexShrink: 0 } }),
+            "Скидка 25%"
+          )
+        )
+      : _e("div", { style: { width: "100%", padding: "0 6px", textAlign: "center" } },
       _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 12 } }, "Промокод"),
       _e("div", { style: { display: "flex", gap: 0, maxWidth: 240, margin: "0 auto" } },
         _e("div", { style: { flex: 1, padding: "12px 14px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRight: "none", borderRadius: "10px 0 0 10px", textAlign: "left", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 14, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em" } }, "PARTNER2026"),
@@ -2753,114 +2776,35 @@
         }
         .hh-why-vis-clip svg { max-width: 100% !important; max-height: 80px !important; }
 
-        /* === v8.6 per-card scale ===  */
-        /* Cards 1 (80%/20%) / 3 (5-10x) / 4 (USDT) / 7 (трекинг) / 8 (суб-партнёрство) — увеличены ~×2 */
-        .hh-why-grid > div:nth-child(1) .hh-why-card-vis,
-        .hh-why-grid > div:nth-child(3) .hh-why-card-vis,
-        .hh-why-grid > div:nth-child(4) .hh-why-card-vis,
-        .hh-why-grid > div:nth-child(7) .hh-why-card-vis,
-        .hh-why-grid > div:nth-child(8) .hh-why-card-vis {
-          width: 180px !important;
-          min-width: 180px !important;
-          max-width: 180px !important;
+        /* === v9.1: UNIFIED 140px vis-area for ALL cards, no overflow === */
+        .hh-why-card-vis {
+          width: 140px !important;
+          min-width: 140px !important;
+          max-width: 140px !important;
         }
-        .hh-why-grid > div:nth-child(1) .hh-why-vis-clip > *,
-        .hh-why-grid > div:nth-child(3) .hh-why-vis-clip > *,
-        .hh-why-grid > div:nth-child(4) .hh-why-vis-clip > *,
-        .hh-why-grid > div:nth-child(7) .hh-why-vis-clip > *,
-        .hh-why-grid > div:nth-child(8) .hh-why-vis-clip > * {
-          transform: scale(0.85) !important;
-          width: 118% !important;
-        }
-        /* Card 5 — 7 уровней — увеличена ×1.5 */
-        .hh-why-grid > div:nth-child(5) .hh-why-card-vis {
-          width: 165px !important;
-          min-width: 165px !important;
-          max-width: 165px !important;
-        }
-        .hh-why-grid > div:nth-child(5) .hh-why-vis-clip > * {
-          transform: scale(0.78) !important;
-          width: 128% !important;
-        }
-        /* Card 2 — Пожизненные — выровнять чтобы правый кружок ∞ попадал */
-        .hh-why-grid > div:nth-child(2) .hh-why-card-vis {
-          padding: 4px !important;
-        }
-        .hh-why-grid > div:nth-child(2) .hh-why-vis-clip > * {
-          transform: scale(0.50) !important;
-          width: 200% !important;
-        }
-        /* Card 1 — на мобиле скрыть «Комиссия партнёра» eyebrow и плашку «Конкуренты платят» */
-        .hh-v1-eyebrow, .hh-v1-competitors { display: none !important; }
-        .hh-v1 { padding: 0 4px !important; }
-
-        /* === v9.0 Per-card visual fixes === */
-        /* Card 1: уже использует hh-v1-mobile (isMobile) — отдельный рендер 'до 80% Партнёру' */
-        .hh-v1-mobile { transform: none !important; width: 100% !important; }
-
-        /* Card 2 (Пожизненные): 3 круга — центрировать (было flex-end справа) */
-        .hh-why-grid > div:nth-child(2) .hh-why-vis-clip > * {
-          transform: scale(0.65) !important;
-          width: 154% !important;
-          justify-content: center !important;
-        }
-
-        /* Card 3 (Больше прибыли, чем на биржах): скрываем заголовок '5-10×' и подпись 'доход vs ...' — оставляем только 2 плашки больше */
-        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:nth-child(1),
-        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:nth-child(2) {
-          display: none !important;
-        }
-        .hh-why-grid > div:nth-child(3) .hh-viz-3 {
+        /* Default: no transform/scale — content sized via V components mobile branches */
+        .hh-why-vis-clip > * {
           transform: none !important;
           width: 100% !important;
           max-width: 100% !important;
         }
+        .hh-v1-mobile { width: 100% !important; }
+
+        /* Card 1 — V1 уже использует isMobile branch (hh-v1-mobile) */
+        .hh-v1-eyebrow, .hh-v1-competitors { display: none !important; }
+
+        /* Card 3 (Больше прибыли): скрыть '5-10×' и подпись 'доход vs ...' — только 2 плашки stacked */
+        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:nth-child(1),
+        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:nth-child(2) { display: none !important; }
         .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:last-child {
           grid-template-columns: 1fr !important;
-          gap: 6px !important;
+          gap: 5px !important;
         }
         .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:last-child > div {
-          padding: 8px 10px !important;
+          padding: 7px 8px !important;
         }
-        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:last-child > div > div:nth-child(1) {
-          font-size: 9px !important;
-        }
-        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:last-child > div > div:nth-child(2) {
-          font-size: 16px !important;
-        }
-
-        /* Card 4 (Быстрые выплаты USDT): больше круг + цифра */
-        .hh-why-grid > div:nth-child(4) .hh-viz-4 {
-          transform: none !important;
-          width: 100% !important;
-          max-width: 100% !important;
-        }
-        .hh-why-grid > div:nth-child(4) .hh-viz-4 > div:nth-child(1) {
-          width: 66px !important; height: 66px !important;
-          font-size: 16px !important;
-          margin-bottom: 10px !important;
-        }
-        .hh-why-grid > div:nth-child(4) .hh-viz-4 > div:nth-child(2) {
-          font-size: 22px !important;
-        }
-        .hh-why-grid > div:nth-child(4) .hh-viz-4 > div:nth-child(2) > span {
-          font-size: 11px !important;
-        }
-        .hh-why-grid > div:nth-child(4) .hh-viz-4 > div:nth-child(3) {
-          font-size: 10px !important;
-          padding: 3px 8px !important;
-        }
-
-        /* Card 6 (Промокоды для аудитории) — заметили проблему с overflow «-25%» */
-        .hh-why-grid > div:nth-child(6) .hh-why-vis-clip > * {
-          transform: scale(0.85) !important;
-          width: 118% !important;
-        }
-        .hh-why-grid > div:nth-child(6) .hh-why-card-vis {
-          width: 175px !important;
-          min-width: 175px !important;
-          max-width: 175px !important;
-        }
+        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:last-child > div > div:nth-child(1) { font-size: 9px !important; }
+        .hh-why-grid > div:nth-child(3) .hh-viz-3 > div:last-child > div > div:nth-child(2) { font-size: 15px !important; }
 
         /* === v8.6 PartnerContent (Контент партнёров) mobile: 2 видео подряд + horizontal slider остального === */
         .hh-yt-top {
