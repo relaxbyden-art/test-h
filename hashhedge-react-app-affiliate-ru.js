@@ -717,8 +717,8 @@
     );
 
     // VIZ 1 — 80% bar
-    const V1 = () => _e("div", { style: { width: "100%", padding: "0 8px" } },
-      _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 14, textAlign: "center" } }, "Комиссия партнёра"),
+    const V1 = () => _e("div", { className: "hh-v1", style: { width: "100%", padding: "0 8px" } },
+      _e("div", { className: "hh-v1-eyebrow", style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 14, textAlign: "center" } }, "Комиссия партнёра"),
       _e("div", { style: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 } },
         _e("div", { style: { display: "grid", gridTemplateColumns: "100px 1fr 50px", gap: 10, alignItems: "center" } },
           _e("span", { style: { fontSize: 13, color: "#f5f1e8", fontWeight: 600 } }, "Партнёр"),
@@ -735,7 +735,7 @@
           _e("span", { style: { fontSize: 14, fontWeight: 700, color: "#a1a0a4", textAlign: "right" } }, "20%")
         )
       ),
-      _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", marginTop: 6, background: "rgba(8,8,10,0.5)", borderRadius: 8, borderTop: "1px dashed var(--line)" } },
+      _e("div", { className: "hh-v1-competitors", style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", marginTop: 6, background: "rgba(8,8,10,0.5)", borderRadius: 8, borderTop: "1px dashed var(--line)" } },
         _e("span", { style: { fontSize: 11, color: "#a1a0a4" } }, "Конкуренты платят"),
         _e("span", { style: { fontSize: 12, fontWeight: 700, color: "#ff4b5c" } }, "8–20%")
       )
@@ -2797,6 +2797,80 @@
           flex-shrink: 0 !important;
         }
         .hh-why-vis-clip svg { max-width: 100% !important; max-height: 80px !important; }
+
+        /* === v8.6 per-card scale ===  */
+        /* Cards 1 (80%/20%) / 3 (5-10x) / 4 (USDT) / 7 (трекинг) / 8 (суб-партнёрство) — увеличены ~×2 */
+        .hh-why-grid > div:nth-child(1) .hh-why-card-vis,
+        .hh-why-grid > div:nth-child(3) .hh-why-card-vis,
+        .hh-why-grid > div:nth-child(4) .hh-why-card-vis,
+        .hh-why-grid > div:nth-child(7) .hh-why-card-vis,
+        .hh-why-grid > div:nth-child(8) .hh-why-card-vis {
+          width: 180px !important;
+          min-width: 180px !important;
+          max-width: 180px !important;
+        }
+        .hh-why-grid > div:nth-child(1) .hh-why-vis-clip > *,
+        .hh-why-grid > div:nth-child(3) .hh-why-vis-clip > *,
+        .hh-why-grid > div:nth-child(4) .hh-why-vis-clip > *,
+        .hh-why-grid > div:nth-child(7) .hh-why-vis-clip > *,
+        .hh-why-grid > div:nth-child(8) .hh-why-vis-clip > * {
+          transform: scale(0.85) !important;
+          width: 118% !important;
+        }
+        /* Card 5 — 7 уровней — увеличена ×1.5 */
+        .hh-why-grid > div:nth-child(5) .hh-why-card-vis {
+          width: 165px !important;
+          min-width: 165px !important;
+          max-width: 165px !important;
+        }
+        .hh-why-grid > div:nth-child(5) .hh-why-vis-clip > * {
+          transform: scale(0.78) !important;
+          width: 128% !important;
+        }
+        /* Card 2 — Пожизненные — выровнять чтобы правый кружок ∞ попадал */
+        .hh-why-grid > div:nth-child(2) .hh-why-card-vis {
+          padding: 4px !important;
+        }
+        .hh-why-grid > div:nth-child(2) .hh-why-vis-clip > * {
+          transform: scale(0.50) !important;
+          width: 200% !important;
+        }
+        /* Card 1 — на мобиле скрыть «Комиссия партнёра» eyebrow и плашку «Конкуренты платят» */
+        .hh-v1-eyebrow, .hh-v1-competitors { display: none !important; }
+        .hh-v1 { padding: 0 4px !important; }
+
+        /* === v8.6 PartnerContent (Контент партнёров) mobile: 2 видео подряд + horizontal slider остального === */
+        .hh-yt-top {
+          grid-template-columns: 1fr !important;
+          gap: 14px !important;
+        }
+        /* Правый стек делается обычным потоком */
+        .hh-yt-top > div:last-child {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 14px !important;
+        }
+        /* Показываем только первый thumb справа (всего 2 видео сверху: hero + 1 thumb) */
+        .hh-yt-top > div:last-child > div:nth-child(n+2) {
+          display: none !important;
+        }
+        /* Нижний ряд — горизонтальный slider snap (как на главной RU) */
+        .hh-yt-bottom {
+          display: flex !important;
+          grid-template-columns: none !important;
+          overflow-x: auto !important;
+          scroll-snap-type: x mandatory !important;
+          gap: 12px !important;
+          padding: 2px 0 8px !important;
+          margin-top: 14px !important;
+          -webkit-overflow-scrolling: touch !important;
+        }
+        .hh-yt-bottom::-webkit-scrollbar { display: none !important; }
+        .hh-yt-bottom > div {
+          flex: 0 0 78% !important;
+          scroll-snap-align: start !important;
+          min-width: 0 !important;
+        }
         .hh-why-card-body {
           padding: 12px 14px !important;
           position: relative !important;
