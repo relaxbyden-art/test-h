@@ -3463,7 +3463,7 @@ function Pricing() {
     const isPop = s === popular;
     const isBest = s === 150000;
     const isFlash = flashSaleSizes.indexOf(s) >= 0;
-    const badge = isFlash ? "ऑफर" : isBest ? "सर्वोत्तम VALUE" : isPop ? "लोकप्रिय" : null;
+    const badge = isFlash ? "ऑफर" : isBest ? "सर्वोत्तम मूल्य" : isPop ? "लोकप्रिय" : null;
     const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
@@ -3561,7 +3561,7 @@ function Pricing() {
       className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
     }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge"
-    }, isBest ? "सर्वोत्तम value" : "लोकप्रिय"), /*#__PURE__*/React.createElement("div", {
+    }, isBest ? "सर्वोत्तम मूल्य" : "लोकप्रिय"), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "अकाउंट"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
