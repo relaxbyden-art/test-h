@@ -467,76 +467,121 @@
   // HERO
   // ============================================================================
   function Hero() {
+    // v8.0: слоистый hero. Снизу вверх:
+    //   z:0 bg  — assets/hero-partner-bg.png (полная сцена с мужчиной)
+    //   z:1 LiveCard — позиционируется поверх стола/ноутбука
+    //   z:2 fg  — assets/hero-partner-fg.png (cutout мужчины с прозрачным фоном) — он перекрывает LiveCard там, где он находится
+    //   z:3 контент (text/notif/geo) — всегда поверх
+    const HERO_BG = ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/hero-partner-bg.png";
+    const HERO_FG = ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/hero-partner-fg.png";
     return _e("section", {
       className: "hh-partner-hero",
       "data-no-glow": true,
-      style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
+      style: {
+        position: "relative", overflow: "hidden",
+        minHeight: 720,
+        background: "var(--bg)"
+      }
     },
-      _e(HeroCandles, null),
-      _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
-        _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.35fr minmax(380px, 460px)", gap: 64, alignItems: "center" } },
+      // ── Layer 0: BG (полная сцена) ───────────────────────────
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", inset: 0,
+        backgroundImage: `url(${HERO_BG})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        zIndex: 0
+      } }),
+      // dark overlay для читаемости текста слева
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", inset: 0,
+        background: "linear-gradient(90deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.55) 35%, rgba(8,8,10,0.30) 60%, rgba(8,8,10,0.45) 100%)",
+        zIndex: 0
+      } }),
 
-          // LEFT
+      // ── Layer 1: LiveCard (позиционируется поверх стола/ноутбука в центре-справа) ──
+      _e("div", { style: {
+        position: "absolute",
+        // 38-52% по горизонтали — чуть левее ноутбука; cutout мужчины перекроет правую часть карточки
+        left: "40%", top: "50%", transform: "translateY(-50%)",
+        width: "min(360px, 30vw)",
+        zIndex: 1
+      } },
+        _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null))
+      ),
+
+      // ── Layer 2: FG cutout мужчины — перекрывает LiveCard ───
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", inset: 0,
+        backgroundImage: `url(${HERO_FG})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        zIndex: 2,
+        pointerEvents: "none"
+      } }),
+
+      // ── Layer 3: Content (text слева + notif chips справа + geo) ───
+      _e("div", { className: "container", style: { position: "relative", zIndex: 3, minHeight: 720, paddingTop: 60, paddingBottom: 80 } },
+        // TEXT слева
+        _e("div", { style: { maxWidth: 540 } },
           _e(Reveal, null,
-            _e("div", null,
-              // eyebrow
-              _e("span", {
-                style: {
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  padding: "6px 14px", borderRadius: 100,
-                  border: "1px solid var(--line)",
-                  background: "rgba(255,255,255,0.02)",
-                  fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4",
-                  marginBottom: 24
-                }
-              },
-                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "Партнёрская программа Hash Hedge"
-              ),
-
-              // H1
-              _e("h1", {
-                style: {
-                  fontSize: "clamp(36px, 4.6vw, 58px)", lineHeight: 1.04, fontWeight: 800,
-                  letterSpacing: "-0.03em", margin: "0 0 24px", color: "#f5f1e8"
-                }
-              },
-                "Продвигай", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"), _e("br", null),
-                "и зарабатывай", _e("br", null),
-                "вместе с нами"
-              ),
-
-              _e("p", { style: { fontSize: 18, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 36, maxWidth: 580 } },
-                "Получай до 80% комиссии с каждого привлечённого трейдера. Пожизненные начисления, прозрачная статистика и быстрые выплаты."
-              ),
-
-              // Hero buttons — те же классы что на главной (.btn .btn-primary / .btn .btn-ghost, height 56px из CSS)
-              _e("div", { style: { display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 32 } },
-                _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
-                  style: { textDecoration: "none" }
-                }, "Стать партнёром →"),
-                _e("a", { href: "#calc", className: "btn btn-ghost",
-                  style: { textDecoration: "none" }
-                }, "Рассчитать доход")
-              ),
-
-              // Trustpilot — как в прошлой версии: 5 звёзд в строку + 2 строки текста
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 14 } },
-                _e("div", { style: { display: "flex", gap: 2 } },
-                  [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 22 })),
-                  _e(TPStar, { size: 22, half: true })
-                ),
-                _e("div", { style: { fontSize: 14, lineHeight: 1.35 } },
-                  _e("div", { style: { fontWeight: 700, color: "#f5f1e8" } }, "4.4 · Trustpilot"),
-                  _e("div", { style: { color: "#a1a0a4", fontSize: 13 } }, "Сотрудничай с платформой, которой доверяют")
-                )
-              )
+            _e("span", {
+              style: {
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "6px 14px", borderRadius: 100,
+                border: "1px solid rgba(255,255,255,0.10)",
+                background: "rgba(15,15,18,0.6)",
+                backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
+                fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#cfcfd3",
+                marginBottom: 22
+              }
+            },
+              _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+              "Партнёрская программа Hash Hedge"
             )
           ),
-
-          // RIGHT — live partner card
-          _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null))
+          _e(Reveal, { delay: "1" },
+            _e("h1", {
+              style: {
+                fontSize: "clamp(36px, 4.6vw, 58px)", lineHeight: 1.04, fontWeight: 800,
+                letterSpacing: "-0.03em", margin: "0 0 20px", color: "#f5f1e8"
+              }
+            },
+              "Продвигай ",
+              _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"), _e("br", null),
+              "и зарабатывай",
+              _e("br", null),
+              "вместе с нами"
+            )
+          ),
+          _e(Reveal, { delay: "2" },
+            _e("p", { style: { fontSize: 17, color: "#c9c8cc", lineHeight: 1.55, marginBottom: 28, maxWidth: 460 } },
+              "Получай до 80% комиссии с каждого привлечённого трейдера. Пожизненные начисления, прозрачная статистика и быстрые выплаты."
+            )
+          ),
+          _e(Reveal, { delay: "3" },
+            _e("div", { style: { display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 24 } },
+              _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
+                style: { textDecoration: "none" }
+              }, "Стать партнёром →"),
+              _e("a", { href: "#calc", className: "btn btn-ghost",
+                style: { textDecoration: "none", background: "rgba(15,15,18,0.4)", backdropFilter: "blur(8px)" }
+              }, "Рассчитать доход")
+            )
+          ),
+          _e(Reveal, { delay: "4" },
+            _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 12 } },
+              _e("div", { style: { display: "flex", gap: 2 } },
+                [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 20 })),
+                _e(TPStar, { size: 20, half: true })
+              ),
+              _e("div", { style: { fontSize: 13, lineHeight: 1.3 } },
+                _e("div", { style: { fontWeight: 700, color: "#f5f1e8" } }, "4.4 · Trustpilot"),
+                _e("div", { style: { color: "#a1a0a4", fontSize: 12 } }, "Сотрудничай с платформой, которой доверяют")
+              )
+            )
+          )
         )
       )
     );
