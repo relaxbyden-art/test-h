@@ -484,7 +484,7 @@
       }
     },
       // ── Layer 0: BG (полная сцена) ───────────────────────────
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-bg", style: {
         position: "absolute", inset: 0,
         backgroundImage: `url(${HERO_BG})`,
         backgroundSize: "cover",
@@ -493,14 +493,14 @@
         zIndex: 0
       } }),
       // dark overlay для читаемости текста слева
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-overlay", style: {
         position: "absolute", inset: 0,
         background: "linear-gradient(90deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.55) 35%, rgba(8,8,10,0.30) 60%, rgba(8,8,10,0.45) 100%)",
         zIndex: 0
       } }),
 
       // ── Layer 1: LiveCard (позиционируется правее и выше, чтобы мужчина перекрывал только правую кромку) ──
-      _e("div", { style: {
+      _e("div", { className: "hh-hero-livecard-wrap", style: {
         position: "absolute",
         left: "48%", top: "38%", transform: "translateY(-50%)",
         width: "min(340px, 28vw)",
@@ -510,7 +510,7 @@
       ),
 
       // ── Layer 2: FG cutout мужчины — перекрывает LiveCard ───
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-fg", style: {
         position: "absolute", inset: 0,
         backgroundImage: `url(${HERO_FG})`,
         backgroundSize: "cover",
@@ -2714,10 +2714,38 @@
         .hh-hero-candles { bottom: 65% !important; opacity: 0.7 !important; }
 
         /* (11) Меньше отступы заголовок↔описание во всех секциях */
-        .hh-partner-hero { padding-top: 32px !important; padding-bottom: 32px !important; }
+        .hh-partner-hero { padding-top: 32px !important; padding-bottom: 32px !important; min-height: auto !important; }
         section[id] { padding-top: 48px !important; padding-bottom: 48px !important; }
         section h2, section .h1 { margin-bottom: 10px !important; }
         section h2 + p, section h2 + .container > p { margin-top: 6px !important; }
+
+        /* === v8.2 mobile: убрать фото мужчины + LiveCard на мобиле === */
+        .hh-hero-bg, .hh-hero-fg, .hh-hero-overlay, .hh-hero-livecard-wrap { display: none !important; }
+        .hh-partner-hero { background: var(--bg) !important; }
+        .hh-partner-hero .container { min-height: auto !important; }
+
+        /* === v8.2 mobile: Marquee 4-stat block — 2x2 grid без вертикальных разделителей === */
+        .hh-metrics-strip {
+          grid-template-columns: 1fr 1fr !important;
+          gap: 10px !important;
+          padding: 14px !important;
+        }
+        .hh-metrics-strip > div {
+          border-left: none !important;
+          padding: 10px 8px !important;
+          background: rgba(255,255,255,0.02);
+          border-radius: 12px;
+          gap: 10px !important;
+        }
+        .hh-metrics-strip > div > div:first-child {
+          width: 36px !important; height: 36px !important;
+        }
+        .hh-metrics-strip > div > div:last-child > div:first-child {
+          font-size: 18px !important;
+        }
+        .hh-metrics-strip > div > div:last-child > div:last-child {
+          font-size: 10px !important;
+        }
 
         /* === (v3.9) WhyPartner: жёсткий containment vis-area === */
         .hh-why-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
