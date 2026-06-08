@@ -556,6 +556,7 @@
       style: {
         position: "relative", overflow: "hidden",
         paddingTop: 40, paddingBottom: 40,
+        minHeight: 760,
         background: "var(--bg)"
       }
     },
@@ -581,7 +582,9 @@
 
       _e("div", { className: "container", style: { position: "relative", zIndex: 1, paddingTop: 40, paddingBottom: 40 } },
         _e("div", { className: "hh-partner-hero-grid",
-          style: { display: "grid", gridTemplateColumns: "1.05fr minmax(360px, 420px) minmax(220px, 280px)", gap: 32, alignItems: "center" }
+          // 4 колонки: text | LiveCard | СКВОЗНОЕ-ОКНО для мужчины | notif chips + geo
+          // alignItems: end — карточки прижаты к низу секции, чтобы лицо мужчины было видно сверху над ними
+          style: { display: "grid", gridTemplateColumns: "minmax(340px, 1fr) 340px minmax(140px, 0.9fr) 230px", gap: 22, alignItems: "end", paddingTop: 80 }
         },
 
           // ─── LEFT: Text content ─────────────────────────────────────────
@@ -640,6 +643,9 @@
 
           // ─── CENTER: LIVE Cabinet card ─────────────────────────────────
           _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null)),
+
+          // ─── SPACER: пустая колонка чтобы было видно мужчину между LiveCard и notif chips ──
+          _e("div", { "aria-hidden": true, style: { width: "100%", minHeight: 1 } }),
 
           // ─── RIGHT: 4 notification chips + geo widget ──────────────────
           _e(Reveal, { delay: "3" },
