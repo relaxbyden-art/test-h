@@ -826,8 +826,7 @@
         body: "Запрашивай вывод в USDT в любой момент. Деньги придут на твой кошелёк в течение 72 часов." },
       { viz: _e(V5, null), chip: "Растёшь автоматически", title: "7 уровней партнёрства", titleAccent: "before",
         body: "Чем больше рефералов ты привлечёшь, тем выше твоя комиссия." },
-      { viz: _e(V6, null), chip: "Глобальный охват · 154 страны", title: "Трафик из 154 стран", titleAccent: "before",
-        body: "Работай с трейдерами из любых гео без ограничений. Hash Hedge принимает пользователей из 154 стран." },
+      // Карточка "Трафик из 154 стран" скрыта — чтобы сетка 4+4 без orphan
       // === 3 новые карточки ===
       { viz: _e(V7, null), chip: "Скидки для аудитории", title: "Промокоды для аудитории", titleAccent: "before",
         body: "Получай персональные скидки для своих подписчиков, чтобы повысить конверсию и стимулировать покупки по твоей ссылке." },
@@ -912,17 +911,23 @@
         _e("div", { className: "hh-income-grid", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 } },
           sources.map((s, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("div", { className: "hh-income-card",
-              style: { background: "#151517", border: "1px solid var(--line)", borderRadius: 18, padding: 28, height: "100%", display: "flex", flexDirection: "column" }
+              style: { position: "relative", background: "#151517", border: "1px solid var(--line)", borderRadius: 18, padding: "32px 28px 28px", height: "100%", display: "flex", flexDirection: "column", overflow: "hidden" }
             },
-              _e("div", { className: "hh-income-head",
-                style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 20 }
-              },
-                _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", fontFamily: "ui-monospace,Menlo,monospace" } }, s.n),
+              // Большая декоративная цифра на фоне справа сверху
+              _e("div", { "aria-hidden": true, style: {
+                position: "absolute", top: -22, right: -8,
+                fontSize: 160, lineHeight: 1, fontWeight: 900, letterSpacing: "-0.04em",
+                color: "rgba(252,213,53,0.06)", fontFamily: "Akrobat, Onest, sans-serif",
+                pointerEvents: "none", userSelect: "none"
+              } }, s.n),
+              // Контент
+              _e("div", { className: "hh-income-head", style: { position: "relative", marginBottom: 18 } },
                 _e(Icon, { d: s.icon })
               ),
-              _e("div", { className: "hh-income-body" },
-                _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em", marginBottom: 12, color: "#f5f1e8" } }, s.title),
-                _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 20, flex: 1 } }, s.body),
+              _e("div", { className: "hh-income-body", style: { position: "relative", display: "flex", flexDirection: "column", flex: 1 } },
+                _e("div", { style: { fontSize: 11, fontWeight: 800, color: "#fcd535", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 10, fontFamily: "ui-monospace,Menlo,monospace" } }, "Источник " + s.n),
+                _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em", marginBottom: 14, color: "#f5f1e8" } }, s.title),
+                _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 22, flex: 1 } }, s.body),
                 _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "#fcd535", fontSize: 12, fontWeight: 700, alignSelf: "flex-start" } }, s.pill)
               )
             )
@@ -993,15 +998,16 @@
         )
       )
     );
-    // Каждый уровень — свой цвет иконки и слабый фоновый градиент в тон. Tier 7 (top) — фирменный жёлтый.
+    // Все уровни — единый тёмный стиль (как у конкурента). Цвет иконки сохраняем как небольшой акцент.
+    // Tier 7 (top) — фирменный жёлтый, только он выделен.
     const tiers = [
-      { lvl: 7, pct: 80, range: "700+",    label: "максимум", shape: "diamond",  color: "#fcd535", grad: "linear-gradient(180deg, rgba(252,213,53,0.12), rgba(252,213,53,0.02))", border: "rgba(252,213,53,0.40)", featured: true },
-      { lvl: 6, pct: 75, range: "400–699", label: null,       shape: "hexagon",  color: "#e879f9", grad: "linear-gradient(180deg, rgba(232,121,249,0.10), rgba(232,121,249,0.015))", border: "rgba(232,121,249,0.28)" },
-      { lvl: 5, pct: 70, range: "200–399", label: null,       shape: "pentagon", color: "#a78bfa", grad: "linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.015))", border: "rgba(167,139,250,0.28)" },
-      { lvl: 4, pct: 65, range: "100–199", label: null,       shape: "shield",   color: "#60a5fa", grad: "linear-gradient(180deg, rgba(96,165,250,0.10), rgba(96,165,250,0.015))",  border: "rgba(96,165,250,0.28)" },
-      { lvl: 3, pct: 60, range: "50–99",   label: null,       shape: "square",   color: "#22d3ee", grad: "linear-gradient(180deg, rgba(34,211,238,0.10), rgba(34,211,238,0.015))",  border: "rgba(34,211,238,0.28)" },
-      { lvl: 2, pct: 55, range: "15–49",   label: null,       shape: "rhombus",  color: "#4ade80", grad: "linear-gradient(180deg, rgba(74,222,128,0.10), rgba(74,222,128,0.015))",  border: "rgba(74,222,128,0.28)" },
-      { lvl: 1, pct: 50, range: "0–14",    label: "старт",    shape: "circle",   color: "#f59e0b", grad: "linear-gradient(180deg, rgba(245,158,11,0.10), rgba(245,158,11,0.015))",  border: "rgba(245,158,11,0.28)" }
+      { lvl: 7, pct: 80, range: "700+",    label: "максимум", shape: "diamond",  color: "#fcd535", featured: true },
+      { lvl: 6, pct: 75, range: "400–699", label: null,       shape: "hexagon",  color: "#e879f9" },
+      { lvl: 5, pct: 70, range: "200–399", label: null,       shape: "pentagon", color: "#a78bfa" },
+      { lvl: 4, pct: 65, range: "100–199", label: null,       shape: "shield",   color: "#60a5fa" },
+      { lvl: 3, pct: 60, range: "50–99",   label: null,       shape: "square",   color: "#22d3ee" },
+      { lvl: 2, pct: 55, range: "15–49",   label: null,       shape: "rhombus",  color: "#4ade80" },
+      { lvl: 1, pct: 50, range: "0–14",    label: "старт",    shape: "circle",   color: "#f59e0b" }
     ];
     return _e("section", { id: "levels", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -1024,20 +1030,21 @@
           tiers.map((t, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
             _e("div", {
               style: {
-                background: t.grad ? `${t.grad}, #151517` : "#151517",
-                border: `1px solid ${t.border}`,
+                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.08), rgba(252,213,53,0.01)), #151517" : "#151517",
+                border: t.featured ? "1px solid rgba(252,213,53,0.35)" : "1px solid var(--line)",
                 borderRadius: 18, padding: "26px 18px",
                 textAlign: "center", height: "100%",
-                display: "flex", flexDirection: "column", alignItems: "center"
+                display: "flex", flexDirection: "column", alignItems: "center",
+                boxShadow: t.featured ? "0 0 32px rgba(252,213,53,0.08)" : "none"
               }
             },
               _e(TierIcon, { shape: t.shape, color: t.color }),
               _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, `Уровень ${t.lvl}`),
-              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.color, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
+              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.featured ? "#fcd535" : "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
               !t.label && _e("div", { style: { height: 14 } }),
               _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 6 } }, "Комиссия"),
-              _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.color, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
-              _e("div", { style: { width: "100%", marginTop: "auto", padding: "12px 10px", background: "rgba(8,8,10,0.4)", border: "1px solid var(--line)", borderRadius: 10 } },
+              _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.featured ? "#fcd535" : "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
+              _e("div", { style: { width: "100%", marginTop: "auto", padding: "12px 10px", background: "rgba(8,8,10,0.5)", border: "1px solid var(--line)", borderRadius: 10 } },
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Привлечённых трейдеров"),
                 _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, t.range),
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, "в месяц")
