@@ -975,19 +975,15 @@
             _e("div", { className: "hh-income-card",
               style: { position: "relative", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 18, padding: "32px 28px 28px", height: "100%", display: "flex", flexDirection: "column", overflow: "hidden" }
             },
-              // Большая декоративная цифра на фоне справа сверху
+              // Большая декоративная цифра на фоне справа сверху — остаётся как water-mark
               _e("div", { "aria-hidden": true, style: {
                 position: "absolute", top: -22, right: -8,
                 fontSize: 160, lineHeight: 1, fontWeight: 900, letterSpacing: "-0.04em",
                 color: "rgba(252,213,53,0.06)", fontFamily: "Akrobat, Onest, sans-serif",
                 pointerEvents: "none", userSelect: "none"
               } }, s.n),
-              // Контент
-              _e("div", { className: "hh-income-head", style: { position: "relative", marginBottom: 18 } },
-                _e(Icon, { d: s.icon })
-              ),
+              // Контент (иконка и eyebrow "Источник 0X" убраны)
               _e("div", { className: "hh-income-body", style: { position: "relative", display: "flex", flexDirection: "column", flex: 1 } },
-                _e("div", { style: { fontSize: 11, fontWeight: 800, color: "#fcd535", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 10, fontFamily: "ui-monospace,Menlo,monospace" } }, "Источник " + s.n),
                 _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.25, letterSpacing: "-0.01em", marginBottom: 14, color: "#f5f1e8" } }, s.title),
                 _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 22, flex: 1 } }, s.body),
                 _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 100, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.3)", color: "#fcd535", fontSize: 12, fontWeight: 700, alignSelf: "flex-start" } }, s.pill)
