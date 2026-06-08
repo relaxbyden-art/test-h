@@ -497,7 +497,7 @@
               // H1
               _e("h1", {
                 style: {
-                  fontSize: "clamp(48px, 6.5vw, 84px)", lineHeight: 1.02, fontWeight: 800,
+                  fontSize: "clamp(36px, 4.6vw, 58px)", lineHeight: 1.04, fontWeight: 800,
                   letterSpacing: "-0.03em", margin: "0 0 24px", color: "#f5f1e8"
                 }
               },
