@@ -479,7 +479,7 @@
       "data-no-glow": true,
       style: {
         position: "relative", overflow: "hidden",
-        minHeight: 720,
+        minHeight: 620,
         background: "var(--bg)"
       }
     },
@@ -499,12 +499,11 @@
         zIndex: 0
       } }),
 
-      // ── Layer 1: LiveCard (позиционируется поверх стола/ноутбука в центре-справа) ──
+      // ── Layer 1: LiveCard (позиционируется правее и выше, чтобы мужчина перекрывал только правую кромку) ──
       _e("div", { style: {
         position: "absolute",
-        // 38-52% по горизонтали — чуть левее ноутбука; cutout мужчины перекроет правую часть карточки
-        left: "40%", top: "50%", transform: "translateY(-50%)",
-        width: "min(360px, 30vw)",
+        left: "48%", top: "38%", transform: "translateY(-50%)",
+        width: "min(340px, 28vw)",
         zIndex: 1
       } },
         _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null))
@@ -522,7 +521,7 @@
       } }),
 
       // ── Layer 3: Content (text слева + notif chips справа + geo) ───
-      _e("div", { className: "container", style: { position: "relative", zIndex: 3, minHeight: 720, paddingTop: 60, paddingBottom: 80 } },
+      _e("div", { className: "container", style: { position: "relative", zIndex: 3, minHeight: 620, paddingTop: 40, paddingBottom: 50 } },
         // TEXT слева
         _e("div", { style: { maxWidth: 540 } },
           _e(Reveal, null,
@@ -544,14 +543,14 @@
           _e(Reveal, { delay: "1" },
             _e("h1", {
               style: {
-                fontSize: "clamp(36px, 4.6vw, 58px)", lineHeight: 1.04, fontWeight: 800,
-                letterSpacing: "-0.03em", margin: "0 0 20px", color: "#f5f1e8"
+                fontSize: "clamp(34px, 4.2vw, 52px)", lineHeight: 1.04, fontWeight: 800,
+                letterSpacing: "-0.03em", margin: "0 0 18px", color: "#f5f1e8",
+                whiteSpace: "nowrap"
               }
             },
-              "Продвигай ",
-              _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"), _e("br", null),
-              "и зарабатывай",
-              _e("br", null),
+              "Продвигай", _e("br", null),
+              "Hash Hedge", _e("br", null),
+              "и ", _e("span", { style: { color: "#fcd535" } }, "зарабатывай"), _e("br", null),
               "вместе с нами"
             )
           ),
