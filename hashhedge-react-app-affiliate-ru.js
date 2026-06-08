@@ -466,234 +466,77 @@
   // ============================================================================
   // HERO
   // ============================================================================
-  // ============================================================================
-  // Notification chips — 4 floating event-cards над фото-фоном
-  // ============================================================================
-  function NotificationChip({ icon, title, sub, time, color }) {
-    const c = color || "#fcd535";
-    return _e("div", {
-      style: {
-        display: "grid", gridTemplateColumns: "44px 1fr", gap: 12, alignItems: "center",
-        padding: "12px 16px",
-        background: "rgba(15,15,18,0.78)",
-        backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: 14,
-        boxShadow: "0 20px 40px -12px rgba(0,0,0,0.55)"
-      }
-    },
-      _e("div", { style: {
-        width: 44, height: 44, borderRadius: 12,
-        background: "rgba(" + (c === "#fcd535" ? "252,213,53" : c === "#4ade80" ? "74,222,128" : "91,181,232") + ",0.12)",
-        border: "1px solid rgba(" + (c === "#fcd535" ? "252,213,53" : c === "#4ade80" ? "74,222,128" : "91,181,232") + ",0.35)",
-        display: "inline-flex", alignItems: "center", justifyContent: "center"
-      } },
-        _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", style: { fill: "none", stroke: c, strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } },
-          icon.map((d, i) => _e("path", { key: i, d, style: { fill: "none", stroke: c } }))
-        )
-      ),
-      _e("div", { style: { minWidth: 0 } },
-        _e("div", { style: { fontSize: 13, fontWeight: 700, color: "#f5f1e8", lineHeight: 1.25, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, title),
-        _e("div", { style: { fontSize: 12, color: c, fontWeight: 700, marginTop: 2 } }, sub),
-        _e("div", { style: { fontSize: 10, color: "#7d8590", marginTop: 4, letterSpacing: "0.04em" } }, time)
-      )
-    );
-  }
-
-  // ============================================================================
-  // Hero geography mini-widget — карта мира SVG + цифра 154
-  // ============================================================================
-  function HeroGeoWidget() {
-    // Точки городов раскиданы по континентам
-    const dots = [
-      [62, 38], [68, 36], [72, 42], [82, 52],
-      [50, 38], [54, 36], [56, 46], [48, 42],
-      [22, 34], [26, 38], [30, 42], [34, 56],
-      [70, 64], [72, 68], [76, 72],
-      [16, 60], [18, 64]
-    ];
-    return _e("div", { style: {
-      padding: "16px 18px",
-      background: "rgba(15,15,18,0.78)",
-      backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-      border: "1px solid rgba(255,255,255,0.08)",
-      borderRadius: 14,
-      boxShadow: "0 20px 40px -12px rgba(0,0,0,0.55)",
-      display: "grid", gridTemplateColumns: "1fr auto", gap: 16, alignItems: "center"
-    } },
-      _e("div", null,
-        _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: "#fcd535", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } },
-          _e("svg", { width: 11, height: 11, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 2 } }, _e("circle", { cx: 12, cy: 12, r: 9, style: { fill: "none", stroke: "#fcd535" } }), _e("path", { d: "M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18", style: { fill: "none", stroke: "#fcd535" } })),
-          "Наша география"
-        ),
-        _e("div", { style: { fontSize: 30, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "154 ", _e("span", { style: { fontSize: 16, fontWeight: 600, color: "#a1a0a4" } }, "страны")),
-        _e("div", { style: { fontSize: 11, color: "#7d8590", marginTop: 4 } }, "и продолжает расти")
-      ),
-      _e("svg", { width: 120, height: 70, viewBox: "0 0 100 80", style: { flexShrink: 0 } },
-        // Континенты — упрощённые контуры (точки)
-        Array.from({ length: 60 }, (_, i) => {
-          const x = 8 + (i * 1.4) % 84 + (Math.sin(i * 0.7) * 4);
-          const y = 18 + (Math.cos(i * 0.4) * 24);
-          return _e("circle", { key: "bg" + i, cx: x, cy: y, r: 0.7, style: { fill: "rgba(255,255,255,0.18)" } });
-        }),
-        // Активные точки городов
-        dots.map((p, i) => _e("circle", { key: "d" + i, cx: p[0], cy: p[1], r: 1.8, style: { fill: "#fcd535", filter: "drop-shadow(0 0 3px #fcd535)" } }))
-      )
-    );
-  }
-
   function Hero() {
-    const HERO_BG = ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/hero-partner-bg.jpg";
-    const heroStats = [
-      { v: "2 500+", l: "партнёров",          ic: "M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" },
-      { v: "154",    l: "страны",             ic: "M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18 M3 12a9 9 0 0 1 18 0 9 9 0 0 1-18 0z" },
-      { v: "$2.5M+", l: "выплачено партнёрам",ic: "M21 11c0 5-3.5 9-9 9s-9-4-9-9c0-1.5.4-3 1-4 M12 6V2 M12 6l-3 3 M12 6l3 3" },
-      { v: "4.4/5",  l: "оценка на Trustpilot",ic: "M12 2l3 6.5 7 1-5 5 1 7-6-3.5L6 21.5l1-7-5-5 7-1z" }
-    ];
     return _e("section", {
       className: "hh-partner-hero",
       "data-no-glow": true,
-      style: {
-        position: "relative", overflow: "hidden",
-        paddingTop: 40, paddingBottom: 40,
-        minHeight: 760,
-        background: "var(--bg)"
-      }
+      style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
     },
-      // FOTO BACKGROUND + dark overlay (gradient: левая часть тёмная для читаемости текста, правая прозрачная)
-      _e("div", { "aria-hidden": true, style: {
-        position: "absolute", inset: 0,
-        backgroundImage: `url(${HERO_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center right",
-        backgroundRepeat: "no-repeat",
-        zIndex: 0
-      } }),
-      _e("div", { "aria-hidden": true, style: {
-        position: "absolute", inset: 0,
-        background: "linear-gradient(90deg, rgba(8,8,10,0.95) 0%, rgba(8,8,10,0.78) 35%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.45) 100%)",
-        zIndex: 0
-      } }),
-      _e("div", { "aria-hidden": true, style: {
-        position: "absolute", inset: 0,
-        background: "linear-gradient(180deg, rgba(8,8,10,0.5) 0%, transparent 25%, transparent 75%, rgba(8,8,10,0.85) 100%)",
-        zIndex: 0
-      } }),
+      _e(HeroCandles, null),
+      _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
+        _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.35fr minmax(380px, 460px)", gap: 64, alignItems: "center" } },
 
-      _e("div", { className: "container", style: { position: "relative", zIndex: 1, paddingTop: 40, paddingBottom: 40 } },
-        _e("div", { className: "hh-partner-hero-grid",
-          // 4 колонки: text | LiveCard | СКВОЗНОЕ-ОКНО для мужчины | notif chips + geo
-          // alignItems: end — карточки прижаты к низу секции, чтобы лицо мужчины было видно сверху над ними
-          style: { display: "grid", gridTemplateColumns: "minmax(340px, 1fr) 340px minmax(140px, 0.9fr) 230px", gap: 22, alignItems: "end", paddingTop: 80 }
-        },
-
-          // ─── LEFT: Text content ─────────────────────────────────────────
+          // LEFT
           _e(Reveal, null,
             _e("div", null,
+              // eyebrow
               _e("span", {
                 style: {
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "6px 14px", borderRadius: 100,
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  background: "rgba(15,15,18,0.5)",
-                  backdropFilter: "blur(8px)",
-                  fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#cfcfd3",
+                  border: "1px solid var(--line)",
+                  background: "rgba(255,255,255,0.02)",
+                  fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4",
                   marginBottom: 24
                 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Партнёрская программа Hash Hedge"
               ),
+
+              // H1
               _e("h1", {
                 style: {
-                  fontSize: "clamp(40px, 5.5vw, 68px)", lineHeight: 1.04, fontWeight: 800,
-                  letterSpacing: "-0.03em", margin: "0 0 22px", color: "#f5f1e8"
+                  fontSize: "clamp(48px, 6.5vw, 84px)", lineHeight: 1.02, fontWeight: 800,
+                  letterSpacing: "-0.03em", margin: "0 0 24px", color: "#f5f1e8"
                 }
               },
-                "Продвигай ",
-                _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"),
-                _e("br", null),
-                "и зарабатывай",
-                _e("br", null),
+                "Продвигай", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "Hash Hedge"), _e("br", null),
+                "и зарабатывай", _e("br", null),
                 "вместе с нами"
               ),
-              _e("p", { style: { fontSize: 17, color: "#c9c8cc", lineHeight: 1.55, marginBottom: 32, maxWidth: 480 } },
+
+              _e("p", { style: { fontSize: 18, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 36, maxWidth: 580 } },
                 "Получай до 80% комиссии с каждого привлечённого трейдера. Пожизненные начисления, прозрачная статистика и быстрые выплаты."
               ),
-              _e("div", { style: { display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 26 } },
+
+              // Hero buttons — те же классы что на главной (.btn .btn-primary / .btn .btn-ghost, height 56px из CSS)
+              _e("div", { style: { display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 32 } },
                 _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
                   style: { textDecoration: "none" }
                 }, "Стать партнёром →"),
                 _e("a", { href: "#calc", className: "btn btn-ghost",
-                  style: { textDecoration: "none", background: "rgba(15,15,18,0.4)", backdropFilter: "blur(8px)" }
+                  style: { textDecoration: "none" }
                 }, "Рассчитать доход")
               ),
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 12 } },
+
+              // Trustpilot — как в прошлой версии: 5 звёзд в строку + 2 строки текста
+              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 14 } },
                 _e("div", { style: { display: "flex", gap: 2 } },
-                  [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 20 })),
-                  _e(TPStar, { size: 20, half: true })
+                  [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 22 })),
+                  _e(TPStar, { size: 22, half: true })
                 ),
-                _e("div", { style: { fontSize: 13, lineHeight: 1.3 } },
+                _e("div", { style: { fontSize: 14, lineHeight: 1.35 } },
                   _e("div", { style: { fontWeight: 700, color: "#f5f1e8" } }, "4.4 · Trustpilot"),
-                  _e("div", { style: { color: "#a1a0a4", fontSize: 12 } }, "Сотрудничай с платформой, которой доверяют")
+                  _e("div", { style: { color: "#a1a0a4", fontSize: 13 } }, "Сотрудничай с платформой, которой доверяют")
                 )
               )
             )
           ),
 
-          // ─── CENTER: LIVE Cabinet card ─────────────────────────────────
-          _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null)),
-
-          // ─── SPACER: пустая колонка чтобы было видно мужчину между LiveCard и notif chips ──
-          _e("div", { "aria-hidden": true, style: { width: "100%", minHeight: 1 } }),
-
-          // ─── RIGHT: 4 notification chips + geo widget ──────────────────
-          _e(Reveal, { delay: "3" },
-            _e("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
-              _e(NotificationChip, {
-                icon: ["M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"],
-                title: "Новый трейдер", sub: "присоединился", time: "2 мин назад", color: "#fcd535"
-              }),
-              _e(NotificationChip, {
-                icon: ["M12 1v22", "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"],
-                title: "Начислена комиссия", sub: "+$380", time: "5 мин назад", color: "#4ade80"
-              }),
-              _e(NotificationChip, {
-                icon: ["M22 2 11 13", "m22 2-7 20-4-9-9-4z"],
-                title: "Выплата отправлена", sub: "+$820", time: "12 мин назад", color: "#fcd535"
-              }),
-              _e(NotificationChip, {
-                icon: ["M23 6l-9.5 9.5-5-5L1 18", "M17 6h6v6"],
-                title: "Уровень повышен", sub: "до 70%", time: "Сегодня", color: "#fcd535"
-              }),
-              _e(HeroGeoWidget, null)
-            )
-          )
-        ),
-
-        // ─── BOTTOM: 4 stat strip ─────────────────────────────────────
-        _e("div", { style: {
-          marginTop: 40, padding: "20px 24px",
-          background: "rgba(15,15,18,0.6)",
-          backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: 18
-        } },
-          _e("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 } },
-            heroStats.map((s, i) => _e("div", { key: i,
-              style: { display: "flex", alignItems: "center", gap: 14, padding: "0 14px", borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.08)" }
-            },
-              _e("div", { style: { width: 38, height: 38, borderRadius: 10, background: "rgba(252,213,53,0.10)", border: "1px solid rgba(252,213,53,0.25)", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 } },
-                _e("svg", { width: 18, height: 18, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } },
-                  _e("path", { d: s.ic, style: { fill: "none", stroke: "#fcd535" } })
-                )
-              ),
-              _e("div", null,
-                _e("div", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, s.v),
-                _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 4 } }, s.l)
-              )
-            ))
-          )
+          // RIGHT — live partner card
+          _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null))
         )
       )
     );
@@ -2704,8 +2547,7 @@
     return _e("div", { className: "tilda-html-hashhedge hh-with-glow" },
       _e(Header, null),
       _e(Hero, null),
-      // v7.0: Marquee убран — статы 4-в-ряд интегрированы в Hero (под фото-фоном)
-      // _e(Marquee, null),
+      _e(Marquee, null),
       _e(WhyPartner, null),
       _e(IncomeSources, null),
       _e(Tiers, null),
