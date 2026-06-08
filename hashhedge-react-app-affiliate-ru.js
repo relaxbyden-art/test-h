@@ -486,26 +486,42 @@
       "data-no-glow": true,
       style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
     },
-      _e(HeroCandles, null),
-      // Liquid Glass — несколько цветных blob'ов позади LiveCard для преломления.
-      // Multi-color mesh (фирменный жёлтый + холодный аква + фиолетовый) даёт богатое стекло без визуального шума.
+      // Анимация blob'ов — slow drift по loop
+      _e("style", null, `
+        @keyframes hh-blob-1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-30px, 20px) scale(1.08); } }
+        @keyframes hh-blob-2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(25px, -25px) scale(0.95); } }
+        @keyframes hh-blob-3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-15px, -30px) scale(1.05); } }
+      `),
+      // Geometric grid pattern — тонкая сетка как у Stripe/Linear, opacity 0.04
+      _e("div", { "aria-hidden": true, style: {
+        position: "absolute", inset: 0,
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        backgroundSize: "56px 56px",
+        maskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 30%, transparent 80%)",
+        WebkitMaskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 30%, transparent 80%)",
+        pointerEvents: "none", zIndex: 0
+      } }),
+      // Multi-color animated blobs — даёт стеклу богатое преломление
       _e("div", { "aria-hidden": true, style: {
         position: "absolute", right: "18%", top: "20%",
-        width: 320, height: 320, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(252,213,53,0.18) 0%, transparent 70%)",
-        filter: "blur(60px)", pointerEvents: "none", zIndex: 0
+        width: 360, height: 360, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(252,213,53,0.20) 0%, transparent 70%)",
+        filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
+        animation: "hh-blob-1 14s ease-in-out infinite"
       } }),
       _e("div", { "aria-hidden": true, style: {
         position: "absolute", right: "4%", top: "55%",
-        width: 340, height: 340, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(91,181,232,0.22) 0%, transparent 70%)",
-        filter: "blur(70px)", pointerEvents: "none", zIndex: 0
+        width: 380, height: 380, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(91,181,232,0.24) 0%, transparent 70%)",
+        filter: "blur(80px)", pointerEvents: "none", zIndex: 0,
+        animation: "hh-blob-2 18s ease-in-out infinite"
       } }),
       _e("div", { "aria-hidden": true, style: {
-        position: "absolute", right: "26%", top: "60%",
-        width: 280, height: 280, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)",
-        filter: "blur(80px)", pointerEvents: "none", zIndex: 0
+        position: "absolute", right: "28%", top: "65%",
+        width: 300, height: 300, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(167,139,250,0.20) 0%, transparent 70%)",
+        filter: "blur(80px)", pointerEvents: "none", zIndex: 0,
+        animation: "hh-blob-3 16s ease-in-out infinite"
       } }),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.35fr minmax(380px, 460px)", gap: 64, alignItems: "center" } },
