@@ -3490,8 +3490,8 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = false;
-    const isBest = false;
+    const isPop = s === popular;
+    const isBest = s === 150000;
     const isFlash = flashSaleSizes.indexOf(s) >= 0;
     const badge = isFlash ? "АКЦИЯ" : isBest ? "ТИІМДІ" : isPop ? "ТАНЫМАЛ" : null;
     const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
@@ -3582,8 +3582,8 @@ function Pricing() {
     "aria-label": "Капитал көлемін таңда"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = false;
-    const isBest = false;
+    const isPop = s === popular;
+    const isBest = s === 150000;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
