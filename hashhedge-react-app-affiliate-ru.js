@@ -941,73 +941,32 @@
   // TIERS — 4+4 grid with unique geometric icons (last cell = CTA)
   // ============================================================================
   function Tiers() {
-    // 7 tiers + 1 CTA cell
-    const TierIcon = ({ shape, color }) => _e("div", {
+    // 7 tiers + 1 CTA cell. Иконки — 3D-рендеры в assets/tiers/tier-1..7.png.
+    const TIERS_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
+    const TierIcon = ({ lvl }) => _e("div", {
       style: {
-        width: 56, height: 56, borderRadius: 14,
-        background: shape === "diamond" ? "linear-gradient(135deg, rgba(252,213,53,0.22), rgba(252,213,53,0.04))" : "rgba(8,8,10,0.6)",
-        border: shape === "diamond" ? "1px solid rgba(252,213,53,0.4)" : "1px solid var(--line)",
-        display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 16,
-        boxShadow: shape === "diamond" ? "0 0 24px rgba(252,213,53,0.18)" : "none"
+        width: 84, height: 84,
+        display: "inline-flex", alignItems: "center", justifyContent: "center",
+        marginBottom: 14
       }
     },
-      _e("svg", { width: 26, height: 26, viewBox: "0 0 24 24", style: { fill: "none", stroke: color, strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round" } },
-        // Crown — Tier 7
-        shape === "diamond" && _e(F, null,
-          _e("path", { d: "M3 18 L5 8 L9 12 L12 6 L15 12 L19 8 L21 18 Z", style: { stroke: color, fill: "none" } }),
-          _e("line", { x1: 3, y1: 21, x2: 21, y2: 21, style: { stroke: color } }),
-          _e("circle", { cx: 12, cy: 6, r: 1.4, style: { fill: color, stroke: "none" } }),
-          _e("circle", { cx: 5, cy: 8, r: 1.2, style: { fill: color, stroke: "none" } }),
-          _e("circle", { cx: 19, cy: 8, r: 1.2, style: { fill: color, stroke: "none" } })
-        ),
-        // Medal — Tier 6
-        shape === "hexagon" && _e(F, null,
-          _e("path", { d: "M8 2 L4 8 L7 12 M16 2 L20 8 L17 12 M8 2 H16", style: { stroke: color, fill: "none" } }),
-          _e("circle", { cx: 12, cy: 16, r: 6, style: { stroke: color, fill: "none" } }),
-          _e("path", { d: "M10 16 L11.5 17.5 L14.5 14.5", style: { stroke: color, fill: "none", strokeWidth: 2 } })
-        ),
-        // Star — Tier 5
-        shape === "pentagon" && _e(F, null,
-          _e("path", { d: "M12 2 L14.5 8.5 L21 9.5 L16 14 L17.5 21 L12 17.5 L6.5 21 L8 14 L3 9.5 L9.5 8.5 Z", style: { stroke: color, fill: "none" } }),
-          _e("circle", { cx: 12, cy: 12, r: 1.5, style: { fill: color, stroke: "none" } })
-        ),
-        // Trophy — Tier 4
-        shape === "shield" && _e(F, null,
-          _e("path", { d: "M7 3 H17 V8 C17 12 14 14 12 14 C10 14 7 12 7 8 V3 Z", style: { stroke: color, fill: "none" } }),
-          _e("path", { d: "M7 5 H4 V8 C4 9.5 5.5 11 7 11 M17 5 H20 V8 C20 9.5 18.5 11 17 11", style: { stroke: color, fill: "none" } }),
-          _e("path", { d: "M12 14 V18 M8 21 H16 M9 18 H15", style: { stroke: color, fill: "none" } })
-        ),
-        // Target — Tier 3
-        shape === "square" && _e(F, null,
-          _e("circle", { cx: 12, cy: 12, r: 9, style: { stroke: color, fill: "none" } }),
-          _e("circle", { cx: 12, cy: 12, r: 5, style: { stroke: color, fill: "none" } }),
-          _e("circle", { cx: 12, cy: 12, r: 1.8, style: { fill: color, stroke: "none" } }),
-          _e("line", { x1: 12, y1: 1, x2: 12, y2: 4.5, style: { stroke: color } }),
-          _e("line", { x1: 12, y1: 19.5, x2: 12, y2: 23, style: { stroke: color } })
-        ),
-        // Rocket — Tier 2
-        shape === "rhombus" && _e(F, null,
-          _e("path", { d: "M9 14 C 7 14 5 16 5 20 C 9 20 10 17 10 16 M15 14 C 17 14 19 16 19 20 C 15 20 14 17 14 16", style: { stroke: color, fill: "none" } }),
-          _e("path", { d: "M12 2 C 9 5 8 9 8 13 V18 H16 V13 C16 9 15 5 12 2 Z", style: { stroke: color, fill: "none" } }),
-          _e("circle", { cx: 12, cy: 10, r: 1.5, style: { fill: color, stroke: "none" } })
-        ),
-        // Flag — Tier 1
-        shape === "circle" && _e(F, null,
-          _e("path", { d: "M5 3 V21", style: { stroke: color } }),
-          _e("path", { d: "M5 4 H17 L14 7 L17 10 H5 Z", style: { stroke: color, fill: "none" } })
-        )
-      )
+      _e("img", {
+        src: TIERS_BASE + "assets/tiers/tier-" + lvl + ".png",
+        alt: "Tier " + lvl,
+        width: 84, height: 84,
+        loading: "lazy", decoding: "async",
+        style: { width: 84, height: 84, objectFit: "contain", display: "block" }
+      })
     );
-    // Все уровни — единый тёмный стиль (как у конкурента). Цвет иконки сохраняем как небольшой акцент.
-    // Tier 7 (top) — фирменный жёлтый, только он выделен.
+    // Все уровни — единый тёмный стиль. Tier 7 (top) — фирменный жёлтый, только он выделен.
     const tiers = [
-      { lvl: 7, pct: 80, range: "700+",    label: "максимум", shape: "diamond",  color: "#fcd535", featured: true },
-      { lvl: 6, pct: 75, range: "400–699", label: null,       shape: "hexagon",  color: "#e879f9" },
-      { lvl: 5, pct: 70, range: "200–399", label: null,       shape: "pentagon", color: "#a78bfa" },
-      { lvl: 4, pct: 65, range: "100–199", label: null,       shape: "shield",   color: "#60a5fa" },
-      { lvl: 3, pct: 60, range: "50–99",   label: null,       shape: "square",   color: "#22d3ee" },
-      { lvl: 2, pct: 55, range: "15–49",   label: null,       shape: "rhombus",  color: "#4ade80" },
-      { lvl: 1, pct: 50, range: "0–14",    label: "старт",    shape: "circle",   color: "#f59e0b" }
+      { lvl: 7, pct: 80, range: "700+",    label: "максимум", featured: true },
+      { lvl: 6, pct: 75, range: "400–699", label: null },
+      { lvl: 5, pct: 70, range: "200–399", label: null },
+      { lvl: 4, pct: 65, range: "100–199", label: null },
+      { lvl: 3, pct: 60, range: "50–99",   label: null },
+      { lvl: 2, pct: 55, range: "15–49",   label: null },
+      { lvl: 1, pct: 50, range: "0–14",    label: "старт" }
     ];
     return _e("section", { id: "levels", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -1038,7 +997,7 @@
                 boxShadow: t.featured ? "0 0 32px rgba(252,213,53,0.08)" : "none"
               }
             },
-              _e(TierIcon, { shape: t.shape, color: t.color }),
+              _e(TierIcon, { lvl: t.lvl }),
               _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, `Уровень ${t.lvl}`),
               t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.featured ? "#fcd535" : "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
               !t.label && _e("div", { style: { height: 14 } }),
@@ -1129,7 +1088,7 @@
         _e(Reveal, { delay: "1" },
           // Правая колонка с фиксированной шириной 380px — иначе число дохода («$471 356» vs «$4 111»)
           // меняет ширину и левая колонка дёргается при движении ползунка.
-          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "minmax(0, 1fr) 380px", gap: 28, margin: "0 auto", alignItems: "center" } },
+          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "minmax(0, 1fr) 340px", gap: 22, margin: "0 auto", alignItems: "center", maxWidth: 920 } },
             // LEFT controls
             _e("div", { style: { padding: 28 } },
               _e("div", { style: { marginBottom: 28 } },
@@ -1252,17 +1211,20 @@
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Присоединяйся к 2500+ партнёрам, которые уже зарабатывают вместе с Hash Hedge.")
           )
         ),
-        // Timeline circles
+        // Timeline circles — стиль как в HowItWorks на главной RU: большой круг 84×84, жёлтая обводка, жёлтая цифра
         _e(Reveal, { delay: "1" },
-          _e("div", { className: "hh-steps-timeline", style: { position: "relative", marginBottom: 18 } },
-            _e("div", { style: { position: "absolute", top: 30, left: "12.5%", right: "12.5%", height: 1, background: "var(--line)", zIndex: 0 } }),
+          _e("div", { className: "hh-steps-timeline", style: { position: "relative", marginBottom: 28 } },
+            // Тонкая жёлтая линия-плашка между кругами
+            _e("div", { style: { position: "absolute", top: 42, left: "12.5%", right: "12.5%", height: 2, background: "linear-gradient(90deg, transparent, rgba(252,213,53,0.6) 20%, rgba(252,213,53,0.6) 80%, transparent)", opacity: 0.35, zIndex: 0 } }),
             _e("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", position: "relative", zIndex: 1 } },
               steps.map((s, i) => _e("div", { key: i, style: { textAlign: "center" } },
-                _e("div", { style: {
+                _e("div", { className: "how-step-badge", style: {
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  width: 60, height: 60, borderRadius: "50%",
-                  background: "rgba(11,11,14,0.9)", border: "1px solid var(--line)",
-                  color: "#fcd535", fontSize: 14, fontWeight: 800, fontFamily: "ui-monospace,Menlo,monospace",
+                  width: 84, height: 84, minWidth: 84, minHeight: 84, aspectRatio: "1 / 1",
+                  borderRadius: "50%",
+                  background: "var(--bg)", border: "2px solid #fcd535",
+                  color: "#fcd535", fontSize: 28, fontWeight: 800,
+                  fontFamily: "Akrobat, Onest, sans-serif",
                   boxShadow: "0 0 0 8px var(--bg)"
                 } }, s.n)
               ))
@@ -1818,17 +1780,23 @@
       const ov = scene.overrides && scene.overrides[i];
       return Object.assign({}, c, ov || {}, { active: i === scene.activeIdx });
     });
-    // Финальный фикс синего: явный warm-black #0a0907 + data-no-glow (чтобы жёлтый ::after не давал
-    // обратный визуальный контраст), + boxShadow с warm-black гасит light bleeding от соседних секций.
+    // v5.2: стиль 1-в-1 с TG-сообществом на главной RU — фон var(--bg-elev), синий glow слева внизу,
+    // синий акцент в eyebrow/H2, карточки статистики на var(--bg-card).
     return _e("section", { id: "telegram", "data-no-glow": true,
       style: {
         padding: "100px 0 120px",
-        background: "#0a0907",
+        background: "var(--bg-elev)",
         position: "relative",
-        boxShadow: "inset 0 0 80px 0 #0a0907",
+        overflow: "hidden",
         zIndex: 1
       }
     },
+      // Большой синий blur-круг слева внизу — как на главной
+      _e("div", { "aria-hidden": true, className: "glow", style: {
+        position: "absolute", width: 600, height: 600, borderRadius: "50%",
+        background: "#2AABEE", left: "-10%", top: "30%",
+        filter: "blur(120px)", opacity: 0.07, pointerEvents: "none", zIndex: 0
+      } }),
       _e("style", null, `
         /* Одноразовое появление каналов */
         @keyframes hh-tg-row-in {
@@ -1843,17 +1811,17 @@
       _e("div", { className: "container" },
         _e("div", { className: "hh-tg-grid", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" } },
 
-          // LEFT — title + description + 2x2 KPI
+          // LEFT — title + description + 2x2 KPI. v5.2: синий акцент как на главной RU
           _e(Reveal, null,
             _e("div", null,
               _e("span", {
                 style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
-                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#2AABEE", boxShadow: "0 0 12px #2AABEE" } }),
                 "Telegram-сообщество"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 22 } },
-                _e("span", { style: { color: "#fcd535" } }, "Закрытый чат"), _e("br", null),
+                _e("span", { style: { color: "#2AABEE" } }, "Закрытый чат"), _e("br", null),
                 "для партнёров"
               ),
               _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 32, maxWidth: 540 } },
@@ -1865,13 +1833,13 @@
                   ["146",     "Сейчас онлайн"],
                   ["<2 мин",  "Ответ менеджера"],
                   ["24/7",    "Чат открыт всегда"]
-                ].map(([v, l], i) => _e("div", { key: i, style: { padding: "20px 22px", background: "#151517", border: "1px solid var(--line)", borderRadius: 14 } },
-                  _e("div", { style: { fontSize: 32, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6 } }, v),
+                ].map(([v, l], i) => _e("div", { key: i, style: { padding: "20px 22px", background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14 } },
+                  _e("div", { style: { fontSize: 32, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, fontFamily: "'Akrobat', Onest, sans-serif" } }, v),
                   _e("div", { style: { fontSize: 11, color: "#a1a0a4", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" } }, l)
                 ))
               ),
               _e("div", { style: { display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#a1a0a4", lineHeight: 1.5 } },
-                _e("span", { style: { width: 5, height: 5, borderRadius: "50%", background: "#4ade80" } }),
+                _e("span", { style: { width: 5, height: 5, borderRadius: "50%", background: "#2AABEE" } }),
                 "Закрытое сообщество — доступ открывается после регистрации партнёра через менеджера"
               )
             )
