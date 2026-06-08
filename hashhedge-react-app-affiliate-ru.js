@@ -1979,8 +1979,8 @@
                 "ПОДДЕРЖКА 24/7"
               ),
               _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
-                "Мы всегда", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "на связи")
+                "Персональная", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "поддержка")
               )
             )
           ),
