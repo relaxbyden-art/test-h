@@ -943,19 +943,24 @@
   function Tiers() {
     // 7 tiers + 1 CTA cell. Иконки — 3D-рендеры в assets/tiers/tier-1..7.png.
     const TIERS_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
+    // Иконка в тёмной плашке: серая обводка + скруглённые углы, меньше предыдущей версии
     const TierIcon = ({ lvl }) => _e("div", {
       style: {
-        width: 84, height: 84,
+        width: 64, height: 64,
+        borderRadius: 16,
+        border: "1px solid var(--line)",
+        background: "rgba(8,8,10,0.55)",
         display: "inline-flex", alignItems: "center", justifyContent: "center",
-        marginBottom: 14
+        marginBottom: 14, padding: 6,
+        boxSizing: "border-box"
       }
     },
       _e("img", {
         src: TIERS_BASE + "assets/tiers/tier-" + lvl + ".png",
         alt: "Tier " + lvl,
-        width: 84, height: 84,
+        width: 48, height: 48,
         loading: "lazy", decoding: "async",
-        style: { width: 84, height: 84, objectFit: "contain", display: "block" }
+        style: { width: 48, height: 48, objectFit: "contain", display: "block" }
       })
     );
     // Все уровни — единый тёмный стиль. Tier 7 (top) — фирменный жёлтый, только он выделен.
