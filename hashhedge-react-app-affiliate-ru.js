@@ -1697,54 +1697,54 @@
             )
           )
         ),
-        // Mosaic: hero (большой) + 6 поменьше в 3-col grid
-        _e("div", { className: "hh-yt-mosaic", style: { display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 20, alignItems: "start" } },
-          // HERO — слева большой
+        // TOP — 2 видео: первое 2/3 (hero), второе 1/3 (вертикальный thumb вверху + текст). Карточки одной высоты.
+        _e("div", { className: "hh-yt-top", style: { display: "grid", gridTemplateColumns: "2fr 1fr", gap: 18, alignItems: "stretch" } },
+          // HERO — слева большой (2/3 ширины)
           _e(Reveal, { delay: "1" },
             _e("a", {
               href: `https://www.youtube.com/watch?v=${hero.id}`, target: "_blank", rel: "noopener noreferrer",
-              style: { display: "block", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
+              style: { display: "flex", flexDirection: "column", height: "100%", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
             },
-              _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${hero.id}/maxresdefault.jpg) center / cover, #111` } },
+              _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${hero.id}/maxresdefault.jpg) center / cover, #111`, flexShrink: 0 } },
                 _e(PlayBtn, { size: 72 }),
-                // топ-чип «Хит просмотров»
                 _e("div", { style: { position: "absolute", top: 14, left: 14, display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 11px", borderRadius: 100, background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.12)", fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.08em", textTransform: "uppercase" } }, "★ Хит просмотров")
               ),
-              _e("div", { style: { padding: "22px 24px 24px" } },
+              _e("div", { style: { padding: "22px 24px 24px", flex: 1 } },
                 _e("div", { style: { fontSize: 12, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", marginBottom: 10 } }, hero.author + " · " + hero.views + " просмотров"),
                 _e("div", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.25, color: "#f5f1e8", letterSpacing: "-0.01em" } }, hero.title)
               )
             )
           ),
-          // RIGHT — стек 2 карточек горизонтальной компоновкой (thumb-слева, текст-справа)
-          _e("div", { style: { display: "flex", flexDirection: "column", gap: 14 } },
-            rest.slice(0, 2).map((v, i) => _e(Reveal, { key: i, delay: String(i + 2) },
-              _e("a", {
+          // RIGHT — 1 видео на 1/3 ширины. Превью сверху, инфо снизу. Карточка такой же высоты как hero.
+          _e(Reveal, { delay: "2" },
+            (() => {
+              const v = rest[0];
+              return _e("a", {
                 href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
-                style: { display: "grid", gridTemplateColumns: "160px 1fr", gap: 14, background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)", alignItems: "stretch" }
+                style: { display: "flex", flexDirection: "column", height: "100%", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 18, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
               },
-                _e("div", { style: { position: "relative", aspectRatio: "16/10", background: `url(https://img.youtube.com/vi/${v.id}/hqdefault.jpg) center / cover, #111` } },
-                  _e(PlayBtn, { size: 36 })
+                _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${v.id}/hqdefault.jpg) center / cover, #111`, flexShrink: 0 } },
+                  _e(PlayBtn, { size: 52 })
                 ),
-                _e("div", { style: { padding: "12px 14px 12px 0", display: "flex", flexDirection: "column", justifyContent: "center" } },
-                  _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", marginBottom: 6 } }, v.author + " · " + v.views),
-                  _e("div", { style: { fontSize: 13, fontWeight: 700, lineHeight: 1.3, color: "#f5f1e8", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, v.title)
+                _e("div", { style: { padding: "18px 20px 20px", flex: 1 } },
+                  _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", marginBottom: 8 } }, v.author + " · " + v.views + " просмотров"),
+                  _e("div", { style: { fontSize: 16, fontWeight: 800, lineHeight: 1.3, color: "#f5f1e8", letterSpacing: "-0.005em" } }, v.title)
                 )
-              )
-            ))
+              );
+            })()
           )
         ),
-        // BOTTOM — оставшиеся 2 ролика в 2-col grid
-        _e("div", { className: "hh-yt-bottom", style: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginTop: 20 } },
-          rest.slice(2).map((v, i) => _e(Reveal, { key: i, delay: String(i + 1) },
+        // BOTTOM — 3 видео в 3-col grid, все одного размера
+        _e("div", { className: "hh-yt-bottom", style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 18 } },
+          rest.slice(1).map((v, i) => _e(Reveal, { key: i, delay: String(i + 1) },
             _e("a", {
               href: `https://www.youtube.com/watch?v=${v.id}`, target: "_blank", rel: "noopener noreferrer",
-              style: { display: "block", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
+              style: { display: "flex", flexDirection: "column", height: "100%", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, overflow: "hidden", textDecoration: "none", color: "var(--fg)" }
             },
               _e("div", { style: { position: "relative", aspectRatio: "16/9", background: `url(https://img.youtube.com/vi/${v.id}/hqdefault.jpg) center / cover, #111` } },
                 _e(PlayBtn, { size: 44 })
               ),
-              _e("div", { style: { padding: "14px 16px 16px" } },
+              _e("div", { style: { padding: "14px 16px 16px", flex: 1 } },
                 _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em", marginBottom: 6 } }, v.author + " · " + v.views),
                 _e("div", { style: { fontSize: 14, fontWeight: 700, lineHeight: 1.3, color: "#f5f1e8", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, v.title)
               )
