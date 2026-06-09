@@ -1587,8 +1587,8 @@
                 "Рассчитай свой доход"
               ),
               _e("h2", { className: "hh-calc-h2", style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
-                "Чем больше трейдеров ты приведёшь,", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "тем выше твоя комиссия.")
+                "Чем больше рефералов,", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "тем выше твоя комиссия")
               )
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
