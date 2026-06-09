@@ -492,35 +492,35 @@
         @keyframes hh-blob-2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(25px, -25px) scale(0.95); } }
         @keyframes hh-blob-3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-15px, -30px) scale(1.05); } }
       `),
-      // Geometric grid pattern — тонкая сетка как у Stripe/Linear, opacity 0.04
+      // Geometric grid pattern — ярче (opacity 0.09) чтобы было видно днём при солнце
       _e("div", { "aria-hidden": true, style: {
         position: "absolute", inset: 0,
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)",
         backgroundSize: "56px 56px",
-        maskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 30%, transparent 80%)",
-        WebkitMaskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 30%, transparent 80%)",
+        maskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 35%, transparent 85%)",
+        WebkitMaskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 35%, transparent 85%)",
         pointerEvents: "none", zIndex: 0
       } }),
-      // Multi-color animated blobs — даёт стеклу богатое преломление
+      // Multi-color animated blobs — увеличены opacity для дневной видимости
       _e("div", { "aria-hidden": true, style: {
         position: "absolute", right: "18%", top: "20%",
-        width: 360, height: 360, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(252,213,53,0.20) 0%, transparent 70%)",
-        filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
+        width: 380, height: 380, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(252,213,53,0.36) 0%, transparent 70%)",
+        filter: "blur(60px)", pointerEvents: "none", zIndex: 0,
         animation: "hh-blob-1 14s ease-in-out infinite"
       } }),
       _e("div", { "aria-hidden": true, style: {
         position: "absolute", right: "4%", top: "55%",
-        width: 380, height: 380, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(91,181,232,0.24) 0%, transparent 70%)",
-        filter: "blur(80px)", pointerEvents: "none", zIndex: 0,
+        width: 400, height: 400, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(91,181,232,0.40) 0%, transparent 70%)",
+        filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
         animation: "hh-blob-2 18s ease-in-out infinite"
       } }),
       _e("div", { "aria-hidden": true, style: {
         position: "absolute", right: "28%", top: "65%",
-        width: 300, height: 300, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(167,139,250,0.20) 0%, transparent 70%)",
-        filter: "blur(80px)", pointerEvents: "none", zIndex: 0,
+        width: 320, height: 320, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(167,139,250,0.34) 0%, transparent 70%)",
+        filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
         animation: "hh-blob-3 16s ease-in-out infinite"
       } }),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
@@ -1188,9 +1188,17 @@
               !t.label && _e("div", { style: { height: 14 } }),
               _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 6 } }, "Комиссия"),
               _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.featured ? "#fcd535" : "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
-              _e("div", { style: { width: "100%", marginTop: "auto", padding: "12px 10px", background: "rgba(8,8,10,0.5)", border: "1px solid var(--line)", borderRadius: 10 } },
+              _e("div", { style: {
+                width: "100%", marginTop: "auto", padding: "12px 10px",
+                // Лёгкий gradient — для featured (Tier 7) жёлтый, для остальных — нейтральный
+                background: t.featured
+                  ? "linear-gradient(180deg, rgba(252,213,53,0.10) 0%, rgba(252,213,53,0.03) 100%), rgba(8,8,10,0.5)"
+                  : "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(8,8,10,0.5) 100%)",
+                border: t.featured ? "1px solid rgba(252,213,53,0.32)" : "1px solid var(--line)",
+                borderRadius: 10
+              } },
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Привлечённых трейдеров"),
-                _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, t.range),
+                _e("div", { style: { fontSize: 16, fontWeight: 700, color: t.featured ? "#fcd535" : "#f5f1e8", marginBottom: 2 } }, t.range),
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, "в месяц")
               )
             )
