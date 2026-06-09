@@ -493,7 +493,7 @@
         @keyframes hh-blob-3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-15px, -30px) scale(1.05); } }
       `),
       // Geometric grid pattern — ярче (opacity 0.09) чтобы было видно днём при солнце
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-grid", style: {
         position: "absolute", inset: 0,
         backgroundImage: "linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)",
         backgroundSize: "56px 56px",
@@ -502,21 +502,21 @@
         pointerEvents: "none", zIndex: 0
       } }),
       // Multi-color animated blobs — увеличены opacity для дневной видимости
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-blob hh-hero-blob-y", style: {
         position: "absolute", right: "18%", top: "20%",
         width: 380, height: 380, borderRadius: "50%",
         background: "radial-gradient(circle, rgba(252,213,53,0.36) 0%, transparent 70%)",
         filter: "blur(60px)", pointerEvents: "none", zIndex: 0,
         animation: "hh-blob-1 14s ease-in-out infinite"
       } }),
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-blob hh-hero-blob-c", style: {
         position: "absolute", right: "4%", top: "55%",
         width: 400, height: 400, borderRadius: "50%",
         background: "radial-gradient(circle, rgba(91,181,232,0.40) 0%, transparent 70%)",
         filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
         animation: "hh-blob-2 18s ease-in-out infinite"
       } }),
-      _e("div", { "aria-hidden": true, style: {
+      _e("div", { "aria-hidden": true, className: "hh-hero-blob hh-hero-blob-p", style: {
         position: "absolute", right: "28%", top: "65%",
         width: 320, height: 320, borderRadius: "50%",
         background: "radial-gradient(circle, rgba(167,139,250,0.34) 0%, transparent 70%)",
@@ -1028,8 +1028,14 @@
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Почему Hash Hedge"
             ),
-            _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
-              "Почему тебе стоит стать", _e("br", null), "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром")
+            _e("h2", { className: "hh-why-h2", style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
+              isMobile
+                ? _e(F, null,
+                    "Почему тебе", _e("br", null),
+                    "стоит стать", _e("br", null),
+                    "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром")
+                  )
+                : _e(F, null, "Почему тебе стоит стать", _e("br", null), "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром"))
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Мы даём партнёрам всё, чтобы они росли вместе с нами.")
           )
@@ -2876,23 +2882,67 @@
         .hh-yt-top > div:last-child > div:nth-child(n+2) {
           display: none !important;
         }
-        /* Нижний ряд — горизонтальный slider snap (как на главной RU) */
+        /* v10.2: нижний ряд — гладкий horizontal slider. scroll-snap-type proximity вместо mandatory (не дёргается) */
         .hh-yt-bottom {
           display: flex !important;
           grid-template-columns: none !important;
           overflow-x: auto !important;
-          scroll-snap-type: x mandatory !important;
+          overflow-y: hidden !important;
+          scroll-snap-type: x proximity !important;
+          scroll-padding-left: 16px !important;
           gap: 12px !important;
-          padding: 2px 0 8px !important;
-          margin-top: 14px !important;
+          padding: 2px 16px 12px !important;
+          margin: 14px -16px 0 !important;
           -webkit-overflow-scrolling: touch !important;
+          overscroll-behavior-x: contain !important;
+          scroll-behavior: smooth !important;
         }
         .hh-yt-bottom::-webkit-scrollbar { display: none !important; }
         .hh-yt-bottom > div {
-          flex: 0 0 78% !important;
+          flex: 0 0 82% !important;
+          scroll-snap-align: start !important;
+          min-width: 0 !important;
+          will-change: transform !important;
+        }
+
+        /* === v10.2 mobile: Hero blobs/grid — приглушить, жёлтый сильно режет глаза === */
+        .hh-hero-grid { opacity: 0.5 !important; }
+        .hh-hero-blob-y { opacity: 0.35 !important; }
+        .hh-hero-blob-c { opacity: 0.45 !important; }
+        .hh-hero-blob-p { opacity: 0.40 !important; }
+
+        /* === v10.2 mobile: WhyPartner H2 — 3 строки уже сделано через isMobile в JSX === */
+        .hh-why-h2 { font-size: 28px !important; line-height: 1.1 !important; }
+
+        /* === v10.2 mobile: Events — 1 hero + horizontal slider === */
+        .hh-events-grid {
+          display: flex !important;
+          grid-template-columns: none !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
+          scroll-snap-type: x proximity !important;
+          gap: 12px !important;
+          padding: 2px 16px 12px !important;
+          margin: 14px -16px 0 !important;
+          -webkit-overflow-scrolling: touch !important;
+          overscroll-behavior-x: contain !important;
+          scroll-behavior: smooth !important;
+        }
+        .hh-events-grid::-webkit-scrollbar { display: none !important; }
+        .hh-events-grid > div {
+          flex: 0 0 82% !important;
           scroll-snap-align: start !important;
           min-width: 0 !important;
         }
+
+        /* === v10.2 mobile: TG-сообщество — пригасить синий blue glow + chat-phone отображается === */
+        #telegram .glow { opacity: 0.04 !important; filter: blur(40px) !important; }
+        .hh-tg-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+        .hh-telegram-mobile-visual, .hh-tg-grid > div:last-child > div { display: block !important; }
+
+        /* === v10.2 mobile: Support — показать chat-mokup === */
+        .hh-support-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 16px !important; }
+        .hh-support-grid > div { display: block !important; }
         .hh-why-card-body {
           padding: 12px 14px !important;
           position: relative !important;
