@@ -564,10 +564,8 @@
                 letterSpacing: "-0.03em", margin: "0 0 28px", color: "#f5f1e8"
               }
             },
-              "Продвигай", _e("br", null),
-              "топ крипто-проп-фирму", _e("br", null),
-              "по всему миру и", _e("br", null),
-              _e("span", { style: { color: "#fcd535" } }, "зарабатывай вместе")
+              "Продвигай Hash Hedge", _e("br", null),
+              "и ", _e("span", { style: { color: "#fcd535" } }, "зарабатывай вместе с нами")
             ),
             _e("p", { className: "hh-partner-hero-sub", style: {
               fontSize: 20, color: "#cfcfd3", lineHeight: 1.45,
@@ -596,7 +594,7 @@
                 },
                 onMouseEnter: e => { e.currentTarget.style.background = "rgba(252,213,53,0.08)"; },
                 onMouseLeave: e => { e.currentTarget.style.background = "transparent"; }
-              }, "Вход партнёра")
+              }, "Войти в личный кабинет")
             ),
             _e("a", { href: "#calc",
               style: {
@@ -672,11 +670,11 @@
   // ============================================================================
   function AboutProgram() {
     const cards = [
-      { v: "до 80%", t: "от прибыли HashHedge",         b: "Топовая доля в индустрии — за каждого привлечённого трейдера." },
-      { v: "еженедельно", t: "выплаты в USDT",            b: "Доход на твой кошелёк каждый понедельник." },
-      { v: "пожизненно", t: "начисления",                 b: "Получаешь, пока трейдер активен — без срока действия." }
+      { t: "До 80% от прибыли Hash Hedge", b: "Забирай до 80% от прибыли Hash Hedge с каждой покупки. Реферал закрепляется за тобой пожизненно: привёл один раз, получаешь комиссию со всех следующих покупок." },
+      { t: "Доход с успешных трейдеров", b: "Получай процент от комиссии Hash Hedge каждый раз, когда привлечённый тобой трейдер выводит прибыль." },
+      { t: "Суб-партнёрская программа", b: "Приглашай других партнёров и получай процент от их прибыли. 5% от дохода партнёров, которых ты привлёк напрямую, и 3% от привлечённых ими суб-партнёров." }
     ];
-    return _e("section", { id: "about-program", style: { padding: "100px 0 100px", background: "var(--bg)" } },
+    return _e("section", { id: "about-program", "data-no-glow": true, style: { padding: "100px 0 100px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
           _e("div", { className: "hh-about-head", style: {
@@ -690,8 +688,8 @@
                 "О программе"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
-                "Лучшие партнёрские условия", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "в индустрии.")
+                "Лучшие партнёрские", _e("br", null),
+                "условия ", _e("span", { style: { color: "#fcd535" } }, "в индустрии.")
               )
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
@@ -727,15 +725,8 @@
                 e.currentTarget.style.boxShadow = "none";
               }
             },
-              _e("div", { style: {
-                fontSize: 34, fontWeight: 900, color: "#fcd535",
-                letterSpacing: "-0.02em", lineHeight: 1.05,
-                marginBottom: 12,
-                fontFamily: "Onest, sans-serif",
-                textTransform: c.v === "до 80%" || c.v === "минуты" || c.v === "пожизненно" || c.v === "еженедельно" ? "none" : "uppercase"
-              } }, c.v),
-              _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 14, lineHeight: 1.25 } }, c.t),
-              _e("p", { style: { fontSize: 13, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, c.b)
+              _e("h3", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", marginBottom: 12, lineHeight: 1.25, letterSpacing: "-0.01em" } }, c.t),
+              _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, c.b)
             )
           ))
         )
@@ -1571,7 +1562,7 @@
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
               "Привлекай трейдеров и забирай до ",
-              _e("strong", { style: { color: "#fcd535" } }, "80%"),
+              _e("strong", { style: { color: "#f5f1e8" } }, "80%"),
               " от прибыли Hash Hedge. Используй калькулятор прибыли, чтобы узнать сколько ты можешь зарабатывать."
             )
           )
@@ -2613,7 +2604,8 @@
                 style: {
                   padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
                   textDecoration: "none",
-                  display: "inline-flex", alignItems: "center", gap: 10,
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
+                  minWidth: 280, boxSizing: "border-box",
                   marginRight: 12, marginBottom: 12,
                   boxShadow: "0 0 0 1px rgba(252,213,53,0.30), 0 10px 26px -10px rgba(252,213,53,0.45)"
                 }
@@ -2623,7 +2615,8 @@
                 style: {
                   padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
                   textDecoration: "none",
-                  display: "inline-flex", alignItems: "center", gap: 10,
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
+                  minWidth: 280, boxSizing: "border-box", marginBottom: 12,
                   color: "#fff", background: "#229ED9",
                   boxShadow: "0 12px 32px -10px rgba(34,158,217,0.6)"
                 }
@@ -3020,7 +3013,8 @@
       // v11.0: Leaderboard убран; CabinetPreview (блок с дашбордом/ЛК) возвращён по правкам RU
       _e(CabinetPreview, null),
       // _e(Leaderboard, null),
-      _e(PartnerContent, null),
+      // PartnerContent («Контент партнёров / Что помогает партнёрам зарабатывать») убран по правкам RU
+      // _e(PartnerContent, null),
       _e(Events, null),
       // v11.0: TelegramCommunity (Закрытый чат) убран
       // _e(TelegramCommunity, null),
