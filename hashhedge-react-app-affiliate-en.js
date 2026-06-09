@@ -2197,6 +2197,17 @@
   // EVENTS
   // ============================================================================
   function Events() {
+    // На узких экранах (Tilda отдаёт эмбеду ширину ≤980) — 1 big + горизонтальный слайдер остального.
+    const [isNarrow, setIsNarrow] = useState(() =>
+      typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 980px)").matches
+    );
+    useEffect(() => {
+      if (typeof window === "undefined" || !window.matchMedia) return;
+      const mql = window.matchMedia("(max-width: 980px)");
+      const fn = e => setIsNarrow(e.matches);
+      if (mql.addEventListener) mql.addEventListener("change", fn); else mql.addListener(fn);
+      return () => { if (mql.removeEventListener) mql.removeEventListener("change", fn); else mql.removeListener(fn); };
+    }, []);
     // v11.0: новая сетка как у Vercel COMMUNITY & EVENTS.
     // Top: 1 big (1.35fr) + 2 stacked (1fr). Bottom: 4 равные.
     const events = [
@@ -2257,16 +2268,25 @@
           )
         ),
         // v11.0: Vercel-сетка — top row (1 big 1.35fr + 2 stacked 1fr) + bottom row 4-col
-        _e("div", { className: "hh-events-top", style: { display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 18, marginBottom: 18 } },
-          _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
-          _e("div", { style: { display: "grid", gridTemplateRows: "1fr 1fr", gap: 18 } },
-            _e(Reveal, { delay: "2" }, _e(Card, { ev: events[1], size: "md" })),
-            _e(Reveal, { delay: "3" }, _e(Card, { ev: events[2], size: "md" }))
-          )
-        ),
-        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
-          events.slice(3).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 4) }, _e(Card, { ev, size: "sm" })))
-        )
+        isNarrow
+          ? _e(F, null,
+              _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
+              _e("div", { className: "hh-events-slider", style: { display: "flex", gap: 12, overflowX: "auto", overflowY: "hidden", scrollSnapType: "x proximity", WebkitOverflowScrolling: "touch", margin: "14px -16px 0", padding: "2px 16px 14px" } },
+                events.slice(1).map((ev, i) => _e("div", { key: i, style: { flex: "0 0 78%", scrollSnapAlign: "start", minWidth: 0 } }, _e(Card, { ev, size: "sm" })))
+              )
+            )
+          : _e(F, null,
+              _e("div", { className: "hh-events-top", style: { display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 18, marginBottom: 18 } },
+                _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
+                _e("div", { style: { display: "grid", gridTemplateRows: "1fr 1fr", gap: 18 } },
+                  _e(Reveal, { delay: "2" }, _e(Card, { ev: events[1], size: "md" })),
+                  _e(Reveal, { delay: "3" }, _e(Card, { ev: events[2], size: "md" }))
+                )
+              ),
+              _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
+                events.slice(3).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 4) }, _e(Card, { ev, size: "sm" })))
+              )
+            )
       )
     );
   }
@@ -2577,10 +2597,10 @@
                 ))
               ),
               _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-                className: "hh-btn-yellow",
+                className: "hh-btn-yellow hh-tati-cta",
                 style: {
                   padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
-                  textDecoration: "none",
+                  textDecoration: "none", background: "#fcd535", color: "#13111c",
                   display: "inline-flex", alignItems: "center", gap: 10,
                   marginRight: 12, marginBottom: 12,
                   boxShadow: "0 0 0 1px rgba(252,213,53,0.30), 0 10px 26px -10px rgba(252,213,53,0.45)"
@@ -3703,6 +3723,58 @@
       }
       #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg:hover {
         background: #1E8BBE !important;
+      }
+
+      /* ============================================================
+         v12 МОБИЛЬНЫЕ ФИКСЫ (брейкпоинт ≤980, т.к. на телефоне Tilda
+         отдаёт эмбеду планшетную ширину и правила ≤640 не срабатывают).
+         Блок последний в стилях — побеждает по каскаду.
+         Зеркалить на RU после согласования. ============================ */
+      @media (max-width: 980px) {
+        /* (1) Hero stats — Trustpilot на всю ширину, 4 числа сеткой 2×2, без переноса цифр */
+        .hh-partner-hero-stats {
+          grid-template-columns: 1fr 1fr !important;
+          gap: 18px 14px !important;
+          margin-top: 40px !important;
+          padding-top: 24px !important;
+        }
+        .hh-partner-hero-stats > div { border-left: none !important; padding-left: 0 !important; }
+        .hh-partner-hero-stats > div:first-child { grid-column: 1 / -1 !important; }
+        .hh-partner-hero-stats > div:not(:first-child) > div:first-child {
+          white-space: nowrap !important;
+          font-size: 24px !important;
+        }
+
+        /* (2) About cards — заметно компактнее (были слишком большими) */
+        .hh-about-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+        .hh-about-card { padding: 18px 16px !important; }
+        .hh-about-card > div:first-child { font-size: 22px !important; margin-bottom: 8px !important; }
+        .hh-about-card > div:nth-child(2) { font-size: 14px !important; margin-bottom: 8px !important; }
+        .hh-about-card > p { font-size: 12px !important; line-height: 1.5 !important; }
+
+        /* (3) Калькулятор — сильно компактнее (карточка-виджет влезает в экран) */
+        .hh-calc-card { padding: 18px 16px 16px !important; }
+        .hh-calc-card > div:first-child { margin-bottom: 12px !important; }
+        .hh-calc-card .hh-calc-slider { margin: 6px 0 2px !important; }
+        .hh-calc-card > div:last-child { padding-top: 14px !important; }
+        .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 34px !important; }
+        .hh-calc-card > div:nth-child(5) { margin-bottom: 14px !important; }
+        .hh-calc-levels { gap: 8px !important; }
+        .hh-calc-tier-row { padding: 12px 16px !important; gap: 12px !important; }
+        .hh-calc-tier-row > div:first-child { font-size: 24px !important; min-width: 60px !important; }
+
+        /* (4) Events — big card компактнее + горизонтальный слайдер остального */
+        .hh-event-card-big { min-height: 0 !important; aspect-ratio: 1.45 / 1 !important; }
+        .hh-events-slider .hh-event-card { min-height: 0 !important; height: auto !important; aspect-ratio: 1.35 / 1 !important; }
+        .hh-events-slider .hh-event-card-title { font-size: 17px !important; }
+        .hh-events-slider::-webkit-scrollbar { display: none !important; }
+
+        /* (5) Кнопка Tati — гарантированно жёлтая с чёрным текстом */
+        #hashhedge-root .tilda-html-hashhedge a.hh-tati-cta {
+          background: #fcd535 !important;
+          color: #13111c !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge a.hh-tati-cta * { color: #13111c !important; }
       }
     `;
     document.head.appendChild(st);
