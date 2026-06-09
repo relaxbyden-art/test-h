@@ -579,8 +579,8 @@
               marginBottom: 36, maxWidth: 560
             } },
               "Получай до ",
-              _e("strong", { style: { color: "#f5f1e8", fontWeight: 800 } }, "80% revenue share"),
-              " с каждого привлечённого трейдера — выплаты еженедельно в USDT, пожизненно."
+              _e("strong", { style: { color: "#f5f1e8", fontWeight: 800 } }, "80% комиссии"),
+              " с каждого привлечённого трейдера. Пожизненные начисления, прозрачная статистика и быстрые выплаты."
             ),
             _e("div", { className: "hh-partner-hero-cta", style: {
               display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 28
@@ -635,7 +635,7 @@
         } },
           // Trustpilot
           _e("div", null,
-            _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } }, "Партнёрство с проверенной платформой"),
+            _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } }, "Сотрудничай с платформой, которой доверяют"),
             _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 10 } },
               _e("span", { style: { fontSize: 16, fontWeight: 800, color: "#f5f1e8" } }, "Excellent"),
               _e("div", { style: { display: "inline-flex", gap: 2 } },
@@ -2226,6 +2226,16 @@
   // EVENTS
   // ============================================================================
   function Events() {
+    const [isNarrow, setIsNarrow] = useState(() =>
+      typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 980px)").matches
+    );
+    useEffect(() => {
+      if (typeof window === "undefined" || !window.matchMedia) return;
+      const mql = window.matchMedia("(max-width: 980px)");
+      const fn = e => setIsNarrow(e.matches);
+      if (mql.addEventListener) mql.addEventListener("change", fn); else mql.addListener(fn);
+      return () => { if (mql.removeEventListener) mql.removeEventListener("change", fn); else mql.removeListener(fn); };
+    }, []);
     // v11.0: новая сетка как у Vercel COMMUNITY & EVENTS.
     // Top: 1 big (1.35fr) + 2 stacked (1fr). Bottom: 4 равные.
     const events = [
@@ -2286,16 +2296,26 @@
           )
         ),
         // v11.0: Vercel-сетка — top row (1 big 1.35fr + 2 stacked 1fr) + bottom row 4-col
-        _e("div", { className: "hh-events-top", style: { display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 18, marginBottom: 18 } },
-          _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
-          _e("div", { style: { display: "grid", gridTemplateRows: "1fr 1fr", gap: 18 } },
-            _e(Reveal, { delay: "2" }, _e(Card, { ev: events[1], size: "md" })),
-            _e(Reveal, { delay: "3" }, _e(Card, { ev: events[2], size: "md" }))
-          )
-        ),
-        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
-          events.slice(3).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 4) }, _e(Card, { ev, size: "sm" })))
-        )
+        // v12.1 mobile (≤980): 1 большая карточка + остальные горизонтальным слайдером
+        isNarrow
+          ? _e(F, null,
+              _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
+              _e("div", { className: "hh-events-slider", style: { display: "flex", gap: 12, overflowX: "auto", overflowY: "hidden", scrollSnapType: "x proximity", WebkitOverflowScrolling: "touch", margin: "14px -16px 0", padding: "2px 16px 14px" } },
+                events.slice(1).map((ev, i) => _e("div", { key: i, style: { flex: "0 0 78%", scrollSnapAlign: "start", minWidth: 0 } }, _e(Card, { ev, size: "sm" })))
+              )
+            )
+          : _e(F, null,
+              _e("div", { className: "hh-events-top", style: { display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 18, marginBottom: 18 } },
+                _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
+                _e("div", { style: { display: "grid", gridTemplateRows: "1fr 1fr", gap: 18 } },
+                  _e(Reveal, { delay: "2" }, _e(Card, { ev: events[1], size: "md" })),
+                  _e(Reveal, { delay: "3" }, _e(Card, { ev: events[2], size: "md" }))
+                )
+              ),
+              _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
+                events.slice(3).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 4) }, _e(Card, { ev, size: "sm" })))
+              )
+            )
       )
     );
   }
@@ -2608,7 +2628,7 @@
               ),
               _e("div", { style: { display: "flex", gap: 12, flexWrap: "wrap", maxWidth: 600 } },
                 _e("a", { href: "https://partner.hashhedge.com/auth/signup/", target: "_blank", rel: "noopener noreferrer",
-                  className: "hh-btn-yellow",
+                  className: "hh-btn-yellow hh-tati-cta",
                   style: {
                     padding: "16px 24px", borderRadius: 100, fontSize: 15, fontWeight: 700,
                     textDecoration: "none",
@@ -2618,7 +2638,7 @@
                   }
                 }, "Стать партнёром"),
                 _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-                  className: "hh-btn-tg",
+                  className: "hh-btn-tg hh-tati-tg",
                   style: {
                     padding: "16px 24px", borderRadius: 100, fontSize: 15, fontWeight: 700,
                     textDecoration: "none",
@@ -3657,6 +3677,73 @@
       }
       #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg:hover {
         background: #1E8BBE !important;
+      }
+
+      /* ============================================================
+         v12.1 МОБИЛЬНЫЕ ФИКСЫ (брейкпоинт ≤980, т.к. на телефоне Tilda
+         отдаёт эмбеду планшетную ширину и правила ≤640 не срабатывают).
+         Блок последний в стилях — побеждает по каскаду.
+         Зеркало EN-блока v12.1. ============================ */
+      @media (max-width: 980px) {
+        /* (1) Hero stats — Trustpilot на всю ширину, 4 числа сеткой 2×2, без переноса цифр */
+        .hh-partner-hero-stats {
+          grid-template-columns: 1fr 1fr !important;
+          gap: 18px 14px !important;
+          margin-top: 40px !important;
+          padding-top: 24px !important;
+        }
+        .hh-partner-hero-stats > div { border-left: none !important; padding-left: 0 !important; }
+        .hh-partner-hero-stats > div:first-child { grid-column: 1 / -1 !important; }
+        .hh-partner-hero-stats > div:not(:first-child) > div:first-child {
+          white-space: nowrap !important;
+          font-size: 24px !important;
+        }
+
+        /* (2) About cards — заметно компактнее */
+        .hh-about-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+        .hh-about-card { padding: 18px 16px !important; }
+        .hh-about-card > div:first-child { font-size: 22px !important; margin-bottom: 8px !important; }
+        .hh-about-card > div:nth-child(2) { font-size: 14px !important; margin-bottom: 8px !important; }
+        .hh-about-card > p { font-size: 12px !important; line-height: 1.5 !important; }
+
+        /* (3) Калькулятор — сильно компактнее (карточка-виджет влезает в экран) */
+        .hh-calc-card { padding: 18px 16px 16px !important; }
+        .hh-calc-card > div:first-child { margin-bottom: 12px !important; }
+        .hh-calc-card .hh-calc-slider { margin: 6px 0 2px !important; }
+        .hh-calc-card > div:last-child { padding-top: 14px !important; }
+        .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 34px !important; }
+        .hh-calc-card > div:nth-child(5) { margin-bottom: 14px !important; }
+        .hh-calc-levels { gap: 8px !important; }
+        .hh-calc-tier-row { padding: 12px 16px !important; gap: 12px !important; }
+        .hh-calc-tier-row > div:first-child { font-size: 24px !important; min-width: 60px !important; }
+
+        /* (4) Events — big card компактнее + горизонтальный слайдер остального */
+        .hh-event-card-big { min-height: 0 !important; aspect-ratio: 1.45 / 1 !important; }
+        .hh-events-slider .hh-event-card { min-height: 0 !important; height: auto !important; aspect-ratio: 1.35 / 1 !important; }
+        .hh-events-slider .hh-event-card-title { font-size: 17px !important; }
+        .hh-events-slider::-webkit-scrollbar { display: none !important; }
+
+        /* (5) Кнопки Tati. ПРИЧИНА прозрачности: глобальное правило в hashhedge-react.css
+           ".hh-support-section a[href]" со спецификацией (1,3,1) перебивало наши (1,2,1).
+           Поднимаем спецификацию до (1,4,1) и возвращаем вид кнопок. */
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section a.hh-tati-cta.hh-btn-yellow {
+          background: #fcd535 !important;
+          color: #13111c !important;
+          border: none !important;
+          border-radius: 100px !important;
+          justify-content: center !important;
+          padding: 16px 28px !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section a.hh-tati-cta.hh-btn-yellow * { color: #13111c !important; }
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section a.hh-tati-tg.hh-btn-tg {
+          background: #229ED9 !important;
+          color: #fff !important;
+          border: none !important;
+          border-radius: 100px !important;
+          justify-content: center !important;
+          padding: 16px 28px !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section a.hh-tati-tg.hh-btn-tg * { color: #fff !important; }
       }
     `;
     document.head.appendChild(st);
