@@ -1145,13 +1145,14 @@
     );
     // Все уровни — единый тёмный стиль. Tier 7 (top) — фирменный жёлтый, только он выделен.
     const tiers = [
-      { lvl: 7, pct: 80, range: "700+",    label: "максимум", featured: true },
-      { lvl: 6, pct: 75, range: "400–699", label: null },
-      { lvl: 5, pct: 70, range: "200–399", label: null },
-      { lvl: 4, pct: 65, range: "100–199", label: null },
-      { lvl: 3, pct: 60, range: "50–99",   label: null },
-      { lvl: 2, pct: 55, range: "15–49",   label: null },
-      { lvl: 1, pct: 50, range: "0–14",    label: "старт" }
+      // Цветовая шкала по уровням: от холодного «старта» к горячему «максимуму»
+      { lvl: 7, pct: 80, range: "700+",    label: "максимум", featured: true, rgb: "252,213,53"  /* жёлтый */ },
+      { lvl: 6, pct: 75, range: "400–699", label: null,                       rgb: "232,121,249" /* magenta */ },
+      { lvl: 5, pct: 70, range: "200–399", label: null,                       rgb: "167,139,250" /* фиолет */ },
+      { lvl: 4, pct: 65, range: "100–199", label: null,                       rgb: "96,165,250"  /* синий */ },
+      { lvl: 3, pct: 60, range: "50–99",   label: null,                       rgb: "34,211,238"  /* циан */ },
+      { lvl: 2, pct: 55, range: "15–49",   label: null,                       rgb: "74,222,128"  /* зелёный */ },
+      { lvl: 1, pct: 50, range: "0–14",    label: "старт",                    rgb: "148,163,184" /* серо-голубой */ }
     ];
     return _e("section", { id: "levels", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -1190,15 +1191,13 @@
               _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.featured ? "#fcd535" : "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
               _e("div", { style: {
                 width: "100%", marginTop: "auto", padding: "12px 10px",
-                // Лёгкий gradient — для featured (Tier 7) жёлтый, для остальных — нейтральный
-                background: t.featured
-                  ? "linear-gradient(180deg, rgba(252,213,53,0.10) 0%, rgba(252,213,53,0.03) 100%), rgba(8,8,10,0.5)"
-                  : "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(8,8,10,0.5) 100%)",
-                border: t.featured ? "1px solid rgba(252,213,53,0.32)" : "1px solid var(--line)",
+                // Уровневый цветовой градиент: от жёлтого (макс) до серо-синего (старт)
+                background: `linear-gradient(180deg, rgba(${t.rgb},0.14) 0%, rgba(${t.rgb},0.04) 50%, rgba(8,8,10,0.5) 100%)`,
+                border: `1px solid rgba(${t.rgb},${t.featured ? 0.35 : 0.22})`,
                 borderRadius: 10
               } },
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Привлечённых трейдеров"),
-                _e("div", { style: { fontSize: 16, fontWeight: 700, color: t.featured ? "#fcd535" : "#f5f1e8", marginBottom: 2 } }, t.range),
+                _e("div", { style: { fontSize: 16, fontWeight: 700, color: `rgb(${t.rgb})`, marginBottom: 2 } }, t.range),
                 _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, "в месяц")
               )
             )
