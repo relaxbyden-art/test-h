@@ -544,13 +544,14 @@
       // Затемнение сверху и снизу — особенно резкий fade-to-bg внизу чтобы не было ступеньки до AboutProgram
       _e("div", { "aria-hidden": "true", style: {
         position: "absolute", inset: 0,
-        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 22%, rgba(8,8,10,0) 40%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.92) 88%, rgba(8,8,10,1) 100%)",
+        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 22%, rgba(8,8,10,0) 40%, rgba(8,8,10,0.55) 65%, rgba(16,16,18,0.92) 88%, rgba(16,16,18,1) 100%)",
         pointerEvents: "none", zIndex: 1
       } }),
       // Плавный градиент-переход к следующей секции (убирает «ступеньку» между hero и блоком «О программе»)
       _e("div", { "aria-hidden": "true", style: {
         position: "absolute", left: 0, right: 0, bottom: 0, height: 300,
-        background: "linear-gradient(180deg, rgba(8,8,10,0) 0%, rgba(8,8,10,0.55) 42%, rgba(8,8,10,0.9) 76%, #08080a 100%)",
+        // v12.4: затухание в var(--bg) #101012 (а не #08080a) — иначе видимая ступенька на стыке с «О программе»
+        background: "linear-gradient(180deg, rgba(16,16,18,0) 0%, rgba(16,16,18,0.55) 42%, rgba(16,16,18,0.9) 76%, #101012 100%)",
         pointerEvents: "none", zIndex: 1
       } }),
 
@@ -700,7 +701,7 @@
               )
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Hash Hedge предоставляет крипто-трейдерам капитал до ", _e("strong", { style: { color: "#f5f1e8" } }, "$150 000"),
+              "Hash Hedge предоставляет крипто-трейдерам капитал до ", _e("strong", { style: { color: "#f5f1e8", whiteSpace: "nowrap" } }, "$150 000"),
               " для торговли. Продвигай Hash Hedge, приводи рефералов и зарабатывай вместе с нами на самых щедрых условиях среди проп-компаний."
             )
           )
@@ -2557,7 +2558,8 @@
       "Поможем запуститься в течение одного дня",
       "Предоставим готовые маркетинговые материалы от Hash Hedge",
       "Покажем, какие связки работают лучше всего для твоей аудитории",
-      _e(F, null, "С нашими аффилиат-менеджерами партнёры выходят на ", _e("b", { style: { color: "#fcd535", fontWeight: 800 } }, "пятизначный доход"))
+      // v12.4: финальная фраза — без галочки, жирная 15px
+      { strong: true, node: _e(F, null, "С нашими аффилиат-менеджерами партнёры выходят на ", _e("b", { style: { color: "#fcd535", fontWeight: 800 } }, "пятизначный доход")) }
     ];
     return _e("section", { id: "support", className: "hh-support-section",
       style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" }
@@ -2617,25 +2619,28 @@
                 "С первого дня тебя будет сопровождать персональный менеджер. Руководитель партнёрской поддержки Tati и её команда помогут тебе запуститься, оптимизировать стратегию и масштабировать трафик."
               ),
               _e("div", { className: "hh-sup-features", style: { borderTop: "1px solid var(--line)", marginBottom: 32 } },
-                features.map((f, i) => _e("div", { key: i, style: {
-                  display: "flex", alignItems: "flex-start", gap: 12,
-                  padding: "16px 0",
-                  borderBottom: "1px solid var(--line)"
-                } },
-                  _e("span", { style: {
-                    width: 22, height: 22, borderRadius: "50%",
-                    background: "rgba(252,213,53,0.12)",
-                    border: "1px solid rgba(252,213,53,0.40)",
-                    color: "#fcd535", flexShrink: 0,
-                    display: "inline-flex", alignItems: "center", justifyContent: "center"
+                features.map((f, i) => {
+                  const isStrong = typeof f === "object" && f !== null && f.strong;
+                  return _e("div", { key: i, style: {
+                    display: "flex", alignItems: "flex-start", gap: 12,
+                    padding: "16px 0",
+                    borderBottom: "1px solid var(--line)"
                   } },
-                    _e("svg", { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none",
-                      style: { stroke: "#fcd535", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" } },
-                      _e("path", { d: "M5 12l4 4L19 7" })
-                    )
-                  ),
-                  _e("span", { style: { fontSize: 15, color: "#f5f1e8", lineHeight: 1.5 } }, f)
-                ))
+                    !isStrong && _e("span", { style: {
+                      width: 22, height: 22, borderRadius: "50%",
+                      background: "rgba(252,213,53,0.12)",
+                      border: "1px solid rgba(252,213,53,0.40)",
+                      color: "#fcd535", flexShrink: 0,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center"
+                    } },
+                      _e("svg", { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none",
+                        style: { stroke: "#fcd535", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" } },
+                        _e("path", { d: "M5 12l4 4L19 7" })
+                      )
+                    ),
+                    _e("span", { style: { fontSize: 15, fontWeight: isStrong ? 700 : 400, color: "#f5f1e8", lineHeight: 1.5 } }, isStrong ? f.node : f)
+                  );
+                })
               ),
               _e("div", { style: { display: "flex", gap: 12, flexWrap: "wrap", maxWidth: 600 } },
                 _e("a", { href: "https://partner.hashhedge.com/auth/signup/", target: "_blank", rel: "noopener noreferrer",
