@@ -2432,15 +2432,28 @@
                   { who: "HH", text: "В кабинете партнёра есть «Аналитика» — клики, регистрации и доход видно в реальном времени 📊", time: "14:03" },
                   { who: "you", text: "Супер, всё наглядно. Спасибо! 🙌", time: "14:03" }
                 ].map((m, i) => _e("div", { key: i,
+                  className: "hh-chat-row hh-chat-row-" + m.who,
                   style: {
                     display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", alignItems: "flex-end",
                     // v10.7: opacity 1 всегда + анимация бонусом если IO сработал
+                    // v10.10: textAlign + margin-left:auto дополнительно — на мобиле некоторые гло-CSS
+                    // правила убивают flex justifyContent и сообщения всё слева; так перебиваем надёжно
                     animation: chatInView ? `hh-chat-msg-in 0.5s ease ${i * 0.7}s both` : "none",
-                    opacity: 1
+                    opacity: 1,
+                    textAlign: m.who === "you" ? "right" : "left"
                   }
                 },
                   // аватары HH/Я убраны — только пузыри с сообщениями
-                  _e("div", { style: { display: "flex", flexDirection: "column", alignItems: m.who === "you" ? "flex-end" : "flex-start", maxWidth: "75%" } },
+                  // v10.10: align-self + margin-left:auto чтобы works даже если row не flex (на мобиле бывает)
+                  _e("div", { className: "hh-chat-bubble-wrap", style: {
+                    display: "inline-flex", flexDirection: "column",
+                    alignItems: m.who === "you" ? "flex-end" : "flex-start",
+                    alignSelf: m.who === "you" ? "flex-end" : "flex-start",
+                    marginLeft: m.who === "you" ? "auto" : 0,
+                    marginRight: m.who === "you" ? 0 : "auto",
+                    maxWidth: "75%",
+                    textAlign: "left"
+                  } },
                     _e("div", { style: {
                       padding: "10px 14px", borderRadius: 14, fontSize: 14, lineHeight: 1.4,
                       background: m.who === "you" ? "#229ED9" : "rgba(255,255,255,0.05)",
@@ -3155,6 +3168,47 @@
           visibility: visible !important;
           opacity: 1 !important;
         }
+
+        /* === v10.10: убиваем max-height 430 / max-width 300 у iPhone-обёртки из глобального CSS
+              (line 4344) — там это писалось под упрощённый мокап main RU, у нас высокий, ужимался === */
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) > div {
+          max-width: 360px !important;
+          max-height: none !important;
+          width: 100% !important;
+          margin: 0 auto !important;
+        }
+        /* Сбрасываем глобальные padding-overrides которые ломают наш iPhone layout */
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) > div > div:first-child {
+          height: auto !important;
+          padding: 8px !important;
+          font-size: inherit !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) > div > div > div:nth-child(2) {
+          padding: 12px 28px 8px !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) > div > div > div:nth-child(3) {
+          padding: 16px 14px 12px !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) > div > div > div:nth-child(5) > div {
+          grid-template-columns: 44px 1fr auto !important;
+          gap: 12px !important;
+          padding: 10px 16px !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) > div > div > div:nth-child(5) > div > div:first-child {
+          width: 44px !important;
+          height: 44px !important;
+          font-size: 24px !important;
+        }
+
+        /* === v10.10: Support чат — больше отступ от фото, меньше минимальная высота === */
+        .hh-support-grid { gap: 20px !important; }
+        .hh-support-grid > div:nth-child(2) > div { min-height: auto !important; padding: 16px !important; }
+        /* Сообщения: «you» (мои) справа, «HH» слева — побеждаем любые глобальные overrides */
+        .hh-chat-row { display: flex !important; }
+        .hh-chat-row-you { justify-content: flex-end !important; text-align: right !important; }
+        .hh-chat-row-HH  { justify-content: flex-start !important; text-align: left !important; }
+        .hh-chat-row-you .hh-chat-bubble-wrap { margin-left: auto !important; margin-right: 0 !important; align-self: flex-end !important; align-items: flex-end !important; }
+        .hh-chat-row-HH  .hh-chat-bubble-wrap { margin-right: auto !important; margin-left: 0 !important; align-self: flex-start !important; align-items: flex-start !important; }
         .hh-why-card-body {
           padding: 12px 14px !important;
           position: relative !important;
