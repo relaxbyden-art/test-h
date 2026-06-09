@@ -2581,6 +2581,81 @@
   }
 
   // ============================================================================
+
+  function FAQ() {
+    const items = [
+      { q: "Как работает партнёрская программа Hash Hedge?", a: "Программа работает по модели RevShare: ты получаешь от 50% до 80% прибыли компании с каждой покупки челленджа по твоей реферальной ссылке. Начисления — пожизненные, пока реферал остаётся активным." },
+      { q: "Что считается «прибылью компании»?", a: "Прибыль = стоимость челленджа − 21% (7% — комиссия платёжной системы, 14% — резервный фонд). Например, с челленджа Elite за $499 база составляет около $394 — и на стартовом уровне 50% ты получаешь примерно $197 чистыми." },
+      { q: "Как растёт мой процент RevShare?", a: "Все партнёры стартуют с 50%. Каждое 1-е число месяца процент пересчитывается по числу челленджей, купленных твоими рефералами за прошлый месяц, и держится весь следующий месяц. Максимум — 80% при 700+ продажах в месяц." },
+      { q: "Зарабатываю ли я с прибыли трейдеров?", a: "Да. Если реферал проходит челлендж и торгует в плюс, он получает 80% прибыли, компания — 20%, а ты получаешь свой % RevShare с этих 20%. Пример: трейдер заработал $10 000 → компания получает $2 000 → тебе до $1 600." },
+      { q: "Когда и как происходят выплаты?", a: "Запроси выплату прямо в партнёрском кабинете — она придёт в USDT на твой кошелёк в течение 72 часов. Минимум к выводу — $100; первая выплата доступна после 5 рефералов с покупкой." },
+      { q: "Есть ли доход с приведённых партнёров?", a: "Да, многоуровневая программа: 5% с дохода партнёра, которого ты привёл напрямую, и 3% с партнёра следующего уровня. Эти проценты платит компания сверху — доход твоих субпартнёров не уменьшается." },
+      { q: "Нужно ли быть трейдером, чтобы участвовать?", a: "Нет. Партнёром может стать любой — блогер, маркетолог, инфлюенсер или владелец комьюнити. Опыт в трейдинге не нужен, а работать можно с аудиторией из 154 стран." },
+      { q: "Какие лимиты на вывод средств?", a: "Минимальная сумма к выводу — $100. Первая выплата становится доступна после того, как 5 твоих рефералов совершили хотя бы одну покупку — это защищает программу от самореферальства. Дальше выводи по запросу из кабинета, без ограничений по частоте." }
+    ];
+    const [open, setOpen] = useState(-1);
+    const TG_BLUE = "#229ED9", TG_BLUE_DARK = "#1E8BBE";
+    return _e("section", { id: "faq", style: { padding: "100px 0 120px", background: "var(--bg)" } },
+      _e("div", { className: "container" },
+        _e(Reveal, null,
+          _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 48px" } },
+            _e("span", {
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
+            }, "FAQ"),
+            _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } }, "Часто задаваемые вопросы"),
+            _e("p", { style: { fontSize: 16, color: "#a1a0a4" } }, "Всё что нужно знать о партнёрской программе.")
+          )
+        ),
+        _e(Reveal, { delay: "1" },
+          _e("div", { style: { maxWidth: 820, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 } },
+            items.map((it, i) => _e("div", {
+              key: i,
+              style: { background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }
+            },
+              _e("button", { onClick: () => setOpen(open === i ? -1 : i),
+                style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", color: "#f5f1e8", fontSize: 16, fontWeight: 700, textAlign: "left" }
+              },
+                _e("span", null, it.q),
+                _e("span", { style: { fontSize: 16, color: "#a1a0a4", transform: open === i ? "rotate(180deg)" : "none", transition: "transform .25s" } }, "▾")
+              ),
+              open === i && _e("div", { style: { padding: "0 24px 22px", fontSize: 14, color: "#a1a0a4", lineHeight: 1.6 } }, it.a)
+            ))
+          )
+        ),
+        _e(Reveal, { delay: "2" },
+          _e("div", { className: "hh-faq-cta",
+            style: {
+              maxWidth: 820, margin: "48px auto 0", padding: "28px 32px",
+              background: "#1C1C1F", border: "1px solid rgba(43,156,222,0.4)", borderRadius: 16,
+              display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28, flexWrap: "wrap"
+            }
+          },
+            _e("div", { style: { flex: "1 1 320px", minWidth: 0 } },
+              _e("div", { style: { fontSize: 22, fontWeight: 700, color: "#f5f1e8", marginBottom: 8 } },
+                "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")
+              ),
+              _e("div", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.5, margin: 0 } },
+                "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе."
+              )
+            ),
+            _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer", className: "hh-btn-tg",
+              style: {
+                display: "inline-flex", alignItems: "center", gap: 10,
+                padding: "16px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700,
+                textDecoration: "none", color: "#fff", whiteSpace: "nowrap", flexShrink: 0,
+                boxShadow: `0 12px 32px -8px ${TG_BLUE_DARK}`
+              }
+            },
+              _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fff" } },
+                _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
+              ),
+              _e("span", { style: { color: "#fff" } }, "Поддержка в Telegram")
+            )
+          )
+        )
+      )
+    );
+  }
   // BIG CTA
   // ============================================================================
   function BigCTA() {
