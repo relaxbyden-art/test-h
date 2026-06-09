@@ -3706,16 +3706,46 @@
         .hh-about-card > div:nth-child(2) { font-size: 14px !important; margin-bottom: 8px !important; }
         .hh-about-card > p { font-size: 12px !important; line-height: 1.5 !important; }
 
-        /* (3) Калькулятор — сильно компактнее (карточка-виджет влезает в экран) */
-        .hh-calc-card { padding: 18px 16px 16px !important; }
-        .hh-calc-card > div:first-child { margin-bottom: 12px !important; }
-        .hh-calc-card .hh-calc-slider { margin: 6px 0 2px !important; }
-        .hh-calc-card > div:last-child { padding-top: 14px !important; }
-        .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 34px !important; }
-        .hh-calc-card > div:nth-child(5) { margin-bottom: 14px !important; }
-        .hh-calc-levels { gap: 8px !important; }
-        .hh-calc-tier-row { padding: 12px 16px !important; gap: 12px !important; }
-        .hh-calc-tier-row > div:first-child { font-size: 24px !important; min-width: 60px !important; }
+        /* (3) Калькулятор — полная мобильная пересборка.
+           ВАЖНО: глобальный hashhedge-react.css на ≤640 имеет правило
+           section [style*="grid-template-columns: 1fr 1fr"] { 1fr; gap:32px } (0,1,1),
+           которое складывало карточки комиссии в столбик с гигантским зазором.
+           Здесь специфичность поднята до (1,2,1)+ — наши правила побеждают. */
+        .hh-calc-card { padding: 16px 14px 14px !important; }
+        /* заголовок "Калькулятор прибыли" */
+        .hh-calc-card > div:first-child { margin-bottom: 10px !important; font-size: 10px !important; }
+        /* строка: лейбл + число трейдеров */
+        .hh-calc-card > div:nth-child(2) { margin-bottom: 6px !important; }
+        .hh-calc-card > div:nth-child(2) > div:first-child { font-size: 13px !important; }
+        .hh-calc-card > div:nth-child(2) > div:last-child { font-size: 24px !important; }
+        .hh-calc-card .hh-calc-slider { margin: 4px 0 2px !important; }
+        /* шкала 0/200/400/700+ */
+        .hh-calc-card > div:nth-child(4) { margin-bottom: 14px !important; font-size: 10px !important; }
+        /* сетка двух карточек (комиссия + ср.чек) — держим 2 колонки, бьём глобальный stack */
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-card > div:nth-child(5) {
+          display: grid !important;
+          grid-template-columns: 1fr 1fr !important;
+          gap: 10px !important;
+          margin-bottom: 14px !important;
+          align-items: stretch !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-card > div:nth-child(5) > div { padding: 10px 12px !important; border-radius: 10px !important; }
+        .hh-calc-card > div:nth-child(5) > div > div:first-child { font-size: 9px !important; margin-bottom: 4px !important; letter-spacing: 0.08em !important; }
+        .hh-calc-card > div:nth-child(5) > div > div:nth-child(2) { font-size: 20px !important; }
+        .hh-calc-card > div:nth-child(5) > div > div:last-child { font-size: 10px !important; margin-top: 3px !important; }
+        /* итоговая выплата */
+        .hh-calc-card > div:last-child { padding-top: 12px !important; }
+        .hh-calc-card > div:last-child > div:first-child { margin-bottom: 4px !important; font-size: 10px !important; }
+        .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 32px !important; }
+        .hh-calc-card > div:last-child > div:nth-child(3) { font-size: 12px !important; margin-top: 5px !important; }
+        .hh-calc-card > div:last-child > p { font-size: 10px !important; margin-top: 10px !important; }
+        /* список уровней — плотные строки */
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-levels { gap: 8px !important; margin-top: 16px !important; }
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-tier-row { padding: 11px 14px !important; gap: 12px !important; border-radius: 12px !important; }
+        .hh-calc-tier-row > div:first-child { font-size: 22px !important; min-width: 56px !important; }
+        .hh-calc-tier-row > div:nth-child(2) > div:first-child { font-size: 14px !important; }
+        .hh-calc-tier-row > div:nth-child(2) > div:last-child { font-size: 12px !important; }
+        .hh-calc-tier-row > span { padding: 4px 9px !important; font-size: 10px !important; }
 
         /* (4) Events — big card компактнее + горизонтальный слайдер остального */
         .hh-event-card-big { min-height: 0 !important; aspect-ratio: 1.45 / 1 !important; }
