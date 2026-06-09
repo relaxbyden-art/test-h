@@ -479,106 +479,230 @@
   // HERO
   // ============================================================================
   function Hero() {
-    // v9.0: simple 2-col hero. Слева — текст, справа — LivePartnerCard. Фон — HeroCandles.
-    // Photo-вариант с мужиком вынесен на отдельную страницу (см. отдельный bundle).
+    // v11.0: новый Hero в стиле Vercel preview — full-width фон-фото (бизнес-силуэты на жёлтой
+    // matrix-стене), большой H1 в 4 строки с акцентом на «зарабатывай вместе», 2 CTA,
+    // ссылка «Рассчитать заработок», блок Trustpilot снизу с 4-stat ряду.
+    const HERO_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
     return _e("section", {
       className: "hh-partner-hero",
       "data-no-glow": true,
-      style: { position: "relative", overflow: "hidden", paddingTop: 60, paddingBottom: 80, background: "var(--bg)" }
+      style: {
+        position: "relative", overflow: "hidden",
+        paddingTop: 80, paddingBottom: 60,
+        minHeight: 720,
+        background: "#08080a"
+      }
     },
-      // Анимация blob'ов — slow drift по loop
-      _e("style", null, `
-        @keyframes hh-blob-1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-30px, 20px) scale(1.08); } }
-        @keyframes hh-blob-2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(25px, -25px) scale(0.95); } }
-        @keyframes hh-blob-3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-15px, -30px) scale(1.05); } }
-      `),
-      // Geometric grid pattern — ярче (opacity 0.09) чтобы было видно днём при солнце
-      _e("div", { "aria-hidden": true, className: "hh-hero-grid", style: {
+      // Фоновое фото — справа, full-width, с виньетированием слева для читаемости текста
+      _e("div", { "aria-hidden": "true", className: "hh-partner-hero-bg", style: {
         position: "absolute", inset: 0,
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)",
-        backgroundSize: "56px 56px",
-        maskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 35%, transparent 85%)",
-        WebkitMaskImage: "radial-gradient(ellipse 75% 60% at 70% 50%, #000 35%, transparent 85%)",
+        backgroundImage: `url("${HERO_BASE}assets/hero-partner-vercel.png")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center right",
+        backgroundRepeat: "no-repeat",
         pointerEvents: "none", zIndex: 0
       } }),
-      // Multi-color animated blobs — увеличены opacity для дневной видимости
-      _e("div", { "aria-hidden": true, className: "hh-hero-blob hh-hero-blob-y", style: {
-        position: "absolute", right: "18%", top: "20%",
-        width: 380, height: 380, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(252,213,53,0.36) 0%, transparent 70%)",
-        filter: "blur(60px)", pointerEvents: "none", zIndex: 0,
-        animation: "hh-blob-1 14s ease-in-out infinite"
+      // Тёмная виньетка слева — без неё текст плохо читается на жёлтой части фото
+      _e("div", { "aria-hidden": "true", style: {
+        position: "absolute", inset: 0,
+        background: "linear-gradient(90deg, rgba(8,8,10,0.92) 0%, rgba(8,8,10,0.75) 35%, rgba(8,8,10,0.30) 60%, rgba(8,8,10,0.10) 100%)",
+        pointerEvents: "none", zIndex: 1
       } }),
-      _e("div", { "aria-hidden": true, className: "hh-hero-blob hh-hero-blob-c", style: {
-        position: "absolute", right: "4%", top: "55%",
-        width: 400, height: 400, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(91,181,232,0.40) 0%, transparent 70%)",
-        filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
-        animation: "hh-blob-2 18s ease-in-out infinite"
+      // Лёгкое затемнение сверху и снизу — для бейджа и stats
+      _e("div", { "aria-hidden": "true", style: {
+        position: "absolute", inset: 0,
+        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 25%, rgba(8,8,10,0) 65%, rgba(8,8,10,0.45) 100%)",
+        pointerEvents: "none", zIndex: 1
       } }),
-      _e("div", { "aria-hidden": true, className: "hh-hero-blob hh-hero-blob-p", style: {
-        position: "absolute", right: "28%", top: "65%",
-        width: 320, height: 320, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(167,139,250,0.34) 0%, transparent 70%)",
-        filter: "blur(70px)", pointerEvents: "none", zIndex: 0,
-        animation: "hh-blob-3 16s ease-in-out infinite"
-      } }),
-      _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
-        _e("div", { className: "hh-partner-hero-grid", style: { display: "grid", gridTemplateColumns: "1.35fr minmax(380px, 460px)", gap: 64, alignItems: "center" } },
 
-          // LEFT
-          _e(Reveal, null,
-            _e("div", null,
-              _e("span", {
+      _e("div", { className: "container", style: { position: "relative", zIndex: 2 } },
+        _e(Reveal, null,
+          _e("div", { className: "hh-partner-hero-text", style: { maxWidth: 720 } },
+            _e("div", { style: { fontSize: 14, color: "#a1a0a4", fontWeight: 500, marginBottom: 28, letterSpacing: "-0.01em" } },
+              "Партнёрская программа HashHedge"
+            ),
+            _e("h1", { className: "hh-partner-hero-h1",
+              style: {
+                fontSize: "clamp(38px, 5.5vw, 76px)",
+                lineHeight: 1.02, fontWeight: 800,
+                letterSpacing: "-0.035em", margin: "0 0 28px", color: "#f5f1e8"
+              }
+            },
+              "Продвигай", _e("br", null),
+              "топ крипто-проп-фирму", _e("br", null),
+              "по всему миру и", _e("br", null),
+              _e("span", { style: { color: "#fcd535" } }, "зарабатывай вместе")
+            ),
+            _e("p", { className: "hh-partner-hero-sub", style: {
+              fontSize: 20, color: "#cfcfd3", lineHeight: 1.45,
+              marginBottom: 36, maxWidth: 560
+            } },
+              "Получай до ",
+              _e("strong", { style: { color: "#f5f1e8", fontWeight: 800 } }, "80% revenue share"),
+              " с каждого привлечённого трейдера — выплаты еженедельно в USDT, пожизненно."
+            ),
+            _e("div", { className: "hh-partner-hero-cta", style: {
+              display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 28
+            } },
+              _e("a", { href: "https://partner.hashhedge.com/auth/signup/", className: "hh-btn-yellow",
                 style: {
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  padding: "6px 14px", borderRadius: 100,
-                  border: "1px solid var(--line)",
-                  background: "rgba(255,255,255,0.02)",
-                  fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4",
-                  marginBottom: 24
+                  padding: "16px 32px", borderRadius: 100, fontSize: 15, fontWeight: 700,
+                  textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6
                 }
-              },
-                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "Партнёрская программа Hash Hedge"
-              ),
-              _e("h1", { className: "hh-partner-hero-h1",
+              }, "Зарегистрироваться"),
+              _e("a", { href: "https://partner.hashhedge.com/auth/login/",
                 style: {
-                  fontSize: 60, lineHeight: 1.04, fontWeight: 800,
-                  letterSpacing: "-0.03em", margin: "0 0 24px", color: "#f5f1e8"
-                }
+                  padding: "16px 32px", borderRadius: 100, fontSize: 15, fontWeight: 700,
+                  textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6,
+                  border: "1.5px solid #fcd535", color: "#fcd535",
+                  background: "transparent",
+                  transition: "background .2s, transform .2s"
+                },
+                onMouseEnter: e => { e.currentTarget.style.background = "rgba(252,213,53,0.08)"; },
+                onMouseLeave: e => { e.currentTarget.style.background = "transparent"; }
+              }, "Вход партнёра")
+            ),
+            _e("a", { href: "#calc",
+              style: {
+                display: "inline-flex", alignItems: "center", gap: 8,
+                fontSize: 14, fontWeight: 600, color: "#fcd535",
+                textDecoration: "underline", textUnderlineOffset: 4, textDecorationThickness: 1
+              }
+            },
+              _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none",
+                style: { stroke: "#fcd535", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }
               },
-                "Продвигай", _e("br", null),
-                "Hash Hedge", _e("br", null),
-                "и ", _e("span", { style: { color: "#fcd535" } }, "зарабатывай"), _e("br", null),
-                "вместе с нами"
+                _e("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" }),
+                _e("path", { d: "M14 2v6h6" }),
+                _e("path", { d: "M9 13h6" }),
+                _e("path", { d: "M9 17h4" })
               ),
-              _e("p", { style: { fontSize: 18, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 36, maxWidth: 580 } },
-                "Получай до 80% комиссии с каждого привлечённого трейдера. Пожизненные начисления, прозрачная статистика и быстрые выплаты."
+              "Рассчитать заработок"
+            )
+          )
+        ),
+
+        // Trustpilot + 4 stats row
+        _e("div", { className: "hh-partner-hero-stats", style: {
+          marginTop: 80,
+          paddingTop: 28,
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          display: "grid",
+          gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr",
+          gap: 24,
+          alignItems: "center"
+        } },
+          // Trustpilot
+          _e("div", null,
+            _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } }, "Партнёрство с проверенной платформой"),
+            _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 10 } },
+              _e("span", { style: { fontSize: 16, fontWeight: 800, color: "#f5f1e8" } }, "Excellent"),
+              _e("div", { style: { display: "inline-flex", gap: 2 } },
+                [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 20 })),
+                _e(TPStar, { size: 20, half: true })
               ),
-              _e("div", { style: { display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 32 } },
-                _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
-                  style: { textDecoration: "none" }
-                }, "Стать партнёром →"),
-                _e("a", { href: "#calc", className: "btn btn-ghost",
-                  style: { textDecoration: "none" }
-                }, "Рассчитать доход")
-              ),
-              _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 14 } },
-                _e("div", { style: { display: "flex", gap: 2 } },
-                  [1, 2, 3, 4].map(i => _e(TPStar, { key: i, size: 22 })),
-                  _e(TPStar, { size: 22, half: true })
-                ),
-                _e("div", { style: { fontSize: 14, lineHeight: 1.35 } },
-                  _e("div", { style: { fontWeight: 700, color: "#f5f1e8" } }, "4.4 · Trustpilot"),
-                  _e("div", { style: { color: "#a1a0a4", fontSize: 13 } }, "Сотрудничай с платформой, которой доверяют")
-                )
-              )
+              _e("a", { href: "https://trustpilot.com/review/hashhedge.com", target: "_blank", rel: "noopener noreferrer",
+                style: { fontSize: 13, color: "#a1a0a4", textDecoration: "underline" }
+              }, "Проверено на Trustpilot")
             )
           ),
+          // 5,100+
+          _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "5 100+"),
+            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Профинансированных трейдеров")
+          ),
+          // $12M+
+          _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "$12M+"),
+            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Выплачено трейдерам")
+          ),
+          // 4.4/5
+          _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "4.4/5"),
+            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Trustpilot")
+          ),
+          // 154
+          _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "154"),
+            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Стран обслуживания")
+          )
+        )
+      )
+    );
+  }
 
-          // RIGHT — live partner card
-          _e(Reveal, { delay: "2" }, _e(LivePartnerCard, null))
+  // ============================================================================
+  // ABOUT THE PROGRAM (v11.0 — новая секция из Vercel)
+  // ============================================================================
+  function AboutProgram() {
+    const cards = [
+      { v: "до 80%", t: "от прибыли HashHedge",         b: "Топовая доля в индустрии — за каждого привлечённого трейдера." },
+      { v: "еженедельно", t: "выплаты в USDT",            b: "Доход на твой кошелёк каждый понедельник." },
+      { v: "пожизненно", t: "начисления",                 b: "Получаешь, пока трейдер активен — без срока действия." },
+      { v: "минуты", t: "до одобрения",                   b: "Быстрая модерация, минимум формальностей, мгновенная ссылка." }
+    ];
+    return _e("section", { id: "about-program", style: { padding: "100px 0 100px", background: "var(--bg)" } },
+      _e("div", { className: "container" },
+        _e(Reveal, null,
+          _e("div", { className: "hh-about-head", style: {
+            display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 64, alignItems: "end", marginBottom: 56
+          } },
+            _e("div", null,
+              _e("span", {
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
+              },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                "О программе"
+              ),
+              _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
+                "Самые щедрые условия", _e("br", null),
+                "партнёрки ", _e("span", { style: { color: "#fcd535" } }, "на рынке.")
+              )
+            ),
+            _e("p", { style: { fontSize: 17, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
+              "HashHedge даёт крипто-трейдерам от ", _e("strong", { style: { color: "#f5f1e8" } }, "$5 000 до $100 000"),
+              " для торговли — без своего риска. Твоя задача проста: приводи их. Взамен получаешь долю от их прибыли на самых щедрых условиях, какие только бывают у проп-фирм."
+            )
+          )
+        ),
+
+        _e("div", { className: "hh-about-grid", style: {
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 16
+        } },
+          cards.map((c, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
+            _e("div", { className: "hh-about-card", style: {
+              padding: "26px 24px",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), #1C1C1F",
+              border: "1px solid var(--line)",
+              borderRadius: 16,
+              height: "100%",
+              display: "flex", flexDirection: "column",
+              transition: "border-color .25s, transform .25s, box-shadow .25s"
+            },
+              onMouseEnter: e => {
+                e.currentTarget.style.borderColor = "rgba(252,213,53,0.35)";
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = "0 18px 38px -18px rgba(252,213,53,0.18)";
+              },
+              onMouseLeave: e => {
+                e.currentTarget.style.borderColor = "var(--line)";
+                e.currentTarget.style.transform = "none";
+                e.currentTarget.style.boxShadow = "none";
+              }
+            },
+              _e("div", { style: {
+                fontSize: 34, fontWeight: 900, color: "#fcd535",
+                letterSpacing: "-0.02em", lineHeight: 1.05,
+                marginBottom: 12,
+                fontFamily: "Akrobat, Onest, sans-serif",
+                textTransform: c.v === "до 80%" || c.v === "минуты" || c.v === "пожизненно" || c.v === "еженедельно" ? "none" : "uppercase"
+              } }, c.v),
+              _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 14, lineHeight: 1.25 } }, c.t),
+              _e("p", { style: { fontSize: 13, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, c.b)
+            )
+          ))
         )
       )
     );
@@ -2856,6 +2980,7 @@
       _e(Header, null),
       _e(Hero, null),
       _e(Marquee, null),
+      _e(AboutProgram, null),
       _e(WhyPartner, null),
       _e(IncomeSources, null),
       // v11.0: Tiers (Партнёрские уровни) убраны — данные про % будут только в Calculator
@@ -2888,6 +3013,25 @@
             секций главной). У .hh-bp-detail оба свойства есть, и иконка/текст/кнопка съезжали
             вниз вместо центра. Этим override побеждаем по специфичности. === */
       .hh-bp-detail { align-items: center !important; }
+
+      /* === v11.0: новый Hero + About — адаптация под планшет/мобильную сетку === */
+      @media (max-width: 980px) {
+        .hh-partner-hero-stats { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+        .hh-partner-hero-stats > div { border-left: none !important; padding-left: 0 !important; }
+        .hh-about-head { grid-template-columns: 1fr !important; gap: 24px !important; align-items: start !important; }
+        .hh-about-grid { grid-template-columns: 1fr 1fr !important; }
+      }
+      @media (max-width: 640px) {
+        .hh-partner-hero { min-height: auto !important; padding-top: 56px !important; padding-bottom: 40px !important; }
+        .hh-partner-hero-bg { background-position: 80% center !important; opacity: 0.35 !important; }
+        .hh-partner-hero-text { max-width: 100% !important; }
+        .hh-partner-hero-h1 { font-size: 38px !important; line-height: 1.05 !important; }
+        .hh-partner-hero-sub { font-size: 16px !important; }
+        .hh-partner-hero-cta > a { width: 100% !important; justify-content: center !important; padding: 14px 22px !important; }
+        .hh-partner-hero-stats { grid-template-columns: 1fr !important; margin-top: 48px !important; gap: 12px !important; }
+        .hh-about-grid { grid-template-columns: 1fr !important; }
+        .hh-about-card { padding: 22px 20px !important; }
+      }
 
       @media (max-width: 980px) {
         .hh-partner-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
