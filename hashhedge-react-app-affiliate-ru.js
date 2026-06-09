@@ -1257,19 +1257,21 @@
                       textShadow: isSelected ? `0 0 20px rgba(${t.rgb},0.7)` : "none"
                     } }, `${t.pct}%`)
                   ),
-                  // Нод — скруглённый квадрат (соответствует внутреннему tile PNG, выглядит как единая плитка-медальон)
+                  // Нод — скруглённый квадрат. v10.11: PNG-tier'ы теперь с прозрачным фоном,
+                  // поэтому background плашки = transparent (или лёгкий tier-tinted glow на passed).
+                  // Никаких видимых «ступенек» между плашкой и PNG быть не должно.
                   _e("div", { style: {
                     width: 60,
                     height: 60,
                     borderRadius: 14,
                     background: isPassed
-                      ? `linear-gradient(180deg, rgba(${t.rgb},0.22), rgba(${t.rgb},0.04)), #0e0e10`
-                      : "#0e0e10",
+                      ? `radial-gradient(circle at 50% 50%, rgba(${t.rgb},0.18) 0%, rgba(${t.rgb},0) 70%)`
+                      : "transparent",
                     border: isPassed
                       ? `${isSelected ? 2 : 1.5}px solid rgba(${t.rgb},${isSelected ? 1 : 0.55})`
                       : "1.5px solid rgba(255,255,255,0.10)",
                     display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    padding: 6, boxSizing: "border-box",
+                    padding: 4, boxSizing: "border-box",
                     boxShadow: isSelected
                       ? `0 0 0 5px rgba(${t.rgb},0.16), 0 0 36px rgba(${t.rgb},0.45)`
                       : "none",
@@ -1328,13 +1330,13 @@
           borderRadius: 18, marginBottom: 22,
           transition: "background .4s, border-color .4s"
         } },
-          // Большая tier-иконка
+          // Большая tier-иконка — без чёрного фона, только лёгкий tier glow + border
           _e("div", { style: {
             width: 80, height: 80, borderRadius: 18,
-            background: `linear-gradient(180deg, rgba(${sel.rgb},0.20), rgba(${sel.rgb},0.04)), #0e0e10`,
+            background: `radial-gradient(circle at 50% 50%, rgba(${sel.rgb},0.20) 0%, rgba(${sel.rgb},0) 70%)`,
             border: `1px solid rgba(${sel.rgb},0.42)`,
             display: "inline-flex", alignItems: "center", justifyContent: "center",
-            padding: 6, boxSizing: "border-box", flexShrink: 0
+            padding: 4, boxSizing: "border-box", flexShrink: 0
           } },
             _e("img", { src: TIERS_BASE + "assets/tiers/tier-" + sel.lvl + ".png",
               alt: "Tier " + sel.lvl,
@@ -2303,8 +2305,9 @@
                         !ch.unread && ch.pinned && _e("span", { style: { color: "#636366", fontSize: 14 } }, "★")
                       )
                     )),
-                    // Пустое пространство снизу — имитация конца списка чатов
-                    _e("div", { style: { minHeight: 220 } })
+                    // Пустое пространство снизу — на десктопе имитация конца списка чатов,
+                    // на мобиле обрезается (см. v10.11 CSS .hh-tg-empty)
+                    _e("div", { className: "hh-tg-empty", style: { minHeight: 220 } })
                   )
                 )
               )
@@ -3200,8 +3203,16 @@
           font-size: 24px !important;
         }
 
-        /* === v10.10: Support чат — больше отступ от фото, меньше минимальная высота === */
-        .hh-support-grid { gap: 20px !important; }
+        /* === v10.11: iPhone-мокап — больше отступ сверху + нижний пустой spacer 220→0 (обрезать
+              хвост после «Промо-материалы») === */
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) {
+          margin-top: 20px !important;
+        }
+        .hh-tg-empty { display: none !important; }
+
+        /* === v10.11: Support чат — увеличенный отступ от фото и меньшая минимальная высота === */
+        .hh-support-grid { gap: 28px !important; }
+        .hh-support-grid > div:nth-child(2) { margin-top: 8px !important; }
         .hh-support-grid > div:nth-child(2) > div { min-height: auto !important; padding: 16px !important; }
         /* Сообщения: «you» (мои) справа, «HH» слева — побеждаем любые глобальные overrides */
         .hh-chat-row { display: flex !important; }
