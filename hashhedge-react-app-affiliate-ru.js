@@ -2967,6 +2967,21 @@
         /* === v10.2 mobile: Support — показать chat-mokup === */
         .hh-support-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 16px !important; }
         .hh-support-grid > div { display: block !important; }
+
+        /* === v10.6 КРИТИЧНО: перебиваем правила из глобального hashhedge-react.css которые
+              хайдят 2-й child колонки в #telegram и Support на мобильной версии (правила там
+              писались для main RU). Селекторы 1-в-1 с теми что в hashhedge-react.css строки 4937-4942
+              и 4482-4484 — побеждают по каскаду, т.к. этот блок инжектится позже. === */
+        #hashhedge-root .tilda-html-hashhedge #telegram .container > div > div:nth-child(2) {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section .container > div:nth-child(2) > div:nth-child(2) {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
         .hh-why-card-body {
           padding: 12px 14px !important;
           position: relative !important;
