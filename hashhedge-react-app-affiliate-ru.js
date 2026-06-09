@@ -496,7 +496,7 @@
       // Фоновое фото — справа, full-width, с виньетированием слева для читаемости текста
       _e("div", { "aria-hidden": "true", className: "hh-partner-hero-bg", style: {
         position: "absolute", inset: 0,
-        backgroundImage: `url("${HERO_BASE}assets/hero-partner-vercel.png")`,
+        backgroundImage: `url("${HERO_BASE}assets/hero-partner-vercel.webp")`,
         backgroundSize: "cover",
         backgroundPosition: "center right",
         backgroundRepeat: "no-repeat",
