@@ -2144,8 +2144,10 @@
                         background: ch.active ? "rgba(43,156,222,0.16)" : "transparent",
                         borderBottom: "0.5px solid rgba(255,255,255,0.04)",
                         transition: "background .35s",
+                        // v10.7: opacity 1 всегда — раньше зависел от tgInView, и на мобиле IO с threshold 0.3
+                        // не успевал сработать на высоком iPhone-мокапе → каналы оставались невидимыми
                         animation: tgInView ? `hh-tg-row-in 0.5s ease ${i * 0.45}s both` : "none",
-                        opacity: tgInView ? undefined : 0
+                        opacity: 1
                       }
                     },
                       // Эмодзи на прозрачном фоне — как на главной RU (без цветных кружков)
@@ -2301,9 +2303,9 @@
                 ].map((m, i) => _e("div", { key: i,
                   style: {
                     display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", alignItems: "flex-end",
-                    // запускаем анимацию один раз, когда раздел появился в viewport
+                    // v10.7: opacity 1 всегда + анимация бонусом если IO сработал
                     animation: chatInView ? `hh-chat-msg-in 0.5s ease ${i * 0.7}s both` : "none",
-                    opacity: chatInView ? undefined : 0
+                    opacity: 1
                   }
                 },
                   // аватары HH/Я убраны — только пузыри с сообщениями
