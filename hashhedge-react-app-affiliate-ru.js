@@ -1,6 +1,34 @@
 (function(){
   const { useEffect, useRef, useState, useMemo } = React;
 
+  // Shared Funded traders counter — та же детерминированная формула, что на главной RU
+  // (LivePayoutsTable), чтобы число «Funded-трейдеров» совпадало с основным сайтом.
+  function _hhTraders() {
+    function h(d, s) {
+      let x = ((d|0) ^ ((s*2654435761)|0)) >>> 0;
+      x = ((x + 0x7ed55d16) + (x << 12)) >>> 0;
+      x = ((x ^ 0xc761c23c) ^ (x >>> 19)) >>> 0;
+      x = ((x + 0x165667b1) + (x << 5)) >>> 0;
+      x = ((x + 0xd3a2646c) ^ (x << 9)) >>> 0;
+      x = ((x + 0xfd7046c5) + (x << 3)) >>> 0;
+      x = ((x ^ 0xb55a4f09) ^ (x >>> 16)) >>> 0;
+      return x / 4294967295;
+    }
+    function dt(i) {
+      const w = new Date(i * 86400000).getUTCDay();
+      const we = (w === 0 || w === 6);
+      const r = h(i, 2);
+      return we ? 2 + Math.floor(r * 3) : 3 + Math.floor(r * 6);
+    }
+    const BD = Math.floor(Date.UTC(2026, 4, 28) / 86400000);
+    const now = Date.now();
+    const cd = Math.floor(now / 86400000);
+    let c = 0;
+    for (let i = 0; i < Math.max(0, cd - BD); i++) c += dt(BD + i);
+    const f = Math.min(1, (now - cd * 86400000) / 86400000);
+    return 5120 + c + Math.floor(dt(cd) * f);
+  }
+
   // Хук: возвращает true когда элемент попал в viewport один раз (триггерит анимации появления).
   function useInView(ref, opts) {
     const [inView, setInView] = useState(false);
@@ -523,7 +551,10 @@
       _e("div", { className: "container", style: { position: "relative", zIndex: 2 } },
         _e(Reveal, null,
           _e("div", { className: "hh-partner-hero-text", style: { maxWidth: 720 } },
-            _e("div", { style: { fontSize: 14, color: "#a1a0a4", fontWeight: 500, marginBottom: 28, letterSpacing: "-0.01em" } },
+            _e("span", {
+              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 28 }
+            },
+              _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
               "Партнёрская программа HashHedge"
             ),
             _e("h1", { className: "hh-partner-hero-h1",
@@ -608,13 +639,13 @@
               ),
               _e("a", { href: "https://trustpilot.com/review/hashhedge.com", target: "_blank", rel: "noopener noreferrer",
                 style: { fontSize: 13, color: "#a1a0a4", textDecoration: "underline" }
-              }, "Проверено на Trustpilot")
+              }, "Trustpilot")
             )
           ),
           // 5,100+
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "5 100+"),
-            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Профинансированных трейдеров")
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, _hhTraders().toLocaleString("ru-RU").replace(/,/g, " ")),
+            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Funded-трейдеров")
           ),
           // $12M+
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
@@ -643,8 +674,7 @@
     const cards = [
       { v: "до 80%", t: "от прибыли HashHedge",         b: "Топовая доля в индустрии — за каждого привлечённого трейдера." },
       { v: "еженедельно", t: "выплаты в USDT",            b: "Доход на твой кошелёк каждый понедельник." },
-      { v: "пожизненно", t: "начисления",                 b: "Получаешь, пока трейдер активен — без срока действия." },
-      { v: "минуты", t: "до одобрения",                   b: "Быстрая модерация, минимум формальностей, мгновенная ссылка." }
+      { v: "пожизненно", t: "начисления",                 b: "Получаешь, пока трейдер активен — без срока действия." }
     ];
     return _e("section", { id: "about-program", style: { padding: "100px 0 100px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -660,20 +690,20 @@
                 "О программе"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
-                "Самые щедрые условия", _e("br", null),
-                "партнёрки ", _e("span", { style: { color: "#fcd535" } }, "на рынке.")
+                "Лучшие партнёрские условия", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "в индустрии.")
               )
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "HashHedge даёт крипто-трейдерам от ", _e("strong", { style: { color: "#f5f1e8" } }, "$5 000 до $100 000"),
-              " для торговли — без своего риска. Твоя задача проста: приводи их. Взамен получаешь долю от их прибыли на самых щедрых условиях, какие только бывают у проп-фирм."
+              "Hash Hedge предоставляет крипто-трейдерам капитал до ", _e("strong", { style: { color: "#f5f1e8" } }, "$150 000"),
+              " для торговли. Продвигай Hash Hedge, приводи рефералов и зарабатывай вместе с нами на самых щедрых условиях среди проп-компаний."
             )
           )
         ),
 
         _e("div", { className: "hh-about-grid", style: {
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: "repeat(3, 1fr)",
           gap: 16
         } },
           cards.map((c, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
@@ -1195,16 +1225,16 @@
       )
     );
     const sources = [
-      { n: "01", title: "Комиссия с продаж",
+      { n: "01", title: "До 80% от прибыли Hash Hedge",
         body: _e(F, null, "Забирай ", _e("b", { style: { color: "#fcd535" } }, "до 80%"), " от прибыли Hash Hedge с каждой покупки. Реферал закрепляется за тобой пожизненно: привёл один раз, получаешь комиссию со всех следующих покупок."),
         pill: "Постоянный доход",
         icon: ["M23 6l-9.5 9.5-5-5L1 18", "M17 6h6v6"] },
       { n: "02", title: "Доход с успешных трейдеров",
-        body: _e(F, null, "Получай процент от комиссии Hash Hedge каждый раз, когда привлечённый тобой трейдер выходит на Funded и выводит прибыль."),
+        body: _e(F, null, "Получай процент от комиссии Hash Hedge каждый раз, когда привлечённый тобой трейдер выводит прибыль."),
         pill: "Пассивный доход",
         icon: ["M12 6v6l4 2", "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"] },
       { n: "03", title: "Суб-партнёрская программа",
-        body: _e(F, null, "Приглашай других партнёров и получай процент от их прибыли. Ты получаешь ", _e("b", { style: { color: "#fcd535" } }, "5%"), " от дохода партнёров, которых ты привлёк напрямую, и ", _e("b", { style: { color: "#fcd535" } }, "3%"), " от привлечённых ими суб-партнёров."),
+        body: _e(F, null, "Приглашай других партнёров и получай процент от их прибыли. ", _e("b", { style: { color: "#fcd535" } }, "5%"), " от дохода партнёров, которых ты привлёк напрямую, и ", _e("b", { style: { color: "#fcd535" } }, "3%"), " от привлечённых ими суб-партнёров."),
         pill: "Партнёрская сеть",
         icon: ["M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M19 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M12 8v3", "M6.5 16l4.5-3 4.5 3", "M9 21h6"] }
     ];
@@ -1532,18 +1562,17 @@
                 style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "Сколько ты заработаешь"
+                "Рассчитай свой доход"
               ),
               _e("h2", { className: "hh-calc-h2", style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
-                "Чем больше ты приведёшь,", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "тем больше твоя доля.")
+                "Чем больше трейдеров ты приведёшь,", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "тем выше твоя комиссия.")
               )
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Твоя доля растёт по количеству активных приведённых трейдеров — от ",
-              _e("strong", { style: { color: "#f5f1e8" } }, "50%"), " на старте до ",
+              "Привлекай трейдеров и забирай до ",
               _e("strong", { style: { color: "#fcd535" } }, "80%"),
-              " на максимуме. Подвигай ползунок и смотри, сколько может приносить твоя сеть."
+              " от прибыли Hash Hedge. Используй калькулятор прибыли, чтобы узнать сколько ты можешь зарабатывать."
             )
           )
         ),
@@ -1558,7 +1587,7 @@
             border: "1px solid var(--line)",
             borderRadius: 18
           } },
-            _e("div", { style: { fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 20 } }, "Калькулятор дохода"),
+            _e("div", { style: { fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 20 } }, "Калькулятор прибыли"),
             _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 } },
               _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "Активных приведённых трейдеров"),
               _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, fmt(traders))
@@ -1582,7 +1611,7 @@
                 border: "1px solid rgba(252,213,53,0.30)",
                 borderRadius: 12
               } },
-                _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Твой уровень"),
+                _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Твоя комиссия"),
                 _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em", lineHeight: 1 } }, currentTier.pct + "%"),
                 _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 4 } }, "Уровень " + currentTier.lvl)
               ),
@@ -1598,14 +1627,14 @@
               )
             ),
             _e("div", { style: { borderTop: "1px solid var(--line)", paddingTop: 22 } },
-              _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Расчётная ежемесячная выплата"),
+              _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Ежемесячная выплата"),
               _e("div", { style: { fontSize: 52, fontWeight: 900, color: "#f5f1e8", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$" + fmt(monthly)),
               _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 8 } },
                 "≈ ", _e("strong", { style: { color: "#f5f1e8" } }, "$" + fmt(yearly)),
-                " / год · еженедельно в USDT"
+                " / год"
               ),
               _e("p", { style: { fontSize: 11, color: "#7a7a80", lineHeight: 1.5, margin: "16px 0 0" } },
-                "Расчёт примерный. Фактический доход зависит от активности трейдеров и размера их аккаунтов."
+                "Расчёт приблизительный. Фактический доход зависит от активности трейдеров и размера их аккаунтов."
               )
             )
           ),
@@ -2203,15 +2232,15 @@
     // Top: 1 big (1.35fr) + 2 stacked (1fr). Bottom: 4 равные.
     const events = [
       // [0] = hero big
-      { flag: "🇦🇪", city: "Дубай",     year: "Октябрь 2025", role: "Организатор", title: "WSCT Дубай · Оффлайн турнир",     img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
+      { flag: "🇦🇪", city: "Дубай",     year: "Октябрь 2025", role: "Организатор", title: "Партнёрская встреча после WSCT 2025",     img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
       // [1], [2] = stacked справа
-      { flag: "🇷🇺", city: "Москва",    year: "2025",          role: null,           title: "Партнёры на Blockchain Forum",     img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/event-blockchain-forum.jpg" },
+      { flag: "🇦🇪", city: "Дубай",     year: "2025",          role: "Спонсор",      title: "Партнёры на Blockchain Live 2025",     img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/event-blockchain-forum.jpg" },
       { flag: "🇧🇷", city: "Сан-Паулу", year: "2025",          role: "Организатор", title: "WSCT Бразилия · Оффлайн турнир",   img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
       // [3..6] = bottom row 4
-      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: null,           title: "Партнёрская встреча",              img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
+      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор",  title: "Партнёрский ужин",              img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
       { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор", title: "Награждение Топ-партнёров",        img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" },
-      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Амбассадор Hash Hedge", title: "Никита Ануфриев",         img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/web_29.10.25_397.jpg" },
-      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: null,           title: "Партнёрская встреча",                img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/093samartsevanton.webp" }
+      { flag: "🇦🇪", city: "Дубай",     year: "2025",          role: "Амбассадор Hash Hedge", title: "Никита Ануфриев",         img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/web_29.10.25_397.jpg" },
+      { flag: "🇦🇪", city: "Дубай",     year: "2025",          role: "Организатор",  title: "Партнёрская встреча",                img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/093samartsevanton.webp" }
     ];
     const Card = ({ ev, size }) => _e("div", {
       className: "hh-event-card hh-event-card-" + (size || "sm"),
@@ -2495,10 +2524,10 @@
   function Support() {
     const SUP_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
     const features = [
-      "Персональный онбординг — запустишься в течение дня",
-      "Готовые креативы, баннеры и тексты для лендингов",
-      "Быстрые ответы по выплатам, уровням и трекингу",
-      "Индивидуальные условия для high-volume партнёров"
+      "Поможем запуститься в течение одного дня",
+      "Предоставим готовые маркетинговые материалы от Hash Hedge",
+      "Покажем, какие связки работают лучше всего для твоей аудитории",
+      "С нашими аффилиат-менеджерами партнёры выходят на пятизначный доход в месяц"
     ];
     return _e("section", { id: "support", className: "hh-support-section",
       style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" }
@@ -2547,14 +2576,14 @@
                 style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 22 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "Твой персональный менеджер"
+                "Персональная поддержка"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.04, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: "0 0 20px" } },
                 "Знакомься, Tati —", _e("br", null),
                 _e("span", { style: { color: "#fcd535" } }, "твой персональный менеджер партнёрки.")
               ),
               _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 32 } },
-                "С первого дня у тебя живой человек на связи — не тикет-очередь. Tati и её команда помогут запуститься, оптимизировать и масштабировать трафик. Она в одном сообщении от тебя, когда нужно."
+                "С первого дня тебя будет сопровождать персональный менеджер. Руководитель партнёрской поддержки Tati и её команда помогут тебе запуститься, оптимизировать стратегию и масштабировать трафик."
               ),
               _e("div", { className: "hh-sup-features", style: { borderTop: "1px solid var(--line)", marginBottom: 32 } },
                 features.map((f, i) => _e("div", { key: i, style: {
@@ -2571,13 +2600,15 @@
                   } },
                     _e("svg", { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none",
                       style: { stroke: "#fcd535", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" } },
-                      _e("path", { d: "M5 12l4 4L19 7" })
+                      i === 3
+                        ? _e("path", { d: "M12 3l2.6 5.6 6.1.6-4.6 4 1.4 6L12 18.6 6.5 19.8l1.4-6-4.6-4 6.1-.6z", style: { fill: "#fcd535", stroke: "none" } })
+                        : _e("path", { d: "M5 12l4 4L19 7" })
                     )
                   ),
                   _e("span", { style: { fontSize: 15, color: "#f5f1e8", lineHeight: 1.5 } }, f)
                 ))
               ),
-              _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
+              _e("a", { href: "https://partner.hashhedge.com/auth/signup/", target: "_blank", rel: "noopener noreferrer",
                 className: "hh-btn-yellow",
                 style: {
                   padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
@@ -2586,19 +2617,22 @@
                   marginRight: 12, marginBottom: 12,
                   boxShadow: "0 0 0 1px rgba(252,213,53,0.30), 0 10px 26px -10px rgba(252,213,53,0.45)"
                 }
-              }, "Написать Tati в Telegram →"),
-              _e("a", { href: "mailto:affiliates@hashhedge.com",
+              }, "Стать партнёром"),
+              _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
+                className: "hh-btn-tg",
                 style: {
                   padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
                   textDecoration: "none",
                   display: "inline-flex", alignItems: "center", gap: 10,
-                  border: "1.5px solid #fcd535", color: "#fcd535",
-                  background: "transparent",
-                  transition: "background .2s"
-                },
-                onMouseEnter: e => { e.currentTarget.style.background = "rgba(252,213,53,0.06)"; },
-                onMouseLeave: e => { e.currentTarget.style.background = "transparent"; }
-              }, "affiliates@hashhedge.com")
+                  color: "#fff", background: "#229ED9",
+                  boxShadow: "0 12px 32px -10px rgba(34,158,217,0.6)"
+                }
+              },
+                _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fff" } },
+                  _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
+                ),
+                _e("span", { style: { color: "#fff" } }, "Связаться с поддержкой")
+              )
             )
           )
         )
@@ -2846,8 +2880,8 @@
               ),
               // Заголовок в 2 строки
               _e("h2", { style: { fontSize: "clamp(38px, 5.6vw, 64px)", lineHeight: 1.08, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 28 } },
-                "Начни зарабатывать", _e("br", null),
-                "с ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 36px rgba(252,213,53,0.45)" } }, "Hash Hedge")
+                "Стань партнёром", _e("br", null),
+                _e("span", { style: { color: "#fcd535", textShadow: "0 0 36px rgba(252,213,53,0.45)" } }, "Hash Hedge")
               ),
               _e("div", { style: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" } },
                 _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
@@ -2976,13 +3010,15 @@
       // _e(Marquee, null),
       _e(AboutProgram, null),
       _e(WhyPartner, null),
-      _e(IncomeSources, null),
+      // IncomeSources («3 источника дохода» / «Как формируется доход партнёра») убран по правкам RU —
+      // компонент сохранён ниже для будущей доработки.
+      // _e(IncomeSources, null),
       // v11.0: Tiers (Партнёрские уровни) убраны — данные про % будут только в Calculator
       // _e(Tiers, null),
       _e(Calculator, null),
       _e(Steps, null),
-      // v11.0: CabinetPreview + Leaderboard убраны
-      // _e(CabinetPreview, null),
+      // v11.0: Leaderboard убран; CabinetPreview (блок с дашбордом/ЛК) возвращён по правкам RU
+      _e(CabinetPreview, null),
       // _e(Leaderboard, null),
       _e(PartnerContent, null),
       _e(Events, null),
