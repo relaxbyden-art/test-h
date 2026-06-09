@@ -2184,8 +2184,8 @@
       // [3..6] = bottom row 4
       { flag: "🇷🇺", city: "Москва",    year: "2026",          role: null,           title: "Партнёрская встреча",              img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
       { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор", title: "Награждение Топ-партнёров",        img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" },
-      { flag: "🇦🇪", city: "Дубай",     year: "2026",          role: "Спонсор",     title: "Crypto Expo Dubai",                  img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
-      { flag: "🇧🇷", city: "Сан-Паулу", year: "2025",          role: "Организатор", title: "Trader Workshop · São Paulo",        img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" }
+      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Амбассадор Hash Hedge", title: "Никита Ануфриев",         img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/web_29.10.25_397.jpg" },
+      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: null,           title: "Партнёрская встреча",                img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/093samartsevanton.webp" }
     ];
     const Card = ({ ev, size }) => _e("div", {
       className: "hh-event-card hh-event-card-" + (size || "sm"),
