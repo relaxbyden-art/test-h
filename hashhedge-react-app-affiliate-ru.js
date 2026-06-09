@@ -2633,11 +2633,11 @@
                 "Персональная поддержка"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.04, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: "0 0 20px" } },
-                "Знакомься, Tati —", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "твой персональный менеджер партнёрки.")
+                "Рядом", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "на каждом этапе")
               ),
               _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 32 } },
-                "С первого дня тебя будет сопровождать персональный менеджер. Руководитель партнёрской поддержки Tati и её команда помогут тебе запуститься, оптимизировать стратегию и масштабировать трафик."
+                "С первого дня тебя будет сопровождать персональный менеджер. Руководитель партнёрской поддержки Tati и её команда помогут тебе оптимизировать стратегию и масштабировать трафик."
               ),
               _e("div", { className: "hh-sup-features", style: { borderTop: "1px solid var(--line)", marginBottom: 32 } },
                 features.map((f, i) => {
@@ -3784,8 +3784,8 @@
       .hh-why-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
       .hh-why-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 22px 48px -22px rgba(0,0,0,.65), 0 0 50px rgba(252,213,53,0.12);
-        border-color: rgba(252,213,53,.45) !important;
+        box-shadow: 0 22px 48px -22px rgba(0,0,0,.65), 0 0 50px rgba(252,213,53,0.14);
+        border-color: #fcd535 !important;
       }
       .hh-why-grid-bg { transition: opacity .4s; }
       .hh-why-card:hover .hh-why-grid-bg { opacity: 1 !important; }
