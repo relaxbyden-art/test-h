@@ -3826,9 +3826,8 @@
       .hh-calc-link:hover { transform: translateY(-2px); color: #ffe27a !important; text-decoration-thickness: 2px !important; }
       .hh-calc-link:hover svg { stroke: #ffe27a !important; }
 
-      /* v12.6 — фото Tati: zoom при наведении, как у карточек мероприятий */
-      .hh-tati-photo .hh-tati-img { transition: transform 7s ease-out; }
-      .hh-tati-photo:hover .hh-tati-img { transform: scale(1.12) !important; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+      /* v12.6/12.9 — фото Tati: быстрый zoom при наведении, 1-в-1 как у карточек мероприятий */
+      .hh-tati-photo:hover .hh-tati-img { transform: scale(1.07) !important; }
 
       /* Hover — Event card image zoom */
       .hh-event-card > div:first-child { transition: transform .5s cubic-bezier(.22,1,.36,1); }
@@ -3840,9 +3839,8 @@
       #content a > div:first-child { transition: transform .5s cubic-bezier(.22,1,.36,1); }
       #content a:hover > div:first-child { transform: scale(1.06); }
 
-      /* Tati — ken-burns zoom on scroll-in (once via Reveal .in) + online dot pulse + badge slide-in */
-      .hh-tati-img { transform: scale(1); transition: transform 7s ease-out; }
-      .reveal.in .hh-tati-img { transform: scale(1.07); }
+      /* Tati — быстрый hover-zoom как у карточек «Живые встречи» + online dot pulse + badge slide-in */
+      .hh-tati-img { transform: scale(1); transition: transform .5s cubic-bezier(.22,1,.36,1); }
       .hh-tati-online > span { animation: hh-live-pulse 1.6s ease-in-out infinite; }
       @keyframes hh-tati-badge-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
       .reveal.in .hh-tati-badge { animation: hh-tati-badge-in .7s ease .3s both; }
