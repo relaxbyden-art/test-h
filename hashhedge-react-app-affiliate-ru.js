@@ -3704,7 +3704,7 @@
         .hh-about-card { padding: 18px 16px !important; }
         .hh-about-card > div:first-child { font-size: 22px !important; margin-bottom: 8px !important; }
         .hh-about-card > div:nth-child(2) { font-size: 14px !important; margin-bottom: 8px !important; }
-        .hh-about-card > p { font-size: 12px !important; line-height: 1.5 !important; }
+        #hashhedge-root .tilda-html-hashhedge .hh-about-card > p { font-size: 12px !important; line-height: 1.5 !important; }
 
         /* (3) Калькулятор — полная мобильная пересборка.
            ВАЖНО: глобальный hashhedge-react.css на ≤640 имеет правило
@@ -3738,7 +3738,7 @@
         .hh-calc-card > div:last-child > div:first-child { margin-bottom: 4px !important; font-size: 10px !important; }
         .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 32px !important; }
         .hh-calc-card > div:last-child > div:nth-child(3) { font-size: 12px !important; margin-top: 5px !important; }
-        .hh-calc-card > div:last-child > p { font-size: 10px !important; margin-top: 10px !important; }
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-card > div:last-child > p { font-size: 10px !important; line-height: 1.5 !important; margin-top: 10px !important; }
         /* список уровней — плотные строки */
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-levels { gap: 8px !important; margin-top: 16px !important; }
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-tier-row { padding: 11px 14px !important; gap: 12px !important; border-radius: 12px !important; }
