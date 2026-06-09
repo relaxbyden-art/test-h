@@ -3817,39 +3817,40 @@
            section [style*="grid-template-columns: 1fr 1fr"] { 1fr; gap:32px } (0,1,1),
            которое складывало карточки комиссии в столбик с гигантским зазором.
            Здесь специфичность поднята до (1,2,1)+ — наши правила побеждают. */
-        .hh-calc-card { padding: 16px 14px 14px !important; }
+        /* v12.5: мобильный калькулятор приведён к vercel-mobile (#tiers @390px):
+           просторная карточка 24px, выплата крупная жёлтая, уровни компактные 46px. */
+        .hh-calc-card { padding: 24px 20px !important; }
         /* заголовок "Калькулятор прибыли" */
-        .hh-calc-card > div:first-child { margin-bottom: 10px !important; font-size: 10px !important; }
+        .hh-calc-card > div:first-child { margin-bottom: 18px !important; font-size: 11px !important; }
         /* строка: лейбл + число трейдеров */
-        .hh-calc-card > div:nth-child(2) { margin-bottom: 6px !important; }
-        .hh-calc-card > div:nth-child(2) > div:first-child { font-size: 13px !important; }
+        .hh-calc-card > div:nth-child(2) { margin-bottom: 8px !important; }
+        .hh-calc-card > div:nth-child(2) > div:first-child { font-size: 14px !important; }
         .hh-calc-card > div:nth-child(2) > div:last-child { font-size: 24px !important; }
-        .hh-calc-card .hh-calc-slider { margin: 4px 0 2px !important; }
         /* шкала 0/200/400/700+ */
-        .hh-calc-card > div:nth-child(4) { margin-bottom: 14px !important; font-size: 10px !important; }
+        .hh-calc-card > div:nth-child(4) { font-size: 11px !important; }
         /* сетка двух карточек (комиссия + ср.чек) — держим 2 колонки, бьём глобальный stack */
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-card > div:nth-child(5) {
           display: grid !important;
           grid-template-columns: 1fr 1fr !important;
-          gap: 10px !important;
-          margin-top: 14px !important;
+          gap: 12px !important;
+          margin-top: 20px !important;
           margin-bottom: 0 !important;
           align-items: stretch !important;
         }
-        #hashhedge-root .tilda-html-hashhedge section .hh-calc-card > div:nth-child(5) > div { padding: 10px 12px !important; border-radius: 10px !important; }
-        .hh-calc-card > div:nth-child(5) > div > div:first-child { font-size: 9px !important; margin-bottom: 4px !important; letter-spacing: 0.08em !important; }
-        .hh-calc-card > div:nth-child(5) > div > div:nth-child(2) { font-size: 20px !important; }
-        .hh-calc-card > div:nth-child(5) > div > div:last-child { font-size: 10px !important; margin-top: 3px !important; }
-        /* итоговая выплата */
-        .hh-calc-card > div:last-child { padding-top: 12px !important; margin-top: 12px !important; }
-        .hh-calc-card > div:last-child > div:first-child { margin-bottom: 4px !important; font-size: 10px !important; }
-        .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 32px !important; }
-        .hh-calc-card > div:last-child > div:nth-child(3) { font-size: 12px !important; margin-top: 5px !important; }
-        #hashhedge-root .tilda-html-hashhedge .hh-calc-card > div:last-child > p { font-size: 10px !important; line-height: 1.5 !important; margin-top: 10px !important; }
-        /* список уровней — плотные строки */
-        #hashhedge-root .tilda-html-hashhedge section .hh-calc-levels { gap: 8px !important; margin-top: 16px !important; }
-        #hashhedge-root .tilda-html-hashhedge section .hh-calc-tier-row { padding: 11px 14px !important; gap: 12px !important; border-radius: 12px !important; }
-        .hh-calc-tier-pct { font-size: 22px !important; min-width: 52px !important; }
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-card > div:nth-child(5) > div { padding: 14px 14px !important; border-radius: 12px !important; }
+        .hh-calc-card > div:nth-child(5) > div > div:first-child { font-size: 10px !important; margin-bottom: 6px !important; letter-spacing: 0.08em !important; }
+        .hh-calc-card > div:nth-child(5) > div > div:nth-child(2) { font-size: 22px !important; }
+        .hh-calc-card > div:nth-child(5) > div > div:last-child { font-size: 11px !important; margin-top: 4px !important; }
+        /* итоговая выплата — крупная жёлтая, как на vercel mobile */
+        .hh-calc-card > div:last-child { padding-top: 20px !important; margin-top: 20px !important; }
+        .hh-calc-card > div:last-child > div:first-child { margin-bottom: 8px !important; font-size: 12px !important; }
+        .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 44px !important; }
+        .hh-calc-card > div:last-child > div:nth-child(3) { font-size: 13px !important; margin-top: 8px !important; }
+        #hashhedge-root .tilda-html-hashhedge .hh-calc-card > div:last-child > p { font-size: 10px !important; line-height: 1.5 !important; margin-top: 12px !important; }
+        /* список уровней — компактные строки 46px */
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-levels { gap: 10px !important; margin-top: 16px !important; }
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-tier-row { min-height: 46px !important; padding: 10px 16px !important; border-radius: 12px !important; flex: 0 0 auto !important; }
+        .hh-calc-tier-pct { font-size: 26px !important; min-width: 64px !important; }
         .hh-calc-tier-name { font-size: 13px !important; }
         .hh-calc-tier-range { font-size: 11px !important; }
         .hh-calc-tier-you { padding: 4px 9px !important; font-size: 10px !important; }
