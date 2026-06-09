@@ -1608,7 +1608,12 @@
           _e("div", { className: "hh-calc-levels", style: { display: "flex", flexDirection: "column", gap: 10 } },
             tiers.map(t => {
               const isYou = t === currentTier;
-              return _e("div", { key: t.lvl,
+              // Клик по уровню ставит ползунок в середину диапазона выбранного тира
+              const midPoint = Math.round((t.min + Math.min(t.max, 999)) / 2);
+              return _e("button", { key: t.lvl, type: "button",
+                onClick: () => setTraders(midPoint),
+                "aria-label": `Перейти на уровень ${t.lvl}: ${t.pct}%, ${t.range}`,
+                className: "hh-calc-tier-row",
                 style: {
                   position: "relative",
                   padding: "16px 22px",
@@ -1619,7 +1624,23 @@
                   borderRadius: 14,
                   display: "flex", alignItems: "center", gap: 18,
                   boxShadow: isYou ? "0 0 0 4px rgba(252,213,53,0.10), 0 8px 24px -6px rgba(252,213,53,0.25)" : "none",
-                  transition: "all .3s cubic-bezier(.2,.7,.2,1)"
+                  transition: "all .3s cubic-bezier(.2,.7,.2,1)",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  textAlign: "left",
+                  width: "100%"
+                },
+                onMouseEnter: e => {
+                  if (!isYou) {
+                    e.currentTarget.style.borderColor = "rgba(252,213,53,0.35)";
+                    e.currentTarget.style.background = "linear-gradient(90deg, rgba(252,213,53,0.04) 0%, rgba(252,213,53,0.01) 100%), #1C1C1F";
+                  }
+                },
+                onMouseLeave: e => {
+                  if (!isYou) {
+                    e.currentTarget.style.borderColor = "var(--line)";
+                    e.currentTarget.style.background = "#1C1C1F";
+                  }
                 }
               },
                 _e("div", { style: {
