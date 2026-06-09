@@ -514,7 +514,7 @@
   function Hero() {
     // v11.0: новый Hero в стиле Vercel preview — full-width фон-фото (бизнес-силуэты на жёлтой
     // matrix-стене), большой H1 в 4 строки с акцентом на «зарабатывай вместе», 2 CTA,
-    // ссылка «Рассчитать заработок», блок Trustpilot снизу с 4-stat ряду.
+    // ссылка «Рассчитать доход», блок Trustpilot снизу с 4-stat ряду.
     const HERO_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
     return _e("section", {
       className: "hh-partner-hero",
@@ -619,7 +619,7 @@
                 _e("path", { d: "M9 13h6" }),
                 _e("path", { d: "M9 17h4" })
               ),
-              "Рассчитать заработок"
+              "Рассчитать доход"
             )
           )
         ),
@@ -666,7 +666,7 @@
           // 154
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
             _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, _e(Counter, { to: 154, duration: 1500 })),
-            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Стран обслуживания")
+            _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Страны обслуживания")
           )
         )
       )
@@ -2708,7 +2708,7 @@
       { q: "Зарабатываю ли я с прибыли трейдеров?", a: "Да. Если реферал проходит челлендж и торгует в плюс, он получает 80% прибыли, компания — 20%, а ты получаешь свой % RevShare с этих 20%. Пример: трейдер заработал $10 000 → компания получает $2 000 → тебе до $1 600." },
       { q: "Когда и как происходят выплаты?", a: "Запроси выплату прямо в партнёрском кабинете — она придёт в USDT на твой кошелёк в течение 72 часов. Минимум к выводу — $100; первая выплата доступна после 5 рефералов с покупкой." },
       { q: "Есть ли доход с приведённых партнёров?", a: "Да, многоуровневая программа: 5% с дохода партнёра, которого ты привёл напрямую, и 3% с партнёра следующего уровня. Эти проценты платит компания сверху — доход твоих субпартнёров не уменьшается." },
-      { q: "Нужно ли быть трейдером, чтобы участвовать?", a: "Нет. Партнёром может стать любой — блогер, маркетолог, инфлюенсер или владелец комьюнити. Опыт в трейдинге не нужен, а работать можно с аудиторией из 154 стран." },
+      { q: "Нужно ли быть трейдером, чтобы участвовать?", a: "Нет. Партнёром может стать любой — блогер, маркетолог, инфлюенсер или владелец комьюнити. Опыт в трейдинге не нужен, а работать можно с аудиторией из 154 страны." },
       { q: "Какие лимиты на вывод средств?", a: "Минимальная сумма к выводу — $100. Первая выплата становится доступна после того, как 5 твоих рефералов совершили хотя бы одну покупку — это защищает программу от самореферальства. Дальше выводи по запросу из кабинета, без ограничений по частоте." }
     ];
     const [open, setOpen] = useState(-1);
@@ -3810,17 +3810,17 @@
         box-shadow: 0 8px 36px -6px rgba(252,213,53,0.35) !important;
       }
 
-      /* v12.6 — ссылка «Рассчитать заработок»: подчёркнута + hover-анимация.
+      /* v12.6 — ссылка «Рассчитать доход»: подчёркнута + hover-анимация.
          (v12.8) underline закреплён !important — Tilda глушит text-decoration у ссылок */
       #hashhedge-root .tilda-html-hashhedge a.hh-calc-link {
         text-decoration: underline !important;
         text-underline-offset: 4px !important;
         text-decoration-thickness: 1px !important;
-        text-decoration-color: #fcd535 !important;
+        text-decoration-color: #f5f1e8 !important;
       }
       #hashhedge-root .tilda-html-hashhedge a.hh-calc-link:hover {
         text-decoration-thickness: 2px !important;
-        text-decoration-color: #ffe27a !important;
+        text-decoration-color: #ffffff !important;
       }
       .hh-calc-link { transition: transform .2s ease, color .2s ease, text-decoration-thickness .2s ease; }
       .hh-calc-link:hover { transform: translateY(-2px); color: #ffe27a !important; text-decoration-thickness: 2px !important; }
@@ -3866,7 +3866,13 @@
           padding-top: 24px !important;
         }
         .hh-partner-hero-stats > div { border-left: none !important; padding-left: 0 !important; }
-        .hh-partner-hero-stats > div:first-child { grid-column: 1 / -1 !important; }
+        .hh-partner-hero-stats > div:first-child {
+          grid-column: 1 / -1 !important;
+          /* v12.10: отделяем Trustpilot от 4 цифр — отступ + разделитель, чтобы не сливалось в один блок */
+          padding-bottom: 18px !important;
+          margin-bottom: 6px !important;
+          border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+        }
         .hh-partner-hero-stats > div:not(:first-child) > div:first-child {
           white-space: nowrap !important;
           font-size: 24px !important;
@@ -3884,6 +3890,10 @@
            section [style*="grid-template-columns: 1fr 1fr"] { 1fr; gap:32px } (0,1,1),
            которое складывало карточки комиссии в столбик с гигантским зазором.
            Здесь специфичность поднята до (1,2,1)+ — наши правила побеждают. */
+        /* v12.10: на мобильной меньше отступ между заголовками секций и описаниями */
+        .hh-about-head, .hh-calc-head, .hh-steps-head, .hh-cab-head, .hh-lb-head,
+        .hh-yt-head, .hh-sup-head, .hh-events-head { gap: 12px !important; }
+
         /* v12.5: мобильный калькулятор приведён к vercel-mobile (#tiers @390px):
            просторная карточка 24px, выплата крупная жёлтая, уровни компактные 46px. */
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-grid > .hh-calc-card { padding: 24px 20px !important; }
