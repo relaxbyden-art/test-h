@@ -1586,7 +1586,7 @@
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
                 "Рассчитай свой доход"
               ),
-              _e("h2", { className: "hh-calc-h2", style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
+              _e("h2", { className: "hh-calc-h2", style: { fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
                 "Чем больше рефералов,", _e("br", null),
                 _e("span", { style: { color: "#fcd535" } }, "тем выше твоя комиссия")
               )
