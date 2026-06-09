@@ -677,9 +677,9 @@
   // ============================================================================
   function AboutProgram() {
     const cards = [
-      { t: "До 80% от прибыли Hash Hedge", b: "Забирай до 80% от прибыли Hash Hedge с каждой покупки. Реферал закрепляется за тобой пожизненно: привёл один раз, получаешь комиссию со всех следующих покупок." },
-      { t: "Доход с успешных трейдеров", b: "Получай процент от комиссии Hash Hedge каждый раз, когда привлечённый тобой трейдер выводит прибыль." },
-      { t: "Суб-партнёрская программа", b: "Приглашай других партнёров и получай процент от их прибыли. 5% от дохода партнёров, которых ты привлёк напрямую, и 3% от привлечённых ими суб-партнёров." }
+      { label: "Постоянный доход", t: "До 80% от прибыли Hash Hedge", b: "Забирай до 80% от прибыли Hash Hedge с каждой покупки. Реферал закрепляется за тобой пожизненно: привёл один раз, получаешь комиссию со всех следующих покупок." },
+      { label: "Пассивный доход", t: "Доход с успешных трейдеров", b: "Получай процент от комиссии Hash Hedge каждый раз, когда привлечённый тобой трейдер выводит прибыль." },
+      { label: "Партнёрская сеть", t: "Суб-партнёрская программа", b: "Приглашай других партнёров и получай процент от их прибыли. 5% от дохода партнёров, которых ты привлёк напрямую, и 3% от привлечённых ими суб-партнёров." }
     ];
     return _e("section", { id: "about-program", "data-no-glow": true, style: { padding: "100px 0 100px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -712,28 +712,30 @@
           gap: 16
         } },
           cards.map((c, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
+            // v12.2: карточки в стиле Vercel aff-fcard — жёлтая полоса сверху,
+            // большой жёлтый лейбл с glow, sheen-блик и подъём на hover (CSS .hh-about-card)
             _e("div", { className: "hh-about-card", style: {
+              position: "relative", overflow: "hidden",
               padding: "26px 24px",
               background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), #1C1C1F",
               border: "1px solid var(--line)",
               borderRadius: 16,
               height: "100%",
-              display: "flex", flexDirection: "column",
-              transition: "border-color .25s, transform .25s, box-shadow .25s"
-            },
-              onMouseEnter: e => {
-                e.currentTarget.style.borderColor = "rgba(252,213,53,0.35)";
-                e.currentTarget.style.transform = "translateY(-3px)";
-                e.currentTarget.style.boxShadow = "0 18px 38px -18px rgba(252,213,53,0.18)";
-              },
-              onMouseLeave: e => {
-                e.currentTarget.style.borderColor = "var(--line)";
-                e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow = "none";
-              }
-            },
-              _e("h3", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", marginBottom: 12, lineHeight: 1.25, letterSpacing: "-0.01em" } }, c.t),
-              _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, c.b)
+              display: "flex", flexDirection: "column"
+            } },
+              _e("span", { className: "hh-about-sheen", "aria-hidden": true }),
+              _e("span", { "aria-hidden": true, style: {
+                position: "absolute", top: 0, left: 24, right: 24, height: 2,
+                background: "linear-gradient(90deg, transparent, #fcd535, transparent)", opacity: 0.5
+              } }),
+              _e("div", { className: "hh-about-label", style: {
+                fontSize: 28, fontWeight: 800, color: "#fcd535",
+                letterSpacing: "-0.02em", lineHeight: 1.05,
+                textShadow: "0 0 26px rgba(252,213,53,0.35)",
+                position: "relative", zIndex: 2, fontFamily: "Onest, sans-serif"
+              } }, c.label),
+              _e("h3", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", margin: "10px 0 0", lineHeight: 1.3, position: "relative", zIndex: 2 } }, c.t),
+              _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: "12px 0 0", position: "relative", zIndex: 2 } }, c.b)
             )
           ))
         )
@@ -2548,7 +2550,7 @@
       "Поможем запуститься в течение одного дня",
       "Предоставим готовые маркетинговые материалы от Hash Hedge",
       "Покажем, какие связки работают лучше всего для твоей аудитории",
-      "С нашими аффилиат-менеджерами партнёры выходят на пятизначный доход в месяц"
+      _e(F, null, "С нашими аффилиат-менеджерами партнёры выходят на ", _e("b", { style: { color: "#fcd535", fontWeight: 800 } }, "пятизначный доход"))
     ];
     return _e("section", { id: "support", className: "hh-support-section",
       style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" }
@@ -2622,9 +2624,7 @@
                   } },
                     _e("svg", { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none",
                       style: { stroke: "#fcd535", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" } },
-                      i === 3
-                        ? _e("path", { d: "M12 3l2.6 5.6 6.1.6-4.6 4 1.4 6L12 18.6 6.5 19.8l1.4-6-4.6-4 6.1-.6z", style: { fill: "#fcd535", stroke: "none" } })
-                        : _e("path", { d: "M5 12l4 4L19 7" })
+                      _e("path", { d: "M5 12l4 4L19 7" })
                     )
                   ),
                   _e("span", { style: { fontSize: 15, color: "#f5f1e8", lineHeight: 1.5 } }, f)
@@ -3740,6 +3740,25 @@
       .hh-node-b { animation-delay: .3s; }
       .hh-node-c { animation-delay: .6s; }
 
+      /* v12.2 — About-карточки в стиле Vercel aff-fcard: lift + glow + sheen-блик */
+      .hh-about-card { transition: border-color .3s ease, transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s cubic-bezier(.22,1,.36,1); }
+      .hh-about-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(252,213,53,0.4) !important;
+        box-shadow: 0 30px 70px -24px rgba(0,0,0,0.7), 0 0 50px rgba(252,213,53,0.1);
+      }
+      .hh-about-sheen {
+        position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
+        pointer-events: none; z-index: 1;
+        background: linear-gradient(105deg, transparent, rgba(252,213,53,0.10), transparent);
+        transform: translateX(-130%) skewX(-12deg);
+      }
+      @keyframes hh-about-sheen {
+        0%   { transform: translateX(-130%) skewX(-12deg); }
+        100% { transform: translateX(280%)  skewX(-12deg); }
+      }
+      .hh-about-card:hover .hh-about-sheen { animation: hh-about-sheen 1.05s ease forwards; }
+
       /* Hover — Why cards lift */
       .hh-why-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
       .hh-why-card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px -22px rgba(0,0,0,.65); border-color: rgba(252,213,53,.4); }
@@ -3762,7 +3781,7 @@
       .reveal.in .hh-tati-badge { animation: hh-tati-badge-in .7s ease .3s both; }
 
       @media (prefers-reduced-motion: reduce) {
-        .hh-barfill, .hh-tierfill, .hh-coin, .hh-usdt-drop, .hh-payout-badge, .hh-promo-badge, .hh-node, .hh-tati-online > span { animation: none !important; }
+        .hh-barfill, .hh-tierfill, .hh-coin, .hh-usdt-drop, .hh-payout-badge, .hh-promo-badge, .hh-node, .hh-tati-online > span, .hh-about-card:hover .hh-about-sheen { animation: none !important; }
         .hh-barfill, .hh-tierfill { transform: scaleX(1) !important; }
         .hh-coin, .hh-usdt-drop, .hh-payout-badge, .hh-node { opacity: 1 !important; transform: none !important; }
         .hh-tati-img { transition: none !important; transform: none !important; }
@@ -3791,8 +3810,8 @@
         /* (2) About cards — заметно компактнее */
         .hh-about-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
         .hh-about-card { padding: 18px 16px !important; }
-        .hh-about-card > div:first-child { font-size: 22px !important; margin-bottom: 8px !important; }
-        .hh-about-card > div:nth-child(2) { font-size: 14px !important; margin-bottom: 8px !important; }
+        .hh-about-label { font-size: 22px !important; }
+        .hh-about-card h3 { font-size: 14px !important; margin-top: 8px !important; }
         #hashhedge-root .tilda-html-hashhedge .hh-about-card > p { font-size: 12px !important; line-height: 1.5 !important; }
 
         /* (3) Калькулятор — полная мобильная пересборка.
