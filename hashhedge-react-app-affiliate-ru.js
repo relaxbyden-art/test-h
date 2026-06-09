@@ -3578,7 +3578,9 @@
         /* === (v3.7 #5) Calculator: тексты одного размера, блок «Твой уровень» компактнее === */
         .hh-calc-h2 br { display: none !important; }
         .hh-calc-h2 { font-size: 28px !important; line-height: 1.15 !important; }
-        .hh-calc-grid > div:first-child { padding: 0 !important; }
+        /* (v12.7) УДАЛЕНО: .hh-calc-grid > div:first-child { padding: 0 } — легаси-правило старого
+           калькулятора; в новой vercel-вёрстке первый ребёнок грида = .hh-calc-card,
+           и это правило (0,2,0) обнуляло её паддинги на мобильной. */
         /* Три текста Calc единого стиля fontSize 11 / lineHeight 1.5 — Tilda CSS не должен перебивать */
         #hashhedge-root .tilda-html-hashhedge .hh-calc-info,
         #hashhedge-root .tilda-html-hashhedge .hh-calc-disclaimer,
@@ -3875,7 +3877,9 @@
            Здесь специфичность поднята до (1,2,1)+ — наши правила побеждают. */
         /* v12.5: мобильный калькулятор приведён к vercel-mobile (#tiers @390px):
            просторная карточка 24px, выплата крупная жёлтая, уровни компактные 46px. */
-        .hh-calc-card { padding: 24px 20px !important; }
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-grid > .hh-calc-card { padding: 24px 20px !important; }
+        /* воздух между текстом секции и карточкой (глобальный CSS зажимал margin) */
+        #hashhedge-root .tilda-html-hashhedge section .hh-calc-head { margin-bottom: 32px !important; }
         /* заголовок "Калькулятор прибыли" */
         .hh-calc-card > div:first-child { margin-bottom: 18px !important; font-size: 11px !important; }
         /* строка: лейбл + число трейдеров */
