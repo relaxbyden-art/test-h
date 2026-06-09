@@ -1125,41 +1125,27 @@
   // TIERS — 4+4 grid with unique geometric icons (last cell = CTA)
   // ============================================================================
   function Tiers() {
-    // 7 tiers + 1 CTA cell. Иконки — 3D-рендеры в assets/tiers/tier-1..7.png.
+    // v10.8: Battle Pass / Honor of Kings прогрессия. 7 точек-нод на горизонтальном треке.
+    // Кликаешь по любому уровню — детальная карточка снизу обновляется, линия прогресса
+    // заполняется до выбранного, выбранный нод увеличивается + glow в его цвете.
     const TIERS_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
-    // Иконка в тёмной плашке: серая обводка + скруглённые углы.
-    // Фон плашки = чёрный сплошной (как у самой PNG), иначе на жёлтой featured-карточке
-    // полупрозрачный фон даёт желтоватый тон и видно ступеньку между плашкой и иконкой.
-    const TierIcon = ({ lvl }) => _e("div", {
-      style: {
-        width: 64, height: 64,
-        borderRadius: 16,
-        border: "1px solid var(--line)",
-        background: "#000",
-        display: "inline-flex", alignItems: "center", justifyContent: "center",
-        marginBottom: 14, padding: 6,
-        boxSizing: "border-box"
-      }
-    },
-      _e("img", {
-        src: TIERS_BASE + "assets/tiers/tier-" + lvl + ".png",
-        alt: "Tier " + lvl,
-        width: 48, height: 48,
-        loading: "lazy", decoding: "async",
-        style: { width: 48, height: 48, objectFit: "contain", display: "block" }
-      })
-    );
-    // Все уровни — единый тёмный стиль. Tier 7 (top) — фирменный жёлтый, только он выделен.
+    // Слева направо: от старта к максимуму
     const tiers = [
-      // Цветовая шкала по уровням: от холодного «старта» к горячему «максимуму»
-      { lvl: 7, pct: 80, range: "700+",    label: "максимум", featured: true, rgb: "252,213,53"  /* жёлтый */ },
-      { lvl: 6, pct: 75, range: "400–699", label: null,                       rgb: "232,121,249" /* magenta */ },
-      { lvl: 5, pct: 70, range: "200–399", label: null,                       rgb: "167,139,250" /* фиолет */ },
-      { lvl: 4, pct: 65, range: "100–199", label: null,                       rgb: "96,165,250"  /* синий */ },
-      { lvl: 3, pct: 60, range: "50–99",   label: null,                       rgb: "34,211,238"  /* циан */ },
-      { lvl: 2, pct: 55, range: "15–49",   label: null,                       rgb: "74,222,128"  /* зелёный */ },
-      { lvl: 1, pct: 50, range: "0–14",    label: "старт",                    rgb: "148,163,184" /* серо-голубой */ }
+      { lvl: 1, pct: 50, range: "0–14",    label: "Старт",     rgb: "148,163,184" /* серо-голубой */ },
+      { lvl: 2, pct: 55, range: "15–49",   label: "Bronze",    rgb: "205,127,50"  /* бронза */ },
+      { lvl: 3, pct: 60, range: "50–99",   label: "Silver",    rgb: "192,192,200" /* серебро */ },
+      { lvl: 4, pct: 65, range: "100–199", label: "Gold",      rgb: "250,204,21"  /* золото */ },
+      { lvl: 5, pct: 70, range: "200–399", label: "Platinum",  rgb: "167,139,250" /* платина=фиолетовый */ },
+      { lvl: 6, pct: 75, range: "400–699", label: "Diamond",   rgb: "34,211,238"  /* алмаз=циан */ },
+      { lvl: 7, pct: 80, range: "700+",    label: "Legendary", rgb: "252,213,53"  /* фирменный жёлтый */ }
     ];
+
+    // По дефолту Bronze (индекс 1) — «ты только что начал, уже привлёк первых, иди до Legendary»
+    const [selected, setSelected] = useState(1);
+    const sel = tiers[selected];
+    // Процент заполнения линии прогресса от 0 (старт) до 100% (Legendary)
+    const fillPct = (selected / (tiers.length - 1)) * 100;
+
     return _e("section", { id: "levels", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
@@ -1177,60 +1163,193 @@
           )
         ),
 
-        _e("div", { className: "hh-tiers-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 } },
-          tiers.map((t, i) => _e(Reveal, { key: i, delay: String((i % 4) + 1) },
-            _e("div", {
-              style: {
-                background: t.featured ? "linear-gradient(180deg, rgba(252,213,53,0.08), rgba(252,213,53,0.01)), #1C1C1F" : "#1C1C1F",
-                border: t.featured ? "1px solid rgba(252,213,53,0.35)" : "1px solid var(--line)",
-                borderRadius: 18, padding: "26px 18px",
-                textAlign: "center", height: "100%",
-                display: "flex", flexDirection: "column", alignItems: "center",
-                boxShadow: t.featured ? "0 0 32px rgba(252,213,53,0.08)" : "none"
-              }
-            },
-              _e(TierIcon, { lvl: t.lvl }),
-              _e("div", { style: { fontSize: 17, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, `Уровень ${t.lvl}`),
-              t.label && _e("div", { style: { fontSize: 10, fontWeight: 700, color: t.featured ? "#fcd535" : "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 } }, t.label),
-              !t.label && _e("div", { style: { height: 14 } }),
-              _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginBottom: 6 } }, "Комиссия"),
-              _e("div", { style: { fontSize: 40, fontWeight: 800, color: t.featured ? "#fcd535" : "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 22 } }, `${t.pct}%`),
-              _e("div", { style: {
-                width: "100%", marginTop: "auto", padding: "12px 10px",
-                // Уровневый цветовой градиент: от жёлтого (макс) до серо-синего (старт)
-                background: `linear-gradient(180deg, rgba(${t.rgb},0.14) 0%, rgba(${t.rgb},0.04) 50%, rgba(8,8,10,0.5) 100%)`,
-                border: `1px solid rgba(${t.rgb},${t.featured ? 0.35 : 0.22})`,
-                borderRadius: 10
-              } },
-                _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginBottom: 4 } }, "Привлечённых трейдеров"),
-                _e("div", { style: { fontSize: 16, fontWeight: 700, color: `rgb(${t.rgb})`, marginBottom: 2 } }, t.range),
-                _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, "в месяц")
-              )
+        // === Battle pass track ===
+        _e("div", { className: "hh-bp-wrap", style: {
+          position: "relative",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--bg-card, #1C1C1F)",
+          border: "1px solid var(--line)",
+          borderRadius: 24,
+          padding: "56px 32px 36px",
+          marginBottom: 20,
+          overflow: "hidden"
+        } },
+          // Амбиентное свечение под выбранным узлом
+          _e("div", { "aria-hidden": "true", className: "hh-bp-ambient", style: {
+            position: "absolute",
+            width: 520, height: 360,
+            left: `calc(${(0.5 + selected) / tiers.length * 100}%)`,
+            top: -120,
+            transform: "translateX(-50%)",
+            background: `radial-gradient(closest-side, rgba(${sel.rgb},0.22), rgba(${sel.rgb},0))`,
+            filter: "blur(20px)",
+            pointerEvents: "none",
+            transition: "left .4s cubic-bezier(.2,.7,.2,1), background .4s",
+            zIndex: 0
+          } }),
+
+          // Скроллируемый трек — на мобиле уезжает в overflow-x с min-width: 700px
+          _e("div", { className: "hh-bp-track", style: { position: "relative", zIndex: 1 } },
+            _e("div", { className: "hh-bp-track-inner", style: {
+              position: "relative",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              minWidth: "100%"
+            } },
+              // Подложка-линия (серая)
+              _e("div", { "aria-hidden": "true", style: {
+                position: "absolute",
+                left: `${100 / tiers.length / 2}%`,
+                right: `${100 / tiers.length / 2}%`,
+                top: 64,
+                height: 4,
+                background: "rgba(255,255,255,0.08)",
+                borderRadius: 4,
+                zIndex: 0
+              } }),
+              // Заполненная часть линии — до выбранного нода
+              _e("div", { "aria-hidden": "true", style: {
+                position: "absolute",
+                left: `${100 / tiers.length / 2}%`,
+                width: `calc(${fillPct}% * ${(tiers.length - 1) / tiers.length})`,
+                top: 64,
+                height: 4,
+                background: `linear-gradient(90deg, rgba(${tiers[0].rgb},0.7), rgba(${sel.rgb},1))`,
+                borderRadius: 4,
+                boxShadow: `0 0 14px rgba(${sel.rgb},0.55)`,
+                zIndex: 1,
+                transition: "width .45s cubic-bezier(.2,.7,.2,1), background .4s, box-shadow .4s"
+              } }),
+
+              // 7 нодов
+              tiers.map((t, i) => {
+                const isPassed = i <= selected;
+                const isSelected = i === selected;
+                return _e("button", { key: t.lvl, type: "button",
+                  className: "hh-bp-node",
+                  onClick: () => setSelected(i),
+                  "aria-label": `Уровень ${t.lvl} ${t.label}, комиссия ${t.pct}%`,
+                  style: {
+                    position: "relative", zIndex: 2,
+                    background: "none", border: "none", padding: 0,
+                    cursor: "pointer",
+                    display: "flex", flexDirection: "column", alignItems: "center",
+                    flex: "1 1 0", minWidth: 0,
+                    fontFamily: "inherit"
+                  }
+                },
+                  // Цифра % сверху над иконкой
+                  _e("div", { style: {
+                    fontSize: isSelected ? 26 : 16,
+                    fontWeight: 800,
+                    color: isPassed ? `rgb(${t.rgb})` : "#525258",
+                    marginBottom: 14,
+                    lineHeight: 1,
+                    letterSpacing: "-0.02em",
+                    transition: "all .25s",
+                    textShadow: isSelected ? `0 0 18px rgba(${t.rgb},0.7)` : "none"
+                  } }, `${t.pct}%`),
+                  // Нод-кружок с tier-PNG
+                  _e("div", { style: {
+                    width: isSelected ? 64 : 48,
+                    height: isSelected ? 64 : 48,
+                    borderRadius: "50%",
+                    background: isPassed
+                      ? `linear-gradient(180deg, rgba(${t.rgb},0.20), rgba(${t.rgb},0.04)), #0e0e10`
+                      : "#0e0e10",
+                    border: isPassed
+                      ? `2px solid rgba(${t.rgb},${isSelected ? 1 : 0.55})`
+                      : "2px solid rgba(255,255,255,0.10)",
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    padding: 4, boxSizing: "border-box",
+                    boxShadow: isSelected ? `0 0 0 5px rgba(${t.rgb},0.15), 0 0 32px rgba(${t.rgb},0.40)` : "none",
+                    transition: "all .25s cubic-bezier(.2,.7,.2,1)"
+                  } },
+                    _e("img", { src: TIERS_BASE + "assets/tiers/tier-" + t.lvl + ".png",
+                      alt: "Tier " + t.lvl,
+                      style: { width: "100%", height: "100%", objectFit: "contain",
+                        filter: isPassed ? "none" : "grayscale(0.75) brightness(0.55)",
+                        transition: "filter .25s"
+                      }
+                    })
+                  ),
+                  // Подпись уровня
+                  _e("div", { style: {
+                    marginTop: 14,
+                    fontSize: isSelected ? 13 : 11,
+                    fontWeight: 700,
+                    color: isPassed ? "#f5f1e8" : "#525258",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    transition: "all .25s",
+                    whiteSpace: "nowrap"
+                  } }, t.label),
+                  // Диапазон трейдеров
+                  _e("div", { style: {
+                    marginTop: 6,
+                    fontSize: 11,
+                    color: isSelected ? `rgb(${t.rgb})` : "#7a7a80",
+                    fontWeight: 600
+                  } }, t.range),
+                  _e("div", { style: { fontSize: 10, color: "#52525a", marginTop: 2 } }, "трейдеров/мес")
+                );
+              })
             )
-          )),
-          // CTA cell (8th)
-          _e(Reveal, { delay: "4" },
-            _e("div", {
-              style: {
-                background: "linear-gradient(180deg, rgba(252,213,53,0.12), rgba(252,213,53,0.02))",
-                border: "1px solid rgba(252,213,53,0.4)",
-                borderRadius: 18, padding: "26px 18px",
-                textAlign: "center", height: "100%",
-                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12
-              }
-            },
-              _e("div", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", lineHeight: 1.2 } },
-                "Начни сразу с ", _e("span", { style: { color: "#fcd535" } }, "50%")
-              ),
-              _e("p", { style: { fontSize: 13, color: "#a1a0a4", margin: "4px 0 12px", lineHeight: 1.4 } }, "Уровень повышается автоматически с ростом числа привлечённых трейдеров."),
-              _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                style: { padding: "12px 22px", borderRadius: 100, fontSize: 13, fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }
-              }, "Стать партнёром →")
-            )
-          )
+          ),
+
+          // Подсказка под треком
+          _e("div", { style: {
+            marginTop: 32, textAlign: "center",
+            fontSize: 11, color: "#7a7a80",
+            fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase"
+          } }, "Нажми на любой уровень →  посмотри детали")
         ),
 
-        _e("div", { style: { textAlign: "center", marginTop: 24, fontSize: 12, color: "#a1a0a4" } },
+        // === Детальная карточка выбранного уровня ===
+        _e("div", { className: "hh-bp-detail", style: {
+          display: "grid",
+          gridTemplateColumns: "auto 1fr auto",
+          gap: 22, alignItems: "center",
+          padding: "22px 26px",
+          background: `linear-gradient(135deg, rgba(${sel.rgb},0.08), rgba(${sel.rgb},0.01)), var(--bg-card, #1C1C1F)`,
+          border: `1px solid rgba(${sel.rgb},0.32)`,
+          borderRadius: 18, marginBottom: 22,
+          transition: "background .4s, border-color .4s"
+        } },
+          // Большая tier-иконка
+          _e("div", { style: {
+            width: 72, height: 72, borderRadius: 18,
+            background: `linear-gradient(180deg, rgba(${sel.rgb},0.20), rgba(${sel.rgb},0.04)), #0e0e10`,
+            border: `1px solid rgba(${sel.rgb},0.42)`,
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            padding: 6, boxSizing: "border-box", flexShrink: 0
+          } },
+            _e("img", { src: TIERS_BASE + "assets/tiers/tier-" + sel.lvl + ".png",
+              alt: "Tier " + sel.lvl,
+              style: { width: "100%", height: "100%", objectFit: "contain" }
+            })
+          ),
+          // Текст
+          _e("div", { style: { minWidth: 0 } },
+            _e("div", { style: { fontSize: 11, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } },
+              `Уровень ${sel.lvl} · ${sel.label}`
+            ),
+            _e("div", { className: "hh-bp-detail-line", style: { fontSize: 20, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em", lineHeight: 1.25 } },
+              "Комиссия ",
+              _e("span", { style: { color: `rgb(${sel.rgb})` } }, `${sel.pct}%`),
+              " при ",
+              _e("span", null, sel.range),
+              _e("span", { style: { color: "#a1a0a4", fontWeight: 700, fontSize: 16 } }, " трейдеров в месяц")
+            )
+          ),
+          // CTA
+          _e("a", { href: "https://partner.hashhedge.com",
+            className: "hh-btn-yellow hh-bp-cta",
+            style: { padding: "12px 22px", borderRadius: 100, fontSize: 13, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6 }
+          }, "Стать партнёром →")
+        ),
+
+        _e("div", { style: { textAlign: "center", fontSize: 12, color: "#a1a0a4" } },
           "Уровень пересчитывается автоматически каждый месяц на основе количества привлечённых трейдеров"
         )
       )
@@ -2959,6 +3078,46 @@
           flex: 0 0 82% !important;
           scroll-snap-align: start !important;
           min-width: 0 !important;
+        }
+
+        /* === v10.8 mobile: Battle Pass track — горизонтальный скролл с min-width 680px === */
+        .hh-bp-wrap { padding: 40px 16px 28px !important; }
+        .hh-bp-track {
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+          scrollbar-width: none !important;
+          scroll-snap-type: x proximity !important;
+          padding-bottom: 8px !important;
+          margin: 0 -16px !important;
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+        .hh-bp-track::-webkit-scrollbar { display: none !important; }
+        .hh-bp-track-inner {
+          min-width: 680px !important;
+          gap: 0 !important;
+        }
+        .hh-bp-node {
+          scroll-snap-align: center !important;
+          min-width: 92px !important;
+        }
+        /* Детальная карточка под треком: иконка + текст на 1 строке, CTA на 2-й */
+        .hh-bp-detail {
+          grid-template-columns: 56px 1fr !important;
+          gap: 14px !important;
+          padding: 16px 18px !important;
+        }
+        .hh-bp-detail > div:first-child {
+          width: 56px !important;
+          height: 56px !important;
+          border-radius: 14px !important;
+        }
+        .hh-bp-detail-line { font-size: 16px !important; line-height: 1.3 !important; }
+        .hh-bp-cta {
+          grid-column: 1 / -1 !important;
+          justify-self: stretch !important;
+          width: 100% !important;
+          padding: 12px 18px !important;
         }
 
         /* === v10.2 mobile: TG-сообщество — пригасить синий blue glow + chat-phone отображается === */
