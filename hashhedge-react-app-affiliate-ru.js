@@ -113,13 +113,14 @@
       document.addEventListener("mousedown", handler);
       return () => document.removeEventListener("mousedown", handler);
     }, [langOpen]);
+    // v11.7: меню обновлено под Vercel-структуру (1-в-1 с английским сайтом, на русском)
+    // About → How it works → Earnings → FAQ → Trading challenge ↗
     const nav = [
-      { l: "Программа",   h: "#why"   },
-      { l: "Как начать",  h: "#how"   },
-      { l: "Уровни",      h: "#levels" },
-      { l: "Калькулятор", h: "#calc"  },
-      { l: "Кабинет",     h: "#cabinet" },
-      { l: "FAQ",         h: "#faq"   }
+      { l: "О программе",     h: "#about-program" },
+      { l: "Как работает",    h: "#how" },
+      { l: "Доход",           h: "#calc" },
+      { l: "FAQ",             h: "#faq" },
+      { l: "Купить челлендж", h: "https://hashhedge.com/", external: true }
     ];
     const langs = [
       { code: "EN", flag: "🇬🇧", label: "English",          href: "https://www.hashhedge.com/affiliateprogram" },
@@ -138,7 +139,9 @@
         _e(HashHedgeLogo, null),
         _e("ul", null,
           nav.map(n => _e("li", { key: n.l },
-            _e("a", { href: n.h }, n.l)
+            _e("a", Object.assign({ href: n.h }, n.external ? { target: "_blank", rel: "noopener noreferrer" } : {}),
+              n.l, n.external && _e("span", { style: { marginLeft: 4, fontSize: "0.85em" } }, "↗")
+            )
           ))
         ),
         _e("div", { style: { display: "flex", gap: 12, alignItems: "center" } },
@@ -508,10 +511,10 @@
         background: "linear-gradient(90deg, rgba(8,8,10,0.92) 0%, rgba(8,8,10,0.75) 35%, rgba(8,8,10,0.30) 60%, rgba(8,8,10,0.10) 100%)",
         pointerEvents: "none", zIndex: 1
       } }),
-      // Лёгкое затемнение сверху и снизу — для бейджа и stats
+      // Затемнение сверху и снизу — особенно резкий fade-to-bg внизу чтобы не было ступеньки до AboutProgram
       _e("div", { "aria-hidden": "true", style: {
         position: "absolute", inset: 0,
-        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 25%, rgba(8,8,10,0) 65%, rgba(8,8,10,0.45) 100%)",
+        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 25%, rgba(8,8,10,0) 50%, rgba(8,8,10,0.65) 80%, rgba(8,8,10,1) 100%)",
         pointerEvents: "none", zIndex: 1
       } }),
 
