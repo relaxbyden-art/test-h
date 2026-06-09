@@ -1542,9 +1542,18 @@
                   _e("span", { style: { fontSize: 11, fontWeight: 800, color: "#cd7f32" } }, "Bronze")
                 ),
                 _e("div", { className: "hh-cab-icons", style: { display: "flex", gap: 4 } },
-                  ["M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z", "M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9", "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"].map((d, i) =>
+                  [
+                    // Moon — тёмная тема
+                    "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z",
+                    // Bell — колокольчик с язычком
+                    "M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9 M10.3 21a1.94 1.94 0 0 0 3.4 0",
+                    // Headphones — поддержка
+                    "M3 18v-6a9 9 0 0 1 18 0v6 M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z",
+                    // User — профиль с головой
+                    "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"
+                  ].map((d, i) =>
                     _e("div", { key: i, style: { width: 28, height: 28, display: "inline-flex", alignItems: "center", justifyContent: "center" } },
-                      _e("svg", { width: 14, height: 14, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 1.8 } },
+                      _e("svg", { width: 14, height: 14, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } },
                         _e("path", { d, style: { fill: "none", stroke: "#a1a0a4" } })
                       )
                     )
@@ -1563,18 +1572,18 @@
                     { l: "Дашборд", active: true, ic: "M3 3v18h18 M7 12l3-3 4 4 7-7" },
                     { l: "Общая статистика", ic: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M2 12h20" },
                     { l: "Подробные отчёты", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" },
-                    { l: "Суб-партнёры", ic: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" },
+                    { l: "Суб-партнёры", ic: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75" },
                     { l: "Лидерборд", ic: "M8 21h8 M12 17v4 M7 4h10v5a5 5 0 1 1-10 0V4z" }
                   ]},
                   { title: "Управление", items: [
-                    { l: "Партнёрские ссылки", ic: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" },
+                    { l: "Партнёрские ссылки", ic: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71 M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" },
                     { l: "Постбэки", ic: "M3 12h18 M12 3l9 9-9 9" }
                   ]},
                   { title: "Транзакции", items: [
                     { l: "Вывод средств", ic: "M21 12H7 M14 5l7 7-7 7" }
                   ]},
                   { title: "Другое", items: [
-                    { l: "Язык", ic: "M5 8l6 6 M4 14l6-6 2-3 M2 5h12" },
+                    { l: "Язык", ic: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" },
                     { l: "Партнёрское соглашение", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" }
                   ]}
                 ].map((g, gi) => _e("div", { key: gi, style: { marginBottom: 16 } },
@@ -2071,8 +2080,11 @@
           ),
 
           // RIGHT — iPhone mockup как на скрине-эталоне (dark theme, notch, full UI)
-          _e(Reveal, { delay: "2" },
-            _e("div", { ref: tgRef, style: { maxWidth: 380, margin: "0 auto", position: "relative" } },
+          // v10.5: убрали Reveal-обёртку и className "hh-telegram-mobile-visual" (был конфликт
+          // с глобальным main-CSS правилом `display:none`). На мобиле IntersectionObserver
+          // не успевал сработать и правая колонка зависала на opacity:0 — iPhone был невидим.
+          _e("div", { style: { display: "block", opacity: 1 } },
+            _e("div", { ref: tgRef, style: { maxWidth: 380, margin: "0 auto", position: "relative", opacity: 1 } },
               _e("div", {
                 style: {
                   background: "#08080a",
@@ -2261,7 +2273,9 @@
             )
           ),
           // Chat mockup — структура v2.7, цвета и border-radius под главную
-          _e(Reveal, { delay: "2" },
+          // v10.5: убрали Reveal-обёртку — на мобиле IntersectionObserver не успевал сработать,
+          // правая колонка зависала на opacity:0 и чат-мокап был невидим.
+          _e("div", { style: { opacity: 1 } },
             _e("div", { ref: chatRef, style: {
               background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%), #1C1C1F",
               border: "1px solid var(--line)", borderRadius: 24, padding: 22,
