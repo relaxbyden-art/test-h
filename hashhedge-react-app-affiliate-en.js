@@ -613,22 +613,22 @@
           ),
           // 5,100+
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "5 100+"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, _e(Counter, { to: 5100, suffix: "+", duration: 1600 })),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Funded traders worldwide")
           ),
           // $12M+
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$12M+"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, _e(Counter, { to: 12, prefix: "$", suffix: "M+", duration: 1400 })),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Paid to traders")
           ),
           // 4.4/5
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "4.4/5"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, _e(Counter, { to: 4.4, decimals: 1, suffix: "/5", duration: 1400 })),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Trustpilot")
           ),
           // 154
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "154"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, _e(Counter, { to: 154, duration: 1500 })),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Countries served")
           )
         )
@@ -854,14 +854,14 @@
         _e("div", { style: { display: "grid", gridTemplateColumns: "100px 1fr 50px", gap: 10, alignItems: "center" } },
           _e("span", { style: { fontSize: 13, color: "#f5f1e8", fontWeight: 600 } }, "Partner"),
           _e("div", { style: { height: 8, borderRadius: 4, background: "rgba(255,255,255,0.05)", overflow: "hidden" } },
-            _e("div", { style: { width: "80%", height: "100%", background: "linear-gradient(90deg, #fcd535, #f0b800)", borderRadius: 4 } })
+            _e("div", { className: "hh-barfill", style: { width: "80%", height: "100%", background: "linear-gradient(90deg, #fcd535, #f0b800)", borderRadius: 4 } })
           ),
           _e("span", { style: { fontSize: 14, fontWeight: 800, color: "#fcd535", textAlign: "right" } }, "80%")
         ),
         _e("div", { style: { display: "grid", gridTemplateColumns: "100px 1fr 50px", gap: 10, alignItems: "center" } },
           _e("span", { style: { fontSize: 13, color: "#a1a0a4", fontWeight: 600 } }, "Hash Hedge"),
           _e("div", { style: { height: 8, borderRadius: 4, background: "rgba(255,255,255,0.05)", overflow: "hidden" } },
-            _e("div", { style: { width: "20%", height: "100%", background: "rgba(255,255,255,0.25)", borderRadius: 4 } })
+            _e("div", { className: "hh-barfill hh-barfill-2", style: { width: "20%", height: "100%", background: "rgba(255,255,255,0.25)", borderRadius: 4 } })
           ),
           _e("span", { style: { fontSize: 14, fontWeight: 700, color: "#a1a0a4", textAlign: "right" } }, "20%")
         )
@@ -892,13 +892,14 @@
         { l: "Wk 3", v: "+$310", w: "60px" },
         { l: "forever", v: "∞", w: "60px", inf: true }
       ].map((it, i) => _e("div", { key: i, style: { textAlign: "center", flex: 1 } },
-        _e("div", { style: {
+        _e("div", { className: "hh-coin", style: {
           width: 60, height: 60, margin: "0 auto 8px", borderRadius: "50%",
           border: it.inf ? "2px solid #fcd535" : "1px solid var(--line)",
           background: it.inf ? "rgba(252,213,53,0.10)" : "rgba(255,255,255,0.025)",
           display: "inline-flex", alignItems: "center", justifyContent: "center",
           fontSize: it.inf ? 22 : 13, fontWeight: 800,
-          color: it.inf ? "#fcd535" : "#f5f1e8"
+          color: it.inf ? "#fcd535" : "#f5f1e8",
+          animationDelay: (i * 0.45) + "s"
         } }, it.v),
         _e("div", { style: { fontSize: 10, color: "#a1a0a4" } }, it.l)
       ))
@@ -931,6 +932,7 @@
       style: { textAlign: "center", maxWidth: isMobile ? 200 : 240, boxSizing: "border-box" }
     },
       _e("div", {
+        className: "hh-usdt-drop",
         style: {
           width: isMobile ? 44 : 60, height: isMobile ? 44 : 60, borderRadius: "50%",
           background: "linear-gradient(135deg, rgba(74,222,128,0.18), rgba(74,222,128,0.05))",
@@ -945,6 +947,7 @@
         "$2 340", _e("span", { style: { fontSize: isMobile ? 9 : 11, color: "#a1a0a4", marginLeft: 4, fontWeight: 600 } }, "USDT")
       ),
       _e("div", {
+        className: "hh-payout-badge",
         style: { display: "inline-flex", alignItems: "center", gap: 4, fontSize: isMobile ? 8 : 10, color: "#4ade80", padding: isMobile ? "2px 6px" : "3px 8px", background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 100, marginTop: isMobile ? 4 : 6 }
       },
         _e("span", { style: { width: 4, height: 4, borderRadius: "50%", background: "#4ade80" } }),
@@ -959,7 +962,7 @@
         return _e("div", { key: lvl, style: { display: "grid", gridTemplateColumns: "16px 1fr 40px", gap: 8, alignItems: "center", marginBottom: 4 } },
           _e("span", { style: { fontSize: 10, color: "#a1a0a4", textAlign: "right", fontFamily: "ui-monospace,Menlo,monospace" } }, lvl),
           _e("div", { style: { height: 5, borderRadius: 3, background: "rgba(255,255,255,0.05)", overflow: "hidden" } },
-            _e("div", { style: { width: `${pct}%`, height: "100%", background: i === 0 ? "linear-gradient(90deg, #fcd535, #f0b800)" : "rgba(252,213,53,0.45)", borderRadius: 3 } })
+            _e("div", { className: "hh-tierfill", style: { width: `${pct}%`, height: "100%", background: i === 0 ? "linear-gradient(90deg, #fcd535, #f0b800)" : "rgba(252,213,53,0.45)", borderRadius: 3, animationDelay: (i * 0.18) + "s" } })
           ),
           _e("span", { style: { fontSize: 10, color: i === 0 ? "#fcd535" : "#a1a0a4", fontWeight: 700, textAlign: "right" } }, `${pct}%`)
         );
@@ -1047,7 +1050,7 @@
       _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 12 } }, "Promo code"),
       _e("div", { style: { display: "flex", gap: 0, maxWidth: 240, margin: "0 auto" } },
         _e("div", { style: { flex: 1, padding: "12px 14px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRight: "none", borderRadius: "10px 0 0 10px", textAlign: "left", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 14, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em" } }, "PARTNER2026"),
-        _e("div", { style: { padding: "12px 16px", background: "#fcd535", borderRadius: "0 10px 10px 0", color: "#13111c", fontSize: 12, fontWeight: 800 } }, "−25%")
+        _e("div", { className: "hh-promo-badge", style: { padding: "12px 16px", background: "#fcd535", borderRadius: "0 10px 10px 0", color: "#13111c", fontSize: 12, fontWeight: 800 } }, "−25%")
       ),
       _e("div", { style: { fontSize: 11, color: "#9ef0c0", marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6 } },
         _e("span", { style: { width: 5, height: 5, borderRadius: "50%", background: "#9ef0c0" } }),
@@ -1112,15 +1115,15 @@
         _e("line", { x1: 155, y1: 70, x2: 130, y2: 112, style: { stroke: "rgba(252,213,53,0.22)", strokeWidth: 1.2 } }),
         _e("line", { x1: 155, y1: 70, x2: 180, y2: 112, style: { stroke: "rgba(252,213,53,0.22)", strokeWidth: 1.2 } }),
         // Top node (you) — больше
-        _e("circle", { cx: 110, cy: 28, r: 17, style: { fill: "#fcd535" } }),
+        _e("circle", { className: "hh-node hh-node-a", cx: 110, cy: 28, r: 17, style: { fill: "#fcd535" } }),
         _e("text", { x: 110, y: 33, textAnchor: "middle", style: { fontSize: 11, fontWeight: 800, fill: "#13111c" } }, "YOU"),
         // L1 nodes — непрозрачные, перекрывают линии
-        _e("circle", { cx: 65,  cy: 70, r: 14, style: { fill: "#3a2f0e", stroke: "rgba(252,213,53,0.75)", strokeWidth: 1.4 } }),
-        _e("circle", { cx: 155, cy: 70, r: 14, style: { fill: "#3a2f0e", stroke: "rgba(252,213,53,0.75)", strokeWidth: 1.4 } }),
+        _e("circle", { cx: 65,  cy: 70, r: 14, className: "hh-node hh-node-b", style: { fill: "#3a2f0e", stroke: "rgba(252,213,53,0.75)", strokeWidth: 1.4 } }),
+        _e("circle", { cx: 155, cy: 70, r: 14, className: "hh-node hh-node-b", style: { fill: "#3a2f0e", stroke: "rgba(252,213,53,0.75)", strokeWidth: 1.4 } }),
         _e("text", { x: 65,  y: 73, textAnchor: "middle", style: { fontSize: 10, fontWeight: 800, fill: "#fcd535" } }, "5%"),
         _e("text", { x: 155, y: 73, textAnchor: "middle", style: { fontSize: 10, fontWeight: 800, fill: "#fcd535" } }, "5%"),
         // L2 nodes — непрозрачные тёмные
-        [40, 90, 130, 180].map((x, i) => _e("circle", { key: i, cx: x, cy: 112, r: 9, style: { fill: "#222226", stroke: "rgba(255,255,255,0.22)", strokeWidth: 1 } })),
+        [40, 90, 130, 180].map((x, i) => _e("circle", { key: i, className: "hh-node hh-node-c", cx: x, cy: 112, r: 9, style: { fill: "#222226", stroke: "rgba(255,255,255,0.22)", strokeWidth: 1, animationDelay: (0.6 + i * 0.15) + "s" } })),
         [40, 90, 130, 180].map((x, i) => _e("text", { key: "t" + i, x, y: 115, textAnchor: "middle", style: { fontSize: 8, fontWeight: 700, fill: "#cfcfd3" } }, "3%"))
       )
     );
@@ -2510,9 +2513,10 @@
               background: "#1C1C1F"
             } },
               _e("img", { src: SUP_BASE + "assets/tati.jpg", alt: "Tati — Head of Affiliates",
+                className: "hh-tati-img",
                 style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 28%" }
               }),
-              _e("div", { style: {
+              _e("div", { className: "hh-tati-badge", style: {
                 position: "absolute", left: 16, right: 16, bottom: 16,
                 padding: "14px 18px", borderRadius: 14,
                 background: "rgba(0,0,0,0.55)", backdropFilter: "blur(12px)",
@@ -2523,7 +2527,7 @@
                   _e("div", { style: { fontSize: 18, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em" } }, "Tati"),
                   _e("div", { style: { fontSize: 12, color: "#cfcfd3", marginTop: 2 } }, "Head of Affiliates")
                 ),
-                _e("span", { style: {
+                _e("span", { className: "hh-tati-online", style: {
                   display: "inline-flex", alignItems: "center", gap: 6,
                   padding: "5px 11px", borderRadius: 100,
                   background: "rgba(74,222,128,0.16)",
@@ -3060,6 +3064,91 @@
       .hh-why-grid > *:nth-child(6n)   .hh-why-vis-clip { animation: hh-vis-glow  5.2s ease-in-out infinite reverse; }
       @media (prefers-reduced-motion: reduce) {
         .hh-why-grid > * .hh-why-vis-clip { animation: none !important; }
+      }
+
+      /* === v12: Why-partner looping micro-animations + hover + Tati === */
+      /* Bar fills (V1 80%/20%, V5 7 tiers) — repeatedly fill then drain */
+      @keyframes hh-fill-loop {
+        0%   { transform: scaleX(0); }
+        18%  { transform: scaleX(1); }
+        82%  { transform: scaleX(1); }
+        100% { transform: scaleX(0); }
+      }
+      .hh-barfill   { transform-origin: left center; animation: hh-fill-loop 4.5s cubic-bezier(.22,1,.36,1) infinite; }
+      .hh-barfill-2 { animation-delay: .25s; }
+      .hh-tierfill  { transform-origin: left center; animation: hh-fill-loop 4.8s cubic-bezier(.22,1,.36,1) infinite; }
+
+      /* Coin/circle pop-in stagger (V2 timeline) */
+      @keyframes hh-coin-pop {
+        0%   { opacity: 0; transform: translateY(10px) scale(.8); }
+        14%  { opacity: 1; transform: translateY(0)    scale(1);  }
+        86%  { opacity: 1; transform: translateY(0)    scale(1);  }
+        100% { opacity: 0; transform: translateY(10px) scale(.8); }
+      }
+      .hh-coin { animation: hh-coin-pop 4.2s ease-in-out infinite; }
+
+      /* USDT payout drop + badge (V4 fast payouts) */
+      @keyframes hh-usdt-drop {
+        0%   { opacity: 0; transform: translateY(-26px); }
+        16%  { opacity: 1; transform: translateY(4px);   }
+        24%  {             transform: translateY(0);     }
+        86%  { opacity: 1; transform: translateY(0);     }
+        100% { opacity: 0; transform: translateY(-26px); }
+      }
+      .hh-usdt-drop { animation: hh-usdt-drop 4.5s cubic-bezier(.34,1.56,.64,1) infinite; }
+      @keyframes hh-payout-badge-in {
+        0%, 24%  { opacity: 0; transform: translateY(6px); }
+        36%, 86% { opacity: 1; transform: translateY(0);   }
+        100%     { opacity: 0; transform: translateY(6px); }
+      }
+      .hh-payout-badge { animation: hh-payout-badge-in 4.5s ease-in-out infinite; }
+
+      /* Promo badge pulse (V7) */
+      @keyframes hh-promo-pulse {
+        0%, 100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(252,213,53,0); }
+        50%      { transform: scale(1.06); box-shadow: 0 0 18px -2px rgba(252,213,53,0.55); }
+      }
+      .hh-promo-badge { animation: hh-promo-pulse 2.4s ease-in-out infinite; }
+
+      /* Sub-affiliate tree nodes appear in sequence (V9) */
+      @keyframes hh-node-pop {
+        0%   { opacity: 0; transform: scale(0);    }
+        10%  { opacity: 1; transform: scale(1.12); }
+        16%  {             transform: scale(1);    }
+        90%  { opacity: 1; transform: scale(1);    }
+        100% { opacity: 1; transform: scale(1);    }
+      }
+      .hh-node   { transform-box: fill-box; transform-origin: center; animation: hh-node-pop 4.5s ease-in-out infinite; }
+      .hh-node-a { animation-delay: 0s;  }
+      .hh-node-b { animation-delay: .3s; }
+      .hh-node-c { animation-delay: .6s; }
+
+      /* Hover — Why cards lift */
+      .hh-why-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+      .hh-why-card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px -22px rgba(0,0,0,.65); border-color: rgba(252,213,53,.4); }
+
+      /* Hover — Event card image zoom */
+      .hh-event-card > div:first-child { transition: transform .5s cubic-bezier(.22,1,.36,1); }
+      .hh-event-card:hover > div:first-child { transform: scale(1.07); }
+
+      /* Hover — Partner content video thumbs */
+      #content a { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+      #content a:hover { transform: translateY(-4px); box-shadow: 0 20px 44px -22px rgba(0,0,0,.6); border-color: rgba(252,213,53,.35); }
+      #content a > div:first-child { transition: transform .5s cubic-bezier(.22,1,.36,1); }
+      #content a:hover > div:first-child { transform: scale(1.06); }
+
+      /* Tati — ken-burns zoom on scroll-in (once via Reveal .in) + online dot pulse + badge slide-in */
+      .hh-tati-img { transform: scale(1); transition: transform 7s ease-out; }
+      .reveal.in .hh-tati-img { transform: scale(1.07); }
+      .hh-tati-online > span { animation: hh-live-pulse 1.6s ease-in-out infinite; }
+      @keyframes hh-tati-badge-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+      .reveal.in .hh-tati-badge { animation: hh-tati-badge-in .7s ease .3s both; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hh-barfill, .hh-tierfill, .hh-coin, .hh-usdt-drop, .hh-payout-badge, .hh-promo-badge, .hh-node, .hh-tati-online > span { animation: none !important; }
+        .hh-barfill, .hh-tierfill { transform: scaleX(1) !important; }
+        .hh-coin, .hh-usdt-drop, .hh-payout-badge, .hh-node { opacity: 1 !important; transform: none !important; }
+        .hh-tati-img { transition: none !important; transform: none !important; }
       }
 
       /* === v10.13: detail-card Battle Pass — align-items: center !important. Глобал CSS
