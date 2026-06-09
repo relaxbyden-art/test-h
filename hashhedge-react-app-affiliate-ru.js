@@ -1166,10 +1166,10 @@
         // === Battle pass track ===
         _e("div", { className: "hh-bp-wrap", style: {
           position: "relative",
-          background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--bg-card, #1C1C1F)",
+          background: "#1C1C1F",
           border: "1px solid var(--line)",
           borderRadius: 24,
-          padding: "56px 32px 36px",
+          padding: "64px 36px 44px",
           marginBottom: 20,
           overflow: "hidden"
         } },
@@ -1196,12 +1196,12 @@
               alignItems: "flex-start",
               minWidth: "100%"
             } },
-              // Подложка-линия (серая)
+              // Подложка-линия (серая) — top = % container (38) + margin (14) + half of node (32) - half line = 82
               _e("div", { "aria-hidden": "true", style: {
                 position: "absolute",
                 left: `${100 / tiers.length / 2}%`,
                 right: `${100 / tiers.length / 2}%`,
-                top: 64,
+                top: 82,
                 height: 4,
                 background: "rgba(255,255,255,0.08)",
                 borderRadius: 4,
@@ -1212,7 +1212,7 @@
                 position: "absolute",
                 left: `${100 / tiers.length / 2}%`,
                 width: `calc(${fillPct}% * ${(tiers.length - 1) / tiers.length})`,
-                top: 64,
+                top: 82,
                 height: 4,
                 background: `linear-gradient(90deg, rgba(${tiers[0].rgb},0.7), rgba(${sel.rgb},1))`,
                 borderRadius: 4,
@@ -1238,32 +1238,43 @@
                     fontFamily: "inherit"
                   }
                 },
-                  // Цифра % сверху над иконкой
+                  // % container — фиксированная высота 38px, текст выравнен по низу,
+                  // чтобы при смене selected (font 22→32) layout не прыгал и линия оставалась ровной
                   _e("div", { style: {
-                    fontSize: isSelected ? 26 : 16,
-                    fontWeight: 800,
-                    color: isPassed ? `rgb(${t.rgb})` : "#525258",
-                    marginBottom: 14,
-                    lineHeight: 1,
-                    letterSpacing: "-0.02em",
-                    transition: "all .25s",
-                    textShadow: isSelected ? `0 0 18px rgba(${t.rgb},0.7)` : "none"
-                  } }, `${t.pct}%`),
-                  // Нод-кружок с tier-PNG
+                    height: 38,
+                    display: "flex",
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                    marginBottom: 14
+                  } },
+                    _e("span", { style: {
+                      fontSize: isSelected ? 32 : 22,
+                      fontWeight: 800,
+                      color: isPassed ? `rgb(${t.rgb})` : "#525258",
+                      lineHeight: 1,
+                      letterSpacing: "-0.02em",
+                      transition: "all .25s",
+                      textShadow: isSelected ? `0 0 20px rgba(${t.rgb},0.7)` : "none"
+                    } }, `${t.pct}%`)
+                  ),
+                  // Нод — скруглённый квадрат (соответствует внутреннему tile PNG, выглядит как единая плитка-медальон)
                   _e("div", { style: {
-                    width: isSelected ? 64 : 48,
-                    height: isSelected ? 64 : 48,
-                    borderRadius: "50%",
+                    width: 60,
+                    height: 60,
+                    borderRadius: 14,
                     background: isPassed
-                      ? `linear-gradient(180deg, rgba(${t.rgb},0.20), rgba(${t.rgb},0.04)), #0e0e10`
+                      ? `linear-gradient(180deg, rgba(${t.rgb},0.22), rgba(${t.rgb},0.04)), #0e0e10`
                       : "#0e0e10",
                     border: isPassed
-                      ? `2px solid rgba(${t.rgb},${isSelected ? 1 : 0.55})`
-                      : "2px solid rgba(255,255,255,0.10)",
+                      ? `${isSelected ? 2 : 1.5}px solid rgba(${t.rgb},${isSelected ? 1 : 0.55})`
+                      : "1.5px solid rgba(255,255,255,0.10)",
                     display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    padding: 4, boxSizing: "border-box",
-                    boxShadow: isSelected ? `0 0 0 5px rgba(${t.rgb},0.15), 0 0 32px rgba(${t.rgb},0.40)` : "none",
-                    transition: "all .25s cubic-bezier(.2,.7,.2,1)"
+                    padding: 6, boxSizing: "border-box",
+                    boxShadow: isSelected
+                      ? `0 0 0 5px rgba(${t.rgb},0.16), 0 0 36px rgba(${t.rgb},0.45)`
+                      : "none",
+                    transform: isSelected ? "scale(1.12)" : "scale(1)",
+                    transition: "all .28s cubic-bezier(.2,.7,.2,1)"
                   } },
                     _e("img", { src: TIERS_BASE + "assets/tiers/tier-" + t.lvl + ".png",
                       alt: "Tier " + t.lvl,
@@ -1275,23 +1286,24 @@
                   ),
                   // Подпись уровня
                   _e("div", { style: {
-                    marginTop: 14,
-                    fontSize: isSelected ? 13 : 11,
+                    marginTop: 18,
+                    fontSize: isSelected ? 15 : 13,
                     fontWeight: 700,
                     color: isPassed ? "#f5f1e8" : "#525258",
-                    letterSpacing: "0.06em",
+                    letterSpacing: "0.08em",
                     textTransform: "uppercase",
                     transition: "all .25s",
                     whiteSpace: "nowrap"
                   } }, t.label),
                   // Диапазон трейдеров
                   _e("div", { style: {
-                    marginTop: 6,
-                    fontSize: 11,
+                    marginTop: 7,
+                    fontSize: 13,
                     color: isSelected ? `rgb(${t.rgb})` : "#7a7a80",
-                    fontWeight: 600
+                    fontWeight: 700,
+                    letterSpacing: "0.02em"
                   } }, t.range),
-                  _e("div", { style: { fontSize: 10, color: "#52525a", marginTop: 2 } }, "трейдеров/мес")
+                  _e("div", { style: { fontSize: 11, color: "#52525a", marginTop: 3, fontWeight: 500 } }, "трейдеров/мес")
                 );
               })
             )
@@ -1299,8 +1311,8 @@
 
           // Подсказка под треком
           _e("div", { style: {
-            marginTop: 32, textAlign: "center",
-            fontSize: 11, color: "#7a7a80",
+            marginTop: 38, textAlign: "center",
+            fontSize: 13, color: "#7a7a80",
             fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase"
           } }, "Нажми на любой уровень →  посмотри детали")
         ),
@@ -1309,16 +1321,16 @@
         _e("div", { className: "hh-bp-detail", style: {
           display: "grid",
           gridTemplateColumns: "auto 1fr auto",
-          gap: 22, alignItems: "center",
-          padding: "22px 26px",
-          background: `linear-gradient(135deg, rgba(${sel.rgb},0.08), rgba(${sel.rgb},0.01)), var(--bg-card, #1C1C1F)`,
+          gap: 24, alignItems: "center",
+          padding: "24px 28px",
+          background: `linear-gradient(135deg, rgba(${sel.rgb},0.08), rgba(${sel.rgb},0.01)), #1C1C1F`,
           border: `1px solid rgba(${sel.rgb},0.32)`,
           borderRadius: 18, marginBottom: 22,
           transition: "background .4s, border-color .4s"
         } },
           // Большая tier-иконка
           _e("div", { style: {
-            width: 72, height: 72, borderRadius: 18,
+            width: 80, height: 80, borderRadius: 18,
             background: `linear-gradient(180deg, rgba(${sel.rgb},0.20), rgba(${sel.rgb},0.04)), #0e0e10`,
             border: `1px solid rgba(${sel.rgb},0.42)`,
             display: "inline-flex", alignItems: "center", justifyContent: "center",
@@ -1331,25 +1343,25 @@
           ),
           // Текст
           _e("div", { style: { minWidth: 0 } },
-            _e("div", { style: { fontSize: 11, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } },
+            _e("div", { style: { fontSize: 13, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 } },
               `Уровень ${sel.lvl} · ${sel.label}`
             ),
-            _e("div", { className: "hh-bp-detail-line", style: { fontSize: 20, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em", lineHeight: 1.25 } },
+            _e("div", { className: "hh-bp-detail-line", style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em", lineHeight: 1.25 } },
               "Комиссия ",
               _e("span", { style: { color: `rgb(${sel.rgb})` } }, `${sel.pct}%`),
               " при ",
               _e("span", null, sel.range),
-              _e("span", { style: { color: "#a1a0a4", fontWeight: 700, fontSize: 16 } }, " трейдеров в месяц")
+              _e("span", { style: { color: "#a1a0a4", fontWeight: 700, fontSize: 19 } }, " трейдеров в месяц")
             )
           ),
           // CTA
           _e("a", { href: "https://partner.hashhedge.com",
             className: "hh-btn-yellow hh-bp-cta",
-            style: { padding: "12px 22px", borderRadius: 100, fontSize: 13, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6 }
+            style: { padding: "14px 26px", borderRadius: 100, fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6 }
           }, "Стать партнёром →")
         ),
 
-        _e("div", { style: { textAlign: "center", fontSize: 12, color: "#a1a0a4" } },
+        _e("div", { style: { textAlign: "center", fontSize: 13, color: "#a1a0a4" } },
           "Уровень пересчитывается автоматически каждый месяц на основе количества привлечённых трейдеров"
         )
       )
