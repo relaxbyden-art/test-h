@@ -150,7 +150,7 @@
           _e("a", { href: "https://partner.hashhedge.com", target: "_blank", rel: "noopener",
             className: "nav-cta-desktop",
             style: { fontSize: 14, color: "var(--fg-muted)", padding: "10px 14px" }
-          }, "Войти"),
+          }, "Log in"),
           _e("a", { href: "https://partner.hashhedge.com", target: "_blank", rel: "noopener",
             className: "btn btn-primary nav-cta-desktop"
           }, "Become a partner"),
@@ -1140,7 +1140,7 @@
       // === 3 новые карточки ===
       { viz: _e(V7, null), chip: "Discounts for your audience", title: "Promo codes for your audience", titleAccent: "before",
         body: "Получай персональные скидки для своих подписчиков, чтобы повысить конверсию и стимулировать покупки по твоей ссылке." },
-      { viz: _e(V8, null), chip: "Аналитика трафика", title: "Flexible tracking",
+      { viz: _e(V8, null), chip: "Traffic analytics", title: "Flexible tracking",
         body: "Build custom links to segment traffic and track conversions in your partner dashboard." },
       { viz: _e(V9, null), chip: "Многоуровневая сеть", title: "Sub-affiliate program",
         body: "Bring in other affiliates through your link and earn from a multi-tier partner network." }
@@ -1163,7 +1163,7 @@
                     "стоит стать", _e("br", null),
                     "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром")
                   )
-                : _e(F, null, "Why стоит стать", _e("br", null), "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром"))
+                : _e(F, null, "Why partner", _e("br", null), "нашим ", _e("span", { style: { color: "#fcd535" } }, "партнёром"))
             ),
             _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Мы даём партнёрам всё, чтобы они росли вместе с нами.")
           )
@@ -1205,7 +1205,7 @@
         icon: ["M12 6v6l4 2", "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"] },
       { n: "03", title: "Суб-партнёрская программа",
         body: _e(F, null, "Приглашай других партнёров и получай процент от их прибыли. Ты получаешь ", _e("b", { style: { color: "#fcd535" } }, "5%"), " of the revenue from partners you brought in directly, and ", _e("b", { style: { color: "#fcd535" } }, "3%"), " from their sub-partners."),
-        pill: "Partnerская сеть",
+        pill: "Partner network",
         icon: ["M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M5 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M19 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", "M12 8v3", "M6.5 16l4.5-3 4.5 3", "M9 21h6"] }
     ];
     return _e("section", { id: "income", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
@@ -1686,9 +1686,9 @@
       { n: "02", chip: "Referral link", title: "Get your referral link",
         body: "Grab your personal referral link from your dashboard." },
       { n: "03", chip: "Продвижение",       title: "Привлекай трейдеров",
-        body: "Share your link в соцсетях, Telegram-каналах, YouTube, блогах или личных рекомендациях." },
+        body: "Share your link on socials, Telegram channels, YouTube, blogs or personal recommendations." },
       { n: "04", chip: "Earnings",             title: "Получай выплаты",
-        body: "Receive up to 80% от прибыли Hash Hedge за привлечённых трейдеров. Выплаты в USDT в течение 72 часов." }
+        body: "Receive up to 80% of Hash Hedge profit for referred traders. Payouts in USDT within 72 hours." }
     ];
     return _e("section", { id: "how", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
@@ -1696,7 +1696,7 @@
         _e(Reveal, null,
           _e("div", { className: "hh-steps-head", style: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 60, alignItems: "end", marginBottom: 56 } },
             _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
-              "Four steps до ", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "первой прибыли")
+              "Four steps to ", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "первой прибыли")
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, "Присоединяйся к 2500+ партнёрам, которые уже зарабатывают вместе с Hash Hedge.")
           )
@@ -1764,10 +1764,10 @@
       const tick = cabTick;
       return [
         // Иконки 1-в-1 как в реальном partner.hashhedge.com/dashboard
-        { k: "Всего покупок",      v: "$" + (48920 + tick * 320).toLocaleString("ru-RU").replace(/,/g, " "), d: "+18,4%", ic: "M3 3h2l.4 2 M7 13h10l4-8H5.4 M7 13L5.4 5 M7 13l-1.7 4.5h13.4 M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M17 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" },
-        { k: "Количество покупок", v: String(312 + Math.floor(tick * 0.4)),                                  d: "+24",    ic: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z M3.27 6.96L12 12.01l8.73-5.05 M12 22.08V12" },
-        { k: "Регистрации",        v: (1284 + tick * 3).toLocaleString("ru-RU").replace(/,/g, " "),         d: "+61",    ic: "M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M20 8v6 M23 11h-6" },
-        { k: "Комиссия партнера",  v: "$" + (34244 + tick * 180).toLocaleString("ru-RU").replace(/,/g, " "), d: "+21,7%", ic: "M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" }
+        { k: "Total purchases",      v: "$" + (48920 + tick * 320).toLocaleString("ru-RU").replace(/,/g, " "), d: "+18,4%", ic: "M3 3h2l.4 2 M7 13h10l4-8H5.4 M7 13L5.4 5 M7 13l-1.7 4.5h13.4 M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M17 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" },
+        { k: "Number of purchases", v: String(312 + Math.floor(tick * 0.4)),                                  d: "+24",    ic: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z M3.27 6.96L12 12.01l8.73-5.05 M12 22.08V12" },
+        { k: "Sign-ups",        v: (1284 + tick * 3).toLocaleString("ru-RU").replace(/,/g, " "),         d: "+61",    ic: "M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M20 8v6 M23 11h-6" },
+        { k: "Partner commission",  v: "$" + (34244 + tick * 180).toLocaleString("ru-RU").replace(/,/g, " "), d: "+21,7%", ic: "M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" }
       ];
     }, [cabTick]);
     return _e("section", { id: "cabinet", style: { padding: "100px 0 120px", background: "var(--bg)" } },
@@ -1814,7 +1814,7 @@
                 ),
                 _e("div", { className: "hh-cab-greet", style: { lineHeight: 1.3, paddingLeft: 14, borderLeft: "1px solid var(--line)" } },
                   _e("div", { style: { fontSize: 14, fontWeight: 800, color: "#f5f1e8" } }, "Здравствуйте, Partner!"),
-                  _e("div", { style: { fontSize: 11, color: "#a1a0a4" } }, "С возвращением, рады видеть вас снова!")
+                  _e("div", { style: { fontSize: 11, color: "#a1a0a4" } }, "Welcome back, glad to see you again!")
                 )
               ),
               _e("div", { className: "hh-cab-top-right", style: { display: "flex", alignItems: "center", gap: 10 } },
@@ -1860,23 +1860,23 @@
               // Sidebar
               _e("div", { className: "hh-cab-side", style: { borderRight: "1px solid var(--line)", padding: "18px 12px" } },
                 [
-                  { title: "Аналитика", items: [
-                    { l: "Дашборд", active: true, ic: "M3 3v18h18 M7 12l3-3 4 4 7-7" },
-                    { l: "Общая статистика", ic: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M2 12h20" },
-                    { l: "Подробные отчёты", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" },
-                    { l: "Суб-партнёры", ic: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75" },
-                    { l: "Лидерборд", ic: "M8 21h8 M12 17v4 M7 4h10v5a5 5 0 1 1-10 0V4z" }
+                  { title: "Analytics", items: [
+                    { l: "Dashboard", active: true, ic: "M3 3v18h18 M7 12l3-3 4 4 7-7" },
+                    { l: "Overview", ic: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M2 12h20" },
+                    { l: "Detailed reports", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" },
+                    { l: "Sub-affiliates", ic: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75" },
+                    { l: "Leaderboard", ic: "M8 21h8 M12 17v4 M7 4h10v5a5 5 0 1 1-10 0V4z" }
                   ]},
-                  { title: "Управление", items: [
-                    { l: "Partnerские ссылки", ic: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71 M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" },
-                    { l: "Постбэки", ic: "M3 12h18 M12 3l9 9-9 9" }
+                  { title: "Management", items: [
+                    { l: "Partner links", ic: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71 M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" },
+                    { l: "Postbacks", ic: "M3 12h18 M12 3l9 9-9 9" }
                   ]},
-                  { title: "Транзакции", items: [
-                    { l: "Вывод средств", ic: "M21 12H7 M14 5l7 7-7 7" }
+                  { title: "Transactions", items: [
+                    { l: "Withdrawals", ic: "M21 12H7 M14 5l7 7-7 7" }
                   ]},
-                  { title: "Другое", items: [
-                    { l: "Язык", ic: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" },
-                    { l: "Partnerское соглашение", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" }
+                  { title: "Other", items: [
+                    { l: "Language", ic: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" },
+                    { l: "Partner agreement", ic: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6" }
                   ]}
                 ].map((g, gi) => _e("div", { key: gi, style: { marginBottom: 16 } },
                   _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "0 10px", marginBottom: 6 } },
@@ -1906,10 +1906,10 @@
               _e("div", { className: "hh-cab-main", style: { padding: 22 } },
                 // Partner Links collapsed bar
                 _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 18px", background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 12, marginBottom: 24 } },
-                  _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, "Partnerские ссылки"),
+                  _e("div", { style: { fontSize: 14, fontWeight: 700, color: "#f5f1e8" } }, "Partner links"),
                   _e("span", { style: { color: "#a1a0a4" } }, "▾")
                 ),
-                _e("h3", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", margin: "0 0 20px" } }, "Дашборд"),
+                _e("h3", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", margin: "0 0 20px" } }, "Dashboard"),
 
                 // KPI col + chart
                 _e("div", { className: "hh-cab-stage", style: { display: "grid", gridTemplateColumns: "260px 1fr", gap: 14 } },
@@ -1945,7 +1945,7 @@
                     _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18 } },
                       _e("div", null,
                         _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, letterSpacing: "-0.02em" } }, "$" + (34244 + cabTick * 180).toLocaleString("ru-RU").replace(/,/g, " ") + ",80"),
-                        _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 6 } }, "Баланс")
+                        _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 6 } }, "Balance")
                       ),
                       _e("div", { style: { padding: "8px 14px", background: "rgba(8,8,10,0.7)", border: "1px solid var(--line)", borderRadius: 100, fontSize: 12, color: "#f5f1e8", fontWeight: 600 } }, "May 04, 2026 — Jun 02, 2026")
                     ),
@@ -1988,11 +1988,11 @@
         _e(Reveal, { delay: "3" },
           _e("div", { className: "hh-cab-explainers", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 } },
             [
-              { paths: ["M22 12h-4l-3 9L9 3l-3 9H2"], t: "Аналитика в реальном времени", b: "Клики, регистрации, покупки и комиссии обновляются автоматически." },
-              { paths: ["M22 11.08V12a10 10 0 1 1-5.93-9.14", "M22 4L12 14.01l-3-3"], t: "Статистика по суб-партнёрам", b: "Контролируй accruals со всех уровней: твоих прямых партнёров и их рефералов." },
+              { paths: ["M22 12h-4l-3 9L9 3l-3 9H2"], t: "Real-time analytics", b: "Clicks, signups, purchases and commissions update automatically." },
+              { paths: ["M22 11.08V12a10 10 0 1 1-5.93-9.14", "M22 4L12 14.01l-3-3"], t: "Sub-affiliate statistics", b: "Контролируй accruals со всех уровней: твоих прямых партнёров и их рефералов." },
               // Lucide "wallet" — чистая иконка кошелька с застёжкой, ассоциируется с выводом средств
-              { paths: ["M21 12V7H5a2 2 0 0 1 0-4h14v4", "M3 5v14a2 2 0 0 0 2 2h16v-5", "M18 12a2 2 0 0 0 0 4h4v-4Z"], t: "Вывод в любой момент", b: "Запрашивай payments in USDT без фиксированных дат." },
-              { paths: ["M12 20h9", "M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"], t: "Гибкие инструменты", b: "Генерируй ссылки, промокоды и подключай постбэки за пару секунд." }
+              { paths: ["M21 12V7H5a2 2 0 0 1 0-4h14v4", "M3 5v14a2 2 0 0 0 2 2h16v-5", "M18 12a2 2 0 0 0 0 4h4v-4Z"], t: "Withdraw any time", b: "Запрашивай payments in USDT без фиксированных дат." },
+              { paths: ["M12 20h9", "M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"], t: "Flexible tools", b: "Generate links, promo codes and set up postbacks in seconds." }
             ].map((ex, i) => _e("div", { key: i, style: { padding: 18, background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14 } },
               _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", marginBottom: 12 } },
                 ex.paths.map((p, j) => _e("path", { key: j, d: p, style: { fill: "none", stroke: "#fcd535" } }))
@@ -2041,7 +2041,7 @@
               )
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Привлекай рефералов и выходи в топ. Лидерборд в реальном времени показывает партнёров с самым высоким доходом за месяц."
+              "Привлекай рефералов и выходи в топ. Leaderboard в реальном времени показывает партнёров с самым высоким доходом за месяц."
             )
           )
         ),
@@ -2203,7 +2203,7 @@
     // Top: 1 big (1.35fr) + 2 stacked (1fr). Bottom: 4 равные.
     const events = [
       // [0] = hero big
-      { flag: "🇦🇪", city: "Dubai",     year: "October 2025", role: "Organizer", title: "WSCT Dubai · Оффлайн турнир",     img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
+      { flag: "🇦🇪", city: "Dubai",     year: "October 2025", role: "Organizer", title: "WSCT Dubai · Live Tournament",     img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
       // [1], [2] = stacked справа
       { flag: "🇷🇺", city: "Moscow",    year: "2025",          role: null,           title: "Partners at Blockchain Forum",     img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/event-blockchain-forum.jpg" },
       { flag: "🇧🇷", city: "São Paulo", year: "2025",          role: "Organizer", title: "WSCT Brazil · Live Tournament",   img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
@@ -2855,7 +2855,7 @@
                 }, "Register now"),
                 _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-ghost",
                   style: { textDecoration: "none" }
-                }, "Войти в кабинет")
+                }, "Log in")
               )
             )
           )
@@ -2872,20 +2872,20 @@
     const columns = [
       { t: "Продукт", l: [
         { label: "Челленджи",              href: "https://www.hashhedge.com/ru#challenge" },
-        { label: "Partnerская программа",  href: "https://www.hashhedge.com/affiliateprogram/ru" },
-        { label: "Блог",                   href: "https://www.hashhedge.com/blog/ru" },
+        { label: "Affiliate program",  href: "https://www.hashhedge.com/affiliateprogram/ru" },
+        { label: "Blog",                   href: "https://www.hashhedge.com/blog/ru" },
         { label: "Руководство",            href: "https://hashhedge.gitbook.io/hashhedge-user-guide" }
       ]},
       { t: "О нас", l: [
         { label: "Поддержка", href: "https://t.me/hashhedgesupportbot" },
         { label: "FAQ",       href: "https://www.hashhedge.com/faq/ru" },
-        { label: "Вакансии",  href: "https://www.hashhedge.com/vacancies" }
+        { label: "Careers",  href: "https://www.hashhedge.com/vacancies" }
       ]},
       { t: "Документы", l: [
         { label: "Privacy", href: "https://www.hashhedge.com/privacy-policy" },
         { label: "Terms",       href: "https://www.hashhedge.com/terms-and-conditions" },
         { label: "Коммерческие условия",        href: "https://www.hashhedge.com/commercial-terms" },
-        { label: "Partnerская политика",        href: "https://www.hashhedge.com/affiliate-politics" }
+        { label: "Partner policy",        href: "https://www.hashhedge.com/affiliate-politics" }
       ]}
     ];
     const partners = [
