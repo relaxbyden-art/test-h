@@ -2846,8 +2846,8 @@
               ),
               // Заголовок в 2 строки
               _e("h2", { style: { fontSize: "clamp(38px, 5.6vw, 64px)", lineHeight: 1.08, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 28 } },
-                "Начни зарабатывать", _e("br", null),
-                "с ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 36px rgba(252,213,53,0.45)" } }, "Hash Hedge")
+                "Start earning", _e("br", null),
+                "with ", _e("span", { style: { color: "#fcd535", textShadow: "0 0 36px rgba(252,213,53,0.45)" } }, "Hash Hedge")
               ),
               _e("div", { style: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" } },
                 _e("a", { href: "https://partner.hashhedge.com", className: "btn btn-primary",
@@ -2870,21 +2870,21 @@
   // Footer — 1:1 как на главной русской hashhedge-react-app-ru.js (Footer @ ~line 10826).
   function Footer() {
     const columns = [
-      { t: "Продукт", l: [
-        { label: "Челленджи",              href: "https://www.hashhedge.com/ru#challenge" },
-        { label: "Affiliate program",  href: "https://www.hashhedge.com/affiliateprogram/ru" },
-        { label: "Blog",                   href: "https://www.hashhedge.com/blog/ru" },
-        { label: "Руководство",            href: "https://hashhedge.gitbook.io/hashhedge-user-guide" }
+      { t: "Product", l: [
+        { label: "Challenges",              href: "https://www.hashhedge.com/#challenge" },
+        { label: "Affiliate program",  href: "https://www.hashhedge.com/affiliateprogram" },
+        { label: "Blog",                   href: "https://www.hashhedge.com/blog" },
+        { label: "User guide",            href: "https://hashhedge.gitbook.io/hashhedge-user-guide" }
       ]},
-      { t: "О нас", l: [
-        { label: "Поддержка", href: "https://t.me/hashhedgesupportbot" },
-        { label: "FAQ",       href: "https://www.hashhedge.com/faq/ru" },
+      { t: "Company", l: [
+        { label: "Support", href: "https://t.me/hashhedgesupportbot" },
+        { label: "FAQ",       href: "https://www.hashhedge.com/faq" },
         { label: "Careers",  href: "https://www.hashhedge.com/vacancies" }
       ]},
-      { t: "Документы", l: [
+      { t: "Legal", l: [
         { label: "Privacy", href: "https://www.hashhedge.com/privacy-policy" },
         { label: "Terms",       href: "https://www.hashhedge.com/terms-and-conditions" },
-        { label: "Коммерческие условия",        href: "https://www.hashhedge.com/commercial-terms" },
+        { label: "Commercial terms",        href: "https://www.hashhedge.com/commercial-terms" },
         { label: "Partner policy",        href: "https://www.hashhedge.com/affiliate-politics" }
       ]}
     ];
