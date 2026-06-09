@@ -134,7 +134,9 @@
       { code: "UA", flag: "🇺🇦", label: "Український",      href: "https://www.hashhedge.com/affiliateprogram/ua" },
       { code: "KZ", flag: "🇰🇿", label: "Қазақша",          href: "https://www.hashhedge.com/affiliateprogram/kz" }
     ];
-    return _e("nav", { className: "nav" },
+    return _e("nav", { className: "nav hh-nav-sticky",
+      style: { position: "sticky", top: 0, zIndex: 100, background: "rgba(8,8,10,0.85)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }
+    },
       _e("div", { className: "container nav-inner" },
         _e(HashHedgeLogo, null),
         _e("ul", null,
@@ -514,7 +516,7 @@
       // Затемнение сверху и снизу — особенно резкий fade-to-bg внизу чтобы не было ступеньки до AboutProgram
       _e("div", { "aria-hidden": "true", style: {
         position: "absolute", inset: 0,
-        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 25%, rgba(8,8,10,0) 50%, rgba(8,8,10,0.65) 80%, rgba(8,8,10,1) 100%)",
+        background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 22%, rgba(8,8,10,0) 40%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.92) 88%, rgba(8,8,10,1) 100%)",
         pointerEvents: "none", zIndex: 1
       } }),
 
