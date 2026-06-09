@@ -3810,7 +3810,18 @@
         box-shadow: 0 8px 36px -6px rgba(252,213,53,0.35) !important;
       }
 
-      /* v12.6 — ссылка «Рассчитать заработок»: подчёркнута + hover-анимация */
+      /* v12.6 — ссылка «Рассчитать заработок»: подчёркнута + hover-анимация.
+         (v12.8) underline закреплён !important — Tilda глушит text-decoration у ссылок */
+      #hashhedge-root .tilda-html-hashhedge a.hh-calc-link {
+        text-decoration: underline !important;
+        text-underline-offset: 4px !important;
+        text-decoration-thickness: 1px !important;
+        text-decoration-color: #fcd535 !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-calc-link:hover {
+        text-decoration-thickness: 2px !important;
+        text-decoration-color: #ffe27a !important;
+      }
       .hh-calc-link { transition: transform .2s ease, color .2s ease, text-decoration-thickness .2s ease; }
       .hh-calc-link:hover { transform: translateY(-2px); color: #ffe27a !important; text-decoration-thickness: 2px !important; }
       .hh-calc-link:hover svg { stroke: #ffe27a !important; }
