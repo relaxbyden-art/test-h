@@ -629,13 +629,13 @@
           paddingTop: 28,
           borderTop: "1px solid rgba(255,255,255,0.08)",
           display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr",
+          gridTemplateColumns: "1.9fr 1fr 1fr 1fr 1fr",
           gap: 24,
           alignItems: "center"
         } },
-          // Trustpilot
+          // Trustpilot (v12.3: колонка шире + nowrap, чтобы эйбрау влезал в одну строку)
           _e("div", null,
-            _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } }, "Сотрудничай с платформой, которой доверяют"),
+            _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8, whiteSpace: "nowrap" } }, "Сотрудничай с платформой, которой доверяют"),
             _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 10 } },
               _e("span", { style: { fontSize: 16, fontWeight: 800, color: "#f5f1e8" } }, "Excellent"),
               _e("div", { style: { display: "inline-flex", gap: 2 } },
@@ -1580,124 +1580,131 @@
           )
         ),
 
+        // v12.3: 1-в-1 как калькулятор на hashhedge-affiliate.vercel.app (#tiers),
+        // с нашими русскими текстами. Сетка 0.85fr/1fr, карточка 36px, слайдер aff-range
+        // с заливкой через --fill, выплата жёлтым, уровни справа с прогресс-подложкой.
         _e("div", { className: "hh-calc-grid", style: {
-          display: "grid", gridTemplateColumns: "minmax(420px, 1fr) 1fr", gap: 24, alignItems: "start"
+          display: "grid", gridTemplateColumns: "0.85fr 1fr", gap: 28, alignItems: "stretch"
         } },
           // LEFT card
           _e("div", { className: "hh-calc-card", style: {
-            padding: "28px 28px 26px",
-            background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), #1C1C1F",
+            padding: 36,
+            height: "100%",
+            display: "flex", flexDirection: "column",
+            background: "linear-gradient(rgba(31,29,37,0.7), rgba(21,19,26,0.7))",
             border: "1px solid var(--line)",
-            borderRadius: 18
+            borderRadius: 16
           } },
-            _e("div", { style: { fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 20 } }, "Калькулятор прибыли"),
-            _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 } },
+            _e("div", { style: { fontSize: 11, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7a7a80", marginBottom: 24 } }, "Калькулятор прибыли"),
+            _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 } },
               _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "Активных приведённых трейдеров"),
-              _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, fmt(traders))
+              _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, fmt(traders))
             ),
-            _e("input", { type: "range", min: 0, max: 999, step: 1,
+            _e("input", { type: "range", min: 0, max: 800, step: 1,
               value: traders,
               onChange: e => setTraders(parseInt(e.target.value, 10)),
               className: "hh-calc-slider",
-              style: { width: "100%", margin: "8px 0 4px", accentColor: "#fcd535" }
+              style: { width: "100%", "--fill": (traders / 800 * 100) + "%" }
             }),
-            _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 11, color: "#7a7a80", marginBottom: 24 } },
+            _e("div", { style: { display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: "#6b6a70", marginBottom: 0 } },
               _e("span", null, "0"),
               _e("span", null, "200"),
               _e("span", null, "400"),
               _e("span", null, "700+")
             ),
-            _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 22 } },
+            _e("div", { style: { display: "flex", gap: 12, marginTop: 28 } },
               _e("div", { style: {
-                padding: "14px 16px",
-                background: "rgba(252,213,53,0.06)",
-                border: "1px solid rgba(252,213,53,0.30)",
+                flex: 1,
+                padding: "16px 18px",
+                background: "rgba(252,213,53,0.08)",
+                border: "1px solid rgba(252,213,53,0.25)",
                 borderRadius: 12
               } },
-                _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Твоя комиссия"),
-                _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em", lineHeight: 1 } }, currentTier.pct + "%"),
-                _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 4 } }, "Уровень " + currentTier.lvl)
+                _e("div", { style: { fontSize: 11, color: "#7a7a80", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 } }, "Твоя комиссия"),
+                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fcd535", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, currentTier.pct + "%"),
+                _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Уровень " + currentTier.lvl)
               ),
               _e("div", { style: {
-                padding: "14px 16px",
-                background: "rgba(255,255,255,0.025)",
+                flex: 1,
+                padding: "16px 18px",
+                background: "rgba(255,255,255,0.03)",
                 border: "1px solid var(--line)",
                 borderRadius: 12
               } },
-                _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Ср. / трейдер / мес"),
-                _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em", lineHeight: 1 } }, "$" + AVG_PER_TRADER),
-                _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 4 } }, "Выручка платформы")
+                _e("div", { style: { fontSize: 11, color: "#7a7a80", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 } }, "Ср. / трейдер / мес"),
+                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$" + AVG_PER_TRADER),
+                _e("div", { style: { fontSize: 12, color: "#6b6a70", marginTop: 6 } }, "Выручка платформы")
               )
             ),
-            _e("div", { style: { borderTop: "1px solid var(--line)", paddingTop: 22 } },
-              _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Ежемесячная выплата"),
-              _e("div", { style: { fontSize: 52, fontWeight: 900, color: "#f5f1e8", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$" + fmt(monthly)),
-              _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 8 } },
-                "≈ ", _e("strong", { style: { color: "#f5f1e8" } }, "$" + fmt(yearly)),
+            _e("div", { style: { marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--line)" } },
+              _e("div", { style: { fontSize: 13, color: "#7a7a80", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 10 } }, "Ежемесячная выплата"),
+              _e("div", { style: { fontSize: 52, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$" + fmt(monthly)),
+              _e("div", { style: { fontSize: 15, color: "#a1a0a4", marginTop: 10 } },
+                "≈ ", _e("b", { style: { color: "#f5f1e8", fontFamily: "Onest, sans-serif" } }, "$" + fmt(yearly)),
                 " / год"
               ),
-              _e("p", { style: { fontSize: 11, color: "#7a7a80", lineHeight: 1.5, margin: "16px 0 0" } },
+              _e("p", { style: { fontSize: 11, color: "#6b6a70", lineHeight: 1.5, margin: "18px 0 0" } },
                 "Расчёт приблизительный. Фактический доход зависит от активности трейдеров и размера их аккаунтов."
               )
             )
           ),
-          // RIGHT levels list
-          _e("div", { className: "hh-calc-levels", style: { display: "flex", flexDirection: "column", gap: 10 } },
+          // RIGHT levels list (1-в-1 vercel: прогресс-подложка (pct−30)×2%, активный — жёлтая рамка + glow)
+          _e("div", { className: "hh-calc-levels", style: { display: "flex", flexDirection: "column", gap: 10, height: "100%" } },
             tiers.map(t => {
               const isYou = t === currentTier;
               // Клик по уровню ставит ползунок в середину диапазона выбранного тира
-              const midPoint = Math.round((t.min + Math.min(t.max, 999)) / 2);
+              const midPoint = Math.round((t.min + Math.min(t.max, 800)) / 2);
               return _e("button", { key: t.lvl, type: "button",
                 onClick: () => setTraders(midPoint),
                 "aria-label": `Перейти на уровень ${t.lvl}: ${t.pct}%, ${t.range}`,
                 className: "hh-calc-tier-row",
                 style: {
                   position: "relative",
-                  padding: "16px 22px",
-                  background: isYou
-                    ? "linear-gradient(90deg, rgba(252,213,53,0.16) 0%, rgba(252,213,53,0.04) 100%), #1C1C1F"
-                    : "#1C1C1F",
-                  border: isYou ? "1.5px solid rgba(252,213,53,0.8)" : "1px solid var(--line)",
+                  flex: 1,
+                  minHeight: 56,
+                  padding: "12px 22px",
                   borderRadius: 14,
-                  display: "flex", alignItems: "center", gap: 18,
-                  boxShadow: isYou ? "0 0 0 4px rgba(252,213,53,0.10), 0 8px 24px -6px rgba(252,213,53,0.25)" : "none",
-                  transition: "all .3s cubic-bezier(.2,.7,.2,1)",
+                  overflow: "hidden",
+                  border: isYou ? "1px solid rgba(252,213,53,0.5)" : "1px solid var(--line)",
+                  background: isYou ? "rgba(252,213,53,0.06)" : "#1f1d25",
+                  boxShadow: isYou ? "0 0 40px rgba(252,213,53,0.18)" : "none",
+                  display: "flex", alignItems: "center",
+                  transition: "all .3s cubic-bezier(.22,1,.36,1)",
                   cursor: "pointer",
                   fontFamily: "inherit",
                   textAlign: "left",
                   width: "100%"
-                },
-                onMouseEnter: e => {
-                  if (!isYou) {
-                    e.currentTarget.style.borderColor = "rgba(252,213,53,0.35)";
-                    e.currentTarget.style.background = "linear-gradient(90deg, rgba(252,213,53,0.04) 0%, rgba(252,213,53,0.01) 100%), #1C1C1F";
-                  }
-                },
-                onMouseLeave: e => {
-                  if (!isYou) {
-                    e.currentTarget.style.borderColor = "var(--line)";
-                    e.currentTarget.style.background = "#1C1C1F";
-                  }
                 }
               },
-                _e("div", { style: {
-                  fontSize: 32, fontWeight: 800,
+                !isYou && _e("div", { "aria-hidden": true, style: {
+                  position: "absolute", left: 0, top: 0, bottom: 0,
+                  width: ((t.pct - 30) * 2) + "%",
+                  background: "linear-gradient(90deg, rgba(255,255,255,0.05), transparent)",
+                  pointerEvents: "none",
+                  transition: "width .3s cubic-bezier(.22,1,.36,1)"
+                } }),
+                _e("span", { className: "hh-calc-tier-pct", style: {
+                  fontSize: 34, fontWeight: 800,
                   color: isYou ? "#fcd535" : "#f5f1e8",
                   letterSpacing: "-0.02em", lineHeight: 1,
                   minWidth: 78,
+                  position: "relative", zIndex: 1,
                   fontFamily: "Onest, sans-serif"
                 } }, t.pct + "%"),
-                _e("div", { style: { flex: 1, minWidth: 0 } },
-                  _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, "Уровень " + t.lvl),
-                  _e("div", { style: { fontSize: 13, color: "#a1a0a4" } }, t.range)
+                _e("div", { style: { flex: 1, minWidth: 0, marginLeft: 16, position: "relative", zIndex: 1 } },
+                  _e("div", { className: "hh-calc-tier-name", style: { fontSize: 13, fontWeight: 700, color: "#a1a0a4" } }, "Уровень " + t.lvl),
+                  _e("div", { className: "hh-calc-tier-range", style: { fontSize: 12, color: "#7a7a80" } }, t.range)
                 ),
-                isYou && _e("span", { style: {
+                isYou && _e("span", { className: "hh-calc-tier-you", style: {
                   display: "inline-flex", alignItems: "center", gap: 6,
-                  padding: "5px 11px", borderRadius: 100,
-                  background: "#fcd535", color: "#08080a",
-                  fontSize: 11, fontWeight: 800, letterSpacing: "0.08em"
+                  padding: "5px 11px", borderRadius: 999,
+                  background: "rgba(252,213,53,0.14)",
+                  border: "1px solid rgba(252,213,53,0.3)",
+                  color: "#fcd535",
+                  fontSize: 11, fontWeight: 800, letterSpacing: "0.08em",
+                  position: "relative", zIndex: 1
                 } },
-                  _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#08080a" } }),
+                  _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#fcd535" } }),
                   "ТЫ"
                 )
               );
@@ -3063,55 +3070,41 @@
     const st = document.createElement("style");
     st.id = "hh-partner-styles";
     st.textContent = `
-      /* === v11.1: красивый интерактивный range-slider для Calculator (Vercel-style)
-            Нативный <input type=range> на каждом браузере выглядит по-разному и обычно криво.
-            Здесь — собственная отрисовка track + thumb через ::-webkit и ::-moz псевдоэлементы. === */
+      /* === v12.3: range-slider Calculator — 1-в-1 .aff-range с hashhedge-affiliate.vercel.app.
+            Заливка трека жёлтым до позиции ползунка через CSS-переменную --fill (ставится из React). === */
       .hh-calc-slider {
         -webkit-appearance: none !important;
         -moz-appearance: none !important;
         appearance: none !important;
-        background: transparent !important;
-        cursor: pointer !important;
-        height: 24px !important;
+        width: 100% !important;
+        height: 8px !important;
+        border-radius: 999px !important;
+        background: linear-gradient(90deg, #fcd535 0%, #fcd535 var(--fill, 25%), rgba(255,255,255,0.1) var(--fill, 25%), rgba(255,255,255,0.1) 100%) !important;
         outline: none !important;
+        cursor: pointer !important;
         padding: 0 !important;
         border: none !important;
-      }
-      .hh-calc-slider::-webkit-slider-runnable-track {
-        height: 6px;
-        background: rgba(255,255,255,0.10);
-        border-radius: 6px;
       }
       .hh-calc-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 22px; height: 22px;
+        width: 26px; height: 26px;
         border-radius: 50%;
         background: #fcd535;
-        border: none;
-        box-shadow: 0 0 0 6px rgba(252,213,53,0.18), 0 4px 12px rgba(0,0,0,0.4);
-        margin-top: -8px;
+        border: 4px solid #16140e;
+        box-shadow: 0 4px 16px rgba(252,213,53,0.5);
         cursor: grab;
-        transition: box-shadow .15s, transform .15s;
       }
-      .hh-calc-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 0 8px rgba(252,213,53,0.25), 0 6px 18px rgba(252,213,53,0.4); transform: scale(1.08); }
       .hh-calc-slider::-webkit-slider-thumb:active { cursor: grabbing; }
-      .hh-calc-slider::-moz-range-track {
-        height: 6px;
-        background: rgba(255,255,255,0.10);
-        border-radius: 6px;
-        border: none;
-      }
+      .hh-calc-slider::-moz-range-track { height: 8px; border-radius: 999px; background: transparent; border: none; }
       .hh-calc-slider::-moz-range-thumb {
-        width: 22px; height: 22px;
+        width: 18px; height: 18px;
         border-radius: 50%;
         background: #fcd535;
-        border: none;
-        box-shadow: 0 0 0 6px rgba(252,213,53,0.18), 0 4px 12px rgba(0,0,0,0.4);
+        border: 4px solid #16140e;
+        box-shadow: 0 4px 16px rgba(252,213,53,0.5);
         cursor: grab;
-        transition: box-shadow .15s, transform .15s;
       }
-      .hh-calc-slider::-moz-range-thumb:hover { box-shadow: 0 0 0 8px rgba(252,213,53,0.25), 0 6px 18px rgba(252,213,53,0.4); transform: scale(1.08); }
 
       /* === v11.0: WhyPartner — минимальные subtle-анимации картинок в vis-area.
             Чередуем 3 типа: float (translate ±5px), pulse (scale 1→1.03), glow (brightness 1→1.1).
@@ -3834,7 +3827,8 @@
           display: grid !important;
           grid-template-columns: 1fr 1fr !important;
           gap: 10px !important;
-          margin-bottom: 14px !important;
+          margin-top: 14px !important;
+          margin-bottom: 0 !important;
           align-items: stretch !important;
         }
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-card > div:nth-child(5) > div { padding: 10px 12px !important; border-radius: 10px !important; }
@@ -3842,7 +3836,7 @@
         .hh-calc-card > div:nth-child(5) > div > div:nth-child(2) { font-size: 20px !important; }
         .hh-calc-card > div:nth-child(5) > div > div:last-child { font-size: 10px !important; margin-top: 3px !important; }
         /* итоговая выплата */
-        .hh-calc-card > div:last-child { padding-top: 12px !important; }
+        .hh-calc-card > div:last-child { padding-top: 12px !important; margin-top: 12px !important; }
         .hh-calc-card > div:last-child > div:first-child { margin-bottom: 4px !important; font-size: 10px !important; }
         .hh-calc-card > div:last-child > div:nth-child(2) { font-size: 32px !important; }
         .hh-calc-card > div:last-child > div:nth-child(3) { font-size: 12px !important; margin-top: 5px !important; }
@@ -3850,10 +3844,10 @@
         /* список уровней — плотные строки */
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-levels { gap: 8px !important; margin-top: 16px !important; }
         #hashhedge-root .tilda-html-hashhedge section .hh-calc-tier-row { padding: 11px 14px !important; gap: 12px !important; border-radius: 12px !important; }
-        .hh-calc-tier-row > div:first-child { font-size: 22px !important; min-width: 56px !important; }
-        .hh-calc-tier-row > div:nth-child(2) > div:first-child { font-size: 14px !important; }
-        .hh-calc-tier-row > div:nth-child(2) > div:last-child { font-size: 12px !important; }
-        .hh-calc-tier-row > span { padding: 4px 9px !important; font-size: 10px !important; }
+        .hh-calc-tier-pct { font-size: 22px !important; min-width: 52px !important; }
+        .hh-calc-tier-name { font-size: 13px !important; }
+        .hh-calc-tier-range { font-size: 11px !important; }
+        .hh-calc-tier-you { padding: 4px 9px !important; font-size: 10px !important; }
 
         /* (4) Events — big card компактнее + горизонтальный слайдер остального */
         .hh-event-card-big { min-height: 0 !important; aspect-ratio: 1.45 / 1 !important; }
