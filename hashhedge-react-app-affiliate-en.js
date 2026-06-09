@@ -116,7 +116,7 @@
     // v11.7: меню обновлено под Vercel-структуру (1-в-1 с английским сайтом, на русском)
     // About → How it works → Earnings → FAQ → Trading challenge ↗
     const nav = [
-      { l: "About the program",     h: "#about-program" },
+      { l: "About",     h: "#about-program" },
       { l: "How it works",    h: "#how" },
       { l: "Earnings",           h: "#calc" },
       { l: "FAQ",             h: "#faq" },
@@ -657,7 +657,7 @@
                 style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "About the program"
+                "About"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
                 "The highest affiliate", _e("br", null),
@@ -1540,10 +1540,10 @@
               )
             ),
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Your revenue share climbs with the number of active referred traders — from ",
-              _e("strong", { style: { color: "#f5f1e8" } }, "50%"), " at the start to ",
+              "Your revenue share climbs with the number of active traders you've referred — from ",
+              _e("strong", { style: { color: "#f5f1e8" } }, "50%"), " at the start all the way to ",
               _e("strong", { style: { color: "#fcd535" } }, "80%"),
-              " at the max. Drag the slider to see what your network could pay."
+              ". Drag the slider to see what your network could pay."
             )
           )
         ),
