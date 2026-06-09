@@ -1615,11 +1615,20 @@
                   // KPI column
                   _e("div", { style: { display: "flex", flexDirection: "column", gap: 10 } },
                     cabKpis.map((s, i) => _e("div", { key: i, style: { padding: 16, background: "rgba(255,255,255,0.025)", border: "1px solid var(--line)", borderRadius: 12 } },
-                      _e("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 10 } },
-                        _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#a1a0a4", strokeWidth: 1.7, strokeLinecap: "round", strokeLinejoin: "round" } },
-                          _e("path", { d: s.ic, style: { fill: "none", stroke: "#a1a0a4" } })
+                      _e("div", { style: { display: "flex", alignItems: "center", gap: 10, marginBottom: 12 } },
+                        _e("div", {
+                          style: {
+                            width: 30, height: 30, borderRadius: 8,
+                            background: "rgba(252,213,53,0.10)",
+                            border: "1px solid rgba(252,213,53,0.22)",
+                            display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+                          }
+                        },
+                          _e("svg", { width: 16, height: 16, viewBox: "0 0 24 24", style: { fill: "none", stroke: "#fcd535", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } },
+                            _e("path", { d: s.ic, style: { fill: "none" } })
+                          )
                         ),
-                        _e("div", { style: { fontSize: 12, color: "#a1a0a4" } }, s.k)
+                        _e("div", { style: { fontSize: 12, color: "#a1a0a4", fontWeight: 500 } }, s.k)
                       ),
                       _e("div", { style: { display: "flex", alignItems: "baseline", justifyContent: "space-between" } },
                         _e("div", { style: { fontSize: 22, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.015em" } }, s.v),
