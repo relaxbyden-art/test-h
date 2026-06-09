@@ -547,6 +547,12 @@
         background: "linear-gradient(180deg, rgba(8,8,10,0.40) 0%, rgba(8,8,10,0) 22%, rgba(8,8,10,0) 40%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.92) 88%, rgba(8,8,10,1) 100%)",
         pointerEvents: "none", zIndex: 1
       } }),
+      // Плавный градиент-переход к следующей секции (убирает «ступеньку» между hero и блоком «О программе»)
+      _e("div", { "aria-hidden": "true", style: {
+        position: "absolute", left: 0, right: 0, bottom: 0, height: 300,
+        background: "linear-gradient(180deg, rgba(8,8,10,0) 0%, rgba(8,8,10,0.55) 42%, rgba(8,8,10,0.9) 76%, #08080a 100%)",
+        pointerEvents: "none", zIndex: 1
+      } }),
 
       _e("div", { className: "container", style: { position: "relative", zIndex: 2 } },
         _e(Reveal, null,
@@ -564,8 +570,9 @@
                 letterSpacing: "-0.03em", margin: "0 0 28px", color: "#f5f1e8"
               }
             },
-              "Продвигай Hash Hedge", _e("br", null),
-              "и ", _e("span", { style: { color: "#fcd535" } }, "зарабатывай вместе с нами")
+              "Продвигай", _e("br", null),
+              "Hash Hedge", _e("br", null),
+              _e("span", { style: { color: "#fcd535" } }, "и зарабатывай", _e("br", null), "вместе с нами")
             ),
             _e("p", { className: "hh-partner-hero-sub", style: {
               fontSize: 20, color: "#cfcfd3", lineHeight: 1.45,
@@ -2599,32 +2606,33 @@
                   _e("span", { style: { fontSize: 15, color: "#f5f1e8", lineHeight: 1.5 } }, f)
                 ))
               ),
-              _e("a", { href: "https://partner.hashhedge.com/auth/signup/", target: "_blank", rel: "noopener noreferrer",
-                className: "hh-btn-yellow",
-                style: {
-                  padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
-                  textDecoration: "none",
-                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
-                  minWidth: 280, boxSizing: "border-box",
-                  marginRight: 12, marginBottom: 12,
-                  boxShadow: "0 0 0 1px rgba(252,213,53,0.30), 0 10px 26px -10px rgba(252,213,53,0.45)"
-                }
-              }, "Стать партнёром"),
-              _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-                className: "hh-btn-tg",
-                style: {
-                  padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
-                  textDecoration: "none",
-                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
-                  minWidth: 280, boxSizing: "border-box", marginBottom: 12,
-                  color: "#fff", background: "#229ED9",
-                  boxShadow: "0 12px 32px -10px rgba(34,158,217,0.6)"
-                }
-              },
-                _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fff" } },
-                  _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
-                ),
-                _e("span", { style: { color: "#fff" } }, "Связаться с поддержкой")
+              _e("div", { style: { display: "flex", gap: 12, flexWrap: "wrap", maxWidth: 600 } },
+                _e("a", { href: "https://partner.hashhedge.com/auth/signup/", target: "_blank", rel: "noopener noreferrer",
+                  className: "hh-btn-yellow",
+                  style: {
+                    padding: "16px 24px", borderRadius: 100, fontSize: 15, fontWeight: 700,
+                    textDecoration: "none",
+                    display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
+                    flex: "1 1 220px", minWidth: 0,
+                    boxShadow: "0 0 0 1px rgba(252,213,53,0.30), 0 10px 26px -10px rgba(252,213,53,0.45)"
+                  }
+                }, "Стать партнёром"),
+                _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
+                  className: "hh-btn-tg",
+                  style: {
+                    padding: "16px 24px", borderRadius: 100, fontSize: 15, fontWeight: 700,
+                    textDecoration: "none",
+                    display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10,
+                    flex: "1 1 220px", minWidth: 0,
+                    color: "#fff", background: "#229ED9",
+                    boxShadow: "0 12px 32px -10px rgba(34,158,217,0.6)"
+                  }
+                },
+                  _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fff" } },
+                    _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
+                  ),
+                  _e("span", { style: { color: "#fff" } }, "Связаться с поддержкой")
+                )
               )
             )
           )
