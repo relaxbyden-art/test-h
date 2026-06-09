@@ -1,0 +1,585 @@
+/* ============================================================
+   Hash Hedge — Mobile / Tablet adaptation
+   Strategy: progressive enhancement on top of desktop styles.
+   Breakpoints:
+     ≤640  — phone
+     641–1024 — tablet
+     ≥1025  — desktop (untouched)
+   ============================================================ */
+
+/* ---------- Tablet: 641–1024 ---------- */
+@media (max-width: 1024px) {
+  :root {
+    --container: 920px;
+    --gutter: 28px;
+  }
+  section { padding: 88px 0; }
+
+  /* nav: hide top nav links — hamburger takes over */
+  .nav ul { display: none; }
+  .nav-inner { height: 64px; }
+
+  /* shrink most 4-col stat / card grids to 2 cols */
+  [style*="repeat(4, 1fr)"],
+  [style*="repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  /* asymmetric two-col hero / split sections → equal 1fr 1fr */
+  section [style*="1.1fr 0.9fr"],
+  section [style*="0.85fr 1fr"],
+  section [style*="1.35fr 1fr"],
+  section [style*="1.4fr 1fr 1fr 1fr"],
+  section [style*="1.5fr 1fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+/* ---------- Phone: ≤640 ---------- */
+@media (max-width: 640px) {
+  :root {
+    --container: 100%;
+    --gutter: 18px;
+    --radius: 14px;
+    --radius-lg: 18px;
+  }
+
+  body { font-size: 15px; }
+
+  section { padding: 64px 0; }
+  .section { padding: 64px 0; }
+  .section-sm { padding: 48px 0; }
+
+  /* Typography rescale */
+  .display { font-size: clamp(30px, 8.5vw, 40px) !important; line-height: 1.04; text-wrap: pretty; word-break: keep-all; }
+  .display-sm { font-size: clamp(26px, 7vw, 34px) !important; }
+  .h1 { font-size: clamp(26px, 6.6vw, 36px) !important; text-wrap: pretty; }
+  .h2 { font-size: clamp(22px, 5.6vw, 30px) !important; }
+
+  /* Buttons */
+  .btn { height: 48px; padding: 0 22px; font-size: 14px; }
+  .btn-lg { height: 54px; padding: 0 24px; font-size: 15px; }
+  .btn-sm { height: 36px; padding: 0 16px; font-size: 13px; }
+
+  /* Pills / eyebrows */
+  .eyebrow { font-size: 10px; padding: 5px 11px; letter-spacing: 0.1em; }
+
+  /* Container */
+  .container {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  /* Buttons row should wrap nicely */
+  .flex { flex-wrap: wrap; }
+
+  /* === GRIDS — collapse most multi-col grids to single column === */
+  /* 2-col splits */
+  section [style*="grid-template-columns: 1fr 1fr"],
+  section [style*="gridTemplateColumns: 1fr 1fr"],
+  section [style*="1.1fr 0.9fr"],
+  section [style*="0.85fr 1fr"],
+  section [style*="1.35fr 1fr"],
+  section [style*="1.7fr 1fr"],
+  section [style*="1.6fr 1fr"],
+  section [style*="1fr 1.1fr"],
+  section [style*="1.3fr 1fr"],
+  section [style*="1.1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    align-items: start !important;
+  }
+
+  /* 3-col grids → 1 col */
+  section [style*="repeat(3, 1fr)"],
+  section [style*="repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* 4-col grids → 2 cols */
+  section [style*="repeat(4, 1fr)"],
+  section [style*="repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  /* 5-col footer grid → 2 cols */
+  section [style*="1.5fr 1fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+  footer [style*="1.5fr 1fr 1fr 1fr 1fr"],
+  footer [style*="1.4fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* 7/8-col rails */
+  section [style*="repeat(7, 1fr)"],
+  section [style*="repeat(7,1fr)"],
+  section [style*="repeat(8, 1fr)"],
+  section [style*="repeat(8,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  /* TOC-style 44px / 60px / icon + text rows: keep as-is, those work */
+
+  /* === MARGINS / GAPS that are too big === */
+  section [style*="marginBottom: 80px"],
+  section [style*="margin-bottom: 80px"],
+  section [style*="marginBottom: 96px"],
+  section [style*="marginBottom: 64px"] {
+    margin-bottom: 36px !important;
+  }
+  section [style*="marginBottom: 56px"],
+  section [style*="marginBottom: 48px"] {
+    margin-bottom: 28px !important;
+  }
+  section [style*="marginTop: 96px"],
+  section [style*="margin-top: 96px"] {
+    margin-top: 40px !important;
+  }
+  section [style*="padding: 80px 0"] { padding: 48px 0 !important; }
+  section [style*="padding: 64px 0"] { padding: 40px 0 !important; }
+
+  /* Marquees — slow down so single-column visible */
+  .marquee-track { animation-duration: 60s !important; gap: 24px !important; }
+
+  /* Reveal: tighten so first paint isn't too low */
+  .reveal { transform: translateY(20px); }
+
+  /* glow blobs out — too heavy on mobile */
+  .glow { opacity: 0.05 !important; filter: blur(40px); }
+
+  /* Hide bg-grid overlay on phone — too noisy at small sizes */
+  .bg-grid { background-size: 32px 32px; opacity: 0.5; }
+
+  /* Force any horizontally wide block (>100vw) inline panels to scroll horizontally
+     instead of overflowing the page */
+  body { overflow-x: hidden; }
+
+  /* Lift any element with min-width that breaks layout */
+  [style*="minWidth"] { min-width: 0 !important; }
+
+  /* Reduce big inline font sizes on stat numbers */
+  [style*="fontSize: 96px"] { font-size: 56px !important; }
+  [style*="fontSize: 80px"] { font-size: 48px !important; }
+  [style*="fontSize: 72px"] { font-size: 44px !important; }
+  [style*="fontSize: 64px"] { font-size: 40px !important; }
+  [style*="fontSize: 56px"] { font-size: 36px !important; }
+  [style*="fontSize: 48px"] { font-size: 32px !important; }
+  [style*="fontSize: 40px"] { font-size: 28px !important; }
+
+  /* Padding on mobile — anything 60+ becomes 24 */
+  [style*="padding: 60px"] { padding: 28px !important; }
+  [style*="padding: 56px"] { padding: 26px !important; }
+  [style*="padding: 48px"] { padding: 24px !important; }
+  [style*="padding: 40px"] { padding: 22px !important; }
+
+  /* Sticky CTA bar at bottom adds ~76px — pad page */
+  body { padding-bottom: env(safe-area-inset-bottom); }
+  footer { padding-bottom: 96px !important; }
+}
+
+/* ---------- Mobile Hamburger Nav ---------- */
+.nav-burger {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--fg);
+}
+.nav-burger:active { transform: scale(0.95); }
+
+@media (max-width: 1024px) {
+  .nav-burger { display: inline-flex; }
+  .nav-cta-desktop { display: none !important; }
+}
+
+.mobile-menu {
+  position: fixed; inset: 0;
+  background: rgba(6,6,10,0.96);
+  backdrop-filter: blur(24px);
+  z-index: 100;
+  display: flex; flex-direction: column;
+  padding: 80px 24px 32px;
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease-out);
+  overflow-y: auto;
+}
+.mobile-menu.open { transform: translateX(0); }
+@media (min-width: 641px) {
+  .mobile-menu, .mobile-menu.open { display: none !important; }
+}
+.mobile-menu-close {
+  position: absolute; top: 18px; right: 18px;
+  width: 44px; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  border-radius: 12px; color: var(--fg);
+}
+.mobile-menu a {
+  display: block;
+  padding: 18px 4px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--fg);
+  border-bottom: 1px solid var(--line);
+}
+.mobile-menu .menu-cta {
+  margin-top: 28px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.mobile-menu .menu-cta a { border: none; padding: 0; }
+
+/* Sticky bottom CTA bar — phone only */
+.mobile-cta-bar {
+  display: none;
+  position: fixed; left: 0; right: 0;
+  bottom: 0;
+  z-index: 90;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(6,6,10,0) 0%, rgba(6,6,10,0.96) 35%);
+  pointer-events: none;
+}
+.mobile-cta-bar > * { pointer-events: auto; }
+.mobile-cta-bar .btn { width: 100%; height: 54px; }
+
+@media (max-width: 640px) {
+  .mobile-cta-bar { display: block; }
+}
+
+/* ---------- Hero specific (phone) ---------- */
+@media (max-width: 640px) {
+  /* Hide the giant hero stat row to save real-estate */
+  /* (left in DOM but compact — see overrides below) */
+
+  /* Live payouts table / terminal: shrink */
+  [data-mobile-hide-on-phone] { display: none !important; }
+
+  /* Hero canvas: keep but lighter */
+  .hero-canvas { opacity: 0.55; }
+
+  /* Hero grid: stack columns vertically on phone */
+  .hero-grid { display: block !important; }
+  .hero-grid > * { width: 100% !important; max-width: 100% !important; }
+  .hero-grid > * + * { margin-top: 40px; }
+}
+
+/* ---------- Pricing on mobile: vertical stack, full-width ---------- */
+@media (max-width: 640px) {
+  /* Account size selector — 6 sizes → horizontal scroll */
+  [data-mobile-h-scroll] {
+    display: grid !important;
+    overflow-x: auto !important;
+    grid-template-columns: repeat(7, 62vw) !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px 4px 12px !important;
+    margin: 0 -18px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    gap: 12px !important;
+    scrollbar-width: none;
+  }
+  [data-mobile-h-scroll]::-webkit-scrollbar { display: none; }
+  [data-mobile-h-scroll] > * { scroll-snap-align: center; min-width: 0 !important; }
+
+  /* Comparison stage rules table — horizontal scroll with min width so columns don't squish */
+  [data-mobile-comp-table] { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  [data-mobile-comp-table] > * { min-width: 640px; }
+}
+
+/* ---------- Reduce inline gap values on phones ---------- */
+@media (max-width: 640px) {
+  [style*="gap: 80px"] { gap: 28px !important; }
+  [style*="gap: 72px"] { gap: 28px !important; }
+  [style*="gap: 60px"] { gap: 24px !important; }
+  [style*="gap: 48px"] { gap: 22px !important; }
+  [style*="gap: 40px"] { gap: 20px !important; }
+  [style*="gap: 32px"] { gap: 16px !important; }
+}
+
+/* ---------- Reveal: don't translateY too far on phone ---------- */
+@media (max-width: 640px) {
+  .reveal { transform: translateY(16px); }
+}
+
+/* ---------- max-width caps on big text blocks ---------- */
+@media (max-width: 640px) {
+  [style*="maxWidth: 580px"],
+  [style*="maxWidth: 640px"],
+  [style*="maxWidth: 720px"],
+  [style*="maxWidth: 800px"],
+  [style*="maxWidth: 980px"],
+  [style*="maxWidth: 1112px"],
+  [style*="max-width: 580px"],
+  [style*="max-width: 640px"] {
+    max-width: 100% !important;
+  }
+}
+
+/* === force tablet clone (mirror @media max-1024) === */
+
+body[data-fm="tablet"] {
+    --container: 920px;
+    --gutter: 28px;
+  }
+
+body[data-fm="tablet"] section { padding: 88px 0; }
+
+body[data-fm="tablet"] .nav ul { display: none; }
+
+body[data-fm="tablet"] .nav-inner { height: 64px; }
+
+body[data-fm="tablet"] [style*="repeat(4, 1fr)"], body[data-fm="tablet"] [style*="repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+body[data-fm="tablet"] section [style*="1.1fr 0.9fr"], body[data-fm="tablet"] section [style*="0.85fr 1fr"], body[data-fm="tablet"] section [style*="1.35fr 1fr"], body[data-fm="tablet"] section [style*="1.4fr 1fr 1fr 1fr"], body[data-fm="tablet"] section [style*="1.5fr 1fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px !important;
+  }
+
+body[data-fm="tablet"] .nav-burger { display: inline-flex; }
+
+body[data-fm="tablet"] .nav-cta-desktop { display: none !important; }
+
+
+
+/* === force phone clone (cascade: tablet rules then phone rules) === */
+
+body[data-fm="phone"] {
+    --container: 920px;
+    --gutter: 28px;
+  }
+
+body[data-fm="phone"] section { padding: 88px 0; }
+
+body[data-fm="phone"] .nav ul { display: none; }
+
+body[data-fm="phone"] .nav-inner { height: 64px; }
+
+body[data-fm="phone"] [style*="repeat(4, 1fr)"], body[data-fm="phone"] [style*="repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+body[data-fm="phone"] section [style*="1.1fr 0.9fr"], body[data-fm="phone"] section [style*="0.85fr 1fr"], body[data-fm="phone"] section [style*="1.35fr 1fr"], body[data-fm="phone"] section [style*="1.4fr 1fr 1fr 1fr"], body[data-fm="phone"] section [style*="1.5fr 1fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px !important;
+  }
+
+body[data-fm="phone"] .nav-burger { display: inline-flex; }
+
+body[data-fm="phone"] .nav-cta-desktop { display: none !important; }
+
+
+
+body[data-fm="phone"] {
+    --container: 100%;
+    --gutter: 18px;
+    --radius: 14px;
+    --radius-lg: 18px;
+  }
+
+body[data-fm="phone"] { font-size: 15px; }
+
+body[data-fm="phone"] section { padding: 64px 0; }
+
+body[data-fm="phone"] .section { padding: 64px 0; }
+
+body[data-fm="phone"] .section-sm { padding: 48px 0; }
+
+body[data-fm="phone"] .display { font-size: clamp(30px, 8.5vw, 40px) !important; line-height: 1.04; text-wrap: pretty; word-break: keep-all; }
+
+body[data-fm="phone"] .display-sm { font-size: clamp(26px, 7vw, 34px) !important; }
+
+body[data-fm="phone"] .h1 { font-size: clamp(26px, 6.6vw, 36px) !important; text-wrap: pretty; }
+
+body[data-fm="phone"] .h2 { font-size: clamp(22px, 5.6vw, 30px) !important; }
+
+body[data-fm="phone"] .btn { height: 48px; padding: 0 22px; font-size: 14px; }
+
+body[data-fm="phone"] .btn-lg { height: 54px; padding: 0 24px; font-size: 15px; }
+
+body[data-fm="phone"] .btn-sm { height: 36px; padding: 0 16px; font-size: 13px; }
+
+body[data-fm="phone"] .eyebrow { font-size: 10px; padding: 5px 11px; letter-spacing: 0.1em; }
+
+body[data-fm="phone"] .container {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+body[data-fm="phone"] .flex { flex-wrap: wrap; }
+
+body[data-fm="phone"] section [style*="grid-template-columns: 1fr 1fr"], body[data-fm="phone"] section [style*="gridTemplateColumns: 1fr 1fr"], body[data-fm="phone"] section [style*="1.1fr 0.9fr"], body[data-fm="phone"] section [style*="0.85fr 1fr"], body[data-fm="phone"] section [style*="1.35fr 1fr"], body[data-fm="phone"] section [style*="1.7fr 1fr"], body[data-fm="phone"] section [style*="1.6fr 1fr"], body[data-fm="phone"] section [style*="1fr 1.1fr"], body[data-fm="phone"] section [style*="1.3fr 1fr"], body[data-fm="phone"] section [style*="1.1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    align-items: start !important;
+  }
+
+body[data-fm="phone"] section [style*="repeat(3, 1fr)"], body[data-fm="phone"] section [style*="repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+body[data-fm="phone"] section [style*="repeat(4, 1fr)"], body[data-fm="phone"] section [style*="repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+
+body[data-fm="phone"] section [style*="1.5fr 1fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+
+body[data-fm="phone"] footer [style*="1.5fr 1fr 1fr 1fr 1fr"], body[data-fm="phone"] footer [style*="1.4fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+
+body[data-fm="phone"] section [style*="repeat(7, 1fr)"], body[data-fm="phone"] section [style*="repeat(7,1fr)"], body[data-fm="phone"] section [style*="repeat(8, 1fr)"], body[data-fm="phone"] section [style*="repeat(8,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+body[data-fm="phone"] section [style*="marginBottom: 80px"], body[data-fm="phone"] section [style*="margin-bottom: 80px"], body[data-fm="phone"] section [style*="marginBottom: 96px"], body[data-fm="phone"] section [style*="marginBottom: 64px"] {
+    margin-bottom: 36px !important;
+  }
+
+body[data-fm="phone"] section [style*="marginBottom: 56px"], body[data-fm="phone"] section [style*="marginBottom: 48px"] {
+    margin-bottom: 28px !important;
+  }
+
+body[data-fm="phone"] section [style*="marginTop: 96px"], body[data-fm="phone"] section [style*="margin-top: 96px"] {
+    margin-top: 40px !important;
+  }
+
+body[data-fm="phone"] section [style*="padding: 80px 0"] { padding: 48px 0 !important; }
+
+body[data-fm="phone"] section [style*="padding: 64px 0"] { padding: 40px 0 !important; }
+
+body[data-fm="phone"] .marquee-track { animation-duration: 60s !important; gap: 24px !important; }
+
+body[data-fm="phone"] .reveal { transform: translateY(20px); }
+
+body[data-fm="phone"] .glow { opacity: 0.05 !important; filter: blur(40px); }
+
+body[data-fm="phone"] .bg-grid { background-size: 32px 32px; opacity: 0.5; }
+
+body[data-fm="phone"] { overflow-x: hidden; }
+
+body[data-fm="phone"] [style*="minWidth"] { min-width: 0 !important; }
+
+body[data-fm="phone"] [style*="fontSize: 96px"] { font-size: 56px !important; }
+
+body[data-fm="phone"] [style*="fontSize: 80px"] { font-size: 48px !important; }
+
+body[data-fm="phone"] [style*="fontSize: 72px"] { font-size: 44px !important; }
+
+body[data-fm="phone"] [style*="fontSize: 64px"] { font-size: 40px !important; }
+
+body[data-fm="phone"] [style*="fontSize: 56px"] { font-size: 36px !important; }
+
+body[data-fm="phone"] [style*="fontSize: 48px"] { font-size: 32px !important; }
+
+body[data-fm="phone"] [style*="fontSize: 40px"] { font-size: 28px !important; }
+
+body[data-fm="phone"] [style*="padding: 60px"] { padding: 28px !important; }
+
+body[data-fm="phone"] [style*="padding: 56px"] { padding: 26px !important; }
+
+body[data-fm="phone"] [style*="padding: 48px"] { padding: 24px !important; }
+
+body[data-fm="phone"] [style*="padding: 40px"] { padding: 22px !important; }
+
+body[data-fm="phone"] { padding-bottom: env(safe-area-inset-bottom); }
+
+body[data-fm="phone"] footer { padding-bottom: 96px !important; }
+
+@media (max-width: 640px) {
+  body[data-fm="phone"] .mobile-cta-bar { display: block; }
+}
+
+body[data-fm="phone"] [data-mobile-hide-on-phone] { display: none !important; }
+
+body[data-fm="phone"] [data-mobile-show-on-phone] { display: inline-flex !important; }
+
+body[data-fm="phone"] .hero-canvas { opacity: 0.55; }
+
+body[data-fm="phone"] .hero-grid { display: block !important; }
+body[data-fm="phone"] .hero-grid > * { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+body[data-fm="phone"] .hero-grid > * + * { margin-top: 40px; }
+
+body[data-fm="tablet"] .hero-grid { display: block !important; }
+body[data-fm="tablet"] .hero-grid > * { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+body[data-fm="tablet"] .hero-grid > * + * { margin-top: 56px; }
+
+body[data-fm="phone"] section [data-mobile-h-scroll],
+body[data-fm="phone"] [data-mobile-h-scroll] {
+    display: grid !important;
+    overflow-x: auto !important;
+    grid-template-columns: repeat(var(--mhs-count, 7), 62vw) !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px 18px 12px !important;
+    margin: 0 -18px !important;
+    gap: 12px !important;
+    scrollbar-width: none;
+  }
+body[data-fm="phone"] [data-mobile-h-scroll]::-webkit-scrollbar { display: none; }
+
+body[data-fm="phone"] [data-mobile-h-scroll] > * { scroll-snap-align: center; min-width: 0 !important; }
+
+body[data-fm="phone"] [data-mobile-comp-table] { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+
+body[data-fm="phone"] [data-mobile-comp-table] > * { min-width: 640px; }
+
+body[data-fm="phone"] [style*="gap: 80px"] { gap: 28px !important; }
+
+body[data-fm="phone"] [style*="gap: 72px"] { gap: 28px !important; }
+
+body[data-fm="phone"] [style*="gap: 60px"] { gap: 24px !important; }
+
+body[data-fm="phone"] [style*="gap: 48px"] { gap: 22px !important; }
+
+body[data-fm="phone"] [style*="gap: 40px"] { gap: 20px !important; }
+
+body[data-fm="phone"] [style*="gap: 32px"] { gap: 16px !important; }
+
+body[data-fm="phone"] .reveal { transform: translateY(16px); }
+
+body[data-fm="phone"] [style*="maxWidth: 580px"], body[data-fm="phone"] [style*="maxWidth: 640px"], body[data-fm="phone"] [style*="maxWidth: 720px"], body[data-fm="phone"] [style*="maxWidth: 800px"], body[data-fm="phone"] [style*="maxWidth: 980px"], body[data-fm="phone"] [style*="maxWidth: 1112px"], body[data-fm="phone"] [style*="max-width: 580px"], body[data-fm="phone"] [style*="max-width: 640px"] {
+    max-width: 100% !important;
+  }
+
+/* === Image-first ordering on phone for sections marked [data-mobile-image-first] === */
+/* Flips the inner 2-col grid to flex-column-reverse so the visual lands on top of the copy block. */
+body[data-fm="phone"] [data-mobile-image-first] .container > div[style*="grid-template-columns"],
+body[data-fm="phone"] [data-mobile-image-first] .container > div[style*="gridTemplateColumns"] {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    gap: 28px !important;
+  }
+
+/* === Reviews header — fix the "4.4/5" off-canvas right alignment on phone. === */
+/* On phone the 2-col header collapses to 1 col; the right cell still has justify-content:flex-end and text-align:right which pushes the score off-screen. Force left alignment in the Reviews section. */
+body[data-fm="phone"] section [style*="justify-content: flex-end"] {
+    justify-content: flex-start !important;
+  }
+body[data-fm="phone"] section [style*="text-align: right"] {
+    text-align: left !important;
+  }
+
+
+
