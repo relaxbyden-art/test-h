@@ -2173,17 +2173,25 @@
   // EVENTS
   // ============================================================================
   function Events() {
-    // 1 hero + 4 в 4-колоночной сетке (всего 5 мероприятий). Второе по счёту — Blockchain Forum.
+    // v11.0: новая сетка как у Vercel COMMUNITY & EVENTS.
+    // Top: 1 big (1.35fr) + 2 stacked (1fr). Bottom: 4 равные.
     const events = [
-      { flag: "🇦🇪", city: "Дубай",     year: "Октябрь 2025", role: "Организатор", title: "WSCT Дубай · Оффлайн турнир",   img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
-      { flag: "🇷🇺", city: "Москва",    year: "2025",          role: null,           title: "Партнёры на Blockchain Forum",   img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/event-blockchain-forum.jpg" },
-      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: null,           title: "Партнёрская встреча",            img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
-      { flag: "🇧🇷", city: "Сан-Паулу", year: "2025",          role: "Организатор", title: "WSCT Бразилия · Оффлайн турнир", img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
-      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор", title: "Награждение Топ-партнёров",      img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" }
+      // [0] = hero big
+      { flag: "🇦🇪", city: "Дубай",     year: "Октябрь 2025", role: "Организатор", title: "WSCT Дубай · Оффлайн турнир",     img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
+      // [1], [2] = stacked справа
+      { flag: "🇷🇺", city: "Москва",    year: "2025",          role: null,           title: "Партнёры на Blockchain Forum",     img: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/event-blockchain-forum.jpg" },
+      { flag: "🇧🇷", city: "Сан-Паулу", year: "2025",          role: "Организатор", title: "WSCT Бразилия · Оффлайн турнир",   img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" },
+      // [3..6] = bottom row 4
+      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: null,           title: "Партнёрская встреча",              img: "https://hash-hedge-partner.vercel.app/assets/event-moscow.jpg" },
+      { flag: "🇷🇺", city: "Москва",    year: "2026",          role: "Организатор", title: "Награждение Топ-партнёров",        img: "https://hash-hedge-partner.vercel.app/assets/event-award.jpg" },
+      { flag: "🇦🇪", city: "Дубай",     year: "2026",          role: "Спонсор",     title: "Crypto Expo Dubai",                  img: "https://hash-hedge-partner.vercel.app/assets/event-dubai.jpg" },
+      { flag: "🇧🇷", city: "Сан-Паулу", year: "2025",          role: "Организатор", title: "Trader Workshop · São Paulo",        img: "https://hash-hedge-partner.vercel.app/assets/event-saopaulo.jpeg" }
     ];
-    const Card = ({ ev, big }) => _e("div", {
-      className: "hh-event-card" + (big ? " hh-event-card-big" : ""),
-      style: { position: "relative", aspectRatio: big ? "2.4 / 1" : "1 / 1.05", borderRadius: 18, overflow: "hidden", border: "1px solid var(--line)", background: "#1C1C1F" }
+    const Card = ({ ev, size }) => _e("div", {
+      className: "hh-event-card hh-event-card-" + (size || "sm"),
+      style: { position: "relative", height: "100%",
+        minHeight: size === "big" ? 460 : (size === "md" ? 218 : 240),
+        borderRadius: 20, overflow: "hidden", border: "1px solid var(--line)", background: "#1C1C1F" }
     },
       _e("div", { style: { position: "absolute", inset: 0, backgroundImage: `url(${ev.img})`, backgroundSize: "cover", backgroundPosition: "center" } }),
       _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.88) 100%)", pointerEvents: "none" } }),
@@ -2193,11 +2201,11 @@
       ),
       _e("div", { style: { position: "absolute", top: 14, right: 14, padding: "6px 12px", background: "rgba(8,8,10,0.78)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 100, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.06em", textTransform: "uppercase" } }, ev.year),
       _e("div", { className: "hh-event-card-bottom",
-        style: { position: "absolute", bottom: big ? 26 : 18, left: big ? 26 : 18, right: big ? 26 : 18, color: "#fff" }
+        style: { position: "absolute", bottom: size === "big" ? 26 : 18, left: size === "big" ? 26 : 18, right: size === "big" ? 26 : 18, color: "#fff" }
       },
         ev.role && _e("div", { style: { display: "inline-block", fontSize: 10, fontWeight: 800, color: "#fcd535", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 10 } }, ev.role),
         _e("div", { className: "hh-event-card-title",
-          style: { fontSize: big ? 28 : 18, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", maxWidth: big ? 600 : "100%" }
+          style: { fontSize: size === "big" ? 28 : (size === "md" ? 18 : 16), fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", maxWidth: size === "big" ? 520 : "100%" }
         }, ev.title)
       )
     );
@@ -2224,12 +2232,16 @@
             )
           )
         ),
-        // 1 hero card сверху + 3 в ряд снизу
-        _e(Reveal, { delay: "1" },
-          _e("div", { style: { marginBottom: 18 } }, _e(Card, { ev: events[0], big: true }))
+        // v11.0: Vercel-сетка — top row (1 big 1.35fr + 2 stacked 1fr) + bottom row 4-col
+        _e("div", { className: "hh-events-top", style: { display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 18, marginBottom: 18 } },
+          _e(Reveal, { delay: "1" }, _e(Card, { ev: events[0], size: "big" })),
+          _e("div", { style: { display: "grid", gridTemplateRows: "1fr 1fr", gap: 18 } },
+            _e(Reveal, { delay: "2" }, _e(Card, { ev: events[1], size: "md" })),
+            _e(Reveal, { delay: "3" }, _e(Card, { ev: events[2], size: "md" }))
+          )
         ),
-        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 } },
-          events.slice(1).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 2) }, _e(Card, { ev, big: false })))
+        _e("div", { className: "hh-events-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
+          events.slice(3).map((ev, i) => _e(Reveal, { key: i, delay: String(i + 4) }, _e(Card, { ev, size: "sm" })))
         )
       )
     );
@@ -2887,6 +2899,22 @@
     const st = document.createElement("style");
     st.id = "hh-partner-styles";
     st.textContent = `
+      /* === v11.0: WhyPartner — минимальные subtle-анимации картинок в vis-area.
+            Чередуем 3 типа: float (translate ±5px), pulse (scale 1→1.03), glow (brightness 1→1.1).
+            Делается через nth-child карточки в hh-why-grid. Лёгкие, не отвлекающие. === */
+      @keyframes hh-vis-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+      @keyframes hh-vis-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+      @keyframes hh-vis-glow  { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.10) drop-shadow(0 0 8px rgba(252,213,53,0.18)); } }
+      .hh-why-grid > *:nth-child(6n+1) .hh-why-vis-clip { animation: hh-vis-float 5.5s ease-in-out infinite; }
+      .hh-why-grid > *:nth-child(6n+2) .hh-why-vis-clip { animation: hh-vis-pulse 6.5s ease-in-out infinite; }
+      .hh-why-grid > *:nth-child(6n+3) .hh-why-vis-clip { animation: hh-vis-glow  4.5s ease-in-out infinite; }
+      .hh-why-grid > *:nth-child(6n+4) .hh-why-vis-clip { animation: hh-vis-pulse 5s ease-in-out infinite reverse; }
+      .hh-why-grid > *:nth-child(6n+5) .hh-why-vis-clip { animation: hh-vis-float 6s ease-in-out infinite reverse; }
+      .hh-why-grid > *:nth-child(6n)   .hh-why-vis-clip { animation: hh-vis-glow  5.2s ease-in-out infinite reverse; }
+      @media (prefers-reduced-motion: reduce) {
+        .hh-why-grid > * .hh-why-vis-clip { animation: none !important; }
+      }
+
       /* === v10.13: detail-card Battle Pass — align-items: center !important. Глобал CSS
             (hashhedge-react.css line 6248) бьёт по любому div c grid-template-columns +
             margin-bottom внутри section > .container правилом align-items:end (это для header'ов
@@ -2900,6 +2928,14 @@
         .hh-partner-hero-stats > div { border-left: none !important; padding-left: 0 !important; }
         .hh-about-head { grid-template-columns: 1fr !important; gap: 24px !important; align-items: start !important; }
         .hh-about-grid { grid-template-columns: 1fr 1fr !important; }
+        /* v11.0 Events: на планшете top→1кол, bottom→2кол */
+        .hh-events-top { grid-template-columns: 1fr !important; gap: 14px !important; }
+        .hh-events-top > div:last-child { grid-template-rows: auto auto !important; }
+        .hh-events-grid { grid-template-columns: 1fr 1fr !important; }
+        /* v11.0 Calculator + Support: 2-col → 1-col */
+        .hh-calc-head { grid-template-columns: 1fr !important; gap: 24px !important; align-items: start !important; }
+        .hh-calc-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+        .hh-support-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
       }
       @media (max-width: 640px) {
         .hh-partner-hero { min-height: auto !important; padding-top: 56px !important; padding-bottom: 40px !important; }
