@@ -2878,6 +2878,13 @@
     const st = document.createElement("style");
     st.id = "hh-partner-styles";
     st.textContent = `
+      /* === v10.13: detail-card Battle Pass — align-items: center !important. Глобал CSS
+            (hashhedge-react.css line 6248) бьёт по любому div c grid-template-columns +
+            margin-bottom внутри section > .container правилом align-items:end (это для header'ов
+            секций главной). У .hh-bp-detail оба свойства есть, и иконка/текст/кнопка съезжали
+            вниз вместо центра. Этим override побеждаем по специфичности. === */
+      .hh-bp-detail { align-items: center !important; }
+
       @media (max-width: 980px) {
         .hh-partner-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
         .hh-why-grid { grid-template-columns: repeat(2, 1fr) !important; }
