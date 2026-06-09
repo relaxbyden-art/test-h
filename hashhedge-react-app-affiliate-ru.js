@@ -1257,16 +1257,17 @@
                       textShadow: isSelected ? `0 0 20px rgba(${t.rgb},0.7)` : "none"
                     } }, `${t.pct}%`)
                   ),
-                  // Нод — скруглённый квадрат. v10.11: PNG-tier'ы теперь с прозрачным фоном,
-                  // поэтому background плашки = transparent (или лёгкий tier-tinted glow на passed).
-                  // Никаких видимых «ступенек» между плашкой и PNG быть не должно.
+                  // Нод — скруглённый квадрат. v10.12: фон node = #1C1C1F (= цвет wrap'а),
+                  // чтобы перекрыть соединительную линию под собой. Линия теперь видна ТОЛЬКО
+                  // МЕЖДУ нодами, не проходит через иконку. PNG прозрачные — фон под ними
+                  // тоже #1C1C1F, поэтому остаётся «бесшовно». Сверху — лёгкий tier-glow.
                   _e("div", { style: {
                     width: 60,
                     height: 60,
                     borderRadius: 14,
                     background: isPassed
-                      ? `radial-gradient(circle at 50% 50%, rgba(${t.rgb},0.18) 0%, rgba(${t.rgb},0) 70%)`
-                      : "transparent",
+                      ? `radial-gradient(circle at 50% 50%, rgba(${t.rgb},0.18) 0%, rgba(${t.rgb},0) 70%), #1C1C1F`
+                      : "#1C1C1F",
                     border: isPassed
                       ? `${isSelected ? 2 : 1.5}px solid rgba(${t.rgb},${isSelected ? 1 : 0.55})`
                       : "1.5px solid rgba(255,255,255,0.10)",
@@ -1330,10 +1331,10 @@
           borderRadius: 18, marginBottom: 22,
           transition: "background .4s, border-color .4s"
         } },
-          // Большая tier-иконка — без чёрного фона, только лёгкий tier glow + border
+          // Большая tier-иконка — solid #1C1C1F + tier glow (для консистентности с node)
           _e("div", { style: {
             width: 80, height: 80, borderRadius: 18,
-            background: `radial-gradient(circle at 50% 50%, rgba(${sel.rgb},0.20) 0%, rgba(${sel.rgb},0) 70%)`,
+            background: `radial-gradient(circle at 50% 50%, rgba(${sel.rgb},0.20) 0%, rgba(${sel.rgb},0) 70%), #1C1C1F`,
             border: `1px solid rgba(${sel.rgb},0.42)`,
             display: "inline-flex", alignItems: "center", justifyContent: "center",
             padding: 4, boxSizing: "border-box", flexShrink: 0
@@ -3210,9 +3211,9 @@
         }
         .hh-tg-empty { display: none !important; }
 
-        /* === v10.11: Support чат — увеличенный отступ от фото и меньшая минимальная высота === */
-        .hh-support-grid { gap: 28px !important; }
-        .hh-support-grid > div:nth-child(2) { margin-top: 8px !important; }
+        /* === v10.12: Support чат — явный отступ 32px от фото-карточки сверху === */
+        .hh-support-grid { gap: 0 !important; }
+        .hh-support-grid > div:nth-child(2) { margin-top: 32px !important; }
         .hh-support-grid > div:nth-child(2) > div { min-height: auto !important; padding: 16px !important; }
         /* Сообщения: «you» (мои) справа, «HH» слева — побеждаем любые глобальные overrides */
         .hh-chat-row { display: flex !important; }
