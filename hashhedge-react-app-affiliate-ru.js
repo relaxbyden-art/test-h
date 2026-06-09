@@ -390,7 +390,7 @@
               WebkitTextFillColor: "transparent", color: "transparent",
               letterSpacing: "-0.025em", lineHeight: 1,
               animation: "hh-num-glow 3s ease-in-out infinite",
-              fontFamily: "Akrobat, Onest, sans-serif"
+              fontFamily: "Onest, sans-serif"
             } }, "$" + earned.toLocaleString("ru-RU").replace(/,/g, " ")),
             // +18% теперь жирнее, в виде «pill»
             _e("div", { style: {
@@ -608,22 +608,22 @@
           ),
           // 5,100+
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "5 100+"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "5 100+"),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Профинансированных трейдеров")
           ),
           // $12M+
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "$12M+"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$12M+"),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Выплачено трейдерам")
           ),
           // 4.4/5
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "4.4/5"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "4.4/5"),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Trustpilot")
           ),
           // 154
           _e("div", { style: { borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 22 } },
-            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "154"),
+            _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "154"),
             _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 6 } }, "Стран обслуживания")
           )
         )
@@ -696,7 +696,7 @@
                 fontSize: 34, fontWeight: 900, color: "#fcd535",
                 letterSpacing: "-0.02em", lineHeight: 1.05,
                 marginBottom: 12,
-                fontFamily: "Akrobat, Onest, sans-serif",
+                fontFamily: "Onest, sans-serif",
                 textTransform: c.v === "до 80%" || c.v === "минуты" || c.v === "пожизненно" || c.v === "еженедельно" ? "none" : "uppercase"
               } }, c.v),
               _e("div", { style: { fontSize: 16, fontWeight: 700, color: "#f5f1e8", marginBottom: 14, lineHeight: 1.25 } }, c.t),
@@ -775,7 +775,7 @@
               }, s.icon)
             ),
             _e("div", null,
-              _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, s.v),
+              _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, s.v),
               _e("div", { style: { fontSize: 12, color: "#a1a0a4", marginTop: 5 } }, s.l)
             )
           ))
@@ -1228,7 +1228,7 @@
               _e("div", { "aria-hidden": true, style: {
                 position: "absolute", top: -22, right: -8,
                 fontSize: 160, lineHeight: 1, fontWeight: 900, letterSpacing: "-0.04em",
-                color: "rgba(252,213,53,0.06)", fontFamily: "Akrobat, Onest, sans-serif",
+                color: "rgba(252,213,53,0.06)", fontFamily: "Onest, sans-serif",
                 pointerEvents: "none", userSelect: "none"
               } }, s.n),
               // Контент (иконка и eyebrow "Источник 0X" убраны)
@@ -1556,7 +1556,7 @@
             _e("div", { style: { fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 20 } }, "Калькулятор дохода"),
             _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 } },
               _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "Активных приведённых трейдеров"),
-              _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, fmt(traders))
+              _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, fmt(traders))
             ),
             _e("input", { type: "range", min: 0, max: 999, step: 1,
               value: traders,
@@ -1594,7 +1594,7 @@
             ),
             _e("div", { style: { borderTop: "1px solid var(--line)", paddingTop: 22 } },
               _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Расчётная ежемесячная выплата"),
-              _e("div", { style: { fontSize: 52, fontWeight: 900, color: "#f5f1e8", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "$" + fmt(monthly)),
+              _e("div", { style: { fontSize: 52, fontWeight: 900, color: "#f5f1e8", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: "Onest, sans-serif" } }, "$" + fmt(monthly)),
               _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 8 } },
                 "≈ ", _e("strong", { style: { color: "#f5f1e8" } }, "$" + fmt(yearly)),
                 " / год · еженедельно в USDT"
@@ -1648,7 +1648,7 @@
                   color: isYou ? "#fcd535" : "#f5f1e8",
                   letterSpacing: "-0.02em", lineHeight: 1,
                   minWidth: 78,
-                  fontFamily: "Akrobat, Onest, sans-serif"
+                  fontFamily: "Onest, sans-serif"
                 } }, t.pct + "%"),
                 _e("div", { style: { flex: 1, minWidth: 0 } },
                   _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, "Уровень " + t.lvl),
@@ -1709,7 +1709,7 @@
                   borderRadius: "50%",
                   background: "var(--bg)", border: "2px solid #fcd535",
                   color: "#fcd535", fontSize: 28, fontWeight: 800,
-                  fontFamily: "Akrobat, Onest, sans-serif",
+                  fontFamily: "Onest, sans-serif",
                   boxShadow: "0 0 0 8px var(--bg)"
                 } }, s.n)
               ))
@@ -2367,7 +2367,7 @@
                   ["<2 мин",  "Ответ менеджера"],
                   ["24/7",    "Чат открыт всегда"]
                 ].map(([v, l], i) => _e("div", { key: i, style: { padding: "20px 22px", background: "var(--bg-card)", border: "1px solid var(--line)", borderRadius: 14 } },
-                  _e("div", { style: { fontSize: 32, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, fontFamily: "'Akrobat', Onest, sans-serif" } }, v),
+                  _e("div", { style: { fontSize: 32, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, fontFamily: "Onest, sans-serif" } }, v),
                   _e("div", { style: { fontSize: 11, color: "#a1a0a4", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" } }, l)
                 ))
               ),
@@ -2741,7 +2741,7 @@
         .hh-cta-rain { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
         .hh-cta-rain > span {
           position: absolute; top: 0;
-          font-family: "Akrobat", Onest, ui-monospace, monospace;
+          font-family: "Onest", ui-monospace, monospace;
           font-weight: 800;
           color: rgba(252,213,53,0.55);
           letter-spacing: -0.02em;
