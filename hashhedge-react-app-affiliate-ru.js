@@ -2946,7 +2946,8 @@
     return _e("div", { className: "tilda-html-hashhedge hh-with-glow" },
       _e(Header, null),
       _e(Hero, null),
-      _e(Marquee, null),
+      // v11.1: Marquee убрана — дублировала Trustpilot 4-stat row из Hero
+      // _e(Marquee, null),
       _e(AboutProgram, null),
       _e(WhyPartner, null),
       _e(IncomeSources, null),
@@ -2974,6 +2975,56 @@
     const st = document.createElement("style");
     st.id = "hh-partner-styles";
     st.textContent = `
+      /* === v11.1: красивый интерактивный range-slider для Calculator (Vercel-style)
+            Нативный <input type=range> на каждом браузере выглядит по-разному и обычно криво.
+            Здесь — собственная отрисовка track + thumb через ::-webkit и ::-moz псевдоэлементы. === */
+      .hh-calc-slider {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        background: transparent !important;
+        cursor: pointer !important;
+        height: 24px !important;
+        outline: none !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+      .hh-calc-slider::-webkit-slider-runnable-track {
+        height: 6px;
+        background: rgba(255,255,255,0.10);
+        border-radius: 6px;
+      }
+      .hh-calc-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 22px; height: 22px;
+        border-radius: 50%;
+        background: #fcd535;
+        border: none;
+        box-shadow: 0 0 0 6px rgba(252,213,53,0.18), 0 4px 12px rgba(0,0,0,0.4);
+        margin-top: -8px;
+        cursor: grab;
+        transition: box-shadow .15s, transform .15s;
+      }
+      .hh-calc-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 0 8px rgba(252,213,53,0.25), 0 6px 18px rgba(252,213,53,0.4); transform: scale(1.08); }
+      .hh-calc-slider::-webkit-slider-thumb:active { cursor: grabbing; }
+      .hh-calc-slider::-moz-range-track {
+        height: 6px;
+        background: rgba(255,255,255,0.10);
+        border-radius: 6px;
+        border: none;
+      }
+      .hh-calc-slider::-moz-range-thumb {
+        width: 22px; height: 22px;
+        border-radius: 50%;
+        background: #fcd535;
+        border: none;
+        box-shadow: 0 0 0 6px rgba(252,213,53,0.18), 0 4px 12px rgba(0,0,0,0.4);
+        cursor: grab;
+        transition: box-shadow .15s, transform .15s;
+      }
+      .hh-calc-slider::-moz-range-thumb:hover { box-shadow: 0 0 0 8px rgba(252,213,53,0.25), 0 6px 18px rgba(252,213,53,0.4); transform: scale(1.08); }
+
       /* === v11.0: WhyPartner — минимальные subtle-анимации картинок в vis-area.
             Чередуем 3 типа: float (translate ±5px), pulse (scale 1→1.03), glow (brightness 1→1.1).
             Делается через nth-child карточки в hh-why-grid. Лёгкие, не отвлекающие. === */
