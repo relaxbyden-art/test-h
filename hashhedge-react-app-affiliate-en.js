@@ -533,8 +533,8 @@
                 letterSpacing: "-0.03em", margin: "0 0 28px", color: "#f5f1e8"
               }
             },
-              "Promote", _e("br", null),
-              "a top crypto prop firm", _e("br", null),
+              "Promote a top", _e("br", null),
+              "crypto prop firm", _e("br", null),
               "worldwide &", _e("br", null),
               _e("span", { style: { color: "#fcd535" } }, "earn together")
             ),
