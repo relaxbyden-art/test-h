@@ -705,10 +705,9 @@
         }, children)
       ),
       _e("div", { className: "hh-why-card-body", style: { padding: "20px 22px 22px" } },
-        // Зелёные chip-плашки убраны по правкам
+        // v11.0: жёлтый акцент у первого слова заголовка убран — текст весь белый
         _e("h3", { style: { fontSize: 22, fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.01em", marginBottom: 10, color: "#f5f1e8" } },
-          titleAccent === "before" && _e("span", { style: { color: "#fcd535" } }, title.split(" ")[0] + " "),
-          titleAccent === "before" ? title.split(" ").slice(1).join(" ") : title
+          title
         ),
         _e("p", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } }, body)
       )
@@ -2859,14 +2858,17 @@
       _e(Marquee, null),
       _e(WhyPartner, null),
       _e(IncomeSources, null),
-      _e(Tiers, null),
+      // v11.0: Tiers (Партнёрские уровни) убраны — данные про % будут только в Calculator
+      // _e(Tiers, null),
       _e(Calculator, null),
       _e(Steps, null),
-      _e(CabinetPreview, null),
-      _e(Leaderboard, null),
+      // v11.0: CabinetPreview + Leaderboard убраны
+      // _e(CabinetPreview, null),
+      // _e(Leaderboard, null),
       _e(PartnerContent, null),
       _e(Events, null),
-      _e(TelegramCommunity, null),
+      // v11.0: TelegramCommunity (Закрытый чат) убран
+      // _e(TelegramCommunity, null),
       _e(Support, null),
       _e(FAQ, null),
       _e(BigCTA, null),
