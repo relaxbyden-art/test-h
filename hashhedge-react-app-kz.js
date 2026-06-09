@@ -10822,7 +10822,7 @@ function BigCTA() {
     rel: "noopener",
     className: "btn btn-primary btn-lg"
   }, "Челленджді бастау \xb7 $79"), /*#__PURE__*/React.createElement("a", {
-    href: "https://hashhedge.gitbook.io/hashhedge-user-guide?fpr=123456",
+    href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-ghost btn-lg cta-secondary"
@@ -10836,10 +10836,10 @@ function Footer() {
       href: "#pricing"
     }, {
       label: "Серіктестік бағдарлама",
-      href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5"
+      href: "https://www.hashhedge.com/affiliateprogram/ru"
     }, {
       label: "Блог",
-      href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121"
+      href: "https://www.hashhedge.com/blog/ru"
     }, {
       label: "Нұсқаулық",
       href: "https://hashhedge.gitbook.io/hashhedge-user-guide"
@@ -10851,7 +10851,7 @@ function Footer() {
       href: "https://t.me/hashhedgesupportbot"
     }, {
       label: "FAQ",
-      href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def"
+      href: "https://www.hashhedge.com/faq/ru"
     }, {
       label: "Бос орындар",
       href: "https://www.hashhedge.com/vacancies"
@@ -11095,11 +11095,11 @@ function Nav({
   }, /*#__PURE__*/React.createElement(HashHedgeLogo, null), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#pricing"
   }, "Челлендждер")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5"
+    href: "https://www.hashhedge.com/affiliateprogram/ru"
   }, "Серіктестік бағдарлама")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def"
+    href: "https://www.hashhedge.com/faq/ru"
   }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121"
+    href: "https://www.hashhedge.com/blog/ru"
   }, "Блог"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
@@ -11193,13 +11193,13 @@ function MobileMenu({
     href: "#pricing",
     onClick: close
   }, "Челлендждер"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/affiliateprogram/ru?fpr=123456&client_reference_id=c6426dc9-9218-4689-aed8-2a46fa0602a5",
+    href: "https://www.hashhedge.com/affiliateprogram/ru",
     onClick: close
   }, "Серіктестік бағдарлама"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/faq/ru?fpr=123456&client_reference_id=9b3b5194-ceb0-4d33-a24a-beb14e703def",
+    href: "https://www.hashhedge.com/faq/ru",
     onClick: close
   }, "FAQ"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.hashhedge.com/blog/ru?fpr=123456&client_reference_id=77eb49d8-bf55-4276-8ccb-57d4c262b121",
+    href: "https://www.hashhedge.com/blog/ru",
     onClick: close
   }, "Блог"), /*#__PURE__*/React.createElement("div", {
     className: "menu-cta"
