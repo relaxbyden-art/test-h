@@ -1321,23 +1321,25 @@
         ),
 
         // === Детальная карточка выбранного уровня ===
+        // v10.14: иконка меньше (80→56), padding уменьшен (24/28 → 18/22), карточка компактнее
+        // — визуально аккуратнее, текст и кнопка не выглядят сдвинутыми
         _e("div", { className: "hh-bp-detail", style: {
           display: "grid",
           gridTemplateColumns: "auto 1fr auto",
-          gap: 24, alignItems: "center",
-          padding: "24px 28px",
+          gap: 18, alignItems: "center",
+          padding: "18px 22px",
           background: `linear-gradient(135deg, rgba(${sel.rgb},0.08), rgba(${sel.rgb},0.01)), #1C1C1F`,
           border: `1px solid rgba(${sel.rgb},0.32)`,
           borderRadius: 18, marginBottom: 22,
           transition: "background .4s, border-color .4s"
         } },
-          // Большая tier-иконка — solid #1C1C1F + tier glow (для консистентности с node)
+          // Tier-иконка — компактная 56×56, solid #1C1C1F + tier glow
           _e("div", { style: {
-            width: 80, height: 80, borderRadius: 18,
+            width: 56, height: 56, borderRadius: 14,
             background: `radial-gradient(circle at 50% 50%, rgba(${sel.rgb},0.20) 0%, rgba(${sel.rgb},0) 70%), #1C1C1F`,
             border: `1px solid rgba(${sel.rgb},0.42)`,
             display: "inline-flex", alignItems: "center", justifyContent: "center",
-            padding: 4, boxSizing: "border-box", flexShrink: 0
+            padding: 2, boxSizing: "border-box", flexShrink: 0
           } },
             _e("img", { src: TIERS_BASE + "assets/tiers/tier-" + sel.lvl + ".png",
               alt: "Tier " + sel.lvl,
