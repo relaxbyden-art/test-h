@@ -657,7 +657,7 @@
                 style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "About"
+                "About the program"
               ),
               _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
                 "The highest affiliate", _e("br", null),
@@ -1154,18 +1154,13 @@
               style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-              "Why Hash Hedge"
+              "Why partner with us"
             ),
             _e("h2", { className: "hh-why-h2", style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } },
-              isMobile
-                ? _e(F, null,
-                    "Why partner", _e("br", null),
-                    "with", _e("br", null),
-                    "us", _e("span", { style: { color: "#fcd535" } }, "")
-                  )
-                : _e(F, null, "Why partner", _e("br", null), "us", _e("span", { style: { color: "#fcd535" } }, ""))
+              "Built to pay", _e("br", null),
+              _e("span", { style: { color: "#fcd535" } }, "partners more.")
             ),
-            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "We give partners everything they need to grow with us.")
+            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Six reasons HashHedge is the affiliate program crypto promoters actually stick with.")
           )
         ),
         // 4 в ряд на desktop (раньше 3)
@@ -2245,16 +2240,16 @@
                 style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
               },
                 _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-                "Events"
+                "Community & events"
               ),
               _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
-                _e("span", { style: { color: "#fcd535" } }, "Live"), " events"
+                "We show up —", _e("br", null), _e("span", { style: { color: "#fcd535" } }, "online and IRL.")
               )
             )
           ),
           _e(Reveal, { delay: "2" },
             _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
-              "Be part of the Hash Hedge partner community. We host regular in-person events where you can meet top affiliates, share insights, and have a great time."
+              "Summits, expo booths, partner trips and meetups around the world. Top affiliates get flown out, hosted and rewarded — drop your real event photos into the tiles below."
             )
           )
         ),
