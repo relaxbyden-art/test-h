@@ -1677,12 +1677,15 @@
                   width: "100%"
                 }
               },
-                !isYou && _e("div", { "aria-hidden": true, style: {
+                // Прогресс-заливка строки (как на vercel): у активной — жёлтый градиент
+                _e("div", { "aria-hidden": true, style: {
                   position: "absolute", left: 0, top: 0, bottom: 0,
                   width: ((t.pct - 30) * 2) + "%",
-                  background: "linear-gradient(90deg, rgba(255,255,255,0.05), transparent)",
+                  background: isYou
+                    ? "linear-gradient(90deg, rgba(252,213,53,0.22), rgba(252,213,53,0.06))"
+                    : "linear-gradient(90deg, rgba(255,255,255,0.05), transparent)",
                   pointerEvents: "none",
-                  transition: "width .3s cubic-bezier(.22,1,.36,1)"
+                  transition: "width .3s cubic-bezier(.22,1,.36,1), background .3s ease"
                 } }),
                 _e("span", { className: "hh-calc-tier-pct", style: {
                   fontSize: 34, fontWeight: 800,
