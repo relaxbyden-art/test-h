@@ -562,7 +562,7 @@
               style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 28 }
             },
               _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-              "Партнёрская программа HashHedge"
+              "Партнёрская программа Hash Hedge"
             ),
             _e("h1", { className: "hh-partner-hero-h1",
               style: {
@@ -604,7 +604,7 @@
                 onMouseLeave: e => { e.currentTarget.style.background = "transparent"; }
               }, "Войти в личный кабинет")
             ),
-            _e("a", { href: "#calc",
+            _e("a", { href: "#calc", className: "hh-calc-link",
               style: {
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 14, fontWeight: 600, color: "#fcd535",
@@ -842,7 +842,8 @@
     }, []);
 
     // Each card has its own custom visual rendered at top
-    const Card = ({ children, chip, title, titleAccent, body }) => _e("div", {
+    // v12.6: + номер в углу, клетчатый фон и жёлтая подсветка hover — как у «Почему Hash Hedge» на главной RU
+    const Card = ({ children, chip, title, titleAccent, body, n }) => _e("div", {
       className: "hh-why-card",
       style: {
         background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 18,
@@ -859,9 +860,26 @@
           position: "relative", overflow: "hidden"
         }
       },
+        // Клетчатая сетка на фоне (как .why-art-bg на главной RU)
+        _e("div", { className: "hh-why-grid-bg", "aria-hidden": true, style: {
+          position: "absolute", inset: 0,
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, #000 20%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, #000 20%, transparent 80%)",
+          opacity: 0.7, pointerEvents: "none"
+        } }),
+        // Номер карточки в левом верхнем углу (как на главной RU)
+        n && _e("div", { style: {
+          position: "absolute", top: 14, left: 14,
+          background: "rgba(16,16,18,0.82)", backdropFilter: "blur(8px)",
+          color: "#fcd535", padding: "4px 10px", borderRadius: 6,
+          fontSize: 11, fontWeight: 800, letterSpacing: "0.12em",
+          fontFamily: "Akrobat, Onest, sans-serif", zIndex: 4
+        } }, n),
         // Дополнительный clipper-обёрткой — гарантирует containment
         _e("div", { className: "hh-why-vis-clip",
-          style: { position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }
+          style: { position: "relative", zIndex: 1, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }
         }, children)
       ),
       _e("div", { className: "hh-why-card-body", style: { padding: "20px 22px 22px" } },
@@ -1205,7 +1223,7 @@
         // 4 в ряд на desktop (раньше 3)
         _e("div", { className: "hh-why-grid", style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 } },
           cards.map((c, i) => _e(Reveal, { key: i, delay: String((i % 3) + 1) },
-            _e(Card, { chip: c.chip, title: c.title, titleAccent: c.titleAccent, body: c.body }, c.viz)
+            _e(Card, { chip: c.chip, title: c.title, titleAccent: c.titleAccent, body: c.body, n: String(i + 1).padStart(2, "0") }, c.viz)
           ))
         )
       )
@@ -2577,7 +2595,7 @@
               borderRadius: 24, overflow: "hidden",
               border: "1px solid var(--line)",
               background: "#1C1C1F"
-            } },
+            }, className: "hh-tati-photo" },
               _e("img", { src: SUP_BASE + "assets/tati.jpg", alt: "Tati — Head of Affiliates",
                 className: "hh-tati-img",
                 style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 28%" }
@@ -3760,9 +3778,44 @@
       }
       .hh-about-card:hover .hh-about-sheen { animation: hh-about-sheen 1.05s ease forwards; }
 
-      /* Hover — Why cards lift */
+      /* Hover — Why cards lift + жёлтая подсветка (v12.6, как на главной RU) */
       .hh-why-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
-      .hh-why-card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px -22px rgba(0,0,0,.65); border-color: rgba(252,213,53,.4); }
+      .hh-why-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 22px 48px -22px rgba(0,0,0,.65), 0 0 50px rgba(252,213,53,0.12);
+        border-color: rgba(252,213,53,.45) !important;
+      }
+      .hh-why-grid-bg { transition: opacity .4s; }
+      .hh-why-card:hover .hh-why-grid-bg { opacity: 1 !important; }
+
+      /* v12.6 — кнопки: hover как у кнопки в хедере (.btn-primary): подъём + усиление glow */
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-yellow,
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg,
+      #hashhedge-root .tilda-html-hashhedge .hh-partner-hero-cta > a {
+        transition: transform .2s cubic-bezier(0.23,1,0.32,1), box-shadow .3s cubic-bezier(0.23,1,0.32,1), background .2s ease !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-yellow:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 48px -4px rgba(252,213,53,0.55), inset 0 -2px 0 rgba(0,0,0,0.15) !important;
+      }
+      #hashhedge-root .tilda-html-hashhedge a.hh-btn-tg:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 48px -4px rgba(34,158,217,0.55) !important;
+      }
+      /* ghost-кнопка «Войти в личный кабинет» */
+      #hashhedge-root .tilda-html-hashhedge .hh-partner-hero-cta > a:not(.hh-btn-yellow):hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 36px -6px rgba(252,213,53,0.35) !important;
+      }
+
+      /* v12.6 — ссылка «Рассчитать заработок»: подчёркнута + hover-анимация */
+      .hh-calc-link { transition: transform .2s ease, color .2s ease, text-decoration-thickness .2s ease; }
+      .hh-calc-link:hover { transform: translateY(-2px); color: #ffe27a !important; text-decoration-thickness: 2px !important; }
+      .hh-calc-link:hover svg { stroke: #ffe27a !important; }
+
+      /* v12.6 — фото Tati: zoom при наведении, как у карточек мероприятий */
+      .hh-tati-photo .hh-tati-img { transition: transform 7s ease-out; }
+      .hh-tati-photo:hover .hh-tati-img { transform: scale(1.12) !important; transition: transform .5s cubic-bezier(.22,1,.36,1); }
 
       /* Hover — Event card image zoom */
       .hh-event-card > div:first-child { transition: transform .5s cubic-bezier(.22,1,.36,1); }
