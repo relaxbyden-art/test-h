@@ -1497,146 +1497,153 @@
   }
 
   // ============================================================================
-  // CALCULATOR
+  // CALCULATOR (v11.0 — Vercel-style)
   // ============================================================================
   function Calculator() {
-    const challenges = [
-      { size: "$5K",   price: 79 },
-      { size: "$10K",  price: 99 },
-      { size: "$25K",  price: 299 },
-      { size: "$50K",  price: 499 },
-      { size: "$100K", price: 799 },
-      { size: "$150K", price: 1093 }
-    ];
-    const [refs, setRefs] = useState(25);
-    const [chIdx, setChIdx] = useState(2);
     const tiers = [
-      { lvl: 1, pct: 50, max: 14 },
-      { lvl: 2, pct: 55, max: 49 },
-      { lvl: 3, pct: 60, max: 99 },
-      { lvl: 4, pct: 65, max: 199 },
-      { lvl: 5, pct: 70, max: 399 },
-      { lvl: 6, pct: 75, max: 699 },
-      { lvl: 7, pct: 80, max: Infinity }
+      { lvl: 1, pct: 50, min: 0,   max: 14,  range: "0–14 трейдеров" },
+      { lvl: 2, pct: 55, min: 15,  max: 49,  range: "15–49 трейдеров" },
+      { lvl: 3, pct: 60, min: 50,  max: 99,  range: "50–99 трейдеров" },
+      { lvl: 4, pct: 65, min: 100, max: 199, range: "100–199 трейдеров" },
+      { lvl: 5, pct: 70, min: 200, max: 399, range: "200–399 трейдеров" },
+      { lvl: 6, pct: 75, min: 400, max: 699, range: "400–699 трейдеров" },
+      { lvl: 7, pct: 80, min: 700, max: 999, range: "700+ трейдеров" }
     ];
-    const tier = tiers.find(t => refs <= t.max) || tiers[6];
-    const chPrice = challenges[chIdx].price;
-    const base = chPrice;
-    const monthly = Math.round(refs * base * tier.pct / 100);
+    const AVG_PER_TRADER = 140;
+    const [traders, setTraders] = useState(200);
+    const currentTier = tiers.find(t => traders >= t.min && traders <= t.max) || tiers[tiers.length - 1];
+    const monthly = Math.round(traders * AVG_PER_TRADER * currentTier.pct / 100);
+    const yearly = monthly * 12;
+    const fmt = n => n.toLocaleString("ru-RU").replace(/,/g, " ");
 
-    return _e("section", { id: "calc", "data-no-glow": true, style: { padding: "100px 0 120px", background: "var(--bg)" } },
+    return _e("section", { id: "calc", style: { padding: "100px 0 120px", background: "var(--bg)" } },
       _e("div", { className: "container" },
         _e(Reveal, null,
-          _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 56px" } },
-            _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
-            },
-              _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
-              "Калькулятор прибыли"
+          _e("div", { className: "hh-calc-head", style: {
+            display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 64, alignItems: "end", marginBottom: 56
+          } },
+            _e("div", null,
+              _e("span", {
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
+              },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                "Сколько ты заработаешь"
+              ),
+              _e("h2", { className: "hh-calc-h2", style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: 0 } },
+                "Чем больше ты приведёшь,", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "тем больше твоя доля.")
+              )
             ),
-            _e("h2", { className: "hh-calc-h2",
-              style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 }
-            },
-              "Сколько ты можешь", _e("br", null), "зарабатывать"
-            ),
-            _e("p", { style: { fontSize: 17, color: "#a1a0a4" } }, "Узнай как твоя комиссия зависит от количества привлечённых трейдеров и среднего чека челленджей.")
+            _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, margin: 0 } },
+              "Твоя доля растёт по количеству активных приведённых трейдеров — от ",
+              _e("strong", { style: { color: "#f5f1e8" } }, "50%"), " на старте до ",
+              _e("strong", { style: { color: "#fcd535" } }, "80%"),
+              " на максимуме. Подвигай ползунок и смотри, сколько может приносить твоя сеть."
+            )
           )
         ),
-        _e(Reveal, { delay: "1" },
-          // Правая колонка с фиксированной шириной 380px — иначе число дохода («$471 356» vs «$4 111»)
-          // меняет ширину и левая колонка дёргается при движении ползунка.
-          _e("div", { className: "hh-calc-grid", style: { display: "grid", gridTemplateColumns: "minmax(0, 1fr) 340px", gap: 22, margin: "0 auto", alignItems: "center", maxWidth: 920 } },
-            // LEFT controls
-            _e("div", { style: { padding: 28 } },
-              _e("div", { style: { marginBottom: 28 } },
-                _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginBottom: 10 } }, "Средний чек челленджа"),
-                _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 8 } },
-                  challenges.map((c, i) => _e("button", {
-                    key: i,
-                    onClick: () => setChIdx(i),
-                    style: {
-                      padding: "10px 14px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer",
-                      // фон всех табов = #1C1C1F (фон блока «Твой уровень»); активный — жёлтая рамка + жёлтый текст
-                      background: "#1C1C1F",
-                      color: i === chIdx ? "#fcd535" : "#f5f1e8",
-                      border: i === chIdx ? "1px solid rgba(252,213,53,0.55)" : "1px solid var(--line)",
-                      transition: "all .15s"
-                    }
-                  }, `${c.size} · $${c.price}`))
-                )
-              ),
-              _e("div", { style: { position: "relative", marginBottom: 32 } },
-                _e("div", { style: { display: "inline-block", padding: "4px 12px", background: "rgba(255,255,255,0.06)", border: "1px solid var(--line)", borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#f5f1e8", marginBottom: 8 } }, refs),
-                _e("input", {
-                  type: "range", min: 1, max: 700, value: refs, onChange: e => setRefs(Number(e.target.value)),
-                  style: {
-                    width: "100%", height: 6, borderRadius: 3,
-                    background: `linear-gradient(90deg, #fcd535 0%, #fcd535 ${(refs / 700) * 100}%, rgba(255,255,255,0.08) ${(refs / 700) * 100}%, rgba(255,255,255,0.08) 100%)`,
-                    WebkitAppearance: "none", appearance: "none", outline: "none", cursor: "pointer"
-                  }
-                }),
-                _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 11, color: "#a1a0a4", marginTop: 8 } },
-                  _e("span", null, "1 трейдер / мес"),
-                  _e("span", null, "700+ / мес")
-                ),
-                // Текст «Больше активных трейдеров…» убран по правкам
-              ),
-              _e("div", { className: "hh-calc-tier-card",
-                style: { padding: "18px 22px", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, marginBottom: 16 }
-              },
-                _e("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
-                  _e("div", null,
-                    // «Твой уровень · авто» → «Твой уровень»
-                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Твой уровень"),
-                    _e("div", { style: { fontSize: 19, fontWeight: 700, color: "#f5f1e8" } }, `Уровень ${tier.lvl}`)
-                  ),
-                  // Над процентом — подпись «Комиссия»
-                  _e("div", { style: { textAlign: "right" } },
-                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 4 } }, "Комиссия"),
-                    _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#fcd535", lineHeight: 1 } }, `${tier.pct}%`)
-                  )
-                )
-              )
-              // Текст «Уровень и ставка комиссии растут…» убран по правкам
-            ),
 
-            // RIGHT result card — компактный, тексты прижаты ближе
-            _e("div", { className: "hh-calc-result",
-              style: {
-                background: "linear-gradient(180deg, rgba(11,11,14,0.6), #1C1C1F)",
-                border: "1px solid var(--line)", borderRadius: 22, padding: 24,
-                boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
-                display: "flex", flexDirection: "column", gap: 12
-              }
-            },
-              // верхняя группа (eyebrow + результат + подпись) — отступы прижаты
-              _e("div", null,
-                _e("div", { style: { display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 8 } },
-                  _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }),
-                  "Ты получишь"
-                ),
-                _e("div", { style: {
-                  fontSize: "clamp(40px, 4.4vw, 64px)",
-                  fontWeight: 800, color: "#f5f1e8",
-                  letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6,
-                  whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"
-                } },
-                  `$${monthly.toLocaleString("ru-RU").replace(/,/g, " ")}`
-                ),
-                _e("div", { style: { fontSize: 13, color: "#a1a0a4" } }, "в месяц при выбранных параметрах")
+        _e("div", { className: "hh-calc-grid", style: {
+          display: "grid", gridTemplateColumns: "minmax(420px, 1fr) 1fr", gap: 24, alignItems: "start"
+        } },
+          // LEFT card
+          _e("div", { className: "hh-calc-card", style: {
+            padding: "28px 28px 26px",
+            background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0)), #1C1C1F",
+            border: "1px solid var(--line)",
+            borderRadius: 18
+          } },
+            _e("div", { style: { fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 20 } }, "Калькулятор дохода"),
+            _e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 } },
+              _e("div", { style: { fontSize: 14, color: "#a1a0a4" } }, "Активных приведённых трейдеров"),
+              _e("div", { style: { fontSize: 28, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, fmt(traders))
+            ),
+            _e("input", { type: "range", min: 0, max: 999, step: 1,
+              value: traders,
+              onChange: e => setTraders(parseInt(e.target.value, 10)),
+              className: "hh-calc-slider",
+              style: { width: "100%", margin: "8px 0 4px", accentColor: "#fcd535" }
+            }),
+            _e("div", { style: { display: "flex", justifyContent: "space-between", fontSize: 11, color: "#7a7a80", marginBottom: 24 } },
+              _e("span", null, "0"),
+              _e("span", null, "200"),
+              _e("span", null, "400"),
+              _e("span", null, "700+")
+            ),
+            _e("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 22 } },
+              _e("div", { style: {
+                padding: "14px 16px",
+                background: "rgba(252,213,53,0.06)",
+                border: "1px solid rgba(252,213,53,0.30)",
+                borderRadius: 12
+              } },
+                _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Твой уровень"),
+                _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em", lineHeight: 1 } }, currentTier.pct + "%"),
+                _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 4 } }, "Уровень " + currentTier.lvl)
               ),
-              // нижняя группа (кнопка + дисклеймер)
-              _e("div", null,
-                _e("a", { href: "https://partner.hashhedge.com", className: "hh-btn-yellow",
-                  style: { display: "block", textAlign: "center", padding: "16px 24px", borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: "0 12px 32px -8px rgba(252,213,53,0.4)" }
-                }, "Стать партнёром →"),
-                _e("div", { className: "hh-calc-disclaimer",
-                  style: { fontSize: 11, color: "#a1a0a4", marginTop: 14, lineHeight: 1.5 }
-                },
-                  "Расчёт примерный и зависит от количества привлечённых трейдеров, среднего чека челленджа и твоего партнёрского уровня."
-                )
+              _e("div", { style: {
+                padding: "14px 16px",
+                background: "rgba(255,255,255,0.025)",
+                border: "1px solid var(--line)",
+                borderRadius: 12
+              } },
+                _e("div", { style: { fontSize: 10, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Ср. / трейдер / мес"),
+                _e("div", { style: { fontSize: 24, fontWeight: 800, color: "#f5f1e8", letterSpacing: "-0.01em", lineHeight: 1 } }, "$" + AVG_PER_TRADER),
+                _e("div", { style: { fontSize: 11, color: "#a1a0a4", marginTop: 4 } }, "Выручка платформы")
+              )
+            ),
+            _e("div", { style: { borderTop: "1px solid var(--line)", paddingTop: 22 } },
+              _e("div", { style: { fontSize: 11, fontWeight: 700, color: "#a1a0a4", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 } }, "Расчётная ежемесячная выплата"),
+              _e("div", { style: { fontSize: 52, fontWeight: 900, color: "#f5f1e8", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: "Akrobat, Onest, sans-serif" } }, "$" + fmt(monthly)),
+              _e("div", { style: { fontSize: 13, color: "#a1a0a4", marginTop: 8 } },
+                "≈ ", _e("strong", { style: { color: "#f5f1e8" } }, "$" + fmt(yearly)),
+                " / год · еженедельно в USDT"
+              ),
+              _e("p", { style: { fontSize: 11, color: "#7a7a80", lineHeight: 1.5, margin: "16px 0 0" } },
+                "Расчёт примерный. Фактический доход зависит от активности трейдеров и размера их аккаунтов."
               )
             )
+          ),
+          // RIGHT levels list
+          _e("div", { className: "hh-calc-levels", style: { display: "flex", flexDirection: "column", gap: 10 } },
+            tiers.map(t => {
+              const isYou = t === currentTier;
+              return _e("div", { key: t.lvl,
+                style: {
+                  position: "relative",
+                  padding: "16px 22px",
+                  background: isYou
+                    ? "linear-gradient(90deg, rgba(252,213,53,0.16) 0%, rgba(252,213,53,0.04) 100%), #1C1C1F"
+                    : "#1C1C1F",
+                  border: isYou ? "1.5px solid rgba(252,213,53,0.8)" : "1px solid var(--line)",
+                  borderRadius: 14,
+                  display: "flex", alignItems: "center", gap: 18,
+                  boxShadow: isYou ? "0 0 0 4px rgba(252,213,53,0.10), 0 8px 24px -6px rgba(252,213,53,0.25)" : "none",
+                  transition: "all .3s cubic-bezier(.2,.7,.2,1)"
+                }
+              },
+                _e("div", { style: {
+                  fontSize: 32, fontWeight: 800,
+                  color: isYou ? "#fcd535" : "#f5f1e8",
+                  letterSpacing: "-0.02em", lineHeight: 1,
+                  minWidth: 78,
+                  fontFamily: "Akrobat, Onest, sans-serif"
+                } }, t.pct + "%"),
+                _e("div", { style: { flex: 1, minWidth: 0 } },
+                  _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 2 } }, "Уровень " + t.lvl),
+                  _e("div", { style: { fontSize: 13, color: "#a1a0a4" } }, t.range)
+                ),
+                isYou && _e("span", { style: {
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  padding: "5px 11px", borderRadius: 100,
+                  background: "#fcd535", color: "#08080a",
+                  fontSize: 11, fontWeight: 800, letterSpacing: "0.08em"
+                } },
+                  _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#08080a" } }),
+                  "ТЫ"
+                )
+              );
+            })
           )
         )
       )
@@ -2445,280 +2452,115 @@
   }
 
   // ============================================================================
-  // SUPPORT
+  // SUPPORT (v11.0 — Meet Tati в стиле Vercel)
   // ============================================================================
-  // Support — структура v2.7 (photo card + chat mockup + 2 CTA-карточки), но стили из главной RU.
-  // Анимация чата — запускается один раз при появлении в viewport (IntersectionObserver).
   function Support() {
-    const chatRef = useRef(null);
-    const chatInView = useInView(chatRef);
+    const SUP_BASE = (typeof window !== "undefined" && window.__HH_BASE__) || "https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@main/";
+    const features = [
+      "Персональный онбординг — запустишься в течение дня",
+      "Готовые креативы, баннеры и тексты для лендингов",
+      "Быстрые ответы по выплатам, уровням и трекингу",
+      "Индивидуальные условия для high-volume партнёров"
+    ];
     return _e("section", { id: "support", className: "hh-support-section",
       style: { padding: "120px 0", background: "var(--bg)", position: "relative", overflow: "hidden" }
     },
-      // Локальных blur-кругов больше нет — общий glow задаётся через CSS ::after для всех секций.
-      _e("style", null, `
-        @keyframes support-status-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(124,216,160,0.30); }
-          70%      { box-shadow: 0 0 0 4px rgba(124,216,160,0);   }
-        }
-        /* Одноразовая анимация появления сообщения */
-        @keyframes hh-chat-msg-in {
-          0%   { opacity: 0; transform: translateY(8px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-      `),
-      _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
-        // HEADER — eyebrow + H2 слева, intro справа (как на главной)
-        _e("div", { className: "hh-support-header", style: { display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 80, alignItems: "end", marginBottom: 56 } },
+      _e("div", { className: "container" },
+        _e("div", { className: "hh-support-grid", style: {
+          display: "grid", gridTemplateColumns: "1fr 1.05fr", gap: 64, alignItems: "center"
+        } },
           _e(Reveal, null,
-            _e("div", null,
-              _e("span", {
-                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 20 }
-              },
-                _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 10px #4ade80" } }),
-                "ПОДДЕРЖКА 24/7"
-              ),
-              _e("h2", { style: { fontSize: "clamp(40px, 5.5vw, 64px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", margin: 0 } },
-                "Персональная", _e("br", null),
-                _e("span", { style: { color: "#fcd535" } }, "поддержка")
+            _e("div", { style: {
+              position: "relative", aspectRatio: "1 / 1", minHeight: 420,
+              borderRadius: 24, overflow: "hidden",
+              border: "1px solid var(--line)",
+              background: "#1C1C1F"
+            } },
+              _e("img", { src: SUP_BASE + "assets/tati.jpg", alt: "Tati — Head of Affiliates",
+                style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 28%" }
+              }),
+              _e("div", { style: {
+                position: "absolute", left: 16, right: 16, bottom: 16,
+                padding: "14px 18px", borderRadius: 14,
+                background: "rgba(0,0,0,0.55)", backdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                display: "flex", justifyContent: "space-between", alignItems: "center"
+              } },
+                _e("div", null,
+                  _e("div", { style: { fontSize: 18, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em" } }, "Tati"),
+                  _e("div", { style: { fontSize: 12, color: "#cfcfd3", marginTop: 2 } }, "Head of Affiliates")
+                ),
+                _e("span", { style: {
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  padding: "5px 11px", borderRadius: 100,
+                  background: "rgba(74,222,128,0.16)",
+                  border: "1px solid rgba(74,222,128,0.4)",
+                  fontSize: 11, fontWeight: 700, color: "#9ef0c0", letterSpacing: "0.08em", textTransform: "uppercase"
+                } },
+                  _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                  "Онлайн"
+                )
               )
             )
           ),
           _e(Reveal, { delay: "2" },
-            _e("p", { style: { fontSize: 18, lineHeight: 1.55, color: "#a1a0a4", margin: 0 } },
-              "Пообщайся с одним из наших менеджеров партнёрской программы. ",
-              _e("strong", { style: { color: "#f5f1e8" } }, "Персональный менеджер"),
-              " будет сопровождать тебя на каждом этапе, ответит на все вопросы и поможет оптимизировать твою стратегию."
-            )
-          )
-        ),
-
-        // MAIN 2-col: фото-карта (1fr) + чат-мокап (1.3fr) — структура v2.7
-        _e("div", { className: "hh-support-grid", style: { display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 18, alignItems: "stretch" } },
-          _e(Reveal, { delay: "1" },
-            // Структура и стиль обводки как на главной RU SupportSection: <div> с border-line + <img> objectFit cover.
-            _e("div", { style: {
-              position: "relative", height: "100%", minHeight: 540, borderRadius: 24, overflow: "hidden",
-              border: "1px solid var(--line)",
-              background: "var(--card, #1C1C1F)"
-            } },
-              _e("img", { src: ((typeof window !== "undefined" && window.__HH_BASE__) || "") + "assets/tati.jpg", alt: "Team Lead партнёрской программы",
-                style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%" }
-              }),
-              _e("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.92) 100%)", pointerEvents: "none" } }),
-              // ONLINE chip top-left (стилизован под главную)
-              _e("div", { style: { position: "absolute", top: 20, left: 20, display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 999, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", border: "1px solid rgba(124,216,160,0.4)", fontSize: 11, fontWeight: 800, color: "#9be0b6", letterSpacing: "0.14em", textTransform: "uppercase" } },
-                _e("span", { style: { width: 8, height: 8, borderRadius: "50%", background: "#4ade80", animation: "support-status-pulse 2.2s ease-out infinite" } }),
-                "Онлайн"
+            _e("div", null,
+              _e("span", {
+                style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 22 }
+              },
+                _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" } }),
+                "Твой персональный менеджер"
               ),
-              // time pill top-right — меньше число, светлее подпись
-              _e("div", { style: { position: "absolute", top: 20, right: 20, padding: "8px 12px", borderRadius: 12, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.12)", textAlign: "right" } },
-                _e("div", { style: { fontFamily: "Onest, sans-serif", fontSize: 16, fontWeight: 800, color: "#fcd535", letterSpacing: "-0.01em", lineHeight: 1 } }, "1 мин 47 сек"),
-                _e("div", { style: { fontSize: 9, color: "#cfcfd3", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4, opacity: 0.85 } }, "Среднее время ответа")
+              _e("h2", { style: { fontSize: "clamp(36px, 4.8vw, 60px)", lineHeight: 1.04, fontWeight: 800, letterSpacing: "-0.03em", color: "#f5f1e8", margin: "0 0 20px" } },
+                "Знакомься, Tati —", _e("br", null),
+                _e("span", { style: { color: "#fcd535" } }, "твой персональный менеджер партнёрки.")
               ),
-              // bottom info — флаги к языкам
-              _e("div", { style: { position: "absolute", left: 24, right: 24, bottom: 24 } },
-                _e("div", { style: { fontSize: 11, color: "#fcd535", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 } }, "Team Lead партнёрской программы"),
-                _e("div", { style: { fontSize: 26, fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", marginBottom: 14 } }, "Tisha"),
-                _e("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } },
-                  [
-                    { code: "RU", flag: "🇷🇺" },
-                    { code: "EN", flag: "🇬🇧" },
-                    { code: "ES", flag: "🇪🇸" },
-                    { code: "TR", flag: "🇹🇷" }
-                  ].map(l => _e("span", { key: l.code,
-                    style: { display: "inline-flex", alignItems: "center", gap: 5, fontSize: 10, fontWeight: 800, letterSpacing: "0.1em", padding: "4px 9px", borderRadius: 999, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "#fff" }
-                  }, _e("span", { style: { fontSize: 12, letterSpacing: 0 } }, l.flag), l.code)),
-                  _e("span", { style: { fontSize: 10, fontWeight: 800, letterSpacing: "0.1em", padding: "4px 9px", borderRadius: 999, background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.18)", color: "#a1a0a4" } }, "+ ещё 18 в команде онлайн")
-                )
-              )
-            )
-          ),
-          // Chat mockup — структура v2.7, цвета и border-radius под главную
-          // v10.5: убрали Reveal-обёртку — на мобиле IntersectionObserver не успевал сработать,
-          // правая колонка зависала на opacity:0 и чат-мокап был невидим.
-          _e("div", { style: { opacity: 1 } },
-            _e("div", { ref: chatRef, style: {
-              background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%), #1C1C1F",
-              border: "1px solid var(--line)", borderRadius: 24, padding: 22,
-              display: "flex", flexDirection: "column", minHeight: 540
-            } },
-              // header — одна точка внутри "Онлайн сейчас" (верхняя дубль-dot удалена)
-              _e("div", { style: { display: "flex", alignItems: "center", gap: 12, paddingBottom: 16, borderBottom: "1px solid var(--line)", marginBottom: 14 } },
-                _e("div", null,
-                  _e("div", { style: { fontSize: 15, fontWeight: 800, color: "#f5f1e8" } }, "Персональный менеджер"),
-                  _e("div", { style: { fontSize: 11, color: "#4ade80", display: "inline-flex", alignItems: "center", gap: 6 } },
-                    _e("span", { style: { width: 6, height: 6, borderRadius: "50%", background: "#4ade80" } }), "Онлайн сейчас"
-                  )
-                )
+              _e("p", { style: { fontSize: 16, color: "#a1a0a4", lineHeight: 1.55, marginBottom: 32 } },
+                "С первого дня у тебя живой человек на связи — не тикет-очередь. Tati и её команда помогут запуститься, оптимизировать и масштабировать трафик. Она в одном сообщении от тебя, когда нужно."
               ),
-              // messages — циклическая анимация: каждое сообщение fadein/up с задержкой, цикл 12s
-              _e("div", { style: { flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: 12 } },
-                [
-                  { who: "HH", text: "Привет! У нас акция — скидка 25% на челленджи. Поделитесь у себя в контенте? 🔥", time: "14:01" },
-                  { who: "you", text: "Да, круто! Сегодня закину в канал 👍", time: "14:02" },
-                  { who: "you", text: "А как отслеживать конверсии с поста?", time: "14:02" },
-                  { who: "HH", text: "В кабинете партнёра есть «Аналитика» — клики, регистрации и доход видно в реальном времени 📊", time: "14:03" },
-                  { who: "you", text: "Супер, всё наглядно. Спасибо! 🙌", time: "14:03" }
-                ].map((m, i) => _e("div", { key: i,
-                  className: "hh-chat-row hh-chat-row-" + m.who,
-                  style: {
-                    display: "flex", justifyContent: m.who === "you" ? "flex-end" : "flex-start", alignItems: "flex-end",
-                    // v10.7: opacity 1 всегда + анимация бонусом если IO сработал
-                    // v10.10: textAlign + margin-left:auto дополнительно — на мобиле некоторые гло-CSS
-                    // правила убивают flex justifyContent и сообщения всё слева; так перебиваем надёжно
-                    animation: chatInView ? `hh-chat-msg-in 0.5s ease ${i * 0.7}s both` : "none",
-                    opacity: 1,
-                    textAlign: m.who === "you" ? "right" : "left"
-                  }
-                },
-                  // аватары HH/Я убраны — только пузыри с сообщениями
-                  // v10.10: align-self + margin-left:auto чтобы works даже если row не flex (на мобиле бывает)
-                  _e("div", { className: "hh-chat-bubble-wrap", style: {
-                    display: "inline-flex", flexDirection: "column",
-                    alignItems: m.who === "you" ? "flex-end" : "flex-start",
-                    alignSelf: m.who === "you" ? "flex-end" : "flex-start",
-                    marginLeft: m.who === "you" ? "auto" : 0,
-                    marginRight: m.who === "you" ? 0 : "auto",
-                    maxWidth: "75%",
-                    textAlign: "left"
+              _e("div", { className: "hh-sup-features", style: { borderTop: "1px solid var(--line)", marginBottom: 32 } },
+                features.map((f, i) => _e("div", { key: i, style: {
+                  display: "flex", alignItems: "flex-start", gap: 12,
+                  padding: "16px 0",
+                  borderBottom: "1px solid var(--line)"
+                } },
+                  _e("span", { style: {
+                    width: 22, height: 22, borderRadius: "50%",
+                    background: "rgba(252,213,53,0.12)",
+                    border: "1px solid rgba(252,213,53,0.40)",
+                    color: "#fcd535", flexShrink: 0,
+                    display: "inline-flex", alignItems: "center", justifyContent: "center"
                   } },
-                    _e("div", { style: {
-                      padding: "10px 14px", borderRadius: 14, fontSize: 14, lineHeight: 1.4,
-                      background: m.who === "you" ? "#229ED9" : "rgba(255,255,255,0.05)",
-                      color: m.who === "you" ? "#fff" : "#f5f1e8",
-                      borderTopLeftRadius: m.who === "you" ? 14 : 4,
-                      borderTopRightRadius: m.who === "you" ? 4 : 14
-                    } }, m.text),
-                    _e("div", { style: { fontSize: 10, color: "#a1a0a4", marginTop: 4 } }, m.time)
-                  )
+                    _e("svg", { width: 12, height: 12, viewBox: "0 0 24 24", fill: "none",
+                      style: { stroke: "#fcd535", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" } },
+                      _e("path", { d: "M5 12l4 4L19 7" })
+                    )
+                  ),
+                  _e("span", { style: { fontSize: 15, color: "#f5f1e8", lineHeight: 1.5 } }, f)
                 ))
-              )
-            )
-          )
-        ),
-
-        // 2 CTA-карточки (порядок поменян): сначала Telegram (clickable, подсвечен), потом Персональный менеджер (не clickable)
-        _e(Reveal, { delay: "3" },
-          _e("div", { className: "hh-sup-ctas", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 16 } },
-            // Telegram — кликабельный, с явным синим выделением border + glow
-            _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
-              style: {
-                display: "flex", alignItems: "center", gap: 14, padding: "16px 18px",
-                background: "linear-gradient(135deg, rgba(43,156,222,0.10), rgba(43,156,222,0.03))",
-                border: "1px solid rgba(91,181,232,0.55)", borderRadius: 14, textDecoration: "none",
-                boxShadow: "0 0 0 1px rgba(91,181,232,0.20), 0 10px 26px -10px rgba(43,156,222,0.45)",
-                transition: "border-color .25s, transform .25s, background .25s, box-shadow .25s"
-              },
-              onMouseEnter: e => { e.currentTarget.style.borderColor = "#5BB5E8"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(91,181,232,0.35), 0 14px 32px -10px rgba(43,156,222,0.6)"; },
-              onMouseLeave: e => { e.currentTarget.style.borderColor = "rgba(91,181,232,0.55)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 0 0 1px rgba(91,181,232,0.20), 0 10px 26px -10px rgba(43,156,222,0.45)"; }
-            },
-              _e("div", { style: { width: 44, height: 44, borderRadius: 10, flexShrink: 0, background: "rgba(43, 156, 222, 0.18)", color: "#5BB5E8", display: "flex", alignItems: "center", justifyContent: "center" } },
-                _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", fill: "currentColor" },
-                  _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z" })
-                )
               ),
-              _e("div", { style: { flex: 1, minWidth: 0 } },
-                _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 4 } }, "@hashhedge_affiliate"),
-                _e("div", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.35 } }, "Задай любой вопрос о партнёрской программе")
-              ),
-              _e("svg", { width: 14, height: 14, viewBox: "0 0 14 14", fill: "none", style: { color: "#5BB5E8", flexShrink: 0 } },
-                _e("path", { d: "M3 7h8m0 0L7 3m4 4l-4 4", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" })
-              )
-            ),
-            // Персональный менеджер — НЕ кликабельный (div вместо a), без href, без hover
-            _e("div", {
-              style: { display: "flex", alignItems: "center", gap: 14, padding: "16px 18px", background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 14, cursor: "default" }
-            },
-              _e("div", { style: { width: 44, height: 44, borderRadius: 10, flexShrink: 0, background: "rgba(124, 216, 160, 0.15)", color: "#7cd8a0", display: "flex", alignItems: "center", justifyContent: "center" } },
-                _e("svg", { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none" },
-                  _e("path", { d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" }),
-                  _e("circle", { cx: 12, cy: 7, r: 4, stroke: "currentColor", strokeWidth: 1.8 })
-                )
-              ),
-              _e("div", { style: { flex: 1, minWidth: 0 } },
-                _e("div", { style: { fontSize: 15, fontWeight: 700, color: "#f5f1e8", marginBottom: 4 } }, "Персональный менеджер"),
-                _e("div", { style: { fontSize: 12, color: "#a1a0a4", lineHeight: 1.35 } }, "Закрепляется за партнёром после регистрации")
-              )
-              // Стрелка → удалена т.к. не кликабельно
-            )
-          )
-        )
-      )
-    );
-  }
-
-  // ============================================================================
-  // FAQ
-  // ============================================================================
-  function FAQ() {
-    const items = [
-      { q: "Как работает партнёрская программа Hash Hedge?", a: "Программа работает по модели RevShare: ты получаешь от 50% до 80% прибыли компании с каждой покупки челленджа по твоей реферальной ссылке. Начисления — пожизненные, пока реферал остаётся активным." },
-      { q: "Что считается «прибылью компании»?", a: "Прибыль = стоимость челленджа − 21% (7% — комиссия платёжной системы, 14% — резервный фонд). Например, с челленджа Elite за $499 база составляет около $394 — и на стартовом уровне 50% ты получаешь примерно $197 чистыми." },
-      { q: "Как растёт мой процент RevShare?", a: "Все партнёры стартуют с 50%. Каждое 1-е число месяца процент пересчитывается по числу челленджей, купленных твоими рефералами за прошлый месяц, и держится весь следующий месяц. Максимум — 80% при 700+ продажах в месяц." },
-      { q: "Зарабатываю ли я с прибыли трейдеров?", a: "Да. Если реферал проходит челлендж и торгует в плюс, он получает 80% прибыли, компания — 20%, а ты получаешь свой % RevShare с этих 20%. Пример: трейдер заработал $10 000 → компания получает $2 000 → тебе до $1 600." },
-      { q: "Когда и как происходят выплаты?", a: "Запроси выплату прямо в партнёрском кабинете — она придёт в USDT на твой кошелёк в течение 72 часов. Минимум к выводу — $100; первая выплата доступна после 5 рефералов с покупкой." },
-      { q: "Есть ли доход с приведённых партнёров?", a: "Да, многоуровневая программа: 5% с дохода партнёра, которого ты привёл напрямую, и 3% с партнёра следующего уровня. Эти проценты платит компания сверху — доход твоих субпартнёров не уменьшается." },
-      { q: "Нужно ли быть трейдером, чтобы участвовать?", a: "Нет. Партнёром может стать любой — блогер, маркетолог, инфлюенсер или владелец комьюнити. Опыт в трейдинге не нужен, а работать можно с аудиторией из 154 стран." },
-      { q: "Какие лимиты на вывод средств?", a: "Минимальная сумма к выводу — $100. Первая выплата становится доступна после того, как 5 твоих рефералов совершили хотя бы одну покупку — это защищает программу от самореферальства. Дальше выводи по запросу из кабинета, без ограничений по частоте." }
-    ];
-    const [open, setOpen] = useState(-1);
-    const TG_BLUE = "#229ED9", TG_BLUE_DARK = "#1E8BBE";
-    return _e("section", { id: "faq", style: { padding: "100px 0 120px", background: "var(--bg)" } },
-      _e("div", { className: "container" },
-        _e(Reveal, null,
-          _e("div", { style: { textAlign: "center", maxWidth: 720, margin: "0 auto 48px" } },
-            _e("span", {
-              style: { display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 100, border: "1px solid var(--line)", background: "rgba(255,255,255,0.02)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#a1a0a4", marginBottom: 24 }
-            }, "FAQ"),
-            _e("h2", { style: { fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.05, fontWeight: 800, letterSpacing: "-0.025em", color: "#f5f1e8", marginBottom: 16 } }, "Часто задаваемые вопросы"),
-            _e("p", { style: { fontSize: 16, color: "#a1a0a4" } }, "Всё что нужно знать о партнёрской программе.")
-          )
-        ),
-        _e(Reveal, { delay: "1" },
-          _e("div", { style: { maxWidth: 820, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 } },
-            items.map((it, i) => _e("div", {
-              key: i,
-              style: { background: "#1C1C1F", border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden" }
-            },
-              _e("button", { onClick: () => setOpen(open === i ? -1 : i),
-                style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", color: "#f5f1e8", fontSize: 16, fontWeight: 700, textAlign: "left" }
-              },
-                _e("span", null, it.q),
-                _e("span", { style: { fontSize: 16, color: "#a1a0a4", transform: open === i ? "rotate(180deg)" : "none", transition: "transform .25s" } }, "▾")
-              ),
-              open === i && _e("div", { style: { padding: "0 24px 22px", fontSize: 14, color: "#a1a0a4", lineHeight: 1.6 } }, it.a)
-            ))
-          )
-        ),
-        _e(Reveal, { delay: "2" },
-          _e("div", { className: "hh-faq-cta",
-            style: {
-              maxWidth: 820, margin: "48px auto 0", padding: "28px 32px",
-              background: "#1C1C1F", border: "1px solid rgba(43,156,222,0.4)", borderRadius: 16,
-              display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28, flexWrap: "wrap"
-            }
-          },
-            _e("div", { style: { flex: "1 1 320px", minWidth: 0 } },
-              _e("div", { style: { fontSize: 22, fontWeight: 700, color: "#f5f1e8", marginBottom: 8 } },
-                "Остались ", _e("span", { style: { color: "#fcd535" } }, "вопросы?")
-              ),
-              _e("div", { style: { fontSize: 14, color: "#a1a0a4", lineHeight: 1.5, margin: 0 } },
-                "Напиши в партнёрскую поддержку в Telegram — поможем и ответим на все вопросы по партнёрской программе."
-              )
-            ),
-            _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer", className: "hh-btn-tg",
-              style: {
-                display: "inline-flex", alignItems: "center", gap: 10,
-                padding: "16px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700,
-                textDecoration: "none", color: "#fff", whiteSpace: "nowrap", flexShrink: 0,
-                boxShadow: `0 12px 32px -8px ${TG_BLUE_DARK}`
-              }
-            },
-              _e("svg", { width: 20, height: 20, viewBox: "0 0 24 24", style: { fill: "#fff" } },
-                _e("path", { d: "M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l16-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.85.42z", style: { fill: "#fff" } })
-              ),
-              _e("span", { style: { color: "#fff" } }, "Поддержка в Telegram")
+              _e("a", { href: "https://t.me/hashhedge_affiliate", target: "_blank", rel: "noopener noreferrer",
+                className: "hh-btn-yellow",
+                style: {
+                  padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
+                  textDecoration: "none",
+                  display: "inline-flex", alignItems: "center", gap: 10,
+                  marginRight: 12, marginBottom: 12,
+                  boxShadow: "0 0 0 1px rgba(252,213,53,0.30), 0 10px 26px -10px rgba(252,213,53,0.45)"
+                }
+              }, "Написать Tati в Telegram →"),
+              _e("a", { href: "mailto:affiliates@hashhedge.com",
+                style: {
+                  padding: "16px 28px", borderRadius: 100, fontSize: 15, fontWeight: 700,
+                  textDecoration: "none",
+                  display: "inline-flex", alignItems: "center", gap: 10,
+                  border: "1.5px solid #fcd535", color: "#fcd535",
+                  background: "transparent",
+                  transition: "background .2s"
+                },
+                onMouseEnter: e => { e.currentTarget.style.background = "rgba(252,213,53,0.06)"; },
+                onMouseLeave: e => { e.currentTarget.style.background = "transparent"; }
+              }, "affiliates@hashhedge.com")
             )
           )
         )
@@ -2781,6 +2623,23 @@
           0%, 100% { opacity: 0.55; transform: scale(1); }
           50%      { opacity: 0.05; transform: scale(1.6); }
         }
+        /* v11.0: падающие цифры — matrix-rain в стиле Vercel finale */
+        @keyframes hh-fall {
+          0%   { transform: translateY(-20px); opacity: 0; }
+          15%  { opacity: 0.55; }
+          85%  { opacity: 0.40; }
+          100% { transform: translateY(320px); opacity: 0; }
+        }
+        .hh-cta-rain { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+        .hh-cta-rain > span {
+          position: absolute; top: 0;
+          font-family: "Akrobat", Onest, ui-monospace, monospace;
+          font-weight: 800;
+          color: rgba(252,213,53,0.55);
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+          animation: hh-fall linear infinite;
+        }
       `),
       _e("div", { className: "container", style: { position: "relative", zIndex: 1 } },
         _e(Reveal, null,
@@ -2795,6 +2654,27 @@
               boxShadow: "0 30px 70px -30px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)"
             }
           },
+            // Падающие цифры — matrix-rain слой на самом фоне
+            _e("div", { className: "hh-cta-rain", "aria-hidden": "true" },
+              [
+                { t: "$642",    l: "8%",  fs: 22, dur: 6.5, delay: 0 },
+                { t: "USDT",    l: "17%", fs: 16, dur: 8,   delay: 1.2 },
+                { t: "80%",     l: "26%", fs: 26, dur: 5.5, delay: 2.4 },
+                { t: "$1,240",  l: "34%", fs: 18, dur: 9,   delay: 0.6 },
+                { t: "642",     l: "43%", fs: 20, dur: 6,   delay: 3.0 },
+                { t: "$2,340",  l: "51%", fs: 18, dur: 7.5, delay: 1.6 },
+                { t: "55%",     l: "59%", fs: 24, dur: 6.8, delay: 4.2 },
+                { t: "$318",    l: "67%", fs: 16, dur: 8.5, delay: 0.4 },
+                { t: "70%",     l: "75%", fs: 26, dur: 5.8, delay: 2.0 },
+                { t: "USDT",    l: "83%", fs: 18, dur: 7.2, delay: 3.5 },
+                { t: "$551",    l: "91%", fs: 20, dur: 6.4, delay: 1.0 }
+              ].map((n, i) => _e("span", { key: "rain" + i, style: {
+                left: n.l,
+                fontSize: n.fs,
+                animationDuration: n.dur + "s",
+                animationDelay: n.delay + "s"
+              } }, n.t))
+            ),
             // Chart background — тонкая линия SVG
             _e("div", { "aria-hidden": true, style: { position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.6 } },
               _e("svg", { width: "100%", height: "100%", viewBox: "0 0 1200 300", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } },
