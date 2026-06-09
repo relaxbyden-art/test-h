@@ -523,9 +523,9 @@
             ),
             _e("h1", { className: "hh-partner-hero-h1",
               style: {
-                fontSize: "clamp(38px, 5.5vw, 76px)",
-                lineHeight: 1.02, fontWeight: 800,
-                letterSpacing: "-0.035em", margin: "0 0 28px", color: "#f5f1e8"
+                fontSize: "clamp(36px, 4.8vw, 60px)",
+                lineHeight: 1.05, fontWeight: 800,
+                letterSpacing: "-0.03em", margin: "0 0 28px", color: "#f5f1e8"
               }
             },
               "Продвигай", _e("br", null),
