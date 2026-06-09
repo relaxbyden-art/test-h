@@ -3769,12 +3769,20 @@
         .hh-events-slider .hh-event-card-title { font-size: 17px !important; }
         .hh-events-slider::-webkit-scrollbar { display: none !important; }
 
-        /* (5) Кнопка Tati — гарантированно жёлтая с чёрным текстом */
-        #hashhedge-root .tilda-html-hashhedge a.hh-tati-cta {
+        /* (5) Кнопка Tati. ПРИЧИНА прозрачности: глобальное правило в hashhedge-react.css
+           (@media max-width:640) "#hashhedge-root .tilda-html-hashhedge .hh-support-section a[href]
+           { background: rgba(255,255,255,0.04) !important; border:...; justify-content:space-between }"
+           имеет спецификацию (1,3,1) — выше нашей (1,2,1), оба !important → серый фон побеждал.
+           Поднимаем спецификацию до (1,4,1) (.hh-support-section + .hh-btn-yellow) и возвращаем вид кнопки. */
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section a.hh-tati-cta.hh-btn-yellow {
           background: #fcd535 !important;
           color: #13111c !important;
+          border: none !important;
+          border-radius: 100px !important;
+          justify-content: center !important;
+          padding: 16px 28px !important;
         }
-        #hashhedge-root .tilda-html-hashhedge a.hh-tati-cta * { color: #13111c !important; }
+        #hashhedge-root .tilda-html-hashhedge .hh-support-section a.hh-tati-cta.hh-btn-yellow * { color: #13111c !important; }
       }
     `;
     document.head.appendChild(st);
