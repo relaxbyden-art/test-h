@@ -3223,14 +3223,13 @@ function Pricing() {
     25000: 349,
     30000: 419
   };
-  // TODO: реальные payment-form URL для 1-фазного — придут от пользователя.
-  // Пока — общая страница регистрации (выбор челленджа в кабинете).
+  // 1-фазный payment-form URL'ы (живые).
   const paymentLinks1 = {
-    5000: "https://app.hashhedge.com/ru/register",
-    10000: "https://app.hashhedge.com/ru/register",
-    15000: "https://app.hashhedge.com/ru/register",
-    25000: "https://app.hashhedge.com/ru/register",
-    30000: "https://app.hashhedge.com/ru/register"
+    5000: "https://app.hashhedge.com/ru/app/payment-form/f23e0213-0f1c-4901-9bcb-f33231fdf6fb",
+    10000: "https://app.hashhedge.com/ru/app/payment-form/817e214a-bca2-4320-a58c-c499d9313d2e",
+    15000: "https://app.hashhedge.com/ru/app/payment-form/09535d91-26d6-46cc-8752-091eb74ee44b",
+    25000: "https://app.hashhedge.com/ru/app/payment-form/23cc5222-49fc-4d30-9387-94ffc1e32450",
+    30000: "https://app.hashhedge.com/ru/app/payment-form/a78b583b-b93d-45da-808a-aa905104b475"
   };
   const accountNotes1 = {
     5000: "Стартовый 1-фазный аккаунт для быстрого первого funded.",

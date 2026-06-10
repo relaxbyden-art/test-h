@@ -3151,11 +3151,15 @@ function PricingTooltipLabel({label}) {
 }
 function Pricing() {
   useRevealOnScroll();
+  const [phase, setPhase] = ___useS(1);          // 1-fase padrão (novo); 2 = 2-fases
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
-  const sizes = [5000, 10000, 25000, 50000, 100000, 150000];
-  const pricing = {
+  const is1 = phase === 1;
+
+  // ── 2-PHASE DATA ───────────────────────────────────────────────────────────
+  const sizes2 = [5000, 10000, 25000, 50000, 100000, 150000];
+  const pricing2 = {
     5000: 79,
     10000: 99,
     25000: 299,
@@ -3163,8 +3167,7 @@ function Pricing() {
     100000: 799,
     150000: 1093
   };
-  const flashSaleSizes = []; // акции выключены — оставляем механизм для будущих кампаний
-  const paymentLinks = {
+  const paymentLinks2 = {
     5000: "https://app.hashhedge.com/pt/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
     10000: "https://app.hashhedge.com/pt/app/payment-form/e1e37983-305a-4781-b104-945c92da525c",
     25000: "https://app.hashhedge.com/pt/app/payment-form/ea03d4c8-df35-41ed-b36e-203a6b15bc11",
@@ -3172,9 +3175,7 @@ function Pricing() {
     100000: "https://app.hashhedge.com/pt/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7",
     150000: "https://app.hashhedge.com/pt/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"
   };
-  const price = pricing[size];
-  const popular = 25000;
-  const accountNotes = {
+  const accountNotes2 = {
     5000: "Conta inicial para testar as regras com a menor taxa de entrada.",
     10000: "Conta compacta para traders financiados iniciantes que querem mais margem.",
     25000: "O equilíbrio mais popular entre taxa, capital e margem prática de drawdown.",
@@ -3182,7 +3183,49 @@ function Pricing() {
     100000: "Criada para traders experientes que já gerenciam risco maior.",
     150000: "Alocação máxima da Hash Hedge e melhor relação entre taxa e capital."
   };
-  const mobileStageTabs = [{
+
+  // ── 1-PHASE DATA (novo desafio) ────────────────────────────────────────────
+  const sizes1 = [5000, 10000, 15000, 25000, 30000];
+  const pricing1 = {
+    5000: 99,
+    10000: 159,
+    15000: 229,
+    25000: 349,
+    30000: 419
+  };
+  // URLs de payment-form para 1-fase (live).
+  const paymentLinks1 = {
+    5000: "https://app.hashhedge.com/pt/app/payment-form/f23e0213-0f1c-4901-9bcb-f33231fdf6fb",
+    10000: "https://app.hashhedge.com/pt/app/payment-form/817e214a-bca2-4320-a58c-c499d9313d2e",
+    15000: "https://app.hashhedge.com/pt/app/payment-form/09535d91-26d6-46cc-8752-091eb74ee44b",
+    25000: "https://app.hashhedge.com/pt/app/payment-form/23cc5222-49fc-4d30-9387-94ffc1e32450",
+    30000: "https://app.hashhedge.com/pt/app/payment-form/a78b583b-b93d-45da-808a-aa905104b475"
+  };
+  const accountNotes1 = {
+    5000: "Conta inicial de 1-fase para um primeiro funded rápido.",
+    10000: "Conta compacta de 1-fase com o menor drawdown.",
+    15000: "Tamanho ideal para traders com gestão de risco disciplinada.",
+    25000: "A conta de 1-fase mais popular.",
+    30000: "Conta máxima de 1-fase — melhor taxa por \$1K de capital."
+  };
+
+  // ── Active dataset (selecionado por phase) ─────────────────────────────────
+  const sizes = is1 ? sizes1 : sizes2;
+  const pricing = is1 ? pricing1 : pricing2;
+  const paymentLinks = is1 ? paymentLinks1 : paymentLinks2;
+  const accountNotes = is1 ? accountNotes1 : accountNotes2;
+  const popular = 25000;
+  const bestValue = is1 ? 30000 : 150000;
+  const flashSaleSizes = []; // promos desativadas — mecanismo mantido para futuras campanhas
+
+  // Defensivo: se size/mobileStage ficam inválidos após troca de phase — fallback suave
+  React.useEffect(() => {
+    if (sizes.indexOf(size) < 0) setSize(popular);
+    if (is1 && mobileStage === "stage2") setMobileStage("stage1");
+  }, [phase]); // eslint-disable-line
+
+  // ── Mobile stage tabs / rules ─────────────────────────────────────────────
+  const mobileStageTabs2 = [{
     id: "stage1",
     label: "Stage 1",
     sub: "Avaliação"
@@ -3195,11 +3238,26 @@ function Pricing() {
     label: "Funded",
     sub: "Conta real"
   }];
-  const mobileStageRules = {
+  const mobileStageTabs1 = [{
+    id: "stage1",
+    label: "Stage 1",
+    sub: "Avaliação"
+  }, {
+    id: "funded",
+    label: "Funded",
+    sub: "Conta real"
+  }];
+  const mobileStageTabs = is1 ? mobileStageTabs1 : mobileStageTabs2;
+  const mobileStageRules2 = {
     stage1: [["Meta de Lucro", "8%"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "10%"], ["Dias Mínimos de Negociação", "5 dias"], ["Período de Negociação", "Ilimitado"], ["Alavancagem", "1:5"]],
     stage2: [["Meta de Lucro", "6%"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "8%"], ["Dias Mínimos de Negociação", "5 dias"], ["Período de Negociação", "Ilimitado"], ["Alavancagem", "1:5"]],
     funded: [["Meta de Lucro", "Sem meta"], ["Perda Diária Máxima", "5%"], ["Drawdown Máximo", "8%"], ["Dias Mínimos de Negociação", "-"], ["Período de Negociação", "Ilimitado"], ["Alavancagem", "1:5"], ["Divisão de Lucros", "90%"], ["Pagamentos", "USDT para a carteira"]]
   };
+  const mobileStageRules1 = {
+    stage1: [["Meta de Lucro", "10%"], ["Perda Diária Máxima", "3%"], ["Drawdown Máximo", "6%"], ["Dias Mínimos de Negociação", "5 dias"], ["Período de Negociação", "Ilimitado"], ["Alavancagem", "1:5"]],
+    funded: [["Meta de Lucro", "Sem meta"], ["Perda Diária Máxima", "3%"], ["Drawdown Máximo", "6%"], ["Dias Mínimos de Negociação", "-"], ["Período de Negociação", "Ilimitado"], ["Alavancagem", "1:5"], ["Divisão de Lucros", "90%"], ["Pagamentos", "USDT para a carteira"]]
+  };
+  const mobileStageRules = is1 ? mobileStageRules1 : mobileStageRules2;
 
   // Per-stage rule values – single source of truth.
   const rules = [{
@@ -3224,7 +3282,7 @@ function Pricing() {
       strokeLinecap: "round",
       strokeLinejoin: "round"
     })),
-    stages: ["8%", "6%", "∞"]
+    stages: is1 ? ["10%", "∞"] : ["8%", "6%", "∞"]
   }, {
     k: "daily",
     label: "Perda Diária Máxima",
@@ -3246,7 +3304,7 @@ function Pricing() {
       stroke: "currentColor",
       strokeWidth: "2"
     })),
-    stages: ["5%", "5%", "5%"]
+    stages: is1 ? ["3%", "3%"] : ["5%", "5%", "5%"]
   }, {
     k: "dd",
     label: "Drawdown Máximo Total",
@@ -3269,7 +3327,7 @@ function Pricing() {
       strokeLinecap: "round",
       strokeLinejoin: "round"
     })),
-    stages: ["10%", "8%", "8%"]
+    stages: is1 ? ["6%", "6%"] : ["10%", "8%", "8%"]
   }, {
     k: "days",
     label: "Dias Mínimos de Negociação",
@@ -3293,7 +3351,7 @@ function Pricing() {
       strokeWidth: "2",
       strokeLinecap: "round"
     })),
-    stages: ["5", "5", "–"]
+    stages: is1 ? ["5", "–"] : ["5", "5", "–"]
   }, {
     k: "period",
     label: "Período de Negociação",
@@ -3315,7 +3373,11 @@ function Pricing() {
       strokeWidth: "2",
       strokeLinecap: "round"
     })),
-    stages: [/*#__PURE__*/React.createElement(Inf, {
+    stages: is1 ? [/*#__PURE__*/React.createElement(Inf, {
+      key: "1"
+    }), /*#__PURE__*/React.createElement(Inf, {
+      key: "2"
+    })] : [/*#__PURE__*/React.createElement(Inf, {
       key: "1"
     }), /*#__PURE__*/React.createElement(Inf, {
       key: "2"
@@ -3337,9 +3399,12 @@ function Pricing() {
       strokeWidth: "2",
       strokeLinejoin: "round"
     })),
-    stages: ["1:5", "1:5", "1:5"]
+    stages: is1 ? ["1:5", "1:5"] : ["1:5", "1:5", "1:5"]
   }];
-  const profitTarget$ = Math.round(size * 8 / 100);
+  const profitTargetPct = is1 ? 10 : 8;
+  const profitTarget$ = Math.round(size * profitTargetPct / 100);
+  // Defensivo: se size sumir do set entre o render e o fallback do useEffect — usar pricing[popular]
+  const price = pricing[size] !== undefined ? pricing[size] : pricing[popular];
   return /*#__PURE__*/React.createElement("section", {
     id: "pricing"
   }, /*#__PURE__*/React.createElement("div", {
@@ -3383,25 +3448,70 @@ function Pricing() {
       justifyContent: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
+    role: "tablist",
+    "aria-label": "Tipo de desafio",
     style: {
       display: "inline-flex",
       padding: 5,
       border: "1px solid var(--line)",
       borderRadius: 999,
-      background: "rgba(255,255,255,0.02)"
+      background: "rgba(255,255,255,0.02)",
+      gap: 2
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    role: "tab",
+    "aria-selected": is1,
+    onClick: () => setPhase(1),
     style: {
+      position: "relative",
       padding: "8px 22px",
       borderRadius: 999,
-      background: "var(--accent)",
-      color: "#13111c",
+      background: is1 ? "var(--accent)" : "transparent",
+      color: is1 ? "#13111c" : "var(--fg-muted)",
       fontWeight: 800,
       fontSize: 13,
       letterSpacing: "0.02em",
-      fontFamily: "Onest, sans-serif"
+      fontFamily: "Onest, sans-serif",
+      border: "none",
+      cursor: "pointer",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      transition: "background .18s, color .18s"
     }
-  }, "Challenge em 2 fases")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Desafio de 1 fase", /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      padding: "2px 7px",
+      borderRadius: 999,
+      fontSize: 9,
+      fontWeight: 900,
+      letterSpacing: "0.12em",
+      background: is1 ? "#13111c" : "var(--accent)",
+      color: is1 ? "var(--accent)" : "#13111c",
+      lineHeight: 1
+    }
+  }, "NEW")), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    role: "tab",
+    "aria-selected": !is1,
+    onClick: () => setPhase(2),
+    style: {
+      padding: "8px 22px",
+      borderRadius: 999,
+      background: !is1 ? "var(--accent)" : "transparent",
+      color: !is1 ? "#13111c" : "var(--fg-muted)",
+      fontWeight: 800,
+      fontSize: 13,
+      letterSpacing: "0.02em",
+      fontFamily: "Onest, sans-serif",
+      border: "none",
+      cursor: "pointer",
+      transition: "background .18s, color .18s"
+    }
+  }, "Desafio de 2 fases")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3460,8 +3570,8 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === 150000;
+    const isPop = !is1 && s === popular;
+    const isBest = !is1 && s === bestValue;
     const isFlash = flashSaleSizes.indexOf(s) >= 0;
     const badge = isFlash ? "PROMO" : isBest ? "MELHOR VALOR" : isPop ? "POPULAR" : null;
     const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
@@ -3552,8 +3662,8 @@ function Pricing() {
     "aria-label": "Escolher tamanho da conta"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === 150000;
+    const isPop = !is1 && s === popular;
+    const isBest = !is1 && s === bestValue;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
@@ -3619,7 +3729,21 @@ function Pricing() {
     className: "hh-mobile-account-fee"
   }, /*#__PURE__*/React.createElement("span", null, "Taxa única"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("p", null, accountNotes[size]), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Stage 2"), /*#__PURE__*/React.createElement("b", null, "6%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Perda diária"), /*#__PURE__*/React.createElement("b", null, "5%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Max DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Dias mín."), /*#__PURE__*/React.createElement("b", null, "5 + 5")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Período"), /*#__PURE__*/React.createElement("b", null, "Ilimitado"))), /*#__PURE__*/React.createElement("a", {
+  }, is1 ? [
+    /*#__PURE__*/React.createElement("div", { key: "s1" }, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "10%")),
+    /*#__PURE__*/React.createElement("div", { key: "fund" }, /*#__PURE__*/React.createElement("span", null, "Funded"), /*#__PURE__*/React.createElement("b", null, "—")),
+    /*#__PURE__*/React.createElement("div", { key: "dd" }, /*#__PURE__*/React.createElement("span", null, "Perda diária"), /*#__PURE__*/React.createElement("b", null, "3%")),
+    /*#__PURE__*/React.createElement("div", { key: "max" }, /*#__PURE__*/React.createElement("span", null, "Max DD"), /*#__PURE__*/React.createElement("b", null, "6%")),
+    /*#__PURE__*/React.createElement("div", { key: "min" }, /*#__PURE__*/React.createElement("span", null, "Dias mín."), /*#__PURE__*/React.createElement("b", null, "5")),
+    /*#__PURE__*/React.createElement("div", { key: "term" }, /*#__PURE__*/React.createElement("span", null, "Período"), /*#__PURE__*/React.createElement("b", null, "Ilimitado"))
+  ] : [
+    /*#__PURE__*/React.createElement("div", { key: "s1" }, /*#__PURE__*/React.createElement("span", null, "Stage 1"), /*#__PURE__*/React.createElement("b", null, "8%")),
+    /*#__PURE__*/React.createElement("div", { key: "s2" }, /*#__PURE__*/React.createElement("span", null, "Stage 2"), /*#__PURE__*/React.createElement("b", null, "6%")),
+    /*#__PURE__*/React.createElement("div", { key: "dd" }, /*#__PURE__*/React.createElement("span", null, "Perda diária"), /*#__PURE__*/React.createElement("b", null, "5%")),
+    /*#__PURE__*/React.createElement("div", { key: "max" }, /*#__PURE__*/React.createElement("span", null, "Max DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")),
+    /*#__PURE__*/React.createElement("div", { key: "min" }, /*#__PURE__*/React.createElement("span", null, "Dias mín."), /*#__PURE__*/React.createElement("b", null, "5 + 5")),
+    /*#__PURE__*/React.createElement("div", { key: "term" }, /*#__PURE__*/React.createElement("span", null, "Período"), /*#__PURE__*/React.createElement("b", null, "Ilimitado"))
+  ]), /*#__PURE__*/React.createElement("a", {
     href: paymentLinks[size],
     target: "_blank",
     rel: "noopener",
@@ -3654,7 +3778,7 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "minmax(280px, 1.4fr) repeat(3, 1fr)",
+      gridTemplateColumns: `minmax(280px, 1.4fr) repeat(${is1 ? 2 : 3}, 1fr)`,
       background: "rgba(255,255,255,0.02)",
       borderBottom: "1px solid var(--line-strong)"
     }
@@ -3682,22 +3806,32 @@ function Pricing() {
       letterSpacing: "-0.01em",
       lineHeight: 1.12
     }
-  }, "Challenge rules,", /*#__PURE__*/React.createElement("br", null), "stage by stage")), [{
+  }, "Challenge rules,", /*#__PURE__*/React.createElement("br", null), "stage by stage")), (is1 ? [{
     n: 1,
     label: "STAGE 1",
-    sub: "Avaliação phase",
+    sub: "Fase de avaliação",
+    accent: false
+  }, {
+    n: 2,
+    label: "FUNDED",
+    sub: "Capital real, pagamentos reais",
+    accent: true
+  }] : [{
+    n: 1,
+    label: "STAGE 1",
+    sub: "Fase de avaliação",
     accent: false
   }, {
     n: 2,
     label: "STAGE 2",
-    sub: "Verificação phase",
+    sub: "Fase de verificação",
     accent: false
   }, {
     n: 3,
     label: "FUNDED",
     sub: "Capital real, pagamentos reais",
     accent: true
-  }].map((col, i) => /*#__PURE__*/React.createElement("div", {
+  }]).map((col, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: col.accent ? "hh-funded-stage-cell" : undefined,
     style: {
@@ -3737,7 +3871,7 @@ function Pricing() {
     "data-rule-open": openRule === r.k ? "true" : undefined,
     style: {
       display: "grid",
-      gridTemplateColumns: "minmax(280px, 1.4fr) repeat(3, 1fr)",
+      gridTemplateColumns: `minmax(280px, 1.4fr) repeat(${is1 ? 2 : 3}, 1fr)`,
       borderTop: rowI === 0 ? "none" : "1px solid var(--line)",
       background: rowI % 2 === 1 ? "rgba(255,255,255,0.012)" : "transparent",
       position: "relative"
@@ -3818,11 +3952,11 @@ function Pricing() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: i === 2 ? "rgba(252,213,53,0.03)" : "transparent",
+      background: i === (is1 ? 1 : 2) ? "rgba(252,213,53,0.03)" : "transparent",
       fontSize: 19,
       fontWeight: 800,
       letterSpacing: "-0.01em",
-      color: i === 2 ? "var(--accent)" : "var(--fg)",
+      color: i === (is1 ? 1 : 2) ? "var(--accent)" : "var(--fg)",
       fontFamily: "Akrobat, Onest, sans-serif",
       lineHeight: 1
     }
