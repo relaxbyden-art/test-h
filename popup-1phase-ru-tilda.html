@@ -1,8 +1,8 @@
-<!-- Hash Hedge — Popup 1-фазный челлендж (RU). Tilda embed.
+<!-- Hash Hedge — Popup Однофазные челленджи (RU). Tilda embed.
      Структура и цветовая палитра 1-в-1 со старым FlashSale 200K попапом (центр экрана,
      тёмный modal, жёлтый акцент, таймер HOURS:MINUTES:SECONDS, карточки тарифов).
      Авто-показ через 1.5с. Закрытие: × / ESC / клик мимо.
-     Акция активна до 12 июня 2026, 23:00 МСК (=20:00 UTC). После окончания попап не показывается. -->
+     Акция активна до 12 июня 2026, 23:59 Dubai (= 19:59 UTC). После окончания попап не показывается. -->
 <meta charset="UTF-8">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap');
@@ -217,7 +217,7 @@
 }
 </style>
 
-<div class="hh1-overlay" id="hh1Popup" aria-hidden="true" role="dialog" aria-modal="true" aria-label="1-фазный челлендж">
+<div class="hh1-overlay" id="hh1Popup" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Однофазные челленджи">
   <div class="hh1-modal">
 
     <button class="hh1-close" type="button" onclick="hh1Close()" aria-label="Закрыть">
@@ -226,12 +226,12 @@
       </svg>
     </button>
 
-    <div class="hh1-badge"><span class="dot"></span>NEW · Запуск</div>
+    <div class="hh1-badge"><span class="dot"></span>NEW</div>
 
-    <h2 class="hh1-title">1-фазный <span class="accent">челлендж</span></h2>
+    <h2 class="hh1-title">Однофазные <span class="accent">челленджи</span></h2>
 
     <p class="hh1-sub">
-      Один этап — и ты в funded. Цель 10%, дневная просадка 3%, общая 6%. Минимум 5 торговых дней — и забираешь до 90% прибыли.
+      Теперь получить капитал можно еще быстрее.
     </p>
 
     <span class="hh1-timer-label">Акция заканчивается через:</span>
@@ -246,7 +246,7 @@
     <div class="hh1-cards">
       <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
         <div class="hh1-card-left">
-          <span class="hh1-card-label">Аккаунт</span>
+          <span class="hh1-card-label">Счет</span>
           <strong class="hh1-card-acc">$5,000</strong>
         </div>
         <div class="hh1-card-price">$99</div>
@@ -254,7 +254,7 @@
       </a>
       <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
         <div class="hh1-card-left">
-          <span class="hh1-card-label">Аккаунт</span>
+          <span class="hh1-card-label">Счет</span>
           <strong class="hh1-card-acc">$10,000</strong>
         </div>
         <div class="hh1-card-price">$159</div>
@@ -262,7 +262,7 @@
       </a>
       <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
         <div class="hh1-card-left">
-          <span class="hh1-card-label">Аккаунт</span>
+          <span class="hh1-card-label">Счет</span>
           <strong class="hh1-card-acc">$15,000</strong>
         </div>
         <div class="hh1-card-price">$229</div>
@@ -270,7 +270,7 @@
       </a>
       <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
         <div class="hh1-card-left">
-          <span class="hh1-card-label">Аккаунт</span>
+          <span class="hh1-card-label">Счет</span>
           <strong class="hh1-card-acc">$25,000</strong>
         </div>
         <div class="hh1-card-price">$349</div>
@@ -278,7 +278,7 @@
       </a>
       <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
         <div class="hh1-card-left">
-          <span class="hh1-card-label">Аккаунт</span>
+          <span class="hh1-card-label">Счет</span>
           <strong class="hh1-card-acc">$30,000</strong>
         </div>
         <div class="hh1-card-price">$419</div>
@@ -287,7 +287,7 @@
     </div>
 
     <p class="hh1-disclaimer">
-      Акция действует до 12 июня 2026, 23:00 МСК. После окончания таймера попап скрывается автоматически.
+      Акция действует до 12 июня 2026, 23:59 (Dubai time). После завершения таймера доступ к однофазному челленджу закроется автоматически.
     </p>
 
   </div>
@@ -295,8 +295,8 @@
 
 <script>
 (function() {
-  // Конец акции: 12 июня 2026, 23:00 МСК = 20:00 UTC
-  var END_TS = Date.UTC(2026, 5, 12, 20, 0, 0);
+  // Конец акции: 12 июня 2026, 23:59 Dubai (UTC+4) = 19:59 UTC
+  var END_TS = Date.UTC(2026, 5, 12, 19, 59, 0);
   var el = document.getElementById('hh1Popup');
   var hEl = document.getElementById('hh1H');
   var mEl = document.getElementById('hh1M');
