@@ -7,8 +7,10 @@ Crypto prop trading landing page. React app compiled into a single JS bundle, se
 ## Repo
 
 ```
-https://github.com/relaxbyden-art/hash-hedge
+https://github.com/relaxbyden-art/test-h
 ```
+
+Legacy repo `https://github.com/relaxbyden-art/hash-hedge` is kept only so already-published Tilda pages do not break during migration. New work and new snippets should use `test-h`.
 
 PAT (for git push):
 ```
@@ -17,7 +19,7 @@ YOUR_GITHUB_PAT_HERE
 
 Push with PAT:
 ```bash
-git remote set-url origin https://relaxbyden-art:YOUR_GITHUB_PAT_HERE@github.com/relaxbyden-art/hash-hedge.git
+git remote set-url origin https://relaxbyden-art:YOUR_GITHUB_PAT_HERE@github.com/relaxbyden-art/test-h.git
 git push origin main
 ```
 
@@ -37,8 +39,9 @@ git push origin main
 ## Rules
 
 - Work from latest GitHub `main` first: `git fetch origin` + fast-forward before edits.
-- **English bundle only** — `hashhedge-react-app.js`. Do NOT touch the Russian bundle.
-- **Desktop only** — no mobile layout changes.
+- Edit only the specific language/page bundle requested by the user.
+- Main bundles use `hashhedge-react-app-{lang}.js`; affiliate bundles use `hashhedge-react-app-affiliate-{lang}.js`.
+- For every delivered Tilda snippet, verify the pinned SHA on GitHub/raw and jsDelivr before reporting success.
 - After push, jsDelivr CDN updates in ~5 minutes.
 
 ---
@@ -131,7 +134,7 @@ Nothing currently tracked. Ask the user what to work on next.
 
 ```bash
 # 1. Clone fresh
-git clone https://relaxbyden-art:PAT@github.com/relaxbyden-art/hash-hedge.git /tmp/gh-push
+git clone https://relaxbyden-art:PAT@github.com/relaxbyden-art/test-h.git /tmp/gh-push
 cd /tmp/gh-push
 
 # 2. Edit with Python

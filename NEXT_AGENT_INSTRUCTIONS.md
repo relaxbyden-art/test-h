@@ -8,10 +8,12 @@
 
 Hash Hedge — крипто-проп-фирма. Сайт лежит на **Tilda**, а сложные интерактивные блоки рендерятся как **React-приложение**, которое подгружается через `<script>` из jsDelivr CDN на основе нашего GitHub-репозитория.
 
+Активный репозиторий для новых правок: `relaxbyden-art/test-h`. Старый `relaxbyden-art/hash-hedge` оставлен как legacy на время миграции, потому что часть уже опубликованных Tilda-страниц может всё ещё грузиться оттуда.
+
 Каждая страница Tilda содержит один HTML-блок (T123) с двумя строками:
 ```html
 <div id="hashhedge-root"></div>
-<script src="https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@<SHA>/hashhedge-react-loader-<lang>.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/relaxbyden-art/test-h@<SHA>/hashhedge-react-loader-<lang>.js"></script>
 ```
 
 Loader подгружает React + ReactDOM + основной bundle (`hashhedge-react-app-*.js`) с того же SHA.
@@ -22,20 +24,20 @@ Loader подгружает React + ReactDOM + основной bundle (`hashhed
 
 **Локальный путь:** `/Users/bdrom/Desktop/Hash Hedge/Site/`
 **Sandbox-путь (для bash):** `/sessions/<session>/mnt/Site/`
-**GitHub:** `https://github.com/relaxbyden-art/hash-hedge` (ветка `main`)
+**GitHub:** `https://github.com/relaxbyden-art/test-h` (ветка `main`)
 
 ### Основные файлы
 
 | Что | Главная страница | Partner page (новая) |
 |---|---|---|
-| **Bundle** | `hashhedge-react-app-{lang}.js` | `hashhedge-react-app-affiliate-{ru,en}.js` |
-| **Loader** | `hashhedge-react-loader-{lang}.js` | `hashhedge-react-loader-affiliate-{ru,en}.js` |
-| **Snippet (для Tilda)** | `tilda-react-snippet-{lang}.html` | `tilda-react-snippet-affiliate-{ru,en}.html` |
+| **Bundle** | `hashhedge-react-app-{lang}.js` | `hashhedge-react-app-affiliate-{lang}.js` |
+| **Loader** | `hashhedge-react-loader-{lang}.js` | `hashhedge-react-loader-affiliate-{lang}.js` |
+| **Snippet (для Tilda)** | `tilda-react-snippet-{lang}.html` | `tilda-react-snippet-affiliate-{lang}.html` |
 | **CSS (общий)** | `hashhedge-react.css` | (тот же) |
 | **Assets** | `assets/` | (тот же) |
 
 Языки главной: `ru, en, de, fr, es, pt, hi, id, kz, ua`.
-Языки affiliate-страницы: пока только `ru` и `en` (в работе).
+Языки affiliate-страницы: `ru, en, ua, kz, pt, de, es, fr, hi, id`.
 
 ### Папки-инструкции (читать обязательно)
 
@@ -83,19 +85,19 @@ git reset --hard origin/main
 5. **Обнови snippet pin**: в `tilda-react-snippet-affiliate-*.html` поменяй `HH_COMMIT` и все preload-URLs на новый SHA.
 6. **Запиши commit для pin** отдельно.
 7. **Попроси пользователя запустить `push.command`** — у пользователя локальный zsh-скрипт, который пушит на main через PAT.
-8. **После «пушнул»** — верифицируй через `mcp__workspace__web_fetch` что новый SHA доступен на `cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@<SHA>/...`.
+8. **После «пушнул»** — верифицируй через `mcp__workspace__web_fetch` что новый SHA доступен на `cdn.jsdelivr.net/gh/relaxbyden-art/test-h@<SHA>/...`.
 9. **Отдай готовый snippet** для вставки в Tilda HTML-блок.
 
 ### КРИТИЧНО (правило из AGENTS.md)
 
-- **Из sandbox `git push` блокируется HTTP 403** (proxy allowlist). **Не пытайся пушить сам** — всегда проси пользователя запустить `push.command`.
+- У некоторых sandbox-агентов `git push` блокируется HTTP 403 (proxy allowlist). Если push не проходит, попроси пользователя запустить `push.command` или попроси Codex запушить.
 - **Никогда не пиши PAT в файлы.** PAT уже зашит в `push.command` (этот файл в `.gitignore`).
 - **Не объявляй push успешным**, пока не подтвердил web_fetch'ом что SHA на jsDelivr возвращает 200.
 - **Если push блокируется и нужна доставка** — используй фразу из AGENTS.md: «Я сделал локальные коммиты, но не могу пушить из-за GitHub 403 в песочнице».
 
 ### Pin / snippet нюансы
 
-- `tilda-react-snippet-*.html` содержит `var HH_COMMIT = "<SHA>"` + кучу `<link rel="preload" href="https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@<SHA>/...">` (для CSS, JS, картинок). **Все SHA в файле должны быть одинаковые** — обычно делаешь `sed -i 's/<oldSHA>/<newSHA>/g' tilda-react-snippet-*.html`.
+- `tilda-react-snippet-*.html` содержит `var HH_COMMIT = "<SHA>"` + кучу `<link rel="preload" href="https://cdn.jsdelivr.net/gh/relaxbyden-art/test-h@<SHA>/...">` (для CSS, JS, картинок). **Все SHA в файле должны быть одинаковые** — обычно делаешь `sed -i 's/<oldSHA>/<newSHA>/g' tilda-react-snippet-*.html`.
 - jsDelivr immutable cache держит pinned SHA URLs 7 дней. После замены SHA в Tilda — пользователю нужен hard refresh (Safari → закрыть/открыть вкладку, или Settings → Clear Website Data).
 
 ---
@@ -221,7 +223,7 @@ grep -n "что искать" hashhedge-react-app-affiliate-ru.js
 grep -oP '"[^"]*[\x{0400}-\x{04FF}][^"]*"' hashhedge-react-app-affiliate-en.js | sort -u
 
 # Проверить какой SHA на jsDelivr
-curl -s -o /dev/null -w "%{http_code}\n" https://cdn.jsdelivr.net/gh/relaxbyden-art/hash-hedge@<SHA>/hashhedge-react-loader-affiliate-ru.js
+curl -s -o /dev/null -w "%{http_code}\n" https://cdn.jsdelivr.net/gh/relaxbyden-art/test-h@<SHA>/hashhedge-react-loader-affiliate-ru.js
 # Или через mcp__workspace__web_fetch (он не блокируется sandbox proxy)
 
 # Конвертировать PNG → WebP (для оптимизации)
