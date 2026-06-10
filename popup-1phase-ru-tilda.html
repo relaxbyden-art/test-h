@@ -1,395 +1,363 @@
-<!-- Hash Hedge — Popup 1-фазный челлендж RU (Tilda embed)
-     Вставляется в HTML-блок T123 на странице /ru. Авто-показ через 1.5с.
-     Кнопка ведёт к секции #pricing (где новый таб «1-фазный челлендж» с NEW). -->
+<!-- Hash Hedge — Popup 1-фазный челлендж (RU). Tilda embed.
+     Структура и цветовая палитра 1-в-1 со старым FlashSale 200K попапом (центр экрана,
+     тёмный modal, жёлтый акцент, таймер HOURS:MINUTES:SECONDS, карточки тарифов).
+     Авто-показ через 1.5с. Закрытие: × / ESC / клик мимо.
+     Акция активна до 12 июня 2026, 23:00 МСК (=20:00 UTC). После окончания попап не показывается. -->
 <meta charset="UTF-8">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap');
 
-.hh-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 99999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+/* ── Backdrop ───────────────────────────────────────────────────────────── */
+.hh1-overlay {
+  position: fixed; inset: 0; z-index: 99999;
+  background: rgba(8,8,10,0.82);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px; box-sizing: border-box;
   font-family: 'Onest', sans-serif;
-  box-sizing: border-box;
 }
-.hh-overlay.hh-visible {
-  display: flex;
-  animation: hhFadeIn 0.25s ease;
-}
-@keyframes hhFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+.hh1-overlay.is-open { display: flex; animation: hh1Fade .25s ease both; }
+@keyframes hh1Fade { from {opacity:0} to {opacity:1} }
 
-/* ── CARD ── */
-.hh-popup {
-  background: #13131a;
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 24px;
+/* ── Modal card (центр, тёмный градиент, жёлтое свечение) ───────────────── */
+.hh1-modal {
+  position: relative;
   width: 100%;
   max-width: 720px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  animation: hhSlideUp 0.3s cubic-bezier(0.32,0.72,0,1);
-}
-@keyframes hhSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── CLOSE ── */
-.hh-popup-close {
-  position: absolute;
-  top: 16px; right: 16px;
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(19,19,26,0.9);
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(245,241,232,0.4);
-  transition: background 0.15s, color 0.15s;
-  z-index: 10;
-}
-.hh-popup-close:hover {
-  background: rgba(255,255,255,0.08);
-  color: rgba(245,241,232,0.8);
-}
-
-/* ── LEFT: TEXT ── */
-.hh-popup-left {
-  flex: 1;
-  padding: 40px 36px 36px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
-.hh-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #fcd535;
-  background: rgba(252,213,53,0.08);
-  border: 1px solid rgba(252,213,53,0.22);
-  border-radius: 999px;
-  padding: 5px 12px;
-  margin-bottom: 16px;
-  width: fit-content;
-}
-.hh-badge .dot {
-  width: 6px; height: 6px;
-  background: #fcd535;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(252,213,53,0.6);
-  animation: hhPulse 1.6s ease-in-out infinite;
-}
-@keyframes hhPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.5); }
-  50%       { box-shadow: 0 0 0 5px rgba(252,213,53,0); }
-}
-
-.hh-popup-title {
-  font-size: 32px;
-  font-weight: 900;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: radial-gradient(circle at 78% 18%, rgba(252,213,53,0.18), transparent 42%),
+              linear-gradient(135deg, #1f1d25 0%, #111016 100%);
+  border: 1px solid rgba(252,213,53,0.30);
+  border-radius: 24px;
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.75), 0 0 0 1px rgba(252,213,53,0.10);
+  padding: 38px 32px 30px;
+  text-align: center;
   color: #f5f1e8;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  box-sizing: border-box;
+  animation: hh1Up .3s cubic-bezier(0.32,0.72,0,1) both;
+}
+@keyframes hh1Up { from {opacity:0;transform:translateY(20px)} to {opacity:1;transform:translateY(0)} }
+
+/* ── Close ── */
+.hh1-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: #f5f1e8;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px; padding: 0; line-height: 1;
+  transition: background .15s;
+}
+.hh1-close:hover { background: rgba(255,255,255,0.16); }
+
+/* ── Badge ── */
+.hh1-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 100px;
+  background: rgba(252,213,53,0.14);
+  border: 1px solid rgba(252,213,53,0.38);
+  color: #fcd535;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  margin: 0 auto 18px;
+}
+.hh1-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #fcd535;
+  box-shadow: 0 0 0 0 rgba(252,213,53,0.6);
+  animation: hh1Pulse 1.6s ease-in-out infinite;
+}
+@keyframes hh1Pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.5); }
+  50%     { box-shadow: 0 0 0 5px rgba(252,213,53,0); }
+}
+
+/* ── Title / Sub ── */
+.hh1-title {
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.02em; margin: 0 0 12px;
+  color: #f5f1e8;
+}
+.hh1-title .accent { color: #fcd535; }
+.hh1-sub {
+  font-size: 14.5px; color: rgba(245,241,232,0.72);
+  line-height: 1.55;
+  margin: 0 auto 24px;
+  max-width: 460px;
+}
+
+/* ── Timer ── */
+.hh1-timer-label {
+  display: block;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(245,241,232,0.55);
   margin-bottom: 12px;
 }
-.hh-popup-title .accent { color: #fcd535; }
-
-.hh-popup-body {
-  font-size: 14px;
-  color: rgba(245,241,232,0.55);
-  line-height: 1.5;
-  margin-bottom: 20px;
+.hh1-timer-digits {
+  display: inline-flex; align-items: stretch; justify-content: center; gap: 8px;
+  margin: 0 auto 28px;
 }
-
-/* ── COMPACT RULES GRID ── */
-.hh-popup-rules {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 16px;
-  margin-bottom: 22px;
-  padding: 14px 16px;
+.hh1-timer-unit {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(252,213,53,0.22);
   border-radius: 14px;
+  min-width: 88px;
+  padding: 10px 8px 8px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.hh1-timer-unit > span {
+  font-size: 36px; font-weight: 900; color: #fcd535;
+  letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.hh1-timer-unit > em {
+  font-style: normal;
+  font-size: 10px; font-weight: 700; color: rgba(245,241,232,0.5);
+  letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px;
+}
+.hh1-timer-colon {
+  display: flex; align-items: center;
+  font-size: 28px; font-weight: 900; color: rgba(252,213,53,0.55);
+  padding-bottom: 16px;
+}
+
+/* ── Cards (5 шт, горизонтальные строки) ── */
+.hh1-cards {
+  display: flex; flex-direction: column; gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+}
+.hh1-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 18px;
   background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.hh-popup-rules > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 10px;
-  font-size: 12.5px;
-}
-.hh-popup-rules > div > span {
-  color: rgba(245,241,232,0.55);
-}
-.hh-popup-rules > div > b {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  text-decoration: none;
   color: #f5f1e8;
-  font-weight: 800;
-  font-size: 13px;
+  transition: background .15s, border-color .15s, transform .15s;
 }
-
-.btn-primary-popup {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px;
-  background: #fcd535 !important;
-  color: #0b0b0e !important;
-  font-family: 'Onest', sans-serif !important;
-  font-size: 16px !important;
-  font-weight: 800 !important;
-  border: none !important;
-  border-radius: 14px !important;
-  padding: 15px 28px !important;
-  cursor: pointer;
-  text-decoration: none !important;
-  letter-spacing: -0.01em;
-  transition: background 0.15s, transform 0.15s;
-  width: fit-content;
-  box-shadow: none !important;
+.hh1-card:hover {
+  background: rgba(252,213,53,0.06);
+  border-color: rgba(252,213,53,0.32);
+  transform: translateY(-1px);
 }
-.btn-primary-popup:hover { background: #ffe55c !important; transform: translateY(-1px); }
-
-/* ── RIGHT: PRICE COLUMN ── */
-.hh-popup-right {
-  width: 260px;
-  flex-shrink: 0;
-  background: linear-gradient(165deg, #1a1820 0%, #0e0e14 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  padding: 36px 24px;
-  position: relative;
-  overflow: hidden;
+.hh1-card-left {
+  text-align: left;
+  display: flex; flex-direction: column; gap: 2px;
 }
-.hh-popup-right::before {
-  content: '';
-  position: absolute;
-  top: -40px; left: 50%;
-  transform: translateX(-50%);
-  width: 320px; height: 220px;
-  background: radial-gradient(ellipse, rgba(252,213,53,0.18) 0%, transparent 70%);
-  pointer-events: none;
+.hh1-card-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(245,241,232,0.45);
 }
-.hh-popup-right::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 60px;
-  background: linear-gradient(to right, #13131a, transparent);
-  pointer-events: none;
-  z-index: 1;
-}
-.hh-price-eyebrow {
-  position: relative;
-  z-index: 2;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(252,213,53,0.85);
-  text-align: center;
-  margin-bottom: 8px;
-}
-.hh-price-from {
-  position: relative;
-  z-index: 2;
-  font-size: 13px;
-  color: rgba(245,241,232,0.55);
-  text-align: center;
-  margin-bottom: 2px;
-}
-.hh-price-value {
-  position: relative;
-  z-index: 2;
-  font-size: 56px;
-  font-weight: 900;
+.hh1-card-acc {
+  font-size: 22px; font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.05;
   color: #f5f1e8;
-  letter-spacing: -0.04em;
+}
+.hh1-card-price {
   text-align: center;
-  line-height: 1;
+  font-size: 26px; font-weight: 800;
+  color: #fcd535;
+  letter-spacing: -0.02em; line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
-.hh-price-value .currency {
-  font-size: 28px;
-  vertical-align: top;
-  margin-right: 2px;
-  color: rgba(245,241,232,0.7);
+.hh1-card-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fcd535; color: #13111c;
+  font-size: 14px; font-weight: 800; letter-spacing: -0.01em;
+  padding: 10px 18px; border-radius: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px -8px rgba(252,213,53,0.55);
+  transition: background .15s, transform .15s;
 }
-.hh-price-account {
-  position: relative;
-  z-index: 2;
-  font-size: 12px;
-  color: rgba(245,241,232,0.5);
-  text-align: center;
-  margin-top: 8px;
-}
-.hh-price-account b { color: #fcd535; font-weight: 800; }
+.hh1-card:hover .hh1-card-btn { background: #ffe35a; }
 
-/* ── MOBILE ── */
+/* ── Disclaimer ── */
+.hh1-disclaimer {
+  font-size: 12px; color: rgba(245,241,232,0.55);
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 460px;
+}
+
+/* ── Mobile ── */
 @media (max-width: 600px) {
-  .hh-overlay {
-    padding: 12px;
-    align-items: center;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .hh-popup {
-    flex-direction: column;
-    max-width: 100%;
+  .hh1-overlay { padding: 12px; align-items: flex-start; padding-top: 24px; }
+  .hh1-modal {
+    padding: 28px 20px 22px;
     border-radius: 20px;
-    overflow: hidden;
-    margin: auto;
-    flex-shrink: 0;
+    max-height: calc(100vh - 48px);
   }
-  .hh-popup-close {
-    top: 12px; right: 12px;
-    width: 32px; height: 32px;
-    z-index: 20;
-  }
-  /* Цена — сверху */
-  .hh-popup-right {
-    order: -1;
-    width: 100%;
-    padding: 28px 16px 22px;
-    border-radius: 20px 20px 0 0;
-  }
-  .hh-popup-right::after {
-    left: 0; right: 0; top: auto; bottom: 0;
-    width: 100%; height: 30px;
-    background: linear-gradient(to bottom, transparent, #13131a);
-  }
-  .hh-price-value {
-    font-size: 48px;
-  }
-  .hh-price-value .currency { font-size: 24px; }
-  /* Текст — снизу */
-  .hh-popup-left {
-    order: 1;
-    padding: 18px 20px 22px;
-  }
-  .hh-badge {
-    font-size: 10px;
-    padding: 3px 10px;
-    margin-bottom: 10px;
-  }
-  .hh-popup-title {
-    font-size: 23px;
-    margin-bottom: 8px;
-  }
-  .hh-popup-body {
-    font-size: 13px;
-    margin-bottom: 14px;
-  }
-  .hh-popup-rules {
-    grid-template-columns: 1fr;
-    gap: 6px 0;
-    padding: 12px 14px;
-    margin-bottom: 16px;
-  }
-  .hh-popup-rules > div { font-size: 12px; }
-  .btn-primary-popup {
-    width: calc(100vw - 64px) !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    justify-content: center !important;
-    font-size: 15px !important;
-    padding: 0 20px !important;
-    height: 52px !important;
-    border-radius: 12px !important;
-    flex-shrink: 0 !important;
-  }
+  .hh1-close { top: 10px; right: 10px; width: 32px; height: 32px; font-size: 14px; }
+  .hh1-badge { font-size: 10px; padding: 4px 12px; margin-bottom: 12px; }
+  .hh1-title { font-size: 22px; line-height: 1.12; margin-bottom: 8px; }
+  .hh1-sub { font-size: 13px; margin-bottom: 18px; }
+  .hh1-timer-label { font-size: 10px; margin-bottom: 8px; }
+  .hh1-timer-digits { gap: 6px; margin-bottom: 20px; }
+  .hh1-timer-unit { min-width: 70px; padding: 8px 6px 6px; border-radius: 12px; }
+  .hh1-timer-unit > span { font-size: 28px; }
+  .hh1-timer-unit > em { font-size: 9px; margin-top: 4px; letter-spacing: 0.1em; }
+  .hh1-timer-colon { font-size: 22px; padding-bottom: 12px; }
+  .hh1-cards { gap: 6px; margin-bottom: 16px; }
+  .hh1-card { padding: 10px 14px; gap: 10px; grid-template-columns: 1fr 1fr auto; }
+  .hh1-card-acc { font-size: 17px; }
+  .hh1-card-price { font-size: 20px; }
+  .hh1-card-label { font-size: 9px; }
+  .hh1-card-btn { padding: 8px 12px; font-size: 12px; border-radius: 8px; }
+  .hh1-disclaimer { font-size: 11.5px; }
 }
 </style>
 
-<div class="hh-overlay" id="hhPopup1Phase">
-  <div class="hh-popup">
+<div class="hh1-overlay" id="hh1Popup" aria-hidden="true" role="dialog" aria-modal="true" aria-label="1-фазный челлендж">
+  <div class="hh1-modal">
 
-    <!-- Close -->
-    <button class="hh-popup-close" onclick="hhClose1Phase()" aria-label="Закрыть">
+    <button class="hh1-close" type="button" onclick="hh1Close()" aria-label="Закрыть">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
         <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
     </button>
 
-    <!-- Text + rules -->
-    <div class="hh-popup-left">
-      <div class="hh-badge"><span class="dot"></span>NEW · Запуск</div>
-      <div class="hh-popup-title"><span class="accent">1-фазный</span> челлендж</div>
-      <div class="hh-popup-body">
-        Один этап — и ты в funded. Без второй фазы. Цель 10%, дневная просадка 3%, общая 6%.
-      </div>
+    <div class="hh1-badge"><span class="dot"></span>NEW · Запуск</div>
 
-      <div class="hh-popup-rules" aria-label="Условия 1-фазного челленджа">
-        <div><span>Цель по прибыли</span><b>10%</b></div>
-        <div><span>Дневная просадка</span><b>3%</b></div>
-        <div><span>Общая просадка</span><b>6%</b></div>
-        <div><span>Мин. торговых дней</span><b>5</b></div>
-        <div><span>Профит-сплит</span><b>до 90%</b></div>
-        <div><span>Срок funded</span><b>∞</b></div>
-      </div>
+    <h2 class="hh1-title">1-фазный <span class="accent">челлендж</span></h2>
 
-      <a href="#pricing" class="btn-primary-popup" onclick="hhClose1Phase()">
-        Выбрать челлендж
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-left:2px">
-          <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+    <p class="hh1-sub">
+      Один этап — и ты в funded. Цель 10%, дневная просадка 3%, общая 6%. Минимум 5 торговых дней — и забираешь до 90% прибыли.
+    </p>
+
+    <span class="hh1-timer-label">Акция заканчивается через:</span>
+    <div class="hh1-timer-digits" id="hh1Timer">
+      <div class="hh1-timer-unit"><span id="hh1H">--</span><em>часов</em></div>
+      <div class="hh1-timer-colon">:</div>
+      <div class="hh1-timer-unit"><span id="hh1M">--</span><em>минут</em></div>
+      <div class="hh1-timer-colon">:</div>
+      <div class="hh1-timer-unit"><span id="hh1S">--</span><em>секунд</em></div>
+    </div>
+
+    <div class="hh1-cards">
+      <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
+        <div class="hh1-card-left">
+          <span class="hh1-card-label">Аккаунт</span>
+          <strong class="hh1-card-acc">$5,000</strong>
+        </div>
+        <div class="hh1-card-price">$99</div>
+        <span class="hh1-card-btn">Купить</span>
+      </a>
+      <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
+        <div class="hh1-card-left">
+          <span class="hh1-card-label">Аккаунт</span>
+          <strong class="hh1-card-acc">$10,000</strong>
+        </div>
+        <div class="hh1-card-price">$159</div>
+        <span class="hh1-card-btn">Купить</span>
+      </a>
+      <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
+        <div class="hh1-card-left">
+          <span class="hh1-card-label">Аккаунт</span>
+          <strong class="hh1-card-acc">$15,000</strong>
+        </div>
+        <div class="hh1-card-price">$229</div>
+        <span class="hh1-card-btn">Купить</span>
+      </a>
+      <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
+        <div class="hh1-card-left">
+          <span class="hh1-card-label">Аккаунт</span>
+          <strong class="hh1-card-acc">$25,000</strong>
+        </div>
+        <div class="hh1-card-price">$349</div>
+        <span class="hh1-card-btn">Купить</span>
+      </a>
+      <a class="hh1-card" href="https://app.hashhedge.com/ru/register" target="_blank" rel="noopener" onclick="hh1Close()">
+        <div class="hh1-card-left">
+          <span class="hh1-card-label">Аккаунт</span>
+          <strong class="hh1-card-acc">$30,000</strong>
+        </div>
+        <div class="hh1-card-price">$419</div>
+        <span class="hh1-card-btn">Купить</span>
       </a>
     </div>
 
-    <!-- Price column -->
-    <div class="hh-popup-right">
-      <div class="hh-price-eyebrow">от</div>
-      <div class="hh-price-from">всего</div>
-      <div class="hh-price-value"><span class="currency">$</span>99</div>
-      <div class="hh-price-account">за аккаунт <b>$5,000</b></div>
-    </div>
+    <p class="hh1-disclaimer">
+      Акция действует до 12 июня 2026, 23:00 МСК. После окончания таймера попап скрывается автоматически.
+    </p>
 
   </div>
 </div>
 
 <script>
 (function() {
-  function hhShow1Phase() {
-    var el = document.getElementById('hhPopup1Phase');
-    if (el) el.classList.add('hh-visible');
+  // Конец акции: 12 июня 2026, 23:00 МСК = 20:00 UTC
+  var END_TS = Date.UTC(2026, 5, 12, 20, 0, 0);
+  var el = document.getElementById('hh1Popup');
+  var hEl = document.getElementById('hh1H');
+  var mEl = document.getElementById('hh1M');
+  var sEl = document.getElementById('hh1S');
+  var timerInt = null;
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  function updateTimer() {
+    var now = Date.now();
+    var diff = END_TS - now;
+    if (diff <= 0) {
+      // Акция кончилась — скрываем попап и останавливаем интервал
+      hh1Close();
+      if (timerInt) { clearInterval(timerInt); timerInt = null; }
+      return false;
+    }
+    var totalSec = Math.floor(diff / 1000);
+    var h = Math.floor(totalSec / 3600);
+    var m = Math.floor((totalSec % 3600) / 60);
+    var s = totalSec % 60;
+    if (hEl) hEl.textContent = pad(h);
+    if (mEl) mEl.textContent = pad(m);
+    if (sEl) sEl.textContent = pad(s);
+    return true;
   }
-  window.hhClose1Phase = function() {
-    var el = document.getElementById('hhPopup1Phase');
+
+  function hh1Open() {
     if (!el) return;
-    el.style.transition = 'opacity 0.2s';
+    // Если акция уже кончилась — не показываем
+    if (Date.now() >= END_TS) return;
+    if (!updateTimer()) return;
+    el.classList.add('is-open');
+    el.setAttribute('aria-hidden', 'false');
+    timerInt = setInterval(updateTimer, 1000);
+  }
+
+  window.hh1Close = function() {
+    if (!el) return;
+    el.style.transition = 'opacity .2s';
     el.style.opacity = '0';
     setTimeout(function() {
-      el.classList.remove('hh-visible');
+      el.classList.remove('is-open');
+      el.setAttribute('aria-hidden', 'true');
       el.style.opacity = '';
       el.style.transition = '';
     }, 220);
+    if (timerInt) { clearInterval(timerInt); timerInt = null; }
   };
-  setTimeout(hhShow1Phase, 1500);
-  document.getElementById('hhPopup1Phase').addEventListener('click', function(e) {
-    if (e.target === this) window.hhClose1Phase();
+
+  // Показываем через 1.5с после загрузки страницы
+  setTimeout(hh1Open, 1500);
+
+  // Клик мимо карточки — закрытие
+  el.addEventListener('click', function(e) {
+    if (e.target === el) window.hh1Close();
   });
+
+  // ESC — закрытие
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') window.hhClose1Phase();
+    if (e.key === 'Escape' && el.classList.contains('is-open')) window.hh1Close();
   });
 })();
 </script>
