@@ -3181,7 +3181,7 @@ function PricingTooltipLabel({label}) {
 }
 function Pricing() {
   useRevealOnScroll();
-  const [phase, setPhase] = ___useS(2);          // 2-фазный по умолчанию; 1 = новый 1-фазный
+  const [phase, setPhase] = ___useS(1);          // 1-фазный по умолчанию (новый); 2 = 2-фазный
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
@@ -3493,24 +3493,6 @@ function Pricing() {
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     role: "tab",
-    "aria-selected": !is1,
-    onClick: () => setPhase(2),
-    style: {
-      padding: "8px 22px",
-      borderRadius: 999,
-      background: !is1 ? "var(--accent)" : "transparent",
-      color: !is1 ? "#13111c" : "var(--fg-muted)",
-      fontWeight: 800,
-      fontSize: 13,
-      letterSpacing: "0.02em",
-      fontFamily: "Onest, sans-serif",
-      border: "none",
-      cursor: "pointer",
-      transition: "background .18s, color .18s"
-    }
-  }, "2-фазный челлендж"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    role: "tab",
     "aria-selected": is1,
     onClick: () => setPhase(1),
     style: {
@@ -3543,7 +3525,25 @@ function Pricing() {
       color: is1 ? "var(--accent)" : "#13111c",
       lineHeight: 1
     }
-  }, "NEW"))))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "NEW")), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    role: "tab",
+    "aria-selected": !is1,
+    onClick: () => setPhase(2),
+    style: {
+      padding: "8px 22px",
+      borderRadius: 999,
+      background: !is1 ? "var(--accent)" : "transparent",
+      color: !is1 ? "#13111c" : "var(--fg-muted)",
+      fontWeight: 800,
+      fontSize: 13,
+      letterSpacing: "0.02em",
+      fontFamily: "Onest, sans-serif",
+      border: "none",
+      cursor: "pointer",
+      transition: "background .18s, color .18s"
+    }
+  }, "2-фазный челлендж")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3602,8 +3602,8 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === bestValue;
+    const isPop = !is1 && s === popular;
+    const isBest = !is1 && s === bestValue;
     const isFlash = flashSaleSizes.indexOf(s) >= 0;
     const badge = isFlash ? "АКЦИЯ" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
     const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
@@ -3694,8 +3694,8 @@ function Pricing() {
     "aria-label": "Выбери размер аккаунта"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = s === popular;
-    const isBest = s === bestValue;
+    const isPop = !is1 && s === popular;
+    const isBest = !is1 && s === bestValue;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
