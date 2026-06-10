@@ -1,0 +1,395 @@
+<!-- Hash Hedge — Popup 1-фазный челлендж RU (Tilda embed)
+     Вставляется в HTML-блок T123 на странице /ru. Авто-показ через 1.5с.
+     Кнопка ведёт к секции #pricing (где новый таб «1-фазный челлендж» с NEW). -->
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800;900&display=swap');
+
+.hh-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-family: 'Onest', sans-serif;
+  box-sizing: border-box;
+}
+.hh-overlay.hh-visible {
+  display: flex;
+  animation: hhFadeIn 0.25s ease;
+}
+@keyframes hhFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── CARD ── */
+.hh-popup {
+  background: #13131a;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 720px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  animation: hhSlideUp 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+@keyframes hhSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CLOSE ── */
+.hh-popup-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(19,19,26,0.9);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,241,232,0.4);
+  transition: background 0.15s, color 0.15s;
+  z-index: 10;
+}
+.hh-popup-close:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(245,241,232,0.8);
+}
+
+/* ── LEFT: TEXT ── */
+.hh-popup-left {
+  flex: 1;
+  padding: 40px 36px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fcd535;
+  background: rgba(252,213,53,0.08);
+  border: 1px solid rgba(252,213,53,0.22);
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+.hh-badge .dot {
+  width: 6px; height: 6px;
+  background: #fcd535;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(252,213,53,0.6);
+  animation: hhPulse 1.6s ease-in-out infinite;
+}
+@keyframes hhPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(252,213,53,0); }
+}
+
+.hh-popup-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #f5f1e8;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.hh-popup-title .accent { color: #fcd535; }
+
+.hh-popup-body {
+  font-size: 14px;
+  color: rgba(245,241,232,0.55);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* ── COMPACT RULES GRID ── */
+.hh-popup-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.hh-popup-rules > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 12.5px;
+}
+.hh-popup-rules > div > span {
+  color: rgba(245,241,232,0.55);
+}
+.hh-popup-rules > div > b {
+  color: #f5f1e8;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.btn-primary-popup {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  background: #fcd535 !important;
+  color: #0b0b0e !important;
+  font-family: 'Onest', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 15px 28px !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  letter-spacing: -0.01em;
+  transition: background 0.15s, transform 0.15s;
+  width: fit-content;
+  box-shadow: none !important;
+}
+.btn-primary-popup:hover { background: #ffe55c !important; transform: translateY(-1px); }
+
+/* ── RIGHT: PRICE COLUMN ── */
+.hh-popup-right {
+  width: 260px;
+  flex-shrink: 0;
+  background: linear-gradient(165deg, #1a1820 0%, #0e0e14 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  padding: 36px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hh-popup-right::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 320px; height: 220px;
+  background: radial-gradient(ellipse, rgba(252,213,53,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hh-popup-right::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 60px;
+  background: linear-gradient(to right, #13131a, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.hh-price-eyebrow {
+  position: relative;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(252,213,53,0.85);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.hh-price-from {
+  position: relative;
+  z-index: 2;
+  font-size: 13px;
+  color: rgba(245,241,232,0.55);
+  text-align: center;
+  margin-bottom: 2px;
+}
+.hh-price-value {
+  position: relative;
+  z-index: 2;
+  font-size: 56px;
+  font-weight: 900;
+  color: #f5f1e8;
+  letter-spacing: -0.04em;
+  text-align: center;
+  line-height: 1;
+}
+.hh-price-value .currency {
+  font-size: 28px;
+  vertical-align: top;
+  margin-right: 2px;
+  color: rgba(245,241,232,0.7);
+}
+.hh-price-account {
+  position: relative;
+  z-index: 2;
+  font-size: 12px;
+  color: rgba(245,241,232,0.5);
+  text-align: center;
+  margin-top: 8px;
+}
+.hh-price-account b { color: #fcd535; font-weight: 800; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .hh-overlay {
+    padding: 12px;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hh-popup {
+    flex-direction: column;
+    max-width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: auto;
+    flex-shrink: 0;
+  }
+  .hh-popup-close {
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    z-index: 20;
+  }
+  /* Цена — сверху */
+  .hh-popup-right {
+    order: -1;
+    width: 100%;
+    padding: 28px 16px 22px;
+    border-radius: 20px 20px 0 0;
+  }
+  .hh-popup-right::after {
+    left: 0; right: 0; top: auto; bottom: 0;
+    width: 100%; height: 30px;
+    background: linear-gradient(to bottom, transparent, #13131a);
+  }
+  .hh-price-value {
+    font-size: 48px;
+  }
+  .hh-price-value .currency { font-size: 24px; }
+  /* Текст — снизу */
+  .hh-popup-left {
+    order: 1;
+    padding: 18px 20px 22px;
+  }
+  .hh-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+  }
+  .hh-popup-title {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+  .hh-popup-body {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .hh-popup-rules {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+  .hh-popup-rules > div { font-size: 12px; }
+  .btn-primary-popup {
+    width: calc(100vw - 64px) !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+    padding: 0 20px !important;
+    height: 52px !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+  }
+}
+</style>
+
+<div class="hh-overlay" id="hhPopup1Phase">
+  <div class="hh-popup">
+
+    <!-- Close -->
+    <button class="hh-popup-close" onclick="hhClose1Phase()" aria-label="Закрыть">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Text + rules -->
+    <div class="hh-popup-left">
+      <div class="hh-badge"><span class="dot"></span>NEW · Запуск</div>
+      <div class="hh-popup-title"><span class="accent">1-фазный</span> челлендж</div>
+      <div class="hh-popup-body">
+        Один этап — и ты в funded. Без второй фазы. Цель 10%, дневная просадка 3%, общая 6%.
+      </div>
+
+      <div class="hh-popup-rules" aria-label="Условия 1-фазного челленджа">
+        <div><span>Цель по прибыли</span><b>10%</b></div>
+        <div><span>Дневная просадка</span><b>3%</b></div>
+        <div><span>Общая просадка</span><b>6%</b></div>
+        <div><span>Мин. торговых дней</span><b>5</b></div>
+        <div><span>Профит-сплит</span><b>до 90%</b></div>
+        <div><span>Срок funded</span><b>∞</b></div>
+      </div>
+
+      <a href="#pricing" class="btn-primary-popup" onclick="hhClose1Phase()">
+        Выбрать челлендж
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-left:2px">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Price column -->
+    <div class="hh-popup-right">
+      <div class="hh-price-eyebrow">от</div>
+      <div class="hh-price-from">всего</div>
+      <div class="hh-price-value"><span class="currency">$</span>99</div>
+      <div class="hh-price-account">за аккаунт <b>$5,000</b></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  function hhShow1Phase() {
+    var el = document.getElementById('hhPopup1Phase');
+    if (el) el.classList.add('hh-visible');
+  }
+  window.hhClose1Phase = function() {
+    var el = document.getElementById('hhPopup1Phase');
+    if (!el) return;
+    el.style.transition = 'opacity 0.2s';
+    el.style.opacity = '0';
+    setTimeout(function() {
+      el.classList.remove('hh-visible');
+      el.style.opacity = '';
+      el.style.transition = '';
+    }, 220);
+  };
+  setTimeout(hhShow1Phase, 1500);
+  document.getElementById('hhPopup1Phase').addEventListener('click', function(e) {
+    if (e.target === this) window.hhClose1Phase();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') window.hhClose1Phase();
+  });
+})();
+</script>
