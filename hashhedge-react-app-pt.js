@@ -3151,7 +3151,7 @@ function PricingTooltipLabel({label}) {
 }
 function Pricing() {
   useRevealOnScroll();
-  const [phase, setPhase] = ___useS(1);          // 1-fase padrão (novo); 2 = 2-fases
+  const [phase, setPhase] = ___useS(1);          // 1 etapa padrão (novo); 2 = 2-fases
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
@@ -3193,7 +3193,7 @@ function Pricing() {
     25000: 349,
     30000: 419
   };
-  // URLs de payment-form para 1-fase (live).
+  // URLs de payment-form para 1 etapa (live).
   const paymentLinks1 = {
     5000: "https://app.hashhedge.com/pt/app/payment-form/f23e0213-0f1c-4901-9bcb-f33231fdf6fb",
     10000: "https://app.hashhedge.com/pt/app/payment-form/817e214a-bca2-4320-a58c-c499d9313d2e",
@@ -3202,11 +3202,11 @@ function Pricing() {
     30000: "https://app.hashhedge.com/pt/app/payment-form/a78b583b-b93d-45da-808a-aa905104b475"
   };
   const accountNotes1 = {
-    5000: "Conta inicial de 1-fase para um primeiro funded rápido.",
-    10000: "Conta compacta de 1-fase com o menor drawdown.",
+    5000: "Conta inicial de 1 etapa para um primeiro funded rápido.",
+    10000: "Conta compacta de 1 etapa com o menor drawdown.",
     15000: "Tamanho ideal para traders com gestão de risco disciplinada.",
-    25000: "A conta de 1-fase mais popular.",
-    30000: "Conta máxima de 1-fase — melhor taxa por \$1K de capital."
+    25000: "A conta de 1 etapa mais popular.",
+    30000: "Conta máxima de 1 etapa — melhor taxa por \$1K de capital."
   };
 
   // ── Active dataset (selecionado por phase) ─────────────────────────────────
@@ -3480,7 +3480,7 @@ function Pricing() {
       gap: 8,
       transition: "background .18s, color .18s"
     }
-  }, "Desafio de 1 fase", /*#__PURE__*/React.createElement("span", {
+  }, "Desafio de 1 etapa", /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
