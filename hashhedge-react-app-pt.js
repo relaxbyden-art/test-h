@@ -3151,9 +3151,9 @@ function PricingTooltipLabel({label}) {
 }
 function Pricing() {
   useRevealOnScroll();
-  // Промо 1-фазного челленджа активно до 12.06.2026 23:59 Dubai (= 19:59 UTC).
+  // Промо 1-фазного челленджа активно до 13.06.2026 15:00 Dubai (= 11:00 UTC).
   // После этой даты весь pricing автоматически откатывается на 2-фазный.
-  const HH_PROMO_END_TS = Date.UTC(2026, 5, 12, 19, 59, 0);
+  const HH_PROMO_END_TS = Date.UTC(2026, 5, 13, 11, 0, 0);
   const promoActive = Date.now() < HH_PROMO_END_TS;
   const [phase, setPhase] = ___useS(promoActive ? 1 : 2);          // 1 etapa padrão (novo); 2 = 2-fases
   const [size, setSize] = ___useS(25000);
@@ -11523,8 +11523,8 @@ function OnePhasePopup() {
       document.head.appendChild(ss);
     }
 
-    // Sale end: Jun 12 2026, 23:59 Dubai (UTC+4) = 19:59 UTC
-    var END_TS = Date.UTC(2026, 5, 12, 19, 59, 0);
+    // Sale end: Jun 13 2026, 15:00 Dubai (UTC+4) = 11:00 UTC
+    var END_TS = Date.UTC(2026, 5, 13, 11, 0, 0);
     function pad(n) { return n < 10 ? "0" + n : String(n); }
     function tick() {
       var diff = END_TS - Date.now();
@@ -11620,7 +11620,7 @@ function OnePhasePopup() {
           );
         })
       ),
-      React.createElement("p", { className: "hh1-popup-disclaimer" }, 'Promoção válida até 12 de junho de 2026, 23:59 (horário de Dubai). Após o término do cronômetro, o acesso ao desafio de 1 etapa será fechado automaticamente.')
+      React.createElement("p", { className: "hh1-popup-disclaimer" }, 'Promoção válida até 13 de junho de 2026, 15:00 (horário de Dubai). Após o término do cronômetro, o acesso ao desafio de 1 etapa será fechado automaticamente.')
     )
   );
 
