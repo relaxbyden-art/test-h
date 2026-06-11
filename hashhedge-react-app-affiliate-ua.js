@@ -1088,22 +1088,22 @@
       ? _e("div", { style: { width: "100%", padding: "0 4px", textAlign: "center", display: "flex", flexDirection: "column", gap: 8, justifyContent: "center", height: "100%" } },
           _e("div", { style: { display: "flex", gap: 0, width: "100%" } },
             _e("div", { style: { flex: 1, padding: "8px 6px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRight: "none", borderRadius: "8px 0 0 8px", textAlign: "center", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 700, color: "#fcd535", letterSpacing: "0.04em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, "PARTNER"),
-            _e("div", { style: { padding: "8px 10px", background: "#fcd535", borderRadius: "0 8px 8px 0", color: "#13111c", fontSize: 13, fontWeight: 800, whiteSpace: "nowrap" } }, "−25%")
+            _e("div", { style: { padding: "8px 10px", background: "#fcd535", borderRadius: "0 8px 8px 0", color: "#13111c", fontSize: 13, fontWeight: 800, whiteSpace: "nowrap" } }, "−15%")
           ),
           _e("div", { style: { fontSize: 10, color: "#9ef0c0", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4, lineHeight: 1.2 } },
             _e("span", { style: { width: 4, height: 4, borderRadius: "50%", background: "#9ef0c0", flexShrink: 0 } }),
-            "Знижка 25%"
+            "Знижка 15%"
           )
         )
       : _e("div", { style: { width: "100%", padding: "0 6px", textAlign: "center" } },
       _e("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#a1a0a4", textTransform: "uppercase", marginBottom: 12 } }, "Промокод"),
       _e("div", { style: { display: "flex", gap: 0, maxWidth: 240, margin: "0 auto" } },
         _e("div", { style: { flex: 1, padding: "12px 14px", background: "rgba(8,8,10,0.6)", border: "1px solid var(--line)", borderRight: "none", borderRadius: "10px 0 0 10px", textAlign: "left", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 14, fontWeight: 700, color: "#fcd535", letterSpacing: "0.06em" } }, "PARTNER2026"),
-        _e("div", { className: "hh-promo-badge", style: { padding: "12px 16px", background: "#fcd535", borderRadius: "0 10px 10px 0", color: "#13111c", fontSize: 12, fontWeight: 800 } }, "−25%")
+        _e("div", { className: "hh-promo-badge", style: { padding: "12px 16px", background: "#fcd535", borderRadius: "0 10px 10px 0", color: "#13111c", fontSize: 12, fontWeight: 800 } }, "−15%")
       ),
       _e("div", { style: { fontSize: 11, color: "#9ef0c0", marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6 } },
         _e("span", { style: { width: 5, height: 5, borderRadius: "50%", background: "#9ef0c0" } }),
-        "Промокод застосовано · знижка 25%"
+        "Промокод застосовано · знижка 15%"
       )
     );
 
@@ -1743,7 +1743,7 @@
   function Steps() {
     const steps = [
       { n: "01", chip: "Реєстрація",       title: "Зареєструйся",
-        body: "Заповни коротку анкету й отримай доступ до особистого кабінету партнера — це займе менше двох хвилин." },
+        body: _e(F, null, "Заповни коротку анкету й отримай доступ до особистого кабінету партнера — це займе менше ", _e("b", { style: { color: "#f5f1e8", fontWeight: 800 } }, "2 хвилин"), ".") },
       { n: "02", chip: "Реферальне посилання", title: "Отримай реферальне посилання",
         body: "Отримай персональне реферальне посилання в особистому кабінеті." },
       { n: "03", chip: "Просування",       title: "Залучай трейдерів",
