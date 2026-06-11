@@ -3181,11 +3181,15 @@ function PricingTooltipLabel({label}) {
 }
 function Pricing() {
   useRevealOnScroll();
-  const [phase, setPhase] = ___useS(1);          // 1-фазный по умолчанию (новый); 2 = 2-фазный
+  // Промо 1-фазного челленджа активно до 12.06.2026 23:59 Dubai (= 19:59 UTC).
+  // После этой даты весь pricing автоматически откатывается на 2-фазный.
+  const HH_PROMO_END_TS = Date.UTC(2026, 5, 12, 19, 59, 0);
+  const promoActive = Date.now() < HH_PROMO_END_TS;
+  const [phase, setPhase] = ___useS(promoActive ? 1 : 2);          // 1-фазный по умолчанию (новый); 2 = 2-фазный
   const [size, setSize] = ___useS(25000);
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
-  const is1 = phase === 1;
+  const is1 = promoActive && phase === 1;
 
   // ── 2-PHASE DATA ───────────────────────────────────────────────────────────
   const sizes2 = [5000, 10000, 25000, 50000, 100000, 150000];
@@ -3489,7 +3493,7 @@ function Pricing() {
       background: "rgba(255,255,255,0.02)",
       gap: 2
     }
-  }, /*#__PURE__*/React.createElement("button", {
+  }, promoActive && /*#__PURE__*/React.createElement("button", {
     type: "button",
     role: "tab",
     "aria-selected": is1,
