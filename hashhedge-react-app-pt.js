@@ -11391,7 +11391,7 @@ function HashHedgeReactApp() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: "classic",
     anim: "max"
-  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null));
+  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(OnePhasePopup, null));
 }
 function PopupChartBg() {
   return /*#__PURE__*/React.createElement("svg", {
@@ -11454,6 +11454,173 @@ function PopupChartBg() {
     React.createElement("rect", { x: "385", y: "46", width: "10", height: "8", rx: "1" })
   )
   );
+}
+
+
+// ── 1-phase popup (auto-injected into App tree, no separate Tilda block needed) ───
+function OnePhasePopup() {
+  const [open, setOpen] = React.useState(false);
+  const [time, setTime] = React.useState({ h: "--", m: "--", s: "--" });
+
+  React.useEffect(function() {
+    // Inject styles once
+    if (!document.getElementById("hh1-popup-styles")) {
+      var ss = document.createElement("style");
+      ss.id = "hh1-popup-styles";
+      ss.textContent = `.hh1-popup-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(8,8,10,0.82); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; font-family: 'Onest', sans-serif; animation: hh1-fade .25s ease both; }
+@keyframes hh1-fade { from { opacity: 0 } to { opacity: 1 } }
+.hh1-popup-modal { position: relative; width: 100%; max-width: 720px; max-height: calc(100vh - 40px); overflow-y: auto; -webkit-overflow-scrolling: touch; background: radial-gradient(circle at 78% 14%, rgba(252,213,53,0.07), transparent 55%), #0a0a0c; border: 1px solid rgba(252,213,53,0.22); border-radius: 24px; box-shadow: 0 40px 100px -20px rgba(0,0,0,0.85), 0 0 0 1px rgba(252,213,53,0.06); padding: 38px 32px 30px; text-align: center; color: #f5f1e8; box-sizing: border-box; animation: hh1-up .3s cubic-bezier(0.32,0.72,0,1) both; }
+@keyframes hh1-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hh1-popup-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10); color: #f5f1e8; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1; transition: background .15s; }
+.hh1-popup-close:hover { background: rgba(255,255,255,0.16); }
+.hh1-popup-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px; background: rgba(252,213,53,0.14); border: 1px solid rgba(252,213,53,0.38); color: #fcd535; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 auto 18px; }
+.hh1-popup-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #fcd535; box-shadow: 0 0 0 0 rgba(252,213,53,0.6); animation: hh1-pulse 1.6s ease-in-out infinite; }
+@keyframes hh1-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.5); } 50% { box-shadow: 0 0 0 5px rgba(252,213,53,0); } }
+.hh1-popup-title { font-size: clamp(26px, 4vw, 36px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; color: #f5f1e8; }
+.hh1-popup-accent { color: #fcd535; }
+.hh1-popup-sub { font-size: 14.5px; color: rgba(245,241,232,0.72); line-height: 1.55; margin: 0 auto 24px; max-width: 460px; }
+.hh1-popup-timer-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,241,232,0.55); margin-bottom: 12px; }
+.hh1-popup-timer { display: inline-flex; align-items: stretch; justify-content: center; gap: 8px; margin: 0 auto 28px; }
+.hh1-popup-timer-unit { background: rgba(255,255,255,0.04); border: 1px solid rgba(252,213,53,0.22); border-radius: 14px; min-width: 88px; padding: 10px 8px 8px; display: flex; flex-direction: column; align-items: center; }
+.hh1-popup-timer-unit > span { font-size: 36px; font-weight: 900; color: #f5f1e8; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.hh1-popup-timer-unit > em { font-style: normal; font-size: 10px; font-weight: 700; color: rgba(245,241,232,0.5); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px; }
+.hh1-popup-timer-colon { display: flex; align-items: center; font-size: 28px; font-weight: 900; color: rgba(252,213,53,0.55); padding-bottom: 16px; }
+.hh1-popup-cards { display: flex; flex-direction: column; gap: 8px; margin: 0 0 22px; }
+.hh1-popup-card { display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 16px; padding: 12px 18px; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; text-decoration: none; color: #f5f1e8; transition: background .15s, border-color .15s, transform .15s; }
+.hh1-popup-card:hover { background: rgba(252,213,53,0.06); border-color: rgba(252,213,53,0.32); transform: translateY(-1px); }
+.hh1-popup-card-left { text-align: left; display: flex; flex-direction: column; gap: 2px; }
+.hh1-popup-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,241,232,0.45); }
+.hh1-popup-card-acc { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; color: #f5f1e8; }
+.hh1-popup-card-price { text-align: center; font-size: 26px; font-weight: 800; color: #f5f1e8; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.hh1-popup-card-btn { display: inline-flex; align-items: center; justify-content: center; background: #fcd535; color: #13111c; font-size: 14px; font-weight: 800; letter-spacing: -0.01em; padding: 10px 18px; border-radius: 10px; text-decoration: none; white-space: nowrap; box-shadow: 0 8px 24px -8px rgba(252,213,53,0.55); transition: background .15s, transform .15s; }
+.hh1-popup-card:hover .hh1-popup-card-btn { background: #ffe35a; }
+.hh1-popup-disclaimer { font-size: 12px; color: rgba(245,241,232,0.55); line-height: 1.55; margin: 0 auto; max-width: 460px; }
+@media (max-width: 600px) {
+  .hh1-popup-overlay { padding: 12px; align-items: flex-start; padding-top: 24px; }
+  .hh1-popup-modal { padding: 28px 20px 22px; border-radius: 20px; max-height: calc(100vh - 48px); }
+  .hh1-popup-close { top: 10px; right: 10px; width: 32px; height: 32px; }
+  .hh1-popup-badge { font-size: 10px; padding: 4px 12px; margin-bottom: 12px; }
+  .hh1-popup-title { font-size: 22px; line-height: 1.12; margin-bottom: 8px; }
+  .hh1-popup-sub { font-size: 13px; margin-bottom: 18px; }
+  .hh1-popup-timer-label { font-size: 10px; margin-bottom: 8px; }
+  .hh1-popup-timer { gap: 6px; margin-bottom: 20px; }
+  .hh1-popup-timer-unit { min-width: 70px; padding: 8px 6px 6px; border-radius: 12px; }
+  .hh1-popup-timer-unit > span { font-size: 28px; }
+  .hh1-popup-timer-unit > em { font-size: 9px; margin-top: 4px; letter-spacing: 0.1em; }
+  .hh1-popup-timer-colon { font-size: 22px; padding-bottom: 12px; }
+  .hh1-popup-cards { gap: 6px; margin-bottom: 16px; }
+  .hh1-popup-card { padding: 10px 14px; gap: 10px; }
+  .hh1-popup-card-acc { font-size: 17px; }
+  .hh1-popup-card-price { font-size: 20px; }
+  .hh1-popup-card-label { font-size: 9px; }
+  .hh1-popup-card-btn { padding: 8px 12px; font-size: 12px; border-radius: 8px; }
+  .hh1-popup-disclaimer { font-size: 11.5px; }
+}`;
+      document.head.appendChild(ss);
+    }
+
+    // Sale end: Jun 12 2026, 23:59 Dubai (UTC+4) = 19:59 UTC
+    var END_TS = Date.UTC(2026, 5, 12, 19, 59, 0);
+    function pad(n) { return n < 10 ? "0" + n : String(n); }
+    function tick() {
+      var diff = END_TS - Date.now();
+      if (diff <= 0) { setOpen(false); return false; }
+      var ts = Math.floor(diff / 1000);
+      setTime({
+        h: pad(Math.floor(ts / 3600)),
+        m: pad(Math.floor((ts % 3600) / 60)),
+        s: pad(ts % 60)
+      });
+      return true;
+    }
+    if (Date.now() >= END_TS) return;
+    if (!tick()) return;
+    var openTimer = setTimeout(function() { setOpen(true); }, 1500);
+    var intId = setInterval(tick, 1000);
+    function onKey(e) { if (e.key === "Escape") setOpen(false); }
+    document.addEventListener("keydown", onKey);
+    return function() {
+      clearTimeout(openTimer);
+      clearInterval(intId);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
+
+  if (!open) return null;
+  function close() { setOpen(false); }
+
+  var cards = [
+    { acc: "$5,000", price: "$99", href: "https://app.hashhedge.com/pt/app/payment-form/f23e0213-0f1c-4901-9bcb-f33231fdf6fb" },
+    { acc: "$10,000", price: "$159", href: "https://app.hashhedge.com/pt/app/payment-form/817e214a-bca2-4320-a58c-c499d9313d2e" },
+    { acc: "$15,000", price: "$229", href: "https://app.hashhedge.com/pt/app/payment-form/09535d91-26d6-46cc-8752-091eb74ee44b" },
+    { acc: "$25,000", price: "$349", href: "https://app.hashhedge.com/pt/app/payment-form/23cc5222-49fc-4d30-9387-94ffc1e32450" },
+    { acc: "$30,000", price: "$419", href: "https://app.hashhedge.com/pt/app/payment-form/a78b583b-b93d-45da-808a-aa905104b475" }
+  ];
+
+  var node = React.createElement("div", {
+    className: "hh1-popup-overlay",
+    onClick: function(e) { if (e.target === e.currentTarget) close(); }
+  },
+    React.createElement("div", { className: "hh1-popup-modal" },
+      React.createElement("button", {
+        type: "button",
+        className: "hh1-popup-close",
+        onClick: close,
+        "aria-label": 'Fechar'
+      },
+        React.createElement("svg", { width: 14, height: 14, viewBox: "0 0 14 14", fill: "none" },
+          React.createElement("path", { d: "M1 1l12 12M13 1L1 13", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round" })
+        )
+      ),
+      React.createElement("div", { className: "hh1-popup-badge" },
+        React.createElement("span", { className: "hh1-popup-badge-dot" }),
+        "NEW"
+      ),
+      React.createElement("h2", { className: "hh1-popup-title" },
+        'Desafios de ', React.createElement("span", { className: "hh1-popup-accent" }, '1 etapa')
+      ),
+      React.createElement("p", { className: "hh1-popup-sub" }, 'Agora dá pra ser financiado ainda mais rápido — em apenas 1 etapa.'),
+      React.createElement("span", { className: "hh1-popup-timer-label" }, 'A promoção termina em:'),
+      React.createElement("div", { className: "hh1-popup-timer" },
+        React.createElement("div", { className: "hh1-popup-timer-unit" },
+          React.createElement("span", null, time.h),
+          React.createElement("em", null, 'horas')
+        ),
+        React.createElement("div", { className: "hh1-popup-timer-colon" }, ":"),
+        React.createElement("div", { className: "hh1-popup-timer-unit" },
+          React.createElement("span", null, time.m),
+          React.createElement("em", null, 'minutos')
+        ),
+        React.createElement("div", { className: "hh1-popup-timer-colon" }, ":"),
+        React.createElement("div", { className: "hh1-popup-timer-unit" },
+          React.createElement("span", null, time.s),
+          React.createElement("em", null, 'segundos')
+        )
+      ),
+      React.createElement("div", { className: "hh1-popup-cards" },
+        cards.map(function(c, i) {
+          return React.createElement("a", {
+            key: i,
+            className: "hh1-popup-card",
+            href: c.href,
+            target: "_blank",
+            rel: "noopener",
+            onClick: close
+          },
+            React.createElement("div", { className: "hh1-popup-card-left" },
+              React.createElement("span", { className: "hh1-popup-card-label" }, 'Conta'),
+              React.createElement("strong", { className: "hh1-popup-card-acc" }, c.acc)
+            ),
+            React.createElement("div", { className: "hh1-popup-card-price" }, c.price),
+            React.createElement("span", { className: "hh1-popup-card-btn" }, 'Comprar')
+          );
+        })
+      ),
+      React.createElement("p", { className: "hh1-popup-disclaimer" }, 'Promoção válida até 12 de junho de 2026, 23:59 (horário de Dubai). Após o término do cronômetro, o acesso ao desafio de 1 etapa será fechado automaticamente.')
+    )
+  );
+
+  return ReactDOM.createPortal(node, document.body);
 }
 
 ReactDOM.createRoot(document.getElementById("hashhedge-root")).render(/*#__PURE__*/React.createElement(HashHedgeReactApp, null));
