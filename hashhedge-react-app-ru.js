@@ -246,11 +246,17 @@ function HeroCanvas({
 
     // ---------- Size / resize ----------
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = canvas.getBoundingClientRect();
       w = rect.width;
       h = rect.height;
-      canvas.width = w * dpr;
+      // Hard-cap canvas backing buffer at 960px wide. On bigger viewports
+      // Firefox spends 1-2s reallocating a viewport-sized canvas on scroll
+      // back. setTransform scales the drawing math so logical coords stay
+      // in (0..w, 0..h) — visual difference is minor (slight softness) but
+      // GPU memory drops 4-9x and FF re-entry paint is near-instant.
+      const TARGET_W = Math.min(w, 960);
+      dpr = w > 0 ? TARGET_W / w : 1;
+      canvas.width = TARGET_W;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
@@ -539,9 +545,31 @@ function HeroCanvas({
       resize();
     };
     window.addEventListener("resize", onResize);
+    // Firefox fix: canvas backing buffer can be freed when off-screen for a while —
+    // when canvas re-enters viewport, re-establish the buffer via resize() to avoid
+    // black empty hero on scroll-back.
+    const heroIO = new IntersectionObserver(function(entries) {
+      if (entries[0] && entries[0].isIntersecting) {
+        cancelAnimationFrame(raf);
+        resize();
+        draw();
+        // Firefox sometimes defers paint after scroll-back; force a sync
+        // reflow on the parent section to make FF actually repaint now.
+        var sec = canvas.closest && canvas.closest(".hh-hero-section");
+        if (sec) {
+          var origPad = sec.style.paddingTop;
+          sec.style.paddingTop = (parseFloat(getComputedStyle(sec).paddingTop) + 1) + "px";
+          // eslint-disable-next-line no-unused-expressions
+          sec.offsetHeight;
+          sec.style.paddingTop = origPad;
+        }
+      }
+    }, { threshold: 0, rootMargin: "400px 0px 400px 0px" });
+    heroIO.observe(canvas);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
+      heroIO.disconnect();
     };
   }, [anim, mode]);
   return /*#__PURE__*/React.createElement("canvas", {
@@ -660,7 +688,7 @@ function CosmicStatsPanel() {
       letterSpacing: "0.12em",
       color: "var(--fg-dim)",
       textTransform: "uppercase",
-      marginBottom: 14
+      marginBottom: 8
     }
   }, s.k), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -804,7 +832,7 @@ function LivePayoutsTable() {
     color: "var(--accent)",
     chart: [0.52, 0.57, 0.62, 0.66, 0.70, 0.73, 0.76, 0.80, 0.84, 0.88, 0.92, 0.95]
   }, {
-    k: "Всего Funded-трейдеров",
+    k: "Всего профинансированных трейдеров",
     v: fmtCount(tradersTotal),
     sub: "Сегодня",
     subV: `+${tradersToday}`,
@@ -1550,7 +1578,7 @@ function Hero({
       fontWeight: 700,
       color: "var(--fg)"
     }
-  }, "4.4 \xB7 Trustpilot"), /*#__PURE__*/React.createElement("div", {
+  }, "4.5 \xB7 Trustpilot"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12,
       color: "var(--fg-dim)"
@@ -1603,7 +1631,7 @@ function Hero({
   }, {
     v: _hhTraders(),
     suf: "",
-    l: "Funded-трейдеров",
+    l: "Профинансированных трейдеров",
     sub: "Каждый день их становится больше."
   }, {
     v: 160,
@@ -1611,7 +1639,7 @@ function Hero({
     l: "крипто-пар",
     sub: "BTC, ETH и топовые активы TradFi."
   }, {
-    v: 4.4,
+    v: 4.5,
     suf: "/5",
     dec: 1,
     l: "рейтинг Trustpilot",
@@ -2202,7 +2230,7 @@ function PromoBanner() {
     className: "eyebrow",
     style: {
       color: "var(--accent)",
-      marginBottom: 14
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot",
@@ -2311,7 +2339,7 @@ function PromoBanner() {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      marginBottom: 14
+      marginBottom: 8
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
@@ -2468,7 +2496,7 @@ function HowItWorks() {
     k: "ОЦЕНКА",
     t: "Пройди челлендж",
     d: "Выполни условия по прибыли и просадке в рамках челленджа и получи фондирование.",
-    bullets: ["Фаза 1: цель 8%, макс. общая просадка 10%", "Фаза 2: цель 6%, макс. общая просадка 8%", "Макс. дневная просадка 5%, минимум 5 дней"]
+    bullets: ["Двустадийный: 2 этапа проверки", "Одностадийный: 1 этап проверки", "Четкие цели по прибыли и ограничения по потерям"]
   }, {
     n: "03",
     k: "ФОНДИРОВАНИЕ",
@@ -3149,12 +3177,12 @@ const {
 //   4. Big summary / checkout bar: account size → price → Start Challenge CTA.
 // ============================================================================
 const PRICING_TOOLTIPS = {
-  "Цель по прибыли": "Процент прибыли, необходимый для перехода на следующий этап",
-  "Макс. дневная просадка": "Максимальный убыток, допустимый в течение одного торгового дня",
-  "Макс. общая просадка": "Общий лимит убытка по счету за время прохождения фазы",
-  "Минимум торговых дней": "Минимальное количество торговых дней для прохождения этапа",
-  "Срок торговли": "Максимальное количество дней, отведённое на прохождение этапа",
-  "Максимальное плечо": "Максимальное кредитное плечо, доступное при прохождении этапа",
+  "Целевая прибыль": "Процент прибыли, необходимый для перехода на следующую стадию",
+  "Макс. дневная потеря": "Максимальный убыток, допустимый в течение одного торгового дня",
+  "Макс. общая потеря": "Общий лимит убытка по счету за время прохождения стадии",
+  "Минимум торговых дней": "Минимальное количество торговых дней для прохождения стадии",
+  "Срок торговли": "Максимальное количество дней, отведённое на прохождение стадии",
+  "Максимальное плечо": "Максимальное кредитное плечо, доступное при прохождении стадии",
   "Прибыль трейдера": "Процент прибыли, который трейдер забирает себе",
   "Выплаты": "Вывод прибыли на крипто-кошелёк в USDT"
 };
@@ -3181,33 +3209,46 @@ function PricingTooltipLabel({label}) {
 }
 function Pricing() {
   useRevealOnScroll();
-  // Промо 1-фазного челленджа активно до 13.06.2026 15:00 Dubai (= 11:00 UTC).
-  // После этой даты весь pricing автоматически откатывается на 2-фазный.
-  const HH_PROMO_END_TS = Date.UTC(2026, 5, 13, 11, 0, 0);
-  const promoActive = Date.now() < HH_PROMO_END_TS;
-  const [phase, setPhase] = ___useS(promoActive ? 1 : 2);          // 1-фазный по умолчанию (новый); 2 = 2-фазный
-  const [size, setSize] = ___useS(25000);
+  // Промо 1-фазного челленджа: 29.06.2026 23:00 MSK → 01.07.2026 23:59 Dubai time.
+  const HH_PROMO_START_TS = Date.UTC(2026, 6, 6, 19, 59, 0);
+  const HH_PROMO_END_TS = Date.UTC(2026, 6, 8, 19, 59, 0);
+  const opForce = typeof window !== "undefined" && /[?&]op=force\b/.test(window.location.search || "");
+  const promoActive = true;
+  // Flash Sale 25%: 30 Jul 2026 00:00 Dubai (UTC+4) → 31 Jul 2026 23:59 Dubai. Активна только по ?fs=force (FS_AUTO=false).
+  // Promo code: FLASH25. Applies to $100K / $150K / $200K accounts (2-phase).
+  const HH_FS_START_TS = Date.UTC(2026, 6, 29, 20, 0, 0);
+  const HH_FS_END_TS = Date.UTC(2026, 6, 31, 19, 59, 59);
+  const FS_DISCOUNT = 0.25;
+  const fsForce = (typeof window !== "undefined") && /[?&]fs=force\b/.test(window.location.search || "");
+  const FS_AUTO = false;  // ручной рубильник авто-запуска по датам (false = только ?fs=force)
+  const fsActive = fsForce || (FS_AUTO && Date.now() >= HH_FS_START_TS && Date.now() < HH_FS_END_TS);
+  const fsPrice = function(p) { return Math.round(p * (1 - FS_DISCOUNT) * 100) / 100; };
+  const fsFmt = function(p) { return p.toFixed(2); };
+  const [phase, setPhase] = ___useS(fsActive ? 2 : (promoActive ? 1 : 2));          // одностадийный по умолчанию (новый); 2 = двухстадийный
+  const [size, setSize] = ___useS(fsActive ? 100000 : (promoActive ? 50000 : 25000));
   const [openRule, setOpenRule] = ___useS(null);
   const [mobileStage, setMobileStage] = ___useS("stage1");
   const is1 = promoActive && phase === 1;
 
   // ── 2-PHASE DATA ───────────────────────────────────────────────────────────
-  const sizes2 = [5000, 10000, 25000, 50000, 100000, 150000];
+  const sizes2 = fsActive ? [5000, 10000, 25000, 50000, 100000, 150000, 200000] : [5000, 10000, 25000, 50000, 100000, 150000];
   const pricing2 = {
     5000: 79,
     10000: 99,
     25000: 299,
     50000: 499,
     100000: 799,
-    150000: 1093
+    150000: 1093,
+    200000: 1293
   };
   const paymentLinks2 = {
-    5000: "https://app.hashhedge.com/ru/app/payment-form/f49e5bb5-2f1f-40cf-bd54-add0c2373ad2",
-    10000: "https://app.hashhedge.com/ru/app/payment-form/e1e37983-305a-4781-b104-945c92da525c",
-    25000: "https://app.hashhedge.com/ru/app/payment-form/ea03d4c8-df35-41ed-b36e-203a6b15bc11",
-    50000: "https://app.hashhedge.com/ru/app/payment-form/9b66fb15-a4ff-4eb3-b61f-694b0828a70b",
-    100000: "https://app.hashhedge.com/ru/app/payment-form/4555de74-c007-4a40-a501-ae7dba7085c7",
-    150000: "https://app.hashhedge.com/ru/app/payment-form/fcd959b6-dcf6-4a78-819c-605d6f99bb50"
+    5000: "https://app.hashhedge.com/ru/app/payment-form/f9b2dbd5-3026-417e-a499-e5b8f68c9a21",
+    10000: "https://app.hashhedge.com/ru/app/payment-form/a19ac1b9-4c6d-4ec1-ba10-9654c084bf75",
+    25000: "https://app.hashhedge.com/ru/app/payment-form/ef17553b-ecf4-434e-aec6-594b8a8dd002",
+    50000: "https://app.hashhedge.com/ru/app/payment-form/57c31474-1b94-41ac-8f8b-87bcacc17701",
+    100000: "https://app.hashhedge.com/ru/app/payment-form/2cac9366-8647-4f17-b597-0585761c2e00",
+    150000: "https://app.hashhedge.com/ru/app/payment-form/63503f96-96e3-4eb6-b339-d41af3acaac7",
+    200000: "https://app.hashhedge.com/ru/app/payment-form/982b97fd-4431-456e-99b0-7dfb1ec4d68b"
   };
   const accountNotes2 = {
     5000: "Стартовый аккаунт для тестирования правил с минимальным входом.",
@@ -3215,32 +3256,33 @@ function Pricing() {
     25000: "Самый популярный баланс между ценой, капиталом и реальным запасом по просадке.",
     50000: "Серьёзный размер аккаунта для стабильных дневных крипто-стратегий.",
     100000: "Создан для опытных трейдеров, которые уже управляют большим риском.",
-    150000: "Максимальный лимит Hash Hedge и лучшее соотношение цены к капиталу."
+    150000: "Максимальный лимит Hash Hedge и лучшее соотношение цены к капиталу.",
+    200000: "Двести тысяч долларов капитала для самых амбициозных стратегий."
   };
 
   // ── 1-PHASE DATA (новый челлендж) ──────────────────────────────────────────
-  const sizes1 = [5000, 10000, 15000, 25000, 30000];
+  const sizes1 = [5000, 10000, 25000, 50000, 100000];
   const pricing1 = {
     5000: 99,
     10000: 159,
-    15000: 229,
     25000: 349,
-    30000: 419
+    50000: 599,
+    100000: 999
   };
-  // 1-фазный payment-form URL'ы (живые).
+  // одностадийный payment-form URL'ы (живые).
   const paymentLinks1 = {
-    5000: "https://app.hashhedge.com/ru/app/payment-form/f23e0213-0f1c-4901-9bcb-f33231fdf6fb",
-    10000: "https://app.hashhedge.com/ru/app/payment-form/817e214a-bca2-4320-a58c-c499d9313d2e",
-    15000: "https://app.hashhedge.com/ru/app/payment-form/09535d91-26d6-46cc-8752-091eb74ee44b",
-    25000: "https://app.hashhedge.com/ru/app/payment-form/23cc5222-49fc-4d30-9387-94ffc1e32450",
-    30000: "https://app.hashhedge.com/ru/app/payment-form/a78b583b-b93d-45da-808a-aa905104b475"
+    5000: "https://app.hashhedge.com/ru/app/payment-form/b99716c0-8e0d-4d1f-9853-127b962ca1bb",
+    10000: "https://app.hashhedge.com/ru/app/payment-form/d3e600cd-5677-417f-aa71-39dbeda39e3b",
+    25000: "https://app.hashhedge.com/ru/app/payment-form/2ed6981a-9fef-4fcc-bd88-2d40e98f46ce",
+    50000: "https://app.hashhedge.com/ru/app/payment-form/e66eab0a-a018-4483-ae7d-bac1d951d314",
+    100000: "https://app.hashhedge.com/ru/app/payment-form/383c866d-8b20-426d-8638-5ae74a33e4d9"
   };
   const accountNotes1 = {
-    5000: "Стартовый 1-фазный аккаунт для быстрого первого funded.",
-    10000: "Компактный 1-фазный с минимальной просадкой.",
-    15000: "Оптимальный размер для трейдеров с риск-менеджментом.",
-    25000: "Самый популярный 1-фазный аккаунт.",
-    30000: "Максимальный 1-фазный аккаунт — лучшая цена за $1K капитала."
+    5000: "Стартовый одностадийный аккаунт для быстрого первого funded.",
+    10000: "Компактный одностадийный с минимальной просадкой.",
+    25000: "Оптимальный размер для трейдеров с риск-менеджментом.",
+    50000: "Крупный одностадийный аккаунт для уверенной торговли.",
+    100000: "Новый максимальный одностадийный аккаунт — больше капитала в одну стадию."
   };
 
   // ── Active dataset (выбирается по phase) ───────────────────────────────────
@@ -3248,25 +3290,25 @@ function Pricing() {
   const pricing = is1 ? pricing1 : pricing2;
   const paymentLinks = is1 ? paymentLinks1 : paymentLinks2;
   const accountNotes = is1 ? accountNotes1 : accountNotes2;
-  const popular = 25000;
-  const bestValue = is1 ? 30000 : 150000;
+  const popular = 10000;
+  const bestValue = is1 ? 50000 : 150000;
   // Тарифы в акции (зелёная подсветка + бейдж АКЦИЯ)
-  const flashSaleSizes = []; // акции выключены — оставляем механизм для будущих кампаний
+  const flashSaleSizes = fsActive ? [100000, 150000, 200000] : [];
 
   // Защита от невалидных state-комбинаций при смене phase
   React.useEffect(() => {
-    if (sizes.indexOf(size) < 0) setSize(popular);
+    if (sizes.indexOf(size) < 0) setSize(is1 ? 50000 : popular);
     if (is1 && mobileStage === "stage2") setMobileStage("stage1");
   }, [phase]); // eslint-disable-line
 
   // ── Mobile stage tabs / rules ─────────────────────────────────────────────
   const mobileStageTabs2 = [{
     id: "stage1",
-    label: "Этап 1",
+    label: "Стадия 1",
     sub: "Оценка"
   }, {
     id: "stage2",
-    label: "Этап 2",
+    label: "Стадия 2",
     sub: "Верификация"
   }, {
     id: "funded",
@@ -3275,7 +3317,7 @@ function Pricing() {
   }];
   const mobileStageTabs1 = [{
     id: "stage1",
-    label: "Этап 1",
+    label: "Стадия 1",
     sub: "Оценка"
   }, {
     id: "funded",
@@ -3284,21 +3326,21 @@ function Pricing() {
   }];
   const mobileStageTabs = is1 ? mobileStageTabs1 : mobileStageTabs2;
   const mobileStageRules2 = {
-    stage1: [["Цель по прибыли", "8%"], ["Макс. дневная просадка", "5%"], ["Макс. общая просадка", "10%"], ["Минимум торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"]],
-    stage2: [["Цель по прибыли", "6%"], ["Макс. дневная просадка", "5%"], ["Макс. общая просадка", "8%"], ["Минимум торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"]],
-    funded: [["Цель по прибыли", "Без цели"], ["Макс. дневная просадка", "5%"], ["Макс. общая просадка", "8%"], ["Минимум торговых дней", "-"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"], ["Дележ прибыли", "90%"], ["Выплаты", "USDT на кошелёк"]]
+    stage1: [["Целевая прибыль", "8%"], ["Макс. дневная потеря", "5%"], ["Макс. общая потеря", "10%"], ["Минимум торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"]],
+    stage2: [["Целевая прибыль", "6%"], ["Макс. дневная потеря", "5%"], ["Макс. общая потеря", "8%"], ["Минимум торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"]],
+    funded: [["Целевая прибыль", "Без цели"], ["Макс. дневная потеря", "5%"], ["Макс. общая потеря", "8%"], ["Минимум торговых дней", "-"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"], ["Дележ прибыли", "90%"], ["Выплаты", "USDT на кошелёк"]]
   };
   const mobileStageRules1 = {
-    stage1: [["Цель по прибыли", "10%"], ["Макс. дневная просадка", "3%"], ["Макс. общая просадка", "6%"], ["Минимум торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"]],
-    funded: [["Цель по прибыли", "Без цели"], ["Макс. дневная просадка", "3%"], ["Макс. общая просадка", "6%"], ["Минимум торговых дней", "-"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"], ["Дележ прибыли", "90%"], ["Выплаты", "USDT на кошелёк"]]
+    stage1: [["Целевая прибыль", "10%"], ["Макс. дневная потеря", "3%"], ["Макс. общая потеря", "6%"], ["Минимум торговых дней", "5 дней"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"]],
+    funded: [["Целевая прибыль", "Без цели"], ["Макс. дневная потеря", "3%"], ["Макс. общая потеря", "6%"], ["Минимум торговых дней", "-"], ["Срок торговли", "Без лимита"], ["Максимальное плечо", "1:5"], ["Дележ прибыли", "90%"], ["Выплаты", "USDT на кошелёк"]]
   };
   const mobileStageRules = is1 ? mobileStageRules1 : mobileStageRules2;
 
   // Per-stage rule values – single source of truth.
   const rules = [{
     k: "target",
-    label: "Цель по прибыли",
-    sub: "Процент прибыли, необходимый для перехода на следующий этап",
+    label: "Целевая прибыль",
+    sub: "Процент прибыли, необходимый для перехода на следующую стадию",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3320,7 +3362,7 @@ function Pricing() {
     stages: is1 ? ["10%", "∞"] : ["8%", "6%", "∞"]
   }, {
     k: "daily",
-    label: "Макс. дневная просадка",
+    label: "Макс. дневная потеря",
     sub: "Максимальный убыток, допустимый в течение одного торгового дня",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
@@ -3342,8 +3384,8 @@ function Pricing() {
     stages: is1 ? ["3%", "3%"] : ["5%", "5%", "5%"]
   }, {
     k: "dd",
-    label: "Макс. общая просадка",
-    sub: "Общий лимит убытка по счету за время прохождения фазы",
+    label: "Макс. общая потеря",
+    sub: "Общий лимит убытка по счету за время прохождения стадии",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3366,7 +3408,7 @@ function Pricing() {
   }, {
     k: "days",
     label: "Мин. торговых дней",
-    sub: "Минимальное количество торговых дней для прохождения этапа",
+    sub: "Минимальное количество торговых дней для прохождения стадии",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3390,7 +3432,7 @@ function Pricing() {
   }, {
     k: "period",
     label: "Срок торговли",
-    sub: "Максимальное количество дней, отведённое на прохождение этапа",
+    sub: "Максимальное количество дней, отведённое на прохождение стадии",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3422,7 +3464,7 @@ function Pricing() {
   }, {
     k: "lev",
     label: "Максимальное плечо",
-    sub: "Максимальное кредитное плечо, доступное при прохождении этапа",
+    sub: "Максимальное кредитное плечо, доступное при прохождении стадии",
     icon: /*#__PURE__*/React.createElement("svg", {
       width: "22",
       height: "22",
@@ -3439,7 +3481,16 @@ function Pricing() {
   const profitTargetPct = is1 ? 10 : 8;
   const profitTarget$ = Math.round(size * profitTargetPct / 100);
   // Защита: если size исчез из набора при смене phase (между рендером и useEffect-фолбэком) — используем pricing[popular]
-  const price = pricing[size] !== undefined ? pricing[size] : pricing[popular];
+  const fallbackSize = sizes[0];
+  const price = pricing[size] !== undefined ? pricing[size] : pricing[fallbackSize];
+  const sizeIsFlash = !is1 && fsActive && [100000, 150000, 200000].indexOf(size) >= 0;
+  // FS price renderer (strikethrough + discount). Use for inline price displays.
+  function renderFSPrice(p, opts) {
+    opts = opts || {};
+    const old = React.createElement("span", { style: Object.assign({ textDecoration: "line-through", color: "var(--fg-low)", fontWeight: 600, marginRight: 6, fontSize: "0.7em" }, opts.oldStyle || {}) }, "$", p);
+    const neu = React.createElement("span", { style: Object.assign({ color: "var(--green)" }, opts.newStyle || {}) }, "$", (Math.round(p * (1 - FS_DISCOUNT) * 100) / 100).toFixed(2));
+    return React.createElement(React.Fragment, null, old, neu);
+  }
   return /*#__PURE__*/React.createElement("section", {
     id: "pricing"
   }, /*#__PURE__*/React.createElement("div", {
@@ -3515,7 +3566,7 @@ function Pricing() {
       gap: 8,
       transition: "background .18s, color .18s"
     }
-  }, "1-фазный челлендж", /*#__PURE__*/React.createElement("span", {
+  }, "Одностадийный челлендж", /*#__PURE__*/React.createElement("span", {
     style: {
       display: "inline-flex",
       alignItems: "center",
@@ -3546,7 +3597,7 @@ function Pricing() {
       cursor: "pointer",
       transition: "background .18s, color .18s"
     }
-  }, "2-фазный челлендж")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Двухстадийный челлендж")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: "3"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3605,11 +3656,12 @@ function Pricing() {
     }
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = !is1 && s === popular;
+    const isNewOne = false;
+    const isPop = !fsActive && s === popular;
     const isBest = !is1 && s === bestValue;
-    const isFlash = flashSaleSizes.indexOf(s) >= 0;
-    const badge = isFlash ? "АКЦИЯ" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
-    const badgeBg = isFlash ? "var(--green)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
+    const isFlash = !is1 && flashSaleSizes.indexOf(s) >= 0;
+    const badge = isNewOne ? "НОВЫЙ" : isFlash ? "Flash Sale" : isBest ? "ВЫГОДНЫЙ" : isPop ? "ПОПУЛЯРНЫЙ" : null;
+    const badgeBg = isFlash ? "var(--green)" : isNewOne ? "var(--accent)" : isBest ? "#7BC75A" : active ? "var(--accent)" : "var(--fg)";
     return /*#__PURE__*/React.createElement("button", {
       key: s,
       onClick: () => {
@@ -3682,7 +3734,7 @@ function Pricing() {
         letterSpacing: "-0.01em",
         color: active ? "var(--accent)" : isFlash ? "var(--green)" : "var(--fg-muted)"
       }
-    }, "$", pricing[s]), /*#__PURE__*/React.createElement("div", {
+    }, isFlash ? renderFSPrice(pricing[s]) : React.createElement(React.Fragment, null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
       "data-account-tab-note": true,
       style: {
         fontSize: 10,
@@ -3697,16 +3749,18 @@ function Pricing() {
     "aria-label": "Выбери размер аккаунта"
   }, sizes.map(s => {
     const active = size === s;
-    const isPop = !is1 && s === popular;
+    const isNewOne = false;
+    const isPop = !fsActive && s === popular;
     const isBest = !is1 && s === bestValue;
+    const isFlash = !is1 && flashSaleSizes.indexOf(s) >= 0;
     return /*#__PURE__*/React.createElement("article", {
       key: s,
       "data-mobile-plan-card": s,
       onClick: () => setSize(s),
-      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + (isBest ? " is-best" : "")
-    }, (isPop || isBest) && /*#__PURE__*/React.createElement("div", {
+      className: "hh-mobile-plan-card" + (active ? " is-active" : "") + ((isNewOne || isBest || isFlash) ? " is-best" : "")
+    }, (isNewOne || isPop || isBest || isFlash) && /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-badge"
-    }, isBest ? "Выгодный" : "Популярный"), /*#__PURE__*/React.createElement("div", {
+    }, isNewOne ? "Новый" : isFlash ? "Flash Sale" : isBest ? "Выгодный" : "Популярный"), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-top"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Счёт"), /*#__PURE__*/React.createElement("strong", null, "$", s.toLocaleString())), /*#__PURE__*/React.createElement("button", {
       type: "button",
@@ -3714,10 +3768,10 @@ function Pricing() {
       "aria-label": `Select $${s.toLocaleString()} account`
     }, active ? "Выбрано" : "Выбрать")), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-plan-fee"
-    }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, "$", pricing[s])), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", null, isFlash ? "Стоимость со скидкой −25%" : "Стоимость"), /*#__PURE__*/React.createElement("b", null, isFlash ? renderFSPrice(pricing[s]) : React.createElement(React.Fragment, null, "$", pricing[s]))), /*#__PURE__*/React.createElement("div", {
       className: "hh-mobile-stage-tabs",
       role: "tablist",
-      "aria-label": "Этапы челленджа"
+      "aria-label": "Стадии челленджа"
     }, mobileStageTabs.map(stage => /*#__PURE__*/React.createElement("button", {
       key: stage.id,
       type: "button",
@@ -3730,7 +3784,7 @@ function Pricing() {
     }, mobileStageRules[mobileStage].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
       key: label
     }, /*#__PURE__*/React.createElement(PricingTooltipLabel, {label: label}), /*#__PURE__*/React.createElement("strong", null, value)))), /*#__PURE__*/React.createElement("a", {
-      href: paymentLinks[s],
+      href: paymentLinks[s] || "#",
       target: "_blank",
       rel: "noopener",
       className: "btn btn-primary btn-lg"
@@ -3762,24 +3816,24 @@ function Pricing() {
     className: "hh-mobile-account-size"
   }, "$", size.toLocaleString())), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-fee"
-  }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, "$", price))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "Стоимость"), /*#__PURE__*/React.createElement("b", null, sizeIsFlash ? renderFSPrice(price) : React.createElement(React.Fragment, null, "$", price)))), /*#__PURE__*/React.createElement("div", {
     className: "hh-mobile-account-rules"
   }, is1 ? [
-    /*#__PURE__*/React.createElement("div", { key: "s1" }, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "10%")),
+    /*#__PURE__*/React.createElement("div", { key: "s1" }, /*#__PURE__*/React.createElement("span", null, "Стадия 1"), /*#__PURE__*/React.createElement("b", null, "10%")),
     /*#__PURE__*/React.createElement("div", { key: "fund" }, /*#__PURE__*/React.createElement("span", null, "Funded"), /*#__PURE__*/React.createElement("b", null, "—")),
     /*#__PURE__*/React.createElement("div", { key: "dd" }, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "3%")),
     /*#__PURE__*/React.createElement("div", { key: "max" }, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "6%")),
     /*#__PURE__*/React.createElement("div", { key: "min" }, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5")),
     /*#__PURE__*/React.createElement("div", { key: "term" }, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))
   ] : [
-    /*#__PURE__*/React.createElement("div", { key: "s1" }, /*#__PURE__*/React.createElement("span", null, "Этап 1"), /*#__PURE__*/React.createElement("b", null, "8%")),
-    /*#__PURE__*/React.createElement("div", { key: "s2" }, /*#__PURE__*/React.createElement("span", null, "Этап 2"), /*#__PURE__*/React.createElement("b", null, "6%")),
+    /*#__PURE__*/React.createElement("div", { key: "s1" }, /*#__PURE__*/React.createElement("span", null, "Стадия 1"), /*#__PURE__*/React.createElement("b", null, "8%")),
+    /*#__PURE__*/React.createElement("div", { key: "s2" }, /*#__PURE__*/React.createElement("span", null, "Стадия 2"), /*#__PURE__*/React.createElement("b", null, "6%")),
     /*#__PURE__*/React.createElement("div", { key: "dd" }, /*#__PURE__*/React.createElement("span", null, "Дневной убыток"), /*#__PURE__*/React.createElement("b", null, "5%")),
     /*#__PURE__*/React.createElement("div", { key: "max" }, /*#__PURE__*/React.createElement("span", null, "Макс. DD"), /*#__PURE__*/React.createElement("b", null, "10% / 8%")),
     /*#__PURE__*/React.createElement("div", { key: "min" }, /*#__PURE__*/React.createElement("span", null, "Мин. дней"), /*#__PURE__*/React.createElement("b", null, "5 + 5")),
     /*#__PURE__*/React.createElement("div", { key: "term" }, /*#__PURE__*/React.createElement("span", null, "Срок"), /*#__PURE__*/React.createElement("b", null, "Без лимита"))
   ]), /*#__PURE__*/React.createElement("a", {
-    href: paymentLinks[size],
+    href: paymentLinks[size] || "#",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg"
@@ -3839,8 +3893,8 @@ function Pricing() {
     }
   }, "Правила прохождения челленджа"))), (is1 ? [{
     n: 1,
-    label: "ФАЗА 1",
-    sub: "Этап оценки",
+    label: "СТАДИЯ 1",
+    sub: "Стадия оценки",
     accent: false
   }, {
     n: 2,
@@ -3849,13 +3903,13 @@ function Pricing() {
     accent: true
   }] : [{
     n: 1,
-    label: "ФАЗА 1",
-    sub: "Этап оценки",
+    label: "СТАДИЯ 1",
+    sub: "Стадия оценки",
     accent: false
   }, {
     n: 2,
-    label: "ФАЗА 2",
-    sub: "Этап верификации",
+    label: "СТАДИЯ 2",
+    sub: "Стадия верификации",
     accent: false
   }, {
     n: 3,
@@ -4075,7 +4129,7 @@ function Pricing() {
       fontFamily: "Akrobat, Onest, sans-serif",
       lineHeight: 1
     }
-  }, "$", price), /*#__PURE__*/React.createElement("div", {
+  }, sizeIsFlash ? renderFSPrice(price, { oldStyle: { fontSize: "0.45em" } }) : React.createElement(React.Fragment, null, "$", price)), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 13,
       color: "var(--fg-dim)"
@@ -4085,7 +4139,7 @@ function Pricing() {
       color: "var(--fg)"
     }
   }, "$", (price / size * 1000).toFixed(2)), " за $1,000 капитала"))), /*#__PURE__*/React.createElement("a", {
-    href: paymentLinks[size],
+    href: paymentLinks[size] || "#",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-primary btn-lg",
@@ -5433,7 +5487,7 @@ function PayoutShowcase() {
       e.currentTarget.style.transform = "rotate(0deg)";
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: (window.__HH_BASE__+"assets/payout-certificate.png"),
+    src: (window.__HH_BASE__+"assets/payout-certificate-2.png"),
     alt: "Настоящий сертификат выплаты HashHedge",
     style: {
       display: "block",
@@ -5798,7 +5852,7 @@ function EventsTournaments() {
       margin: "0 0 8px"
     }
   }, "Hash Hedge регулярно участвует и организовывает ивенты по всему миру. Следи за анонсами в ", /*#__PURE__*/React.createElement("a", {
-    href: "https://t.me/+Ix0pA4YYv9A4NzYy",
+    href: "https://telegram.me/+Ix0pA4YYv9A4NzYy",
     target: "_blank",
     rel: "noopener",
     style: {
@@ -5913,7 +5967,7 @@ function EventsTournaments() {
       display: "flex",
       alignItems: "center",
       gap: 10,
-      marginBottom: 14,
+      marginBottom: 8,
       fontSize: 13,
       color: "var(--fg-muted)"
     }
@@ -6657,7 +6711,7 @@ function TelegramCommunity() {
       n: 22
     }],
     hasImage: true,
-    imageLabel: "payout-certificate.png"
+    imageLabel: "payout-certificate-2.png"
   }, {
     type: "user",
     handle: "@sofia_g",
@@ -6776,7 +6830,7 @@ function TelegramCommunity() {
       marginBottom: 36
     }
   }, [{
-    n: "1200+",
+    n: "2300+",
     l: "участников"
   }, {
     n: "40–60",
@@ -6786,7 +6840,7 @@ function TelegramCommunity() {
     l: "среднее время ответа админа"
   }, {
     n: "24/7",
-    l: "чат открыт без выходных"
+    l: "доступ к чату"
   }].map(s => /*#__PURE__*/React.createElement("div", {
     key: s.l,
     style: {
@@ -6821,7 +6875,7 @@ function TelegramCommunity() {
       flexWrap: "wrap"
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "https://t.me/hhcomunity",
+    href: "https://telegram.me/hhcomunity",
     target: "_blank",
     rel: "noopener",
     className: "btn btn-lg",
@@ -6861,7 +6915,7 @@ function TelegramCommunity() {
     style: {
       fontFamily: "Akrobat, Onest, sans-serif"
     }
-  }, "t.me/hhcomunity"), /*#__PURE__*/React.createElement("span", {
+  }, "telegram.me/hhcomunity"), /*#__PURE__*/React.createElement("span", {
     style: {
       color: "var(--fg-dim)"
     }
@@ -7174,7 +7228,7 @@ function TelegramChannelList() {
       color: textMuted,
       marginTop: 2
     }
-  }, "1200+ members, 218 online")), /*#__PURE__*/React.createElement("button", {
+  }, "2300+ members, 218 online")), /*#__PURE__*/React.createElement("button", {
     style: {
       width: 36,
       height: 36,
@@ -7607,7 +7661,7 @@ function SupportSection() {
     label: "Telegram-бот",
     sub: "@hashhedgesupportbot",
     tag: "TELEGRAM",
-    href: "https://t.me/hashhedgesupportbot",
+    href: "https://telegram.me/hashhedgesupportbot",
     accent: "rgba(43, 156, 222, 0.15)",
     accentText: "#5BB5E8",
     icon: /*#__PURE__*/React.createElement("svg", {
@@ -8369,24 +8423,7 @@ function BlueprintSection() {
       textTransform: "uppercase",
       letterSpacing: "0.1em"
     }
-  }, "на прочтение")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 32,
-      fontWeight: 800,
-      color: "var(--accent)",
-      fontFamily: "Akrobat, sans-serif",
-      letterSpacing: "-0.02em",
-      lineHeight: 1
-    }
-  }, ""), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12,
-      color: "var(--fg-muted)",
-      marginTop: 6,
-      textTransform: "uppercase",
-      letterSpacing: "0.1em"
-    }
-  }, ""))), /*#__PURE__*/React.createElement("a", {
+  }, "на прочтение"))), /*#__PURE__*/React.createElement("a", {
     href: "https://hashhedge.gitbook.io/hashhedge-user-guide",
     target: "_blank",
     rel: "noopener noreferrer",
@@ -9382,204 +9419,217 @@ function TeamCerts() {
   }, [lightbox]);
   // Real payout certificates – every row uses an actual issued certificate image.
   const certs = [
-  // Original 8
   {
-    name: "Mikhail Anikeev",
-    amount: "3,154.96",
-    acc: "$100,000",
-    date: "07 авг. 2025",
-    src: (window.__HH_BASE__+"img/cert-anikeev.png")
-  }, {
-    name: "Aleksandr Popov",
-    amount: "7,538.92",
-    acc: "$100,000",
-    date: "04 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-popov.jpg")
-  }, {
-    name: "Ryan Sullivan",
-    amount: "2,707.16",
-    acc: "$50,000",
-    date: "11 авг. 2025",
-    src: (window.__HH_BASE__+"img/cert-sullivan.png")
-  }, {
-    name: "Alex Okulov",
-    amount: "2,446.78",
-    acc: "$100,000",
-    date: "07 сен. 2025",
-    src: (window.__HH_BASE__+"img/cert-okulov.png")
-  }, {
-    name: "Amir Senenov",
-    amount: "1,304.68",
-    acc: "$50,000",
-    date: "17 июл. 2025",
-    src: (window.__HH_BASE__+"img/cert-senenov.png")
-  }, {
-    name: "Roman Dzhepparov",
-    amount: "1,296.61",
-    acc: "$5,000",
-    date: "22 июн. 2025",
-    src: (window.__HH_BASE__+"img/cert-dzhepparov.png")
-  }, {
-    name: "Maxim Ognev",
-    amount: "487.11",
-    acc: "$5,000",
-    date: "04 сен. 2025",
-    src: (window.__HH_BASE__+"img/cert-ognev.png")
-  }, {
-    name: "Leon Cherepanov",
-    amount: "407.12",
-    acc: "$5,000",
-    date: "07 авг. 2025",
-    src: (window.__HH_BASE__+"img/cert-cherepanov.png")
+    name: "Volodymyr Myshko",
+    amount: "793.48",
+    acc: "$10,000",
+    date: "26 мая 2026",
+    src: (window.__HH_BASE__+"img/cert-myshko.jpg")
   },
-  // New 10 (real certificates)
   {
-    name: "Alexey Morozov",
-    amount: "7,184.32",
-    acc: "$100,000",
-    date: "14 фев. 2026",
-    src: (window.__HH_BASE__+"img/cert-morozov.jpeg")
-  }, {
-    name: "Oskar Chmiel",
-    amount: "3,621.09",
-    acc: "$25,000",
-    date: "13 фев. 2026",
-    src: (window.__HH_BASE__+"img/cert-chmiel.jpeg")
-  }, {
-    name: "Onur Karaca",
-    amount: "7,024.85",
-    acc: "$100,000",
-    date: "18 фев. 2026",
-    src: (window.__HH_BASE__+"img/cert-karaca.jpeg")
-  }, {
-    name: "Pavel Zaitsev",
-    amount: "8,927.11",
-    acc: "$100,000",
-    date: "17 фев. 2026",
-    src: (window.__HH_BASE__+"img/cert-zaitsev.jpeg")
-  }, {
-    name: "Alexey Machkalyan",
-    amount: "7,928.49",
-    acc: "$100,000",
-    date: "05 фев. 2026",
-    src: (window.__HH_BASE__+"img/cert-machkalyan.jpeg")
-  }, {
-    name: "Rashad Aliyev",
-    amount: "9,224.71",
-    acc: "$100,000",
-    date: "04 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-aliyev.jpeg")
-  }, {
-    name: "Aleksandr Popov",
-    amount: "7,538.92",
-    acc: "$100,000",
-    date: "04 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-popov2.jpeg")
-  }, {
-    name: "Aleks Grachev",
-    amount: "7,318.92",
-    acc: "$100,000",
-    date: "10 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-grachev.jpeg")
-  }, {
-    name: "Pavel Shubin",
-    amount: "5,290.17",
-    acc: "$100,000",
-    date: "09 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-shubin.jpeg")
-  }, {
-    name: "Ilkin Jafarov",
-    amount: "4,157.22",
-    acc: "$50,000",
-    date: "14 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-jafarov.jpeg")
+    name: "Stanislav Bogdanovich",
+    amount: "1,145.21",
+    acc: "$10,000",
+    date: "01 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-bogdanovich.jpg")
   },
-  // Batch 3 – 14 more real certificates
   {
-    name: "Timur Kulikov",
-    amount: "1,902.43",
-    acc: "$25,000",
-    date: "14 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-kulikov.jpeg")
-  }, {
-    name: "Aleksandr Kaplin",
+    name: "Pavel Lapets",
+    amount: "2,366.76",
+    acc: "$100,000",
+    date: "02 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-lapets.jpg")
+  },
+  {
+    name: "Egor Savashynski",
+    amount: "990.78",
+    acc: "$10,000",
+    date: "05 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-savashynski.jpg")
+  },
+  {
+    name: "Iurii Evstratov",
+    amount: "4,518.36",
+    acc: "$100,000",
+    date: "05 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-evstratov.jpg")
+  },
+  {
+    name: "Fuad Rustamov",
+    amount: "888.32",
+    acc: "$50,000",
+    date: "08 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-rustamov.jpg")
+  },
+  {
+    name: "Nikita Kemnits",
+    amount: "3,620.39",
+    acc: "$50,000",
+    date: "08 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-kemnits1.jpg")
+  },
+  {
+    name: "Iaroslav Velicico",
     amount: "10,000.00",
     acc: "$100,000",
-    date: "18 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-kaplin.jpeg")
-  }, {
-    name: "Denis Huhlaev",
-    amount: "9,820.52",
+    date: "09 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-velicico.jpg")
+  },
+  {
+    name: "Albert Xan",
+    amount: "325.30",
+    acc: "$10,000",
+    date: "11 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-xan1.jpg")
+  },
+  {
+    name: "Dmitriy Zykov",
+    amount: "2,706.76",
+    acc: "$10,000",
+    date: "12 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-zykov.jpg")
+  },
+  {
+    name: "Ramil Xabibulin",
+    amount: "208.65",
+    acc: "$10,000",
+    date: "14 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-xabibulin.jpg")
+  },
+  {
+    name: "Artem Frolov",
+    amount: "398.44",
+    acc: "$10,000",
+    date: "17 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-frolov1.jpg")
+  },
+  {
+    name: "Alisher Abdiganiyev",
+    amount: "5,219.20",
     acc: "$100,000",
-    date: "16 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-huhlaev.jpeg")
-  }, {
-    name: "Aband Eddy",
-    amount: "6,475.88",
-    acc: "$100,000",
-    date: "16 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-eddy1.jpeg")
-  }, {
-    name: "Olga Kovlenko",
-    amount: "5,096.17",
-    acc: "$100,000",
-    date: "16 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-kovlenko.jpeg")
-  }, {
-    name: "Jukeen Bande",
-    amount: "8,622.65",
-    acc: "$100,000",
-    date: "20 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-bande.jpeg")
-  }, {
-    name: "Vadym Vads",
-    amount: "4,644.40",
+    date: "22 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-abdiganiyev.jpg")
+  },
+  {
+    name: "Mark Grachukho",
+    amount: "488.07",
+    acc: "$10,000",
+    date: "22 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-grachukho.jpg")
+  },
+  {
+    name: "Asilbek Nabiev",
+    amount: "302.71",
+    acc: "$10,000",
+    date: "22 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-nabiev.jpg")
+  },
+  {
+    name: "Oyatbek Asqarov",
+    amount: "536.00",
+    acc: "$25,000",
+    date: "25 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-asqarov.jpg")
+  },
+  {
+    name: "Maksim Lahun",
+    amount: "8,016.00",
+    acc: "$150,000",
+    date: "26 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-lahun.jpg")
+  },
+  {
+    name: "Nikita Kemnits",
+    amount: "3,159.41",
     acc: "$50,000",
-    date: "16 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-vads.jpeg")
-  }, {
-    name: "Sergi Tolmachev",
-    amount: "7,102.34",
-    acc: "$100,000",
-    date: "27 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-tolmachev.jpeg")
-  }, {
-    name: "Aleksei Razenkov",
-    amount: "6,422.47",
-    acc: "$100,000",
-    date: "25 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-razenkov.jpeg")
-  }, {
-    name: "Irina Stuchevskaya",
-    amount: "2,517.62",
+    date: "26 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-kemnits2.jpg")
+  },
+  {
+    name: "Esengul Berdibekov",
+    amount: "822.03",
+    acc: "$10,000",
+    date: "28 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-berdibekov.jpg")
+  },
+  {
+    name: "Albert Xan",
+    amount: "774.70",
+    acc: "$10,000",
+    date: "28 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-xan2.jpg")
+  },
+  {
+    name: "Artem Frolov",
+    amount: "203.51",
+    acc: "$10,000",
+    date: "28 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-frolov2.jpg")
+  },
+  {
+    name: "Danil Rogozhin",
+    amount: "3,731.73",
     acc: "$50,000",
-    date: "25 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-stuchevskaya.jpeg")
-  }, {
-    name: "Olga Kuznetsova",
-    amount: "2,404.64",
+    date: "30 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-rogozhin.jpg")
+  },
+  {
+    name: "Vazgen A",
+    amount: "2,405.56",
     acc: "$50,000",
-    date: "28 мар. 2026",
-    src: (window.__HH_BASE__+"img/cert-kuznetsova.jpeg")
-  }, {
-    name: "Nik Pechersky",
+    date: "30 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-vazgen.jpg")
+  },
+  {
+    name: "Jamshed Boboev",
+    amount: "511.00",
+    acc: "$10,000",
+    date: "30 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-boboev.jpg")
+  },
+  {
+    name: "Max Skretnev",
     amount: "10,000.00",
     acc: "$150,000",
-    date: "07 апр. 2026",
-    src: (window.__HH_BASE__+"img/cert-pechersky.jpeg")
-  }, {
-    name: "Elzatbek Berenaliev",
-    amount: "10,000.00",
+    date: "30 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-skretnev.jpg")
+  },
+  {
+    name: "Oleg Saveliev",
+    amount: "5,891.62",
     acc: "$100,000",
-    date: "07 апр. 2026",
-    src: (window.__HH_BASE__+"img/cert-berenaliev.jpeg")
-  }, {
-    name: "Aband Eddy",
-    amount: "7,712.92",
+    date: "30 июн. 2026",
+    src: (window.__HH_BASE__+"img/cert-saveliev.jpg")
+  },
+  {
+    name: "Denis Drobot",
+    amount: "143.84",
+    acc: "$10,000",
+    date: "03 июл. 2026",
+    src: (window.__HH_BASE__+"img/cert-drobot.jpg")
+  },
+  {
+    name: "Aleksandr Baranov",
+    amount: "6,212.95",
     acc: "$100,000",
-    date: "01 апр. 2026",
-    src: (window.__HH_BASE__+"img/cert-eddy2.jpeg")
-  }];
+    date: "04 июл. 2026",
+    src: (window.__HH_BASE__+"img/cert-baranov.jpg")
+  },
+  {
+    name: "Sergey Yurochko",
+    amount: "693.00",
+    acc: "$50,000",
+    date: "04 июл. 2026",
+    src: (window.__HH_BASE__+"img/cert-yurochko.jpg")
+  },
+  {
+    name: "Akmal Mehmonov",
+    amount: "1,203.00",
+    acc: "$10,000",
+    date: "04 июл. 2026",
+    src: (window.__HH_BASE__+"img/cert-mehmonov.jpg")
+  }
+  ];
 
   // Split into two rows for counter-scrolling effect.
   const row1 = certs.filter((_, i) => i % 2 === 0);
@@ -9792,7 +9842,7 @@ function TeamCerts() {
       color: "var(--fg-muted)"
     }
   }, "Результаты трейдеров Hash Hedge измеряются реальными выплатами. Каждая выплата фиксируется payout-сертификатом. Больше выплат в нашем ", /*#__PURE__*/React.createElement("a", {
-    href: "https://t.me/+Ix0pA4YYv9A4NzYy",
+    href: "https://telegram.me/+Ix0pA4YYv9A4NzYy",
     target: "_blank",
     rel: "noopener",
     style: {
@@ -10107,7 +10157,7 @@ function Reviews() {
       lineHeight: 1,
       textAlign: "right"
     }
-  }, "4.4", /*#__PURE__*/React.createElement("span", {
+  }, "4.5", /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 28,
       color: "var(--fg-dim)",
@@ -10424,7 +10474,7 @@ function FAQ() {
         color: "var(--accent)"
       }
     }, "support@hashhedge.com"), ", Telegram-бот ", /*#__PURE__*/React.createElement("a", {
-      href: "https://t.me/hashhedgesupportbot",
+      href: "https://telegram.me/hashhedgesupportbot",
       target: "_blank",
       rel: "noopener",
       style: {
@@ -10976,7 +11026,7 @@ function Footer() {
     t: "О нас",
     l: [{
       label: "Поддержка",
-      href: "https://t.me/hashhedgesupportbot"
+      href: "https://telegram.me/hashhedgesupportbot"
     }, {
       label: "FAQ",
       href: "https://www.hashhedge.com/faq/ru"
@@ -11132,7 +11182,7 @@ function Footer() {
       color: "rgba(238,238,243,0.86)",
       marginBottom: 34
     }
-  }, "\xA9 2026 HashHedge. All Right Reserved."), /*#__PURE__*/React.createElement("p", {
+  }, "\xA9 2026 Hash Hedge. All Rights Reserved."), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 12,
       lineHeight: 1.35,
@@ -11228,7 +11278,7 @@ function Nav({
     href: "https://www.hashhedge.com/faq/ru"
   }, "FAQ")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "https://www.hashhedge.com/blog/ru"
-  }, "Блог"))), /*#__PURE__*/React.createElement("div", {
+  }, "Блог")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 12,
@@ -11422,7 +11472,7 @@ function HashHedgeReactApp() {
   }), /*#__PURE__*/React.createElement(Hero, {
     variant: "classic",
     anim: "max"
-  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(OnePhasePopup, null));
+  }), /*#__PURE__*/React.createElement(PressStrip, null), /*#__PURE__*/React.createElement(TradeMetalsBanner, null), /*#__PURE__*/React.createElement(PromoBanner, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Pricing, null), /*#__PURE__*/React.createElement(WhyUs, null), /*#__PURE__*/React.createElement(PayoutShowcase, null), /*#__PURE__*/React.createElement(TeamCerts, null), /*#__PURE__*/React.createElement(TelegramCommunity, null), /*#__PURE__*/React.createElement(Reviews, null), /*#__PURE__*/React.createElement(YouTubeSection, null), /*#__PURE__*/React.createElement(InvestingBanner, null), /*#__PURE__*/React.createElement(BlueprintSection, null), /*#__PURE__*/React.createElement(SupportSection, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement(BigCTA, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(MobileCTABar, null), /*#__PURE__*/React.createElement(PromoPopup, null), /*#__PURE__*/React.createElement(OnePhasePopup, null));
 }
 function PopupChartBg() {
   return /*#__PURE__*/React.createElement("svg", {
@@ -11489,33 +11539,194 @@ function PopupChartBg() {
 
 
 // ── 1-phase popup (auto-injected into App tree, no separate Tilda block needed) ───
+function PromoPopup() {
+  var fsForceInit = typeof window !== "undefined" && /[?&]fs=force\b/.test(window.location.search || "");
+  var nowInit = Date.now();
+  var START_INIT = Date.UTC(2026, 6, 29, 20, 0, 0);
+  var END_INIT = Date.UTC(2026, 6, 31, 19, 59, 59);
+  var FS_AUTO = false;
+  var fsWindow = fsForceInit || (FS_AUTO && nowInit >= START_INIT && nowInit < END_INIT);
+  const [open, setOpen] = useState(fsWindow);
+  const [timeLeft, setTimeLeft] = useState({d:"00",h:"00",m:"00",s:"00"});
+  const [copied, setCopied] = useState(false);
+
+  React.useEffect(() => {
+    if (!fsWindow) return;
+    var END = END_INIT; // 26 Jun 22:59:59 MSK (UTC+3)
+    function tick() {
+      var diff = END - Date.now();
+      if (diff <= 0) { setTimeLeft({d:"00",h:"00",m:"00",s:"00"}); return; }
+      function z(n) { return n < 10 ? "0"+n : ""+n; }
+      setTimeLeft({
+        d: z(Math.floor(diff/86400000)),
+        h: z(Math.floor(diff/3600000)),
+        m: z(Math.floor((diff%3600000)/60000)),
+        s: z(Math.floor((diff%60000)/1000))
+      });
+    }
+    tick();
+    var id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  function copyPromo() {
+    var code = "FLASH25";
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+    } else {
+      var t = document.createElement("textarea");
+      t.value = code; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); } catch(e) {}
+      document.body.removeChild(t);
+      setCopied(true); setTimeout(() => setCopied(false), 2000);
+    }
+  }
+
+  var cards = [
+    { acc: "$100K", orig: "$799", sale: "$599.25", href: "https://app.hashhedge.com/ru/app/payment-form/2cac9366-8647-4f17-b597-0585761c2e00" },
+    { acc: "$150K", orig: "$1,093", sale: "$819.75", href: "https://app.hashhedge.com/ru/app/payment-form/63503f96-96e3-4eb6-b339-d41af3acaac7" },
+    { acc: "$200K", orig: "$1,293", sale: "$969.75", href: "https://app.hashhedge.com/ru/app/payment-form/982b97fd-4431-456e-99b0-7dfb1ec4d68b" }
+  ];
+
+  if (!open) return null;
+  return /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {className:"hh-popup-backdrop", onClick: () => setOpen(false)}),
+    /*#__PURE__*/React.createElement("div", {
+      className: "hh-popup hh-fs-popup",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": "Flash Sale"
+    },
+      /*#__PURE__*/React.createElement("button", {
+        className: "hh-popup-close",
+        onClick: () => setOpen(false),
+        "aria-label": "Закрыть"
+      }, /*#__PURE__*/React.createElement("svg", {width:"18",height:"18",viewBox:"0 0 24 24",fill:"none"},
+        /*#__PURE__*/React.createElement("path", {d:"M18 6L6 18M6 6l12 12",stroke:"currentColor",strokeWidth:"2.2",strokeLinecap:"round"})
+      )),
+      /*#__PURE__*/React.createElement("div", {
+        className: "hh-popup-inner",
+        style: {display:"block"}
+      },
+      /*#__PURE__*/React.createElement("div", {className:"hh-popup-copy", style:{maxWidth:"none", textAlign:"center"}},
+        /*#__PURE__*/React.createElement("span", {className:"hh-popup-badge", style:{margin:"0 auto 16px"}}, "FLASH SALE"),
+        /*#__PURE__*/React.createElement("h2", {className:"hh-popup-title", style:{textAlign:"center"}},
+          "Скидка ", /*#__PURE__*/React.createElement("span", {style:{color:"var(--accent)"}}, "25%"), " на челленджи", /*#__PURE__*/React.createElement("br", null), "Hash Hedge"
+        ),
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-sub", style:{marginBottom:20, textAlign:"center"}},
+          "Только 200 ваучеров. Предложение ограничено."
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer", style:{margin:"0 auto 28px"}},
+          /*#__PURE__*/React.createElement("span", {className:"hh-popup-timer-label"}, "До конца акции:"),
+          /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-digits"},
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.h),
+              /*#__PURE__*/React.createElement("em", null, "часов")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.m),
+              /*#__PURE__*/React.createElement("em", null, "минут")
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-popup-colon"}, ":"),
+            /*#__PURE__*/React.createElement("div", {className:"hh-popup-timer-unit"},
+              /*#__PURE__*/React.createElement("span", null, timeLeft.s),
+              /*#__PURE__*/React.createElement("em", null, "секунд")
+            )
+          )
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-fs-promocode-row"},
+          /*#__PURE__*/React.createElement("span", {
+            style:{fontSize:12,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--fg-dim)"}
+          }, "Промокод:"),
+          /*#__PURE__*/React.createElement("div", {style:{position:"relative",display:"inline-flex"}},
+            /*#__PURE__*/React.createElement("div", {
+              onClick: copyPromo,
+              style:{display:"flex",alignItems:"center",gap:10,background:"rgba(252,213,53,0.08)",border:"1px solid rgba(252,213,53,0.28)",borderRadius:10,padding:"8px 16px",cursor:"pointer",userSelect:"none"}
+            },
+              /*#__PURE__*/React.createElement("span", {
+                style:{fontSize:18,fontWeight:900,letterSpacing:"0.12em",color:"#fcd535"}
+              }, "FLASH25"),
+              /*#__PURE__*/React.createElement("svg", {width:"14",height:"14",viewBox:"0 0 24 24",fill:"none",style:{opacity:0.5,flexShrink:0}},
+                /*#__PURE__*/React.createElement("rect", {x:"9",y:"9",width:"13",height:"13",rx:"2",stroke:"currentColor",strokeWidth:"2"}),
+                /*#__PURE__*/React.createElement("path", {d:"M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1",stroke:"currentColor",strokeWidth:"2"})
+              )
+            ),
+            copied && /*#__PURE__*/React.createElement("div", {
+              style:{position:"absolute",bottom:"calc(100% + 8px)",left:"50%",transform:"translateX(-50%)",background:"#10B981",color:"#fff",fontSize:12,fontWeight:700,padding:"5px 12px",borderRadius:8,whiteSpace:"nowrap",pointerEvents:"none",zIndex:10,boxShadow:"0 4px 12px rgba(16,185,129,0.35)"}
+            }, "✓ Скопировано")
+          )
+        ),
+        /*#__PURE__*/React.createElement("div", {className:"hh-fs-cards"},
+          cards.map(c => /*#__PURE__*/React.createElement("a", {
+            key: c.acc,
+            href: c.href,
+            target: "_blank",
+            rel: "noopener",
+            onClick: () => setOpen(false),
+            className: "hh-fs-card"
+          },
+            /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-left"},
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-label"}, "Счёт"),
+              /*#__PURE__*/React.createElement("strong", {className:"hh-fs-card-acc"}, c.acc)
+            ),
+            /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-mid"},
+              /*#__PURE__*/React.createElement("div", {className:"hh-fs-card-price-row"},
+                /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-orig"}, c.orig),
+                /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-disc"}, "-25%")
+              ),
+              /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-sale"}, c.sale)
+            ),
+            /*#__PURE__*/React.createElement("span", {className:"hh-fs-card-btn-text"}, "Купить")
+          ))
+        ),
+        /*#__PURE__*/React.createElement("p", {className:"hh-popup-disclaimer"},
+          "Акция действует до 31 июля 23:59 (Dubai) или пока не закончатся ваучеры."
+        )
+      )
+      )
+    )
+  );
+}
+
+
 function OnePhasePopup() {
   const [open, setOpen] = React.useState(false);
   const [time, setTime] = React.useState({ h: "--", m: "--", s: "--" });
+  const [pp, setPp] = React.useState(1);
+  const [copied, setCopied] = React.useState(false);
 
   React.useEffect(function() {
     // Inject styles once
     if (!document.getElementById("hh1-popup-styles")) {
       var ss = document.createElement("style");
       ss.id = "hh1-popup-styles";
-      ss.textContent = `.hh1-popup-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(8,8,10,0.82); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; font-family: 'Onest', sans-serif; animation: hh1-fade .25s ease both; }
+      ss.textContent = `.hh1-popup-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; text-align: left; }
+.hh1-popup-right { display: flex; flex-direction: column; gap: 10px; }
+@media (max-width: 640px) { .hh1-popup-grid { grid-template-columns: 1fr; gap: 14px; text-align: center; } }
+.hh1-popup-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(8,8,10,0.82); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; font-family: 'Onest', sans-serif; animation: hh1-fade .25s ease both; }
 @keyframes hh1-fade { from { opacity: 0 } to { opacity: 1 } }
-.hh1-popup-modal { position: relative; width: 100%; max-width: 720px; max-height: calc(100vh - 40px); overflow-y: auto; -webkit-overflow-scrolling: touch; background: radial-gradient(circle at 78% 14%, rgba(252,213,53,0.07), transparent 55%), #0a0a0c; border: 1px solid rgba(252,213,53,0.22); border-radius: 24px; box-shadow: 0 40px 100px -20px rgba(0,0,0,0.85), 0 0 0 1px rgba(252,213,53,0.06); padding: 38px 32px 30px; text-align: center; color: #f5f1e8; box-sizing: border-box; animation: hh1-up .3s cubic-bezier(0.32,0.72,0,1) both; }
+.hh1-popup-modal { position: relative; width: 100%; max-width: 760px; max-height: calc(100vh - 40px); overflow-y: auto; -webkit-overflow-scrolling: touch; background: radial-gradient(circle at 78% 14%, rgba(252,213,53,0.07), transparent 55%), #0a0a0c; border: 1px solid rgba(252,213,53,0.22); border-radius: 24px; box-shadow: 0 40px 100px -20px rgba(0,0,0,0.85), 0 0 0 1px rgba(252,213,53,0.06); padding: 30px 30px 28px; text-align: center; color: #f5f1e8; box-sizing: border-box; animation: hh1-up .3s cubic-bezier(0.32,0.72,0,1) both; }
 @keyframes hh1-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .hh1-popup-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10); color: #f5f1e8; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1; transition: background .15s; }
 .hh1-popup-close:hover { background: rgba(255,255,255,0.16); }
-.hh1-popup-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px; background: rgba(252,213,53,0.14); border: 1px solid rgba(252,213,53,0.38); color: #fcd535; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 auto 18px; }
+.hh1-popup-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px; background: rgba(252,213,53,0.14); border: 1px solid rgba(252,213,53,0.38); color: #fcd535; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 auto 10px; }
 .hh1-popup-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #fcd535; box-shadow: 0 0 0 0 rgba(252,213,53,0.6); animation: hh1-pulse 1.6s ease-in-out infinite; }
 @keyframes hh1-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(252,213,53,0.5); } 50% { box-shadow: 0 0 0 5px rgba(252,213,53,0); } }
-.hh1-popup-title { font-size: clamp(26px, 4vw, 36px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; color: #f5f1e8; }
+.hh1-popup-title { font-size: clamp(24px, 3.4vw, 32px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; color: #f5f1e8; }
 .hh1-popup-accent { color: #fcd535; }
 .hh1-popup-sub { font-size: 14.5px; color: rgba(245,241,232,0.72); line-height: 1.55; margin: 0 auto 24px; max-width: 460px; }
 .hh1-popup-timer-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,241,232,0.55); margin-bottom: 12px; }
-.hh1-popup-timer { display: inline-flex; align-items: stretch; justify-content: center; gap: 8px; margin: 0 auto 28px; }
-.hh1-popup-timer-unit { background: rgba(255,255,255,0.04); border: 1px solid rgba(252,213,53,0.22); border-radius: 14px; min-width: 88px; padding: 10px 8px 8px; display: flex; flex-direction: column; align-items: center; }
-.hh1-popup-timer-unit > span { font-size: 36px; font-weight: 900; color: #f5f1e8; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.hh1-popup-timer { display: inline-flex; align-items: stretch; justify-content: center; gap: 8px; margin: 0 auto 12px; }
+.hh1-popup-timer-unit { background: rgba(255,255,255,0.04); border: 1px solid rgba(252,213,53,0.22); border-radius: 14px; min-width: 62px; padding: 6px 6px 5px; display: flex; flex-direction: column; align-items: center; }
+.hh1-popup-timer-unit > span { font-size: 26px; font-weight: 900; color: #f5f1e8; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
 .hh1-popup-timer-unit > em { font-style: normal; font-size: 10px; font-weight: 700; color: rgba(245,241,232,0.5); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px; }
 .hh1-popup-timer-colon { display: flex; align-items: center; font-size: 28px; font-weight: 900; color: rgba(252,213,53,0.55); padding-bottom: 16px; }
+.hh1-popup-rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: -8px 0 22px; padding: 12px; border-radius: 16px; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); }
+.hh1-popup-rule { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+.hh1-popup-rule span { font-size: 10px; font-weight: 700; line-height: 1.2; color: rgba(245,241,232,0.52); text-align: center; }
+.hh1-popup-rule strong { font-size: 18px; font-weight: 900; line-height: 1; color: #fcd535; }
+.hh1-popup-rule:last-child strong { color: #7BC75A; }
 .hh1-popup-cards { display: flex; flex-direction: column; gap: 8px; margin: 0 0 22px; }
 .hh1-popup-card { display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 16px; padding: 12px 18px; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; text-decoration: none; color: #f5f1e8; transition: background .15s, border-color .15s, transform .15s; }
 .hh1-popup-card:hover { background: rgba(252,213,53,0.06); border-color: rgba(252,213,53,0.32); transform: translateY(-1px); }
@@ -11527,11 +11738,11 @@ function OnePhasePopup() {
 .hh1-popup-card:hover .hh1-popup-card-btn { background: #ffe35a; }
 .hh1-popup-disclaimer { font-size: 12px; color: rgba(245,241,232,0.55); line-height: 1.55; margin: 0 auto; max-width: 460px; }
 @media (max-width: 600px) {
-  .hh1-popup-overlay { padding: 12px; align-items: flex-start; padding-top: 24px; }
+  .hh1-popup-overlay { padding: 12px; align-items: center; }
   .hh1-popup-modal { padding: 28px 20px 22px; border-radius: 20px; max-height: calc(100vh - 48px); }
   .hh1-popup-close { top: 10px; right: 10px; width: 32px; height: 32px; }
   .hh1-popup-badge { font-size: 10px; padding: 4px 12px; margin-bottom: 12px; }
-  .hh1-popup-title { font-size: 22px; line-height: 1.12; margin-bottom: 8px; }
+  .hh1-popup-title { font-size: 25px; line-height: 1.12; margin-bottom: 8px; }
   .hh1-popup-sub { font-size: 13px; margin-bottom: 18px; }
   .hh1-popup-timer-label { font-size: 10px; margin-bottom: 8px; }
   .hh1-popup-timer { gap: 6px; margin-bottom: 20px; }
@@ -11539,6 +11750,9 @@ function OnePhasePopup() {
   .hh1-popup-timer-unit > span { font-size: 28px; }
   .hh1-popup-timer-unit > em { font-size: 9px; margin-top: 4px; letter-spacing: 0.1em; }
   .hh1-popup-timer-colon { font-size: 22px; padding-bottom: 12px; }
+  .hh1-popup-rules { grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px; margin: -4px 0 16px; }
+  .hh1-popup-rule span { font-size: 9.5px; }
+  .hh1-popup-rule strong { font-size: 17px; }
   .hh1-popup-cards { gap: 6px; margin-bottom: 16px; }
   .hh1-popup-card { padding: 10px 14px; gap: 10px; }
   .hh1-popup-card-acc { font-size: 17px; }
@@ -11546,12 +11760,85 @@ function OnePhasePopup() {
   .hh1-popup-card-label { font-size: 9px; }
   .hh1-popup-card-btn { padding: 8px 12px; font-size: 12px; border-radius: 8px; }
   .hh1-popup-disclaimer { font-size: 11.5px; }
+}
+.hh1-popup-cards-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 0 0 22px; }
+.hh1-popup-card-v2 { grid-column: auto; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); border-radius: 22px; padding: 12px 16px; position: relative; display: grid; grid-template-columns: minmax(92px, 0.8fr) minmax(86px, 0.65fr) auto; align-items: center; gap: 14px; min-width: 0; overflow: hidden; }
+.hh1-popup-card-v2:nth-child(4),
+.hh1-popup-card-v2:nth-child(5) { grid-column: auto; }
+.hh1-popup-card-tag { position: absolute; top: 50%; left: 112px; right: auto; transform: translateY(-50%); padding: 2px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; background: rgba(123,199,90,0.16); border: 1px solid rgba(123,199,90,0.55); color: #7BC75A; }
+.hh1-popup-card-acc-big { font-size: 30px; font-weight: 800; color: #fcd535; line-height: 1; letter-spacing: -0.02em; text-align: left; }
+.hh1-popup-card-subrow { grid-column: 1; grid-row: 2; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.hh1-popup-card-subrow .hh1-popup-card-tag { position: static; transform: none; padding: 1px 7px; font-size: 8px; line-height: 1.2; }
+.hh1-popup-card-acc-label { font-size: 12px; color: rgba(245,241,232,0.5); margin-top: -4px; text-align: left; }
+.hh1-popup-card-price-row { display: block; grid-column: 2; grid-row: 1 / span 2; padding: 0; text-align: center; }
+.hh1-popup-card-price-label { font-size: 11px; color: rgba(245,241,232,0.5); margin-right: 10px; }
+.hh1-popup-card-price-value { font-size: 30px; font-weight: 800; color: #f5f1e8; letter-spacing: -0.02em; line-height: 1; }
+.hh1-popup-card-btn-v2 { display: block; grid-column: 3; grid-row: 1 / span 2; background: #fcd535; color: #13111c; padding: 12px 20px; text-align: center; border-radius: 999px; font-weight: 800; font-size: 14px; text-decoration: none; transition: background 0.15s; white-space: nowrap; }
+.hh1-popup-card-btn-v2:hover { background: #ffe35a; }
+@media (min-width: 701px) {
+  .hh1-popup-modal--split { max-width: 1010px; display: grid; grid-template-columns: minmax(0, 1fr) 420px; column-gap: 26px; row-gap: 0; align-items: center; text-align: left; padding: 34px; }
+  .hh1-popup-modal--split .hh1-popup-badge,
+  .hh1-popup-modal--split .hh1-popup-title,
+  .hh1-popup-modal--split .hh1-popup-sub,
+  .hh1-popup-modal--split .hh1-popup-timer-label,
+  .hh1-popup-modal--split .hh1-popup-timer,
+  .hh1-popup-modal--split .hh1-popup-rules,
+  .hh1-popup-modal--split .hh1-popup-disclaimer { grid-column: 1; }
+  .hh1-popup-modal--split .hh1-popup-cards-grid { grid-column: 2; grid-row: 2 / 9; align-self: center; margin: 0; }
+  .hh1-popup-modal--split .hh1-popup-badge { margin: 0 0 18px; justify-self: start; }
+  .hh1-popup-modal--split .hh1-popup-title { font-size: clamp(44px, 4vw, 58px); line-height: 0.98; margin: 0 0 18px; max-width: 460px; }
+  .hh1-popup-modal--split .hh1-popup-title .hh1-popup-accent { display: block; }
+  .hh1-popup-modal--split .hh1-popup-sub { margin: 0 0 24px; max-width: 430px; font-size: 16px; }
+  .hh1-popup-modal--split .hh1-popup-timer-label { margin-bottom: 12px; }
+  .hh1-popup-modal--split .hh1-popup-timer { margin: 0 0 22px; justify-content: flex-start; }
+  .hh1-popup-modal--split .hh1-popup-rules { display: none; }
+  .hh1-popup-modal--split .hh1-popup-disclaimer { margin: 0; max-width: 430px; text-align: left; }
+  .hh1-popup-modal--split .hh1-popup-card-v2 { grid-template-columns: minmax(74px, 0.7fr) minmax(78px, 0.58fr) auto; gap: 10px; padding: 12px 12px; border-radius: 16px; }
+  .hh1-popup-modal--split .hh1-popup-card-price-row { display: flex; flex-direction: column-reverse; align-items: center; gap: 3px; }
+  .hh1-popup-modal--split .hh1-popup-card-price-label { display: block; margin: 0; font-size: 10px; line-height: 1; }
+  .hh1-popup-modal--split .hh1-popup-card-acc-big { font-size: 26px; }
+  .hh1-popup-modal--split .hh1-popup-card-price-value { font-size: 28px; }
+  .hh1-popup-modal--split .hh1-popup-card-btn-v2 { padding: 11px 13px; font-size: 12px; }
+}
+@media (max-width: 700px) {
+  .hh1-popup-cards-grid { grid-template-columns: 1fr; gap: 8px; }
+  .hh1-popup-card-v2,
+  .hh1-popup-card-v2:nth-child(4),
+  .hh1-popup-card-v2:nth-child(5) { grid-column: auto; }
+}
+@media (max-width: 480px) {
+  .hh1-popup-overlay { padding: 8px; padding-top: 10px; }
+  .hh1-popup-modal { padding: 18px 14px 16px; border-radius: 18px; max-height: calc(100vh - 20px); }
+  .hh1-popup-badge { margin-bottom: 8px; }
+  .hh1-popup-title { font-size: 20px; margin-bottom: 6px; }
+  .hh1-popup-sub { font-size: 12px; line-height: 1.35; margin-bottom: 12px; }
+  .hh1-popup-timer-label { margin-bottom: 6px; }
+  .hh1-popup-timer { margin-bottom: 12px; }
+  .hh1-popup-rules { gap: 6px; padding: 8px; margin: -2px 0 12px; border-radius: 14px; }
+  .hh1-popup-rule span { font-size: 8.5px; }
+  .hh1-popup-rule strong { font-size: 15px; }
+  .hh1-popup-cards-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
+  .hh1-popup-card-v2,
+  .hh1-popup-card-v2:nth-child(4),
+  .hh1-popup-card-v2:nth-child(5) { grid-column: auto; width: auto; justify-self: stretch; }
+  .hh1-popup-card-v2 { display: grid; grid-template-columns: minmax(58px, 0.78fr) minmax(68px, 0.82fr) auto; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 22px; min-height: 58px; border-color: rgba(255,255,255,0.24); background: rgba(255,255,255,0.04); overflow: hidden; }
+  .hh1-popup-card-tag { top: 50%; right: auto; left: 92px; bottom: auto; transform: translateY(-50%); font-size: 7.5px; padding: 1px 7px; border-radius: 999px; }
+  .hh1-popup-card-acc-big { font-size: 22px; text-align: left; }
+  .hh1-popup-card-acc-label { display: block; grid-column: 1; grid-row: 2; margin: -8px 0 0; text-align: left; font-size: 9.5px; line-height: 1; }
+  .hh1-popup-card-price-row { display: block; grid-column: 2; grid-row: 1 / span 2; padding: 0; text-align: center; }
+  .hh1-popup-card-price-label { display: none; }
+  .hh1-popup-card-price-value { font-size: 24px; line-height: 1; }
+  .hh1-popup-card-btn-v2 { grid-column: 3; grid-row: 1 / span 2; padding: 10px 16px; font-size: 0; line-height: 1; white-space: nowrap; min-width: 82px; }
+  .hh1-popup-card-btn-v2::after { content: "Купить"; font-size: 12px; }
+  .hh1-popup-disclaimer { font-size: 10px; line-height: 1.35; }
 }`;
       document.head.appendChild(ss);
     }
 
-    // Sale end: Jun 13 2026, 15:00 Dubai (UTC+4) = 11:00 UTC
-    var END_TS = Date.UTC(2026, 5, 13, 11, 0, 0);
+    // 1-фазная акция: 29.06.2026 23:00 MSK → 01.07.2026 23:59 Dubai time
+    var START_TS = Date.UTC(2026, 6, 9, 8, 0, 0);
+    var END_TS = Date.UTC(2026, 6, 10, 8, 0, 0);
+    var opForce = typeof window !== "undefined" && /[?&]op=force\b/.test(window.location.search || "");
     function pad(n) { return n < 10 ? "0" + n : String(n); }
     function tick() {
       var diff = END_TS - Date.now();
@@ -11564,7 +11851,7 @@ function OnePhasePopup() {
       });
       return true;
     }
-    if (Date.now() >= END_TS) return;
+    if (!opForce && (Date.now() < START_TS || Date.now() >= END_TS)) return;
     if (!tick()) return;
     var openTimer = setTimeout(function() { setOpen(true); }, 1500);
     var intId = setInterval(tick, 1000);
@@ -11579,79 +11866,48 @@ function OnePhasePopup() {
 
   if (!open) return null;
   function close() { setOpen(false); }
-
-  var cards = [
-    { acc: "$5,000", price: "$99", href: "https://app.hashhedge.com/ru/app/payment-form/f23e0213-0f1c-4901-9bcb-f33231fdf6fb" },
-    { acc: "$10,000", price: "$159", href: "https://app.hashhedge.com/ru/app/payment-form/817e214a-bca2-4320-a58c-c499d9313d2e" },
-    { acc: "$15,000", price: "$229", href: "https://app.hashhedge.com/ru/app/payment-form/09535d91-26d6-46cc-8752-091eb74ee44b" },
-    { acc: "$25,000", price: "$349", href: "https://app.hashhedge.com/ru/app/payment-form/23cc5222-49fc-4d30-9387-94ffc1e32450" },
-    { acc: "$30,000", price: "$419", href: "https://app.hashhedge.com/ru/app/payment-form/a78b583b-b93d-45da-808a-aa905104b475" }
-  ];
-
-  var node = React.createElement("div", {
-    className: "hh1-popup-overlay",
-    onClick: function(e) { if (e.target === e.currentTarget) close(); }
-  },
-    React.createElement("div", { className: "hh1-popup-modal" },
-      React.createElement("button", {
-        type: "button",
-        className: "hh1-popup-close",
-        onClick: close,
-        "aria-label": 'Закрыть'
-      },
-        React.createElement("svg", { width: 14, height: 14, viewBox: "0 0 14 14", fill: "none" },
-          React.createElement("path", { d: "M1 1l12 12M13 1L1 13", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round" })
-        )
-      ),
-      React.createElement("div", { className: "hh1-popup-badge" },
-        React.createElement("span", { className: "hh1-popup-badge-dot" }),
-        "NEW"
-      ),
-      React.createElement("h2", { className: "hh1-popup-title" },
-        'Однофазные ', React.createElement("span", { className: "hh1-popup-accent" }, 'челленджи')
-      ),
-      React.createElement("p", { className: "hh1-popup-sub" }, 'Теперь получить капитал можно еще быстрее.'),
-      React.createElement("span", { className: "hh1-popup-timer-label" }, 'Акция заканчивается через:'),
-      React.createElement("div", { className: "hh1-popup-timer" },
-        React.createElement("div", { className: "hh1-popup-timer-unit" },
-          React.createElement("span", null, time.h),
-          React.createElement("em", null, 'часов')
-        ),
-        React.createElement("div", { className: "hh1-popup-timer-colon" }, ":"),
-        React.createElement("div", { className: "hh1-popup-timer-unit" },
-          React.createElement("span", null, time.m),
-          React.createElement("em", null, 'минут')
-        ),
-        React.createElement("div", { className: "hh1-popup-timer-colon" }, ":"),
-        React.createElement("div", { className: "hh1-popup-timer-unit" },
-          React.createElement("span", null, time.s),
-          React.createElement("em", null, 'секунд')
-        )
-      ),
-      React.createElement("div", { className: "hh1-popup-cards" },
-        cards.map(function(c, i) {
-          return React.createElement("a", {
-            key: i,
-            className: "hh1-popup-card",
-            href: c.href,
-            target: "_blank",
-            rel: "noopener",
-            onClick: close
-          },
-            React.createElement("div", { className: "hh1-popup-card-left" },
-              React.createElement("span", { className: "hh1-popup-card-label" }, 'Счет'),
-              React.createElement("strong", { className: "hh1-popup-card-acc" }, c.acc)
-            ),
-            React.createElement("div", { className: "hh1-popup-card-price" }, c.price),
-            React.createElement("span", { className: "hh1-popup-card-btn" }, 'Купить')
-          );
-        })
-      ),
-      React.createElement("p", { className: "hh1-popup-disclaimer" }, 'Акция действует до 13 июня 2026, 15:00 (Dubai time). После завершения таймера доступ к однофазному челленджу закроется автоматически.')
-    )
-  );
-
+  function copyCode() { try { navigator.clipboard.writeText("FREE90"); setCopied(true); setTimeout(function(){ setCopied(false); }, 1500); } catch (e) {} }
+  function feature(txt) {
+    return React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, padding: "15px 18px" } },
+      React.createElement("span", { style: { flexShrink: 0, width: 22, height: 22, borderRadius: 6, background: "#fcd535", display: "inline-flex", alignItems: "center", justifyContent: "center" } }, React.createElement("svg", { width: 13, height: 13, viewBox: "0 0 24 24", fill: "none" }, React.createElement("path", { d: "M20 6L9 17l-5-5", stroke: "#13111c", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" }))),
+      React.createElement("span", { style: { flex: 1, textAlign: "left", fontWeight: 800, fontSize: 15, lineHeight: 1.2, color: "#f5f1e8" } }, txt),
+      React.createElement("strong", { style: { fontSize: 20, fontWeight: 900, color: "#f5f1e8" } }, "0$"));
+  }
+  function tbox(v) { return React.createElement("div", { style: { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(252,213,53,0.3)", borderRadius: 10, minWidth: 46, padding: "7px 6px", fontSize: 22, fontWeight: 900, color: "#f5f1e8", fontVariantNumeric: "tabular-nums", textAlign: "center" } }, v); }
+  function tcolon() { return React.createElement("span", { style: { fontSize: 20, fontWeight: 900, color: "rgba(252,213,53,0.55)", alignSelf: "center" } }, ":"); }
+  var copyIcon = copied ? React.createElement("path", { d: "M20 6L9 17l-5-5", stroke: "currentColor", strokeWidth: 2.5, strokeLinecap: "round", strokeLinejoin: "round" }) : React.createElement(React.Fragment, null, React.createElement("rect", { x: 9, y: 9, width: 13, height: 13, rx: 2, stroke: "currentColor", strokeWidth: 2 }), React.createElement("path", { d: "M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1", stroke: "currentColor", strokeWidth: 2 }));
+  var promoEl = React.createElement("div", { onClick: copyCode, style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, cursor: "pointer", background: "rgba(252,213,53,0.08)", border: "1px solid rgba(252,213,53,0.5)", borderRadius: 16, padding: "11px 16px" } }, React.createElement("span", { style: { fontSize: 14, fontWeight: 700, color: "rgba(245,241,232,0.8)" } }, "Промокод"), React.createElement("span", { style: { display: "inline-flex", alignItems: "center", gap: 8, background: "#fcd535", color: "#13111c", fontWeight: 900, fontSize: 18, letterSpacing: "0.08em", borderRadius: 10, padding: "6px 14px" } }, "FREE90", React.createElement("svg", { width: 15, height: 15, viewBox: "0 0 24 24", fill: "none", style: { color: copied ? "#1a7a1a" : "#13111c" } }, copyIcon)));
+  var timerEl = React.createElement("div", { style: { marginBottom: 18 } }, React.createElement("span", { style: { display: "block", fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245,241,232,0.6)", marginBottom: 8 } }, "Предложение ограничено"), React.createElement("div", { style: { display: "inline-flex", gap: 6 } }, tbox(time.h), tcolon(), tbox(time.m), tcolon(), tbox(time.s)));
+  var buyEl = React.createElement("a", { href: "https://app.hashhedge.com/ru/app/start-challenge", target: "_blank", rel: "noopener", onClick: close, style: { display: "block", textAlign: "center", background: "#fcd535", color: "#13111c", fontWeight: 800, fontSize: 16, borderRadius: 12, padding: "14px 24px", textDecoration: "none" } }, "Купить челлендж");
+  var stack = React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 10, marginTop: 2 } }, feature("Auto Daily Loss Reset"), feature("+10% к доле прибыли"), promoEl, buyEl);
+  var closeEl = React.createElement("button", { type: "button", className: "hh1-popup-close", onClick: close, "aria-label": "Close" }, React.createElement("svg", { width: 14, height: 14, viewBox: "0 0 14 14", fill: "none" }, React.createElement("path", { d: "M1 1l12 12M13 1L1 13", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round" })));
+  var badgeEl = React.createElement("span", { style: { display: "inline-block", background: "#fcd535", color: "#13111c", fontWeight: 800, fontSize: 13, borderRadius: 100, padding: "6px 16px", marginBottom: 14 } }, "Сегодня — бесплатно");
+  var titleEl = React.createElement("h2", { className: "hh1-popup-title", style: { marginBottom: 10 } }, "Профит-сплит 90/10 и защита от дневной посадки");
+  var capEl = React.createElement("p", { style: { fontSize: 14.5, color: "rgba(245,241,232,0.7)", lineHeight: 1.45, margin: "0 0 18px" } }, "Действует на челленджи от $25K");
+  var node = React.createElement("div", { className: "hh1-popup-overlay", onClick: function(e){ if (e.target === e.currentTarget) close(); } }, React.createElement("div", { className: "hh1-popup-modal", style: { maxWidth: 460 } }, closeEl, badgeEl, titleEl, capEl, timerEl, stack));
   return ReactDOM.createPortal(node, document.body);
+}
+
+if (typeof document !== "undefined" && typeof window !== "undefined" && !window.__hhRefBound) {
+  window.__hhRefBound = true;
+  document.addEventListener("click", function (e) {
+    try {
+      var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (href.indexOf("app.hashhedge.") < 0) return;
+      var qp = function (n) { var mm = (window.location.search || "").match(new RegExp("[?&]" + n + "=([^&#]+)")); return mm ? decodeURIComponent(mm[1]) : ""; };
+      var ck = function (n) { var mm = (document.cookie || "").match(new RegExp("(?:^|;\\s*)" + n + "=([^;]*)")); return mm ? decodeURIComponent(mm[1]) : ""; };
+      var track = { fpr: qp("fpr") || ck("hh_fpr"), scid: (window.__systemClickId || ck("hh_click") || ""), cid: qp("cid") || ck("hh_cid"), sid: qp("sid") || ck("hh_sid") };
+      var url = href, changed = false;
+      Object.keys(track).forEach(function (k) {
+        if (!track[k] || new RegExp("[?&]" + k + "=").test(url)) return;
+        url += (url.indexOf("?") >= 0 ? "&" : "?") + k + "=" + encodeURIComponent(track[k]);
+        changed = true;
+      });
+      if (changed) a.setAttribute("href", url);
+    } catch (err) {}
+  }, true);
 }
 
 ReactDOM.createRoot(document.getElementById("hashhedge-root")).render(/*#__PURE__*/React.createElement(HashHedgeReactApp, null));
